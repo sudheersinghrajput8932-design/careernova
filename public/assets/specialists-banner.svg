@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Dark Tech Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#0b1329" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+
+    <!-- Indigo Cyan Brand Gradient -->
+    <linearGradient id="specialistGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+
+    <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#6366F1" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+  <!-- Ambient Glow Elements -->
+  <circle cx="250" cy="180" r="380" fill="url(#glowG)" />
+  <circle cx="950" cy="450" r="420" fill="url(#glowG)" />
+
+  <!-- Border Frame -->
+  <rect x="30" y="30" width="1140" height="570" rx="28" fill="none" stroke="#334155" stroke-width="2" opacity="0.6" />
+
+  <!-- Top Pill -->
+  <g transform="translate(80, 85)">
+    <rect width="320" height="42" rx="21" fill="#0F172A" stroke="#6366F1" stroke-width="1.5" />
+    <circle cx="24" cy="21" r="6" fill="#38BDF8" />
+    <text x="42" y="27" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" letter-spacing="1">ELITE ENGINEERING &amp; GROWTH</text>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(80, 165)">
+    <path d="M35 0 C35 19 19 35 0 35 C19 35 35 51 35 70 C35 51 51 35 70 35 C51 35 35 19 35 0 Z" fill="url(#specialistGrad)" />
+    <circle cx="35" cy="35" r="6" fill="#FFFFFF" />
+    <text x="90" y="52" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="900" letter-spacing="-1">Career<tspan fill="#38BDF8">Nova</tspan> Specialists</text>
+  </g>
+
+  <text x="80" y="295" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800">
+    Core Expertise &amp; Technical Squad
+  </text>
+  <text x="80" y="350" fill="#CBD5E1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500">
+    Full-Stack Web Engineering • iOS Development • Custom AI Workflows • Lead Generation
+  </text>
+
+  <!-- Expertise Cards Grid -->
+  <g transform="translate(80, 400)">
+    <!-- Card 1: Full-Stack -->
+    <g transform="translate(0, 0)">
+      <rect width="240" height="140" rx="16" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+      <text x="24" y="42" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20">⚡</text>
+      <text x="24" y="75" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700">Full-Stack Web</text>
+      <text x="24" y="105" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">React, Node, Cloud &amp; Next.js</text>
+    </g>
+
+    <!-- Card 2: iOS Apps -->
+    <g transform="translate(260, 0)">
+      <rect width="240" height="140" rx="16" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+      <text x="24" y="42" fill="#A855F7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20">📱</text>
+      <text x="24" y="75" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700">Native iOS Apps</text>
+      <text x="24" y="105" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">SwiftUI, CoreML &amp; App Store</text>
+    </g>
+
+    <!-- Card 3: AI Integrations -->
+    <g transform="translate(520, 0)">
+      <rect width="240" height="140" rx="16" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+      <text x="24" y="42" fill="#6366F1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20">🤖</text>
+      <text x="24" y="75" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700">AI Integrations</text>
+      <text x="24" y="105" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">LLM Pipelines &amp; Workflows</text>
+    </g>
+
+    <!-- Card 4: Growth Engine -->
+    <g transform="translate(780, 0)">
+      <rect width="240" height="140" rx="16" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+      <text x="24" y="42" fill="#10B981" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20">📈</text>
+      <text x="24" y="75" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700">Lead Generation</text>
+      <text x="24" y="105" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">B2B Pipelines &amp; SEO Engine</text>
+    </g>
+  </g>
+
+  <!-- URL Branding on bottom right -->
+  <text x="1100" y="570" text-anchor="end" fill="#64748B" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600">careernova.netlify.app/expertise</text>
+</svg>

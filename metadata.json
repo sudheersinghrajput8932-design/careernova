@@ -1,0 +1,6 @@
+{
+  "name": "CareerNova",
+  "description": "Discover professional AI tools, full-stack web engineering, iOS development, and strategic lead generation services tailored for your growth.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
