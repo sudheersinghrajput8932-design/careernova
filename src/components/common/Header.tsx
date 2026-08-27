@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
-        <a href="index.html" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}><img src="/logo.png" alt="CareerNova" style={{ height: '40px', width: '40px', objectFit: 'contain', marginRight: '10px' }} /><span style={{ fontSize: '22px', fontWeight: 'bold', color: '#0f172a' }}>CareerNova</span></a>
+        <a href="index.html" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}><img src="/logo.png" alt="CareerNova" style={{ height: '52px', width: '52px', objectFit: 'contain', marginRight: '12px' }} /><span style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a' }}>CareerNova</span></a>
 
           {/* Desktop Navigation Links with Glowing Blue Movable Spotlight Hover Effect */}
           <nav
