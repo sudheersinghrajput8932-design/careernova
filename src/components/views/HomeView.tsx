@@ -271,9 +271,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
               <span className="inline-block w-1 h-8 sm:h-12 bg-gradient-to-b from-indigo-600 to-violet-600 ml-1 translate-y-1 sm:translate-y-2 rounded-full animate-cursor-blink shadow-xs shadow-indigo-500/50" />
             </span>
           </h1>
-          <p className="text-center mx-auto max-w-2xl text-slate-600 text-sm md:text-base leading-relaxed mb-6 font-normal">
-            Smart tools, AI-powered solutions, and practical resources for your Career &amp; Business. Build ATS-ready resumes, generate startup business strategies, and automate complex daily tasks in seconds—100% free with complete privacy and zero sign-ups required.
-          </p>
+         <p className="text-center mx-auto max-w-2xl text-slate-600 text-sm md:text-base leading-relaxed mb-6 font-normal">
+  Delivering enterprise-grade core expertise in full-stack web engineering, custom iOS and Android app development, and high-conversion strategic lead generation. Backed by next-generation AI tools and smart digital solutions, we empower businesses and professionals to build scalable software infrastructure, automate complex workflows, and fast-track digital growth.
+</p>
         </div>
 
         {/* Call to Action Buttons */}
