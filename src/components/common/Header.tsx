@@ -60,23 +60,10 @@ export const Header: React.FC<HeaderProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
-          {/* Circular CareerNova Badge Logo */}
-          <button
-            onClick={() => handleNavClick('home')}
-            className="flex items-center gap-3 group text-left cursor-pointer focus:outline-hidden"
-            aria-label="CareerNova Home"
-          >
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-700 p-0.5 shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-all duration-300">
-              <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-indigo-600 font-black">
-                <Sparkles className="w-4 h-4 text-indigo-600" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg sm:text-xl font-black text-slate-900 tracking-tight transition-colors group-hover:text-indigo-600">
-                Career<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">Nova</span>
-              </span>
-            </div>
-          </button>
+          <a href="index.html" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+    <img src="logo.png" alt="CareerNova Logo" style={{ height: '40px', width: 'auto', marginRight: '8px' }} />
+    <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#000' }}>CareerNova</span>
+</a>
 
           {/* Desktop Navigation Links with Glowing Blue Movable Spotlight Hover Effect */}
           <nav
