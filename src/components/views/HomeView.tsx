@@ -30,6 +30,11 @@ import {
   Brain,
   Globe2,
   Layers3,
+  Megaphone,
+  Database,
+  Cpu,
+  Workflow,
+  SearchCheck,
 } from 'lucide-react';
 
 import { TabId } from '../../types';
@@ -188,282 +193,98 @@ const CareerNovaSocialRail = () => {
 };
 
 /* =========================================================
-   HERO VISUAL 01 — GROWTH
+   HERO — 5 TECH / VECTOR ILLUSTRATIONS
+   One visual per slide. No fake metrics inside the artwork.
 ========================================================= */
 
-const GrowthVisual = () => (
-  <div className="cn-visual">
-    <div className="cn-orbit cn-orbit-a" />
-    <div className="cn-orbit cn-orbit-b" />
-    <div className="cn-orbit cn-orbit-c" />
+const TechVectorVisual = ({ type }: { type: HeroSlide['visual'] }) => {
+  const configs = {
+    growth: {
+      label: 'GROWTH SYSTEMS',
+      icon: <TrendingUp />,
+      accent: 'violet',
+      mini: [<BarChart3 key="b" />, <Target key="t" />, <Rocket key="r" />],
+    },
+    marketing: {
+      label: 'DIGITAL MARKETING',
+      icon: <Megaphone />,
+      accent: 'pink',
+      mini: [<Target key="t" />, <SearchCheck key="s" />, <Workflow key="w" />],
+    },
+    career: {
+      label: 'CAREER & STUDENT',
+      icon: <GraduationCap />,
+      accent: 'blue',
+      mini: [<FileText key="f" />, <Brain key="b" />, <Rocket key="r" />],
+    },
+    business: {
+      label: 'BUSINESS & ANALYTICS',
+      icon: <BarChart3 />,
+      accent: 'amber',
+      mini: [<PieChart key="p" />, <Calculator key="c" />, <Database key="d" />],
+    },
+    technology: {
+      label: 'ENGINEERING & TECHNOLOGY',
+      icon: <Code2 />,
+      accent: 'cyan',
+      mini: [<Cpu key="c" />, <Code2 key="co" />, <Globe2 key="g" />],
+    },
+  }[type];
 
-    <motion.div
-      className="cn-growth-core"
-      animate={{ y: [0, -9, 0] }}
-      transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
-    >
-      <TrendingUp />
-      <span>GROWTH</span>
-      <strong>ENGINE</strong>
-    </motion.div>
+  return (
+    <div className={`cn-tech-visual cn-tech-${configs.accent}`}>
+      <div className="cn-tech-grid" />
 
-    <div className="cn-floating-card cn-fc-top-left">
-      <span>Revenue Growth</span>
-      <strong>+42.8%</strong>
-      <div className="cn-mini-bars">
-        {[35, 48, 42, 65, 58, 82, 96].map((h, i) => (
-          <i key={i} style={{ height: `${h}%` }} />
-        ))}
-      </div>
-    </div>
-
-    <div className="cn-floating-card cn-fc-top-right">
-      <span>Business Analytics</span>
-      <LineChart />
-      <strong>94.6</strong>
-      <small>Strategy Score</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-left">
-      <span>Market Position</span>
-      <div className="cn-progress">
-        <i style={{ width: '82%' }} />
-      </div>
-      <strong>82%</strong>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-right">
-      <span>Execution</span>
-      <CheckCircle2 />
-      <strong>On Track</strong>
-    </div>
-  </div>
-);
-
-/* =========================================================
-   HERO VISUAL 02 — MARKETING
-========================================================= */
-
-const MarketingVisual = () => (
-  <div className="cn-visual">
-    <div className="cn-marketing-ring ring-1" />
-    <div className="cn-marketing-ring ring-2" />
-    <div className="cn-marketing-ring ring-3" />
-
-    <motion.div
-      className="cn-marketing-core"
-      animate={{ scale: [1, 1.04, 1] }}
-      transition={{ duration: 3, repeat: Infinity }}
-    >
-      <Target />
-      <strong>78%</strong>
-      <span>CONVERSION</span>
-    </motion.div>
-
-    <div className="cn-floating-card cn-fc-top-left">
-      <span>Campaign Reach</span>
-      <strong>1.8M</strong>
-      <div className="cn-mini-bars">
-        {[25, 45, 35, 60, 75, 62, 90].map((h, i) => (
-          <i key={i} style={{ height: `${h}%` }} />
-        ))}
-      </div>
-    </div>
-
-    <div className="cn-floating-card cn-fc-top-right">
-      <span>Campaign ROI</span>
-      <strong>4.6x</strong>
-      <small>Return Generated</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-left">
-      <span>Lead Quality</span>
-      <strong>Excellent</strong>
-      <div className="cn-progress">
-        <i style={{ width: '91%' }} />
-      </div>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-right">
-      <span>Growth Funnel</span>
-      <BarChart3 />
-      <strong>+36%</strong>
-    </div>
-  </div>
-);
-
-/* =========================================================
-   HERO VISUAL 03 — CAREER
-========================================================= */
-
-const CareerVisual = () => (
-  <div className="cn-visual">
-    <div className="cn-career-line" />
-
-    {[
-      { icon: <GraduationCap />, title: 'Learn', sub: 'Skills' },
-      { icon: <Code2 />, title: 'Build', sub: 'Projects' },
-      { icon: <CheckCircle2 />, title: 'Prove', sub: 'Ability' },
-      { icon: <Rocket />, title: 'Launch', sub: 'Career' },
-    ].map((item, index) => (
       <motion.div
-        key={item.title}
-        className="cn-career-node"
-        style={{ left: `${5 + index * 24}%` }}
-        animate={{ y: [0, -8, 0] }}
-        transition={{
-          duration: 3 + index * 0.25,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      >
-        <small>0{index + 1}</small>
-        <div>{item.icon}</div>
-        <strong>{item.title}</strong>
-        <span>{item.sub}</span>
-      </motion.div>
-    ))}
+        className="cn-vector-orbit cn-vector-orbit-1"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.div
+        className="cn-vector-orbit cn-vector-orbit-2"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 13, repeat: Infinity, ease: 'linear' }}
+      />
 
-    <div className="cn-floating-card cn-fc-top-left">
-      <span>Skill Score</span>
-      <strong>92%</strong>
-      <div className="cn-progress">
-        <i style={{ width: '92%' }} />
+      <div className="cn-vector-connectors">
+        <span /><span /><span /><span /><span />
       </div>
-    </div>
 
-    <div className="cn-floating-card cn-fc-top-right">
-      <span>Career Match</span>
-      <strong>Excellent</strong>
-      <small>Profile Alignment</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-left">
-      <span>Resume Strength</span>
-      <strong>88/100</strong>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-right">
-      <span>Interview Ready</span>
-      <CheckCircle2 />
-      <strong>Ready</strong>
-    </div>
-  </div>
-);
-
-/* =========================================================
-   HERO VISUAL 04 — BUSINESS
-========================================================= */
-
-const BusinessVisual = () => (
-  <div className="cn-visual">
-    <div className="cn-business-grid" />
-
-    <motion.div
-      className="cn-business-core"
-      animate={{ rotate: [0, 3, -3, 0] }}
-      transition={{ duration: 5, repeat: Infinity }}
-    >
-      <PieChart />
-      <strong>BUSINESS</strong>
-      <span>INTELLIGENCE</span>
-    </motion.div>
-
-    <div className="cn-floating-card cn-fc-top-left">
-      <span>Profitability</span>
-      <strong>+31.4%</strong>
-      <small>Improvement</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-top-right">
-      <span>Forecast</span>
-      <LineChart />
-      <strong>96%</strong>
-      <small>Confidence</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-left">
-      <span>Financial Model</span>
-      <Calculator />
-      <strong>Optimized</strong>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-right">
-      <span>Strategy</span>
-      <Target />
-      <strong>Focused</strong>
-    </div>
-  </div>
-);
-
-/* =========================================================
-   HERO VISUAL 05 — TECHNOLOGY
-========================================================= */
-
-const TechnologyVisual = () => (
-  <div className="cn-visual">
-    <div className="cn-tech-network">
-      {Array.from({ length: 12 }).map((_, index) => (
-        <span
+      {configs.mini.map((icon, index) => (
+        <motion.div
           key={index}
-          style={{
-            left: `${10 + ((index * 17) % 80)}%`,
-            top: `${12 + ((index * 23) % 72)}%`,
+          className={`cn-vector-mini cn-vector-mini-${index + 1}`}
+          animate={{ y: [0, -8, 0], rotate: [0, 2, 0, -2, 0] }}
+          transition={{
+            duration: 3.4 + index * 0.35,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: index * 0.2,
           }}
-        />
+        >
+          {icon}
+        </motion.div>
       ))}
+
+      <motion.div
+        className="cn-vector-main"
+        animate={{ y: [0, -7, 0], scale: [1, 1.015, 1] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div className="cn-vector-main-glow" />
+        <div className="cn-vector-main-icon">{configs.icon}</div>
+        <span>{configs.label}</span>
+        <div className="cn-vector-wave">
+          <i /><i /><i /><i /><i /><i /><i />
+        </div>
+      </motion.div>
     </div>
-
-    <motion.div
-      className="cn-tech-core"
-      animate={{ y: [0, -8, 0] }}
-      transition={{ duration: 3.2, repeat: Infinity }}
-    >
-      <Code2 />
-      <strong>BUILD</strong>
-      <span>→ SCALE</span>
-    </motion.div>
-
-    <div className="cn-floating-card cn-fc-top-left">
-      <span>API Health</span>
-      <strong>99.9%</strong>
-      <small>Operational</small>
-    </div>
-
-    <div className="cn-floating-card cn-fc-top-right">
-      <span>Cloud Systems</span>
-      <Globe2 />
-      <strong>Stable</strong>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-left">
-      <span>AI Workflow</span>
-      <Brain />
-      <strong>Active</strong>
-    </div>
-
-    <div className="cn-floating-card cn-fc-bottom-right">
-      <span>Deployment</span>
-      <Rocket />
-      <strong>Ready</strong>
-    </div>
-  </div>
-);
-
-const HeroVisual = ({ type }: { type: HeroSlide['visual'] }) => {
-  switch (type) {
-    case 'marketing':
-      return <MarketingVisual />;
-    case 'career':
-      return <CareerVisual />;
-    case 'business':
-      return <BusinessVisual />;
-    case 'technology':
-      return <TechnologyVisual />;
-    default:
-      return <GrowthVisual />;
-  }
+  );
 };
+
+const HeroVisual = ({ type }: { type: HeroSlide['visual'] }) => (
+  <TechVectorVisual type={type} />
+);
 
 /* =========================================================
    PROCESS / INFOGRAPHIC
@@ -876,26 +697,42 @@ const ReviewAvatar = ({ gender }: { gender: Review['gender'] }) => {
 
   return (
     <motion.div
-      className={`cn-review-avatar ${
-        female ? 'cn-avatar-female' : 'cn-avatar-male'
-      }`}
-      animate={{
-        y: [0, -5, 0],
-        rotate: [0, 1.5, 0, -1.5, 0],
-      }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
+      className={`cn-review-avatar ${female ? 'cn-avatar-female' : 'cn-avatar-male'}`}
+      animate={{ y: [0, -4, 0], rotate: [0, 1, 0, -1, 0] }}
+      transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+      aria-hidden="true"
     >
-      <div className="cn-avatar-hair" />
-      <div className="cn-avatar-face">
-        <span className="cn-eye left" />
-        <span className="cn-eye right" />
-        <span className="cn-smile" />
-      </div>
-      <div className="cn-avatar-body" />
+      <svg viewBox="0 0 110 110" className="cn-avatar-svg">
+        <defs>
+          <linearGradient id={`avatar-bg-${gender}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={female ? '#f472b6' : '#60a5fa'} />
+            <stop offset="100%" stopColor={female ? '#7c3aed' : '#4f46e5'} />
+          </linearGradient>
+          <linearGradient id={`avatar-shirt-${gender}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={female ? '#ec4899' : '#6366f1'} />
+            <stop offset="100%" stopColor={female ? '#9333ea' : '#2563eb'} />
+          </linearGradient>
+        </defs>
+
+        <circle cx="55" cy="55" r="49" fill={`url(#avatar-bg-${gender})`} opacity=".12" />
+        <path d="M18 105c2-21 17-32 37-32s35 11 37 32" fill={`url(#avatar-shirt-${gender})`} />
+        <ellipse cx="55" cy="51" rx="25" ry="29" fill="#f6c9a9" />
+
+        {female ? (
+          <>
+            <path d="M29 50c-5-27 9-42 27-42 20 0 30 16 27 42-6-9-8-21-24-23-12-2-20 4-30 23Z" fill="#3b2340" />
+            <path d="M29 48c-2 18 2 34 10 39l-4-35Z" fill="#3b2340" />
+            <path d="M81 48c2 18-2 34-10 39l4-35Z" fill="#3b2340" />
+          </>
+        ) : (
+          <path d="M30 43c1-25 13-35 27-35 17 0 28 13 27 34-10-7-18-12-28-11-10 0-17 5-26 12Z" fill="#27213a" />
+        )}
+
+        <circle cx="45" cy="51" r="2.4" fill="#27213a" />
+        <circle cx="65" cy="51" r="2.4" fill="#27213a" />
+        <path d="M48 65c4 3 10 3 14 0" fill="none" stroke="#a95762" strokeWidth="2" strokeLinecap="round" />
+        <path d="M45 39c3-2 6-2 9 0M61 39c3-2 6-2 9 0" fill="none" stroke="#4b3440" strokeWidth="2" strokeLinecap="round" />
+      </svg>
     </motion.div>
   );
 };
@@ -921,7 +758,7 @@ const ReviewsSection = () => {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setReviewIndex((current) => (current + 1) % REVIEWS.length);
-    }, 5000);
+    }, 2500);
 
     return () => window.clearInterval(timer);
   }, []);
@@ -1183,8 +1020,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-hero {
           width: calc(100% - 90px);
           max-width: 1440px;
-          height: 570px;
-          margin: 22px auto 18px;
+          height: 465px;
+          margin: 20px auto 18px;
           position: relative;
           overflow: hidden;
           border-radius: 28px;
@@ -1216,7 +1053,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           position: relative;
           z-index: 5;
           display: grid;
-          grid-template-columns: 46% 54%;
+          grid-template-columns: 50% 50%;
           height: 100%;
         }
 
@@ -1224,7 +1061,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: 44px 30px 44px 58px;
+          padding: 34px 28px 34px 48px;
           position: relative;
           z-index: 10;
         }
@@ -1252,7 +1089,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-hero-title {
-          font-size: clamp(38px, 4.1vw, 62px);
+          font-size: clamp(34px, 3.6vw, 54px);
           line-height: .99;
           letter-spacing: -2.8px;
           font-weight: 950;
@@ -1273,8 +1110,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-hero-description {
-          margin-top: 18px;
-          max-width: 600px;
+          margin-top: 15px;
+          max-width: 560px;
           color: #cbd0e6;
           font-size: 14px;
           line-height: 1.75;
@@ -2661,6 +2498,250 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           width: 14px;
         }
 
+        /* ================= HERO VECTOR ART ================= */
+
+        .cn-tech-visual {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          display: grid;
+          place-items: center;
+          isolation: isolate;
+        }
+
+        .cn-tech-grid {
+          position: absolute;
+          inset: 7% 5%;
+          background-image:
+            linear-gradient(rgba(139,92,246,.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139,92,246,.07) 1px, transparent 1px);
+          background-size: 38px 38px;
+          mask-image: radial-gradient(circle at center, black 0%, transparent 78%);
+        }
+
+        .cn-tech-visual::before {
+          content: "";
+          position: absolute;
+          width: 390px;
+          height: 390px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(124,58,237,.23), transparent 68%);
+          filter: blur(18px);
+        }
+
+        .cn-vector-orbit {
+          position: absolute;
+          left: 50%;
+          top: 51%;
+          transform: translate(-50%,-50%);
+          border: 1px solid rgba(167,139,250,.28);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+
+        .cn-vector-orbit-1 { width: 300px; height: 300px; }
+        .cn-vector-orbit-2 { width: 405px; height: 405px; border-style: dashed; opacity: .7; }
+
+        .cn-vector-main {
+          position: relative;
+          z-index: 5;
+          width: 190px;
+          height: 190px;
+          border-radius: 32px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(145deg, rgba(43,30,110,.98), rgba(11,16,53,.98));
+          border: 1px solid rgba(196,181,253,.42);
+          box-shadow: 0 30px 65px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.13);
+          backdrop-filter: blur(12px);
+        }
+
+        .cn-vector-main-glow {
+          position: absolute;
+          inset: 18px;
+          border-radius: 24px;
+          background: radial-gradient(circle, rgba(168,85,247,.3), transparent 68%);
+          filter: blur(20px);
+          z-index: -1;
+        }
+
+        .cn-vector-main-icon {
+          width: 70px;
+          height: 70px;
+          border-radius: 22px;
+          display: grid;
+          place-items: center;
+          color: white;
+          background: linear-gradient(145deg,#7c3aed,#2563eb);
+          box-shadow: 0 15px 35px rgba(124,58,237,.42);
+        }
+
+        .cn-vector-main-icon svg { width: 34px; height: 34px; }
+
+        .cn-vector-main > span {
+          margin-top: 13px;
+          color: #e7ddff;
+          font-size: 9px;
+          font-weight: 950;
+          letter-spacing: 1.5px;
+        }
+
+        .cn-vector-wave {
+          display: flex;
+          align-items: end;
+          gap: 4px;
+          height: 20px;
+          margin-top: 9px;
+        }
+
+        .cn-vector-wave i {
+          width: 5px;
+          border-radius: 5px;
+          background: linear-gradient(to top,#8b5cf6,#22d3ee);
+          animation: cn-wave 1.6s ease-in-out infinite;
+        }
+
+        .cn-vector-wave i:nth-child(1){height:8px}
+        .cn-vector-wave i:nth-child(2){height:13px;animation-delay:.12s}
+        .cn-vector-wave i:nth-child(3){height:17px;animation-delay:.24s}
+        .cn-vector-wave i:nth-child(4){height:11px;animation-delay:.36s}
+        .cn-vector-wave i:nth-child(5){height:19px;animation-delay:.48s}
+        .cn-vector-wave i:nth-child(6){height:14px;animation-delay:.6s}
+        .cn-vector-wave i:nth-child(7){height:9px;animation-delay:.72s}
+
+        @keyframes cn-wave {
+          50% { transform: scaleY(.55); opacity: .65; }
+        }
+
+        .cn-vector-mini {
+          position: absolute;
+          z-index: 6;
+          width: 58px;
+          height: 58px;
+          display: grid;
+          place-items: center;
+          border-radius: 17px;
+          color: white;
+          background: rgba(17,22,57,.92);
+          border: 1px solid rgba(196,181,253,.27);
+          box-shadow: 0 16px 30px rgba(0,0,0,.22);
+          backdrop-filter: blur(9px);
+        }
+
+        .cn-vector-mini svg { width: 25px; height: 25px; }
+        .cn-vector-mini-1 { left: 13%; top: 18%; }
+        .cn-vector-mini-2 { right: 12%; top: 21%; }
+        .cn-vector-mini-3 { right: 15%; bottom: 18%; }
+
+        .cn-vector-connectors span {
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #a78bfa;
+          box-shadow: 0 0 16px #8b5cf6;
+          animation: cn-node-pulse 2.4s ease-in-out infinite;
+        }
+
+        .cn-vector-connectors span:nth-child(1){left:27%;top:35%}
+        .cn-vector-connectors span:nth-child(2){right:29%;top:31%;animation-delay:.4s}
+        .cn-vector-connectors span:nth-child(3){left:31%;bottom:26%;animation-delay:.8s}
+        .cn-vector-connectors span:nth-child(4){right:27%;bottom:31%;animation-delay:1.2s}
+        .cn-vector-connectors span:nth-child(5){left:48%;top:14%;animation-delay:1.6s}
+
+        @keyframes cn-node-pulse {
+          50% { transform: scale(1.8); opacity: .4; }
+        }
+
+        .cn-tech-pink .cn-vector-main-icon { background: linear-gradient(145deg,#ec4899,#7c3aed); }
+        .cn-tech-blue .cn-vector-main-icon { background: linear-gradient(145deg,#3b82f6,#2563eb); }
+        .cn-tech-amber .cn-vector-main-icon { background: linear-gradient(145deg,#f59e0b,#ea580c); }
+        .cn-tech-cyan .cn-vector-main-icon { background: linear-gradient(145deg,#06b6d4,#2563eb); }
+
+        /* ================= CONNECTED CORE-EXPERTISE FLOW ================= */
+
+        .cn-offering-flow {
+          grid-template-columns: repeat(6, 1fr);
+          gap: 0;
+          align-items: stretch;
+          position: relative;
+        }
+
+        .cn-offering-flow::before {
+          content: "";
+          position: absolute;
+          left: 6%;
+          right: 6%;
+          top: 82px;
+          height: 3px;
+          background: linear-gradient(90deg,#f59e0b,#ec4899,#3b82f6,#10b981,#8b5cf6,#06b6d4);
+          border-radius: 99px;
+          z-index: 0;
+          opacity: .8;
+        }
+
+        .cn-offering-card {
+          z-index: 1;
+          min-height: 270px;
+          margin: 0 6px;
+          border-radius: 22px;
+          background: rgba(255,255,255,.9);
+        }
+
+        .cn-offering-top {
+          position: relative;
+          z-index: 2;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+
+        .cn-offering-icon {
+          width: 62px;
+          height: 62px;
+          border-radius: 50%;
+          border: 6px solid white;
+        }
+
+        .cn-offering-card::after {
+          width: 180px;
+          height: 180px;
+          right: -80px;
+          bottom: -85px;
+        }
+
+        .cn-tool-card {
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(145deg,#ffffff,#f8f7ff);
+        }
+
+        .cn-tool-card::after {
+          content: "";
+          position: absolute;
+          width: 110px;
+          height: 110px;
+          right: -45px;
+          bottom: -50px;
+          border-radius: 50%;
+          background: rgba(99,102,241,.10);
+        }
+
+        .cn-review-card {
+          min-height: 325px;
+          background-image: linear-gradient(145deg, rgba(255,255,255,.92), rgba(245,242,255,.9));
+        }
+
+        .cn-avatar-svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+          filter: drop-shadow(0 9px 13px rgba(31,41,91,.13));
+        }
+
         /* ================= RESPONSIVE ================= */
 
         @media (max-width: 1100px) {
@@ -2684,7 +2765,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         @media (max-width: 900px) {
           .cn-hero {
             height: auto;
-            min-height: 720px;
+            min-height: 590px;
           }
 
           .cn-hero-inner {
@@ -2752,7 +2833,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-hero {
-            min-height: 650px;
+            min-height: 560px;
             margin-top: 12px;
             border-radius: 22px;
           }
@@ -2808,6 +2889,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-visual {
             min-height: 300px;
           }
+
+          .cn-tech-visual { min-height: 275px; }
+          .cn-vector-main { width: 142px; height: 142px; border-radius: 24px; }
+          .cn-vector-main-icon { width: 54px; height: 54px; border-radius: 17px; }
+          .cn-vector-main-icon svg { width: 27px; height: 27px; }
+          .cn-vector-main > span { font-size: 7px; }
+          .cn-vector-orbit-1 { width: 225px; height: 225px; }
+          .cn-vector-orbit-2 { width: 295px; height: 295px; }
+          .cn-vector-mini { width: 45px; height: 45px; border-radius: 13px; }
+          .cn-vector-mini svg { width: 19px; height: 19px; }
+          .cn-vector-mini-1 { left: 8%; top: 13%; }
+          .cn-vector-mini-2 { right: 7%; top: 16%; }
+          .cn-vector-mini-3 { right: 9%; bottom: 12%; }
+          .cn-offering-flow::before { display: none; }
+          .cn-offering-icon { width: 52px; height: 52px; }
 
           .cn-slider-arrows {
             right: 13px;
@@ -3110,7 +3206,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         @media (prefers-reduced-motion: reduce) {
           .cn-orbit,
           .cn-marketing-ring,
-          .cn-tech-network span {
+          .cn-tech-network span,
+          .cn-vector-wave i,
+          .cn-vector-connectors span {
             animation: none !important;
           }
         }
@@ -3168,36 +3266,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
                   </button>
                 </div>
 
-                <div className="cn-hero-stats">
-                  <div className="cn-hero-stat">
-                    <strong>30+</strong>
-                    <span>Clients</span>
-                  </div>
-
-                  <div className="cn-hero-divider" />
-
-                  <div className="cn-hero-stat">
-                    <strong>10+</strong>
-                    <span>Expertise</span>
-                  </div>
-
-                  <div className="cn-hero-divider" />
-
-                  <div className="cn-hero-stat">
-                    <strong>25+</strong>
-                    <span>Tools</span>
-                  </div>
-
-                  <div className="cn-hero-divider" />
-
-                  <div className="cn-hero-rating">
-                    <Star />
-                    <div className="cn-hero-stat">
-                      <strong>4.9/5</strong>
-                      <span>Client Rating</span>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <HeroVisual type={slide.visual} />
