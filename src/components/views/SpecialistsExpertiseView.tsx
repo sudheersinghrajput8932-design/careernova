@@ -312,7 +312,7 @@ export const EXPERTISE_CARDS: ExpertiseCardItem[] = [
     techStack: ['Google Search Console', 'Ahrefs', 'SEMrush', 'Screaming Frog', 'Schema.org JSON-LD', 'Google Analytics 4'],
     businessImpact: 'Sustainable 3x+ growth in qualified organic inbound inquiries within 90-180 days.',
     whatsappMessage: 'Hi Sudhir! I want to scale our rankings with your Search Engine Optimization (SEO) & Growth Strategy.'
-  }
+  },
   {
     id: 'marketing-campaign-growth',
     cardNumber: 11,
@@ -400,21 +400,21 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
       eyebrow: 'CareerNova Core Expertise',
       title: 'Turn Skills, Strategy & Technology Into Growth.',
       text: 'Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.',
-      image: EXPERTISE_CARDS[0].image,
+      image: EXPERTISE_CARDS.find((card) => card.id === 'financial-modeling')?.image || '',
       tag: 'Business Intelligence'
     },
     {
       eyebrow: 'Marketing & Campaign Strategy',
       title: 'Build Campaigns That Have A Clear Direction.',
       text: 'From audience targeting and campaign structure to funnels, content angles and measurable KPIs — create a growth system instead of random promotion.',
-      image: EXPERTISE_CARDS[10].image,
+      image: EXPERTISE_CARDS.find((card) => card.id === 'marketing-campaign-growth')?.image || EXPERTISE_CARDS[0]?.image || '',
       tag: 'Growth Strategy'
     },
     {
       eyebrow: 'For Students & Professionals',
       title: 'Build The Skills Your Next Opportunity Needs.',
       text: 'Use practical career tools, project workflows, productivity systems and skill roadmaps to turn learning into a stronger professional profile.',
-      image: EXPERTISE_CARDS[11].image,
+      image: EXPERTISE_CARDS.find((card) => card.id === 'student-career-digital-tools')?.image || EXPERTISE_CARDS[0]?.image || '',
       tag: 'Student Growth'
     }
   ];
@@ -538,7 +538,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
             <AnimatePresence mode="wait">
               <motion.img
                 key={heroIndex}
-                src={heroSlides[heroIndex]?.image || EXPERTISE_CARDS[0].image}
+                src={heroSlides[heroIndex]?.image || EXPERTISE_CARDS[0]?.image || ''}
                 alt={heroSlides[heroIndex]?.tag}
                 initial={{ opacity: 0, scale: 1.08, x: 45 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
