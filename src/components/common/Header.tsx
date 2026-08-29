@@ -60,10 +60,10 @@ export const Header: React.FC<HeaderProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
-          {/* Logo and CareerNova text placed tightly together */}
+          {/* Logo and CareerNova text properly centered and aligned */}
           <a href="index.html" className="flex items-center -ml-2 text-decoration-none">
-            <img src="/logo.png" alt="CareerNova" style={{ height: '42px', width: '42px', objectFit: 'contain' }} />
-            <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#0f172a' }} className="tracking-tight">CareerNova</span>
+            <img src="/logo.png" alt="CareerNova" style={{ height: '40px', width: '40px', objectFit: 'contain' }} />
+            <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#0f172a', lineHeight: '1' }} className="tracking-tight ml-2">CareerNova</span>
           </a>
 
           {/* Desktop Navigation Links with Glowing Blue Movable Spotlight Hover Effect */}
