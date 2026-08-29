@@ -27,7 +27,19 @@ import {
   Zap,
   Terminal,
   Server,
-  Share2
+  Share2,
+  Target,
+  Megaphone,
+  GraduationCap,
+  Users,
+  LineChart,
+  BrainCircuit,
+  MousePointer2,
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpRight,
+  Check,
+  Layers3
 } from 'lucide-react';
 import { TabId } from '../../types';
 import { copyToClipboard } from '../../utils/exportUtils';
@@ -307,25 +319,52 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeCard, setActiveCard] = useState<ExpertiseCardItem | null>(null);
+  const [heroIndex, setHeroIndex] = useState(0);
 
   const categories = ['All', 'Business & Analytics', 'Web & CMS', 'Mobile & iOS', 'Cloud & Growth'];
+
+  const heroSlides = [
+    {
+      eyebrow: 'CareerNova Core Expertise',
+      title: 'Turn Skills, Strategy & Technology Into Growth.',
+      text: 'Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.',
+      image: EXPERTISE_CARDS[0].image,
+      tag: 'Business Intelligence'
+    },
+    {
+      eyebrow: 'Marketing & Campaign Strategy',
+      title: 'Build Campaigns That Have A Clear Direction.',
+      text: 'From audience targeting and campaign structure to funnels, content angles and measurable KPIs — create a growth system instead of random promotion.',
+      image: EXPERTISE_CARDS[10].image,
+      tag: 'Growth Strategy'
+    },
+    {
+      eyebrow: 'For Students & Professionals',
+      title: 'Build The Skills Your Next Opportunity Needs.',
+      text: 'Use practical career tools, project workflows, productivity systems and skill roadmaps to turn learning into a stronger professional profile.',
+      image: EXPERTISE_CARDS[11].image,
+      tag: 'Student Growth'
+    }
+  ];
 
   const filteredCards = useMemo(() => {
     return EXPERTISE_CARDS.filter((card) => {
       const matchesCat = selectedCategory === 'All' || card.category === selectedCategory;
+      const q = searchQuery.trim().toLowerCase();
       const matchesSearch =
-        searchQuery.trim() === '' ||
-        card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        card.focus.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        card.techStack.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        card.deliverables.some((d) => d.toLowerCase().includes(searchQuery.toLowerCase()));
+        q === '' ||
+        card.title.toLowerCase().includes(q) ||
+        card.focus.toLowerCase().includes(q) ||
+        card.category.toLowerCase().includes(q) ||
+        card.tag.toLowerCase().includes(q) ||
+        card.techStack.some((t) => t.toLowerCase().includes(q)) ||
+        card.deliverables.some((d) => d.toLowerCase().includes(q));
       return matchesCat && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
 
-  const getWhatsAppLink = (message: string) => {
-    return `https://wa.me/917007260391?text=${encodeURIComponent(message)}`;
-  };
+  const getWhatsAppLink = (message: string) =>
+    `https://wa.me/917007260391?text=${encodeURIComponent(message)}`;
 
   const handleShareCard = async (card: ExpertiseCardItem) => {
     const cardUrl = `${window.location.origin}/expertise?card=${card.id}`;
@@ -339,361 +378,522 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
           url: cardUrl,
         });
         return;
-      } catch {
-        // User cancelled or fallback
-      }
+      } catch {}
     }
 
     const ok = await copyToClipboard(shareText);
     if (ok && addToast) {
-      addToast('Link Copied to Clipboard', `Sharable link with preview metadata for ${card.title} is ready.`, 'success');
+      addToast('Link Copied to Clipboard', `Shareable link for ${card.title} is ready.`, 'success');
     }
   };
 
-  return (
-    <div className="space-y-8 sm:space-y-12">
-      {/* 1. PROFESSIONAL MAIN HEADER BACKGROUND WITH METRICS */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 shadow-2xl p-5 sm:p-8 lg:p-10"
-      >
-        {/* Subtle geometric glowing background layers */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+  const nextSlide = () => setHeroIndex((i) => (i + 1) % heroSlides.length);
+  const prevSlide = () => setHeroIndex((i) => (i - 1 + heroSlides.length) % heroSlides.length);
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4 sm:space-y-5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-indigo-300 text-xs sm:text-sm font-bold backdrop-blur-md shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Mastery Across 10 Technical &amp; Strategic Disciplines</span>
+  return (
+    <div className="space-y-10 sm:space-y-14">
+      {/* HERO — animated editorial / agency style */}
+      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 bg-white shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(99,102,241,0.13),transparent_30%),radial-gradient(circle_at_90%_70%,rgba(168,85,247,0.10),transparent_28%)]" />
+        <div className="absolute -right-28 -top-28 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
+        <div className="absolute -left-28 bottom-0 h-64 w-64 rounded-full bg-violet-200/25 blur-3xl" />
+
+        <div className="relative grid lg:grid-cols-[1.02fr_.98fr] min-h-[520px]">
+          <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-14">
+            <motion.div
+              key={`eyebrow-${heroIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wide text-indigo-700"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              {heroSlides[heroIndex].eyebrow}
+            </motion.div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={heroIndex}
+                initial={{ opacity: 0, x: 35 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -25 }}
+                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-5"
+              >
+                <h1 className="max-w-2xl text-3xl font-black leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                  {heroSlides[heroIndex].title}
+                </h1>
+                <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
+                  {heroSlides[heroIndex].text}
+                </p>
+
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <button
+                    onClick={() => document.getElementById('expertise-library')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
+                  >
+                    Explore Expertise
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </button>
+                  <a
+                    href={getWhatsAppLink('Hi Sudhir! I would like to discuss a CareerNova consultation.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-800 transition hover:border-indigo-200 hover:bg-indigo-50"
+                  >
+                    <MessageCircle className="h-4 w-4 text-emerald-600" />
+                    Get Consultation
+                  </a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="mt-9 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {[
+                ['13+', 'Expertise Areas'],
+                ['4', 'Core Categories'],
+                ['360°', 'Growth Focus'],
+                ['1', 'Practical Platform']
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-2xl border border-slate-100 bg-white/80 p-3 shadow-sm backdrop-blur">
+                  <div className="text-lg font-black text-slate-950">{value}</div>
+                  <div className="mt-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-400">{label}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-            Core Engineering &amp; <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-300 to-sky-300">
-              Technical Expertise
-            </span>
-          </h1>
-
-          <p className="text-xs sm:text-sm lg:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
-            Consolidated, battle-tested solutions tailored for high-growth ventures, corporate leaders, and visionary founders. We build, scale, and optimize across the full software and business lifecycle with absolute precision.
-          </p>
-
-          {/* Quick Metrics Strip */}
-          <div className="pt-4 sm:pt-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 border-t border-white/10 text-left">
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="text-xl sm:text-2xl font-black text-white">10</div>
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-semibold uppercase tracking-wider mt-0.5">Core Disciplines</div>
+          <div className="relative min-h-[310px] overflow-hidden lg:min-h-full">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={heroIndex}
+                src={heroSlides[heroIndex].image}
+                alt={heroSlides[heroIndex].tag}
+                initial={{ opacity: 0, scale: 1.08, x: 45 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 1.04, x: -35 }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 h-full w-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent lg:bg-gradient-to-r lg:from-white/10 lg:via-transparent lg:to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 sm:bottom-7 sm:left-7 sm:right-7">
+              <motion.div
+                key={`tag-${heroIndex}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-2xl border border-white/30 bg-slate-950/70 px-4 py-3 text-white shadow-xl backdrop-blur-md"
+              >
+                <div className="text-[9px] font-bold uppercase tracking-widest text-indigo-200">Featured Expertise</div>
+                <div className="mt-0.5 text-sm font-black">{heroSlides[heroIndex].tag}</div>
+              </motion.div>
+              <div className="flex gap-2">
+                <button onClick={prevSlide} aria-label="Previous slide" className="rounded-xl border border-white/30 bg-black/45 p-2.5 text-white backdrop-blur transition hover:bg-black/65">
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button onClick={nextSlide} aria-label="Next slide" className="rounded-xl border border-white/30 bg-black/45 p-2.5 text-white backdrop-blur transition hover:bg-black/65">
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="text-xl sm:text-2xl font-black text-emerald-400">100%</div>
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-semibold uppercase tracking-wider mt-0.5">Production Quality</div>
-            </div>
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="text-xl sm:text-2xl font-black text-indigo-400">24-48h</div>
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-semibold uppercase tracking-wider mt-0.5">Fast Turnaround</div>
-            </div>
-            <div className="p-3 sm:p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="text-xl sm:text-2xl font-black text-amber-400">Zero</div>
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-semibold uppercase tracking-wider mt-0.5">Content Fluff</div>
+            <div className="absolute right-6 top-6 flex gap-1.5">
+              {heroSlides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setHeroIndex(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${i === heroIndex ? 'w-7 bg-white' : 'w-2 bg-white/50'}`}
+                />
+              ))}
             </div>
           </div>
         </div>
-      </motion.div>
+      </section>
 
-      {/* 2. FILTER & SEARCH CONTROLS HUB */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ ...smoothTransition, delay: 0.05 }}
-        className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs"
-      >
-        {/* Category Pills */}
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 custom-scrollbar">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                selectedCategory === cat
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-              }`}
-            >
-              {cat}
-            </button>
+      {/* Floating capability strip */}
+      <section className="relative -mt-5 px-2 sm:px-8">
+        <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_20px_50px_-30px_rgba(15,23,42,0.25)] sm:grid-cols-4">
+          {[
+            [Target, 'Strategy First', 'Clear objectives before execution'],
+            [BrainCircuit, 'Practical Thinking', 'Tools that solve real problems'],
+            [MousePointer2, 'Action Oriented', 'Plans designed to be implemented'],
+            [Layers3, 'End-to-End', 'Business, tech & career in one view']
+          ].map(([Icon, title, text]) => (
+            <div key={String(title)} className="group border-b border-slate-100 p-4 last:border-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+              <div className="flex items-start gap-3">
+                <div className="rounded-xl bg-indigo-50 p-2 text-indigo-600 transition group-hover:scale-110">
+                  {React.createElement(Icon as React.ComponentType<{ className?: string }>, { className: 'h-4 w-4' })}
+                </div>
+                <div>
+                  <div className="text-xs font-black text-slate-900">{String(title)}</div>
+                  <div className="mt-1 text-[10px] leading-4 text-slate-500">{String(text)}</div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
+      </section>
 
-        {/* Search Input */}
-        <div className="relative w-full md:w-72">
-          <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search disciplines, tools, skills..."
-            className="w-full pl-10 pr-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-1 focus:ring-indigo-500/30 transition-all font-medium"
-          />
+      {/* Growth strategy / infographic section */}
+      <section className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
+        <div className="rounded-3xl bg-slate-950 p-6 text-white shadow-xl sm:p-8">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-indigo-200">
+            <Zap className="h-3.5 w-3.5" /> From Idea To Execution
+          </div>
+          <h2 className="mt-5 text-2xl font-black leading-tight sm:text-3xl">A practical growth system, not just a list of services.</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-300">
+            CareerNova brings strategy, technology, marketing and career execution into one structured journey.
+          </p>
+          <div className="mt-7 space-y-3">
+            {[
+              ['01', 'Understand', 'Goal, audience, skill or business challenge'],
+              ['02', 'Plan', 'Roadmap, tools, campaign or solution architecture'],
+              ['03', 'Build', 'Execute the workflow, asset, system or project'],
+              ['04', 'Measure', 'Track results, learn and improve']
+            ].map(([n, title, text]) => (
+              <div key={n} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[.04] p-3 transition hover:bg-white/[.08]">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-[10px] font-black text-indigo-300">{n}</div>
+                <div>
+                  <div className="text-xs font-black">{title}</div>
+                  <div className="mt-0.5 text-[10px] leading-4 text-slate-400">{text}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </motion.div>
 
-      {/* 3. COMPACT & INTERACTIVE EXPERTISE CARDS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
-        {filteredCards.map((card, idx) => {
-          const IconComp = card.icon;
+        <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
+          <div className="text-center">
+            <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-violet-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-violet-700">
+              <Sparkles className="h-3.5 w-3.5" /> What You Can Explore
+            </div>
+            <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">One expertise library. Multiple growth paths.</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+              Move between business intelligence, engineering, marketing strategy and student-focused tools without leaving the same experience.
+            </p>
+          </div>
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            {[
+              [BarChart3, 'Business & Analytics', 'Financial models, BI, CRM, ERP and business growth.'],
+              [Code2, 'Web & CMS', 'Full-stack websites and scalable WordPress systems.'],
+              [Smartphone, 'Mobile & iOS', 'Native iOS development, launch and performance.'],
+              [Megaphone, 'Marketing & Growth', 'Campaigns, SEO, funnels and growth strategy.']
+            ].map(([Icon, title, text], i) => (
+              <motion.button
+                key={String(title)}
+                whileHover={{ y: -3 }}
+                onClick={() => setSelectedCategory(i === 3 ? 'Cloud & Growth' : (i === 0 ? 'Business & Analytics' : i === 1 ? 'Web & CMS' : 'Mobile & iOS'))}
+                className="group rounded-2xl border border-slate-100 bg-slate-50 p-4 text-left transition hover:border-indigo-100 hover:bg-white hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="rounded-xl bg-white p-2.5 text-indigo-600 shadow-sm">
+                    {React.createElement(Icon as React.ComponentType<{ className?: string }>, { className: 'h-4 w-4' })}
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-slate-300 transition group-hover:text-indigo-600" />
+                </div>
+                <div className="mt-4 text-sm font-black text-slate-900">{String(title)}</div>
+                <div className="mt-1 text-[11px] leading-5 text-slate-500">{String(text)}</div>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          return (
-            <motion.div
-              key={card.id}
-              initial={{ opacity: 0, y: 25, scale: 0.98 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ ...smoothTransition, delay: (idx % 3) * 0.05 }}
-              onClick={() => setActiveCard(card)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setActiveCard(card);
-                }
-              }}
-              tabIndex={0}
-              role="button"
-              aria-label={`View specifications for ${card.title}`}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--card-spotlight-x', `${x}px`);
-                e.currentTarget.style.setProperty('--card-spotlight-y', `${y}px`);
-                e.currentTarget.style.setProperty('--card-spotlight-opacity', '1');
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.setProperty('--card-spotlight-opacity', '0');
-              }}
-              className="group relative rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 hover:border-indigo-500/70 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 shadow-xs flex flex-col justify-between overflow-hidden cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+      {/* Expertise library */}
+      <section id="expertise-library" className="scroll-mt-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-indigo-700">
+            <Sparkles className="h-3.5 w-3.5" /> Core Expertise Library
+          </div>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Explore The Right Expertise For Your Goal</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-500">
+            Browse the complete library, filter by discipline, or search for a tool, skill or deliverable.
+          </p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-7 flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-3 shadow-sm md:flex-row md:items-center md:justify-between"
+        >
+          <div className="flex w-full gap-1.5 overflow-x-auto pb-1 md:w-auto">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`whitespace-nowrap rounded-xl px-3.5 py-2 text-[11px] font-extrabold transition ${
+                  selectedCategory === cat
+                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/15'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full md:w-80">
+            <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search disciplines, tools, skills..."
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-3 text-xs font-medium text-slate-900 outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500/10"
+            />
+          </div>
+        </motion.div>
+
+        <div className="mt-5 flex items-center justify-between px-1">
+          <div className="text-xs font-bold text-slate-500">
+            Showing <span className="text-slate-900">{filteredCards.length}</span> expertise areas
+          </div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Click a card for full specifications</div>
+        </div>
+
+        <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredCards.map((card, idx) => {
+            const IconComp = card.icon;
+            return (
+              <motion.article
+                key={card.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.08 }}
+                transition={{ ...smoothTransition, delay: (idx % 3) * 0.045 }}
+                whileHover={{ y: -5 }}
+                onClick={() => setActiveCard(card)}
+                className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-shadow hover:border-indigo-200 hover:shadow-[0_22px_55px_-25px_rgba(79,70,229,.35)]"
+              >
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
+                  <div className="absolute left-3 top-3 flex items-center gap-2">
+                    <span className="rounded-full border border-white/40 bg-white/90 px-2.5 py-1 text-[9px] font-black text-slate-900">Card #{card.cardNumber}</span>
+                    <span className="rounded-full border border-white/20 bg-slate-950/60 px-2.5 py-1 text-[9px] font-bold text-indigo-100 backdrop-blur">{card.tag}</span>
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3 flex items-end gap-2">
+                    <div className={`rounded-xl bg-gradient-to-r ${card.accentColor} p-2 text-white shadow-lg`}>
+                      <IconComp className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-indigo-200">{card.category}</div>
+                      <div className="truncate text-xs font-black text-white">{card.title}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <p className="min-h-[42px] text-xs leading-5 text-slate-500">{card.focus}</p>
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+                    <span className="flex items-center gap-1.5 text-[11px] font-black text-indigo-600">
+                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                      View Specifications
+                    </span>
+                    <span className="rounded-lg bg-indigo-50 p-1.5 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
+                      <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+
+        {filteredCards.length === 0 && (
+          <div className="mt-5 rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center">
+            <Search className="mx-auto h-7 w-7 text-slate-300" />
+            <div className="mt-3 text-sm font-black text-slate-800">No expertise matched your search.</div>
+            <button onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }} className="mt-3 text-xs font-bold text-indigo-600">
+              Clear filters
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* Marketing campaign highlight */}
+      <section className="overflow-hidden rounded-[32px] border border-fuchsia-100 bg-gradient-to-br from-white via-violet-50/50 to-indigo-50 p-6 shadow-sm sm:p-9">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_.8fr]">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-violet-700 shadow-sm">
+              <Megaphone className="h-3.5 w-3.5" /> Marketing Campaign Strategy
+            </div>
+            <h2 className="mt-4 max-w-2xl text-2xl font-black leading-tight text-slate-950 sm:text-4xl">
+              Don't just promote. Build a campaign people can understand, follow and act on.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+              Campaign objective → audience → offer → creative → landing page → lead capture → measurement → optimization.
+              This section makes the strategy visible instead of hiding it behind generic marketing language.
+            </p>
+            <div className="mt-6 grid gap-2 sm:grid-cols-2">
+              {['Audience & positioning', 'Campaign structure', 'Creative & copy angles', 'Lead funnel & tracking'].map((item) => (
+                <div key={item} className="flex items-center gap-2 rounded-xl border border-white bg-white/80 p-3 text-xs font-bold text-slate-700">
+                  <Check className="h-3.5 w-3.5 text-emerald-600" /> {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm">
+            <div className="absolute inset-4 rounded-full bg-violet-300/30 blur-3xl" />
+            <div className="relative rounded-[28px] border border-white bg-slate-950 p-5 text-white shadow-2xl">
+              <div className="text-[9px] font-bold uppercase tracking-widest text-indigo-300">Campaign Flow</div>
+              <div className="mt-5 space-y-3">
+                {['Audience', 'Message', 'Channel', 'Action', 'Measure'].map((item, i) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/15 text-xs font-black text-indigo-300">{String(i + 1).padStart(2, '0')}</div>
+                    <div className="flex-1 rounded-xl border border-white/10 bg-white/[.04] px-3 py-2 text-xs font-bold">{item}</div>
+                    {i < 4 && <ArrowRight className="h-3.5 w-3.5 text-slate-600" />}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Student tools */}
+      <section className="rounded-[32px] border border-cyan-100 bg-white p-6 shadow-sm sm:p-9">
+        <div className="grid items-center gap-8 lg:grid-cols-[.8fr_1.2fr]">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 to-indigo-950 p-7 text-white">
+            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-500/20 blur-3xl" />
+            <GraduationCap className="relative h-9 w-9 text-cyan-300" />
+            <h2 className="relative mt-4 text-2xl font-black">Student Career & Digital Tools</h2>
+            <p className="relative mt-2 text-sm leading-6 text-slate-300">
+              Career planning, AI-assisted workflows, portfolio building, productivity and practical digital skills — organized around outcomes.
+            </p>
+            <a
+              href={getWhatsAppLink('Hi Sudhir! I want help with student career tools and a practical roadmap.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-black text-slate-950"
             >
-              {/* Dynamic Glowing Blue Movable Card Spotlight Aura */}
-              <div
-                className="pointer-events-none absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 transition-opacity duration-300 z-10"
-                style={{
-                  opacity: 'var(--card-spotlight-opacity, 0)',
-                  background:
-                    'radial-gradient(320px circle at var(--card-spotlight-x, 0px) var(--card-spotlight-y, 0px), rgba(99, 102, 241, 0.14), rgba(59, 130, 246, 0.05), transparent 70%)',
-                }}
-              />
+              Discuss a Roadmap <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
 
-              {/* COMPACT THUMBNAIL HEADER WITH BADGES & GRADIENT OVERLAY */}
-              <div className="relative w-full h-32 sm:h-36 overflow-hidden bg-slate-100">
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
-
-                {/* Top Badges */}
-                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/95 text-slate-900 border border-slate-200 backdrop-blur-md shadow-xs">
-                    Card #{card.cardNumber}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-black/60 text-indigo-300 border border-white/20 backdrop-blur-md flex items-center gap-1">
-                    <Zap className="w-2.5 h-2.5 text-indigo-400" />
-                    {card.tag}
-                  </span>
-                </div>
-
-                {/* Bottom Overlay Title on Image */}
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center gap-2">
-                  <div className={`p-1.5 rounded-xl bg-gradient-to-r ${card.accentColor} text-white shadow-md shrink-0`}>
-                    <IconComp className="w-4 h-4 text-white" />
+          <div>
+            <div className="text-[10px] font-extrabold uppercase tracking-widest text-cyan-700">Built Around Student Needs</div>
+            <h2 className="mt-2 text-2xl font-black text-slate-950 sm:text-3xl">Tools that connect learning with opportunity.</h2>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {[
+                [GraduationCap, 'Career Roadmaps', 'Skill-gap analysis and practical milestones.'],
+                [BrainCircuit, 'AI-Powered Workflows', 'Use AI responsibly for research and productivity.'],
+                [Users, 'Profile Building', 'Resume, LinkedIn and portfolio positioning.'],
+                [Rocket, 'Project & Placement Prep', 'Turn projects into stronger evidence of skills.']
+              ].map(([Icon, title, text]) => (
+                <div key={String(title)} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm">
+                    {React.createElement(Icon as React.ComponentType<{ className?: string }>, { className: 'h-4 w-4' })}
                   </div>
-                  <span className="text-[11px] font-extrabold text-white truncate drop-shadow-sm">
-                    {card.category}
-                  </span>
+                  <div className="mt-3 text-xs font-black text-slate-900">{String(title)}</div>
+                  <div className="mt-1 text-[11px] leading-5 text-slate-500">{String(text)}</div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {/* COMPACT EXTERIOR CONTENT BODY */}
-              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
-                <div className="space-y-1.5">
-                  {/* Clean Short Title */}
-                  <h2 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-1">
-                    {card.title}
-                  </h2>
-
-                  {/* Crisp One-Line Short Description */}
-                  <p className="text-xs text-slate-600 line-clamp-2 sm:line-clamp-1 font-normal leading-relaxed">
-                    {card.focus}
-                  </p>
-                </div>
-
-                {/* Interactive Expand Action Prompt */}
-                <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 group-hover:scale-125 transition-transform" />
-                    <span>View Specifications</span>
-                  </span>
-                  <div className="p-1 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200">
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* 4. COMPREHENSIVE DETAIL SPECIFICATION MODAL / DRAWER */}
+      {/* Modal */}
       <AnimatePresence>
         {activeCard && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-3 backdrop-blur-sm">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: .96, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: .96, y: 20 }}
               transition={smoothTransition}
-              className="relative w-full max-w-2xl lg:max-w-3xl rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar text-left"
+              className="relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-[28px] border border-slate-200 bg-white shadow-2xl"
             >
-              {/* Modal Top Cover */}
-              <div className="relative w-full h-44 sm:h-56 overflow-hidden rounded-t-3xl bg-slate-100">
-                <img
-                  src={activeCard.image}
-                  alt={activeCard.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-
+              <div className="relative h-48 overflow-hidden rounded-t-[28px] sm:h-60">
+                <img src={activeCard.image} alt={activeCard.title} className="h-full w-full object-cover" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
                 <button
                   onClick={() => setActiveCard(null)}
-                  className="absolute top-3.5 right-3.5 p-2 rounded-xl bg-black/60 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
-                  aria-label="Close specifications modal"
+                  aria-label="Close specifications"
+                  className="absolute right-3 top-3 rounded-xl border border-white/20 bg-black/50 p-2 text-white backdrop-blur"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 </button>
-
-                <div className="absolute bottom-3.5 left-4 right-4 sm:left-6 sm:right-6 space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-indigo-600 text-white shadow-xs">
-                      Card #{activeCard.cardNumber}
-                    </span>
-                    <span className="text-xs text-white/90 bg-black/40 px-2.5 py-0.5 rounded-full backdrop-blur-md">
-                      {activeCard.category}
-                    </span>
-                    <span className="text-xs text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-0.5 rounded-full backdrop-blur-md">
-                      Verified Practice
-                    </span>
+                <div className="absolute bottom-4 left-5 right-5">
+                  <div className="mb-2 flex flex-wrap gap-2">
+                    <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-[10px] font-black text-white">Card #{activeCard.cardNumber}</span>
+                    <span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur">{activeCard.category}</span>
                   </div>
-                  <h2 className="text-lg sm:text-2xl font-black text-white leading-snug drop-shadow-md">
-                    {activeCard.title}
-                  </h2>
+                  <h2 className="text-xl font-black leading-tight text-white sm:text-2xl">{activeCard.title}</h2>
                 </div>
               </div>
 
-              {/* Modal Body Content */}
-              <div className="p-5 sm:p-7 space-y-5 pt-0 text-slate-900">
-                {/* Focus Callout */}
-                <div className="p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
-                  <strong className="text-indigo-700 block mb-1">Strategic Objective:</strong>
+              <div className="space-y-6 p-5 sm:p-7">
+                <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
+                  <div className="mb-1 text-xs font-black uppercase tracking-wider text-indigo-700">Strategic Objective</div>
                   {activeCard.focus}
                 </div>
 
-                {/* In-Depth Description */}
-                <div className="space-y-1.5">
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <span className="w-1.5 h-3.5 rounded-full bg-indigo-600" />
-                    <span>Technical Architecture &amp; Methodology</span>
+                <div>
+                  <h3 className="flex items-center gap-2 text-sm font-black text-slate-900">
+                    <Layers className="h-4 w-4 text-indigo-600" /> Methodology & Scope
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {activeCard.description}
-                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{activeCard.description}</p>
                 </div>
 
-                {/* Motivational Quote */}
-                <div className="pl-3.5 border-l-2 border-indigo-500 py-1 text-xs italic text-slate-700 font-medium">
+                <div className="border-l-2 border-indigo-500 py-1 pl-4 text-sm italic text-slate-600">
                   "{activeCard.motivationalQuote}"
                 </div>
 
-                {/* Business Impact Metric */}
-                <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs sm:text-sm space-y-1">
-                  <div className="flex items-center gap-2 font-bold text-emerald-800">
-                    <Award className="w-4 h-4 text-emerald-600" />
-                    <span>Quantified Business Outcome</span>
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+                  <div className="flex items-center gap-2 text-xs font-black text-emerald-800">
+                    <Award className="h-4 w-4" /> Expected Business / Career Outcome
                   </div>
-                  <p className="text-xs text-emerald-900 leading-relaxed font-normal">
-                    {activeCard.businessImpact}
-                  </p>
+                  <p className="mt-1 text-sm leading-6 text-emerald-900">{activeCard.businessImpact}</p>
                 </div>
 
-                {/* Deliverables Checklist */}
-                <div className="space-y-2">
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-indigo-600" />
-                    <span>Included Milestone Deliverables</span>
+                <div>
+                  <h3 className="flex items-center gap-2 text-sm font-black text-slate-900">
+                    <ShieldCheck className="h-4 w-4 text-indigo-600" /> Deliverables
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2">
                     {activeCard.deliverables.map((item, idx) => (
-                      <div key={idx} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span className="leading-snug">{item}</span>
+                      <div key={idx} className="flex items-start gap-2 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs leading-5 text-slate-700">
+                        <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                        {item}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Tech Stack */}
-                <div className="space-y-1.5 pt-1">
-                  <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                    Full Technology Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeCard.techStack.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold"
-                      >
-                        {tech}
-                      </span>
+                <div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tools / Stack</div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {activeCard.techStack.map((tech) => (
+                      <span key={tech} className="rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-[11px] font-bold text-slate-700">{tech}</span>
                     ))}
                   </div>
                 </div>
 
-                {/* Modal Actions */}
-                <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                <div className="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
                   <button
                     onClick={() => handleShareCard(activeCard)}
-                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer border border-slate-200"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-2.5 text-xs font-black text-slate-700 transition hover:bg-slate-200"
                   >
-                    <Share2 className="w-3.5 h-3.5" />
-                    <span>Share Specification</span>
+                    <Share2 className="h-3.5 w-3.5" /> Share
                   </button>
-
-                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <div className="flex gap-2">
                     <a
                       href={getWhatsAppLink(activeCard.whatsappMessage)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md shadow-emerald-600/25 cursor-pointer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-black text-white shadow-lg shadow-emerald-600/20"
                     >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>Direct WhatsApp Consultation</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <MessageCircle className="h-4 w-4" /> WhatsApp
                     </a>
-
-                    <button
-                      onClick={() => setActiveCard(null)}
-                      className="px-4 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition-colors cursor-pointer"
-                    >
-                      Close
-                    </button>
+                    <button onClick={() => setActiveCard(null)} className="rounded-xl bg-slate-200 px-4 py-2.5 text-xs font-black text-slate-800">Close</button>
                   </div>
                 </div>
               </div>
@@ -702,48 +902,39 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
         )}
       </AnimatePresence>
 
-      {/* 5. BOTTOM LEADERSHIP & CONSULTATION CARD */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
+      {/* Final CTA */}
+      <motion.section
+        initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white shadow-xl shadow-indigo-600/20 flex flex-col md:flex-row items-center justify-between gap-5"
+        viewport={{ once: true }}
+        className="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 p-7 text-white shadow-2xl shadow-indigo-600/20 sm:p-10"
       >
-        <div className="space-y-2 max-w-xl text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">
-            <ShieldCheck className="w-4 h-4 text-emerald-300" />
-            <span>Direct Access to Principal Architect Sudhir Singh</span>
+        <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div className="relative flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-200" /> Direct Access to Sudhir Singh
+            </div>
+            <h2 className="mt-4 text-2xl font-black sm:text-3xl">Have a goal? Let's turn it into a practical plan.</h2>
+            <p className="mt-2 text-sm leading-6 text-indigo-100">
+              Discuss business growth, marketing campaigns, technology, career tools or a custom project roadmap.
+            </p>
           </div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
-            Need a Custom Architecture or Team Engagement?
-          </h2>
-          <p className="text-xs sm:text-sm text-indigo-100 font-normal leading-relaxed">
-            Whether you need end-to-end iOS application delivery, automated BI reporting pipelines, or bespoke WordPress setups, we provide dedicated advisory and full-cycle engineering.
-          </p>
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+            <a href="tel:+917007260391" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-5 py-3 text-xs font-black text-white backdrop-blur">
+              <Phone className="h-4 w-4" /> +91 7007260391
+            </a>
+            <a
+              href={getWhatsAppLink('Hi Sudhir! I would like to discuss a CareerNova consultation.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-xs font-black text-slate-950 shadow-lg"
+            >
+              <MessageCircle className="h-4 w-4 text-emerald-600" /> Chat on WhatsApp
+            </a>
+          </div>
         </div>
-
-        <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto shrink-0">
-          <a
-            href="tel:+917007260391"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white border border-white/20 text-xs sm:text-sm font-bold transition-all cursor-pointer"
-          >
-            <Phone className="w-4 h-4" />
-            <span>Call: +91 7007260391</span>
-          </a>
-
-          <a
-            href="https://wa.me/917007260391?text=Hi%20Sudhir!%20I%20would%20like%20to%20discuss%20a%20custom%20engineering%20consultation."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-bold transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4 fill-slate-950" />
-            <span>Chat on WhatsApp</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-      </motion.div>
+      </motion.section>
     </div>
   );
 };
