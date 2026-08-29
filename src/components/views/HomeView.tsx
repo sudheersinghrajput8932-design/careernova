@@ -1,2087 +1,1048 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import {
+  Sparkles,
+  ArrowRight,
+  Bot,
+  ShieldCheck,
+  CheckCircle2,
+  Star,
+  MessageCircle,
+  Mail,
+  Phone,
+  Linkedin,
+  Instagram,
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  Target,
+  Rocket,
+  BarChart3,
+  BriefcaseBusiness,
+  GraduationCap,
+  Code2,
+  LineChart,
+  Users,
+  Zap,
+  CheckCircle,
+} from 'lucide-react';
 
-type Slide = {
+import { TabId } from '../../types';
+import { ParticleMeshCanvas } from '../home/ParticleMeshCanvas';
+import { InfiniteMarqueeBanner } from '../home/InfiniteMarqueeBanner';
+import { openAiAssistant } from '../../utils/aiAssistantTrigger';
+
+interface HomeViewProps {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+  onOpenAuth?: () => void;
+}
+
+type HeroSlide = {
   eyebrow: string;
   title: React.ReactNode;
   description: string;
-  accent: string;
   stat: string;
   statLabel: string;
-  visual: "growth" | "marketing" | "career" | "business";
+  visual: 'growth' | 'marketing' | 'career' | 'business';
 };
 
-const slides: Slide[] = [
+const HERO_SLIDES: HeroSlide[] = [
   {
-    eyebrow: "CAREERNOVA GROWTH ENGINE",
+    eyebrow: 'CAREERNOVA GROWTH ENGINE',
     title: (
       <>
-        Turn Skills,
-        <br />
-        Strategy &
-        <br />
-        Technology Into
-        <br />
-        <span className="cn-gradient-text">Leadership.</span>
+        Turn Skills, Strategy &amp; Technology Into{' '}
+        <span className="cn-hero-gradient">Leadership.</span>
       </>
     ),
     description:
-      "Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.",
-    accent: "#7138ff",
-    stat: "500+",
-    statLabel: "Happy Clients",
-    visual: "growth",
+      'Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.',
+    stat: '500+',
+    statLabel: 'Clients & Users',
+    visual: 'growth',
   },
   {
-    eyebrow: "MARKETING & GROWTH ENGINE",
+    eyebrow: 'MARKETING & GROWTH ENGINE',
     title: (
       <>
-        Build Campaigns
-        <br />
-        That Turn
-        <br />
-        Attention Into
-        <br />
-        <span className="cn-gradient-text">Growth.</span>
+        Build Campaigns That Turn{' '}
+        <span className="cn-hero-gradient">Attention Into Growth.</span>
       </>
     ),
     description:
-      "Plan smarter campaigns, understand your audience, improve conversion journeys, and build repeatable digital growth systems.",
-    accent: "#a855f7",
-    stat: "78%",
-    statLabel: "Campaign Growth",
-    visual: "marketing",
+      'Plan smarter campaigns, understand your audience, improve conversion journeys, and build repeatable digital growth systems.',
+    stat: '78%',
+    statLabel: 'Growth Potential',
+    visual: 'marketing',
   },
   {
-    eyebrow: "CAREER & STUDENT ENGINE",
+    eyebrow: 'CAREER & STUDENT ENGINE',
     title: (
       <>
-        Turn Your
-        <br />
-        Skills Into
-        <br />
-        A Stronger
-        <br />
-        <span className="cn-gradient-text">Career.</span>
+        Turn Your Skills Into A{' '}
+        <span className="cn-hero-gradient">Stronger Career.</span>
       </>
     ),
     description:
-      "Use practical career tools, skill planning, resume guidance, mock assessments, and structured roadmaps to move from learning to opportunity.",
-    accent: "#6366f1",
-    stat: "13+",
-    statLabel: "Expertise Areas",
-    visual: "career",
+      'Use practical career tools, skill planning, resume guidance, assessments, and structured roadmaps to move from learning to opportunity.',
+    stat: '13+',
+    statLabel: 'Expertise Areas',
+    visual: 'career',
   },
   {
-    eyebrow: "BUSINESS STRATEGY ENGINE",
+    eyebrow: 'BUSINESS STRATEGY ENGINE',
     title: (
       <>
-        Transform
-        <br />
-        Business Ideas
-        <br />
-        Into Measurable
-        <br />
-        <span className="cn-gradient-text">Results.</span>
+        Transform Business Ideas Into{' '}
+        <span className="cn-hero-gradient">Measurable Results.</span>
       </>
     ),
     description:
-      "Connect business strategy, analytics, revenue planning, technology, and execution into one practical growth framework.",
-    accent: "#8b5cf6",
-    stat: "100+",
-    statLabel: "Tools & Frameworks",
-    visual: "business",
+      'Connect business strategy, analytics, revenue planning, technology, and execution into one practical growth framework.',
+    stat: '100+',
+    statLabel: 'Tools & Frameworks',
+    visual: 'business',
   },
 ];
 
-function ArrowIcon({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {direction === "left" ? (
-        <>
-          <path d="M19 12H5" />
-          <path d="M12 19l-7-7 7-7" />
-        </>
-      ) : (
-        <>
-          <path d="M5 12h14" />
-          <path d="M12 5l7 7-7 7" />
-        </>
-      )}
-    </svg>
+/* ---------------------------------------------------------
+   FLOATING CONTACT / SOCIAL RAIL
+--------------------------------------------------------- */
+
+const CareerNovaSocialRail = () => {
+  const whatsappMessage = encodeURIComponent(
+    'Hi Sudhir! I would like to discuss a CareerNova consultation.'
   );
-}
-
-function Rocket() {
-  return (
-    <div className="cn-rocket-wrap">
-      <div className="cn-orbit orbit-one" />
-      <div className="cn-orbit orbit-two" />
-      <div className="cn-orbit orbit-three" />
-
-      <div className="cn-rocket-glow" />
-
-      <div className="cn-rocket">
-        <div className="cn-rocket-fin left" />
-        <div className="cn-rocket-fin right" />
-
-        <div className="cn-rocket-body">
-          <div className="cn-rocket-window">
-            <div className="cn-window-core" />
-          </div>
-        </div>
-
-        <div className="cn-rocket-nose" />
-
-        <div className="cn-flame">
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-
-      <div className="cn-platform">
-        <div className="cn-platform-ring ring-a" />
-        <div className="cn-platform-ring ring-b" />
-        <div className="cn-platform-ring ring-c" />
-        <div className="cn-platform-core" />
-      </div>
-
-      <div className="cn-particle p1" />
-      <div className="cn-particle p2" />
-      <div className="cn-particle p3" />
-      <div className="cn-particle p4" />
-      <div className="cn-particle p5" />
-      <div className="cn-particle p6" />
-    </div>
-  );
-}
-
-function GrowthVisual() {
-  return (
-    <div className="cn-visual">
-      <Rocket />
-
-      <div className="cn-data-card card-top-left">
-        <div className="data-card-head">
-          <span>Business Analytics</span>
-          <span className="mini-icon purple">▥</span>
-        </div>
-        <strong>+240%</strong>
-        <div className="bar-chart">
-          <i style={{ height: "30%" }} />
-          <i style={{ height: "48%" }} />
-          <i style={{ height: "38%" }} />
-          <i style={{ height: "65%" }} />
-          <i style={{ height: "56%" }} />
-          <i style={{ height: "78%" }} />
-          <i style={{ height: "92%" }} />
-        </div>
-      </div>
-
-      <div className="cn-data-card card-top-right">
-        <div className="data-card-head">
-          <span>Revenue Growth</span>
-          <span className="mini-icon green">↗</span>
-        </div>
-        <strong className="green-text">+240%</strong>
-        <small>vs previous cycle</small>
-      </div>
-
-      <div className="cn-data-card card-left">
-        <div className="data-card-head">
-          <span>Marketing Growth</span>
-          <span className="mini-icon pink">⌁</span>
-        </div>
-        <div className="donut">
-          <span>78%</span>
-        </div>
-        <div className="tiny-lines">
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
-
-      <div className="cn-data-card card-right">
-        <div className="data-card-head">
-          <span>Project Progress</span>
-        </div>
-        {["Planning", "Development", "Testing", "Launch"].map(
-          (item, index) => (
-            <div className="progress-row" key={item}>
-              <span>{item}</span>
-              <div>
-                <i style={{ width: `${100 - index * 20}%` }} />
-              </div>
-            </div>
-          )
-        )}
-      </div>
-
-      <div className="cn-data-card card-bottom-right">
-        <div className="data-card-head">
-          <span>User Engagement</span>
-        </div>
-        <div className="line-graph">
-          <svg viewBox="0 0 220 60" preserveAspectRatio="none">
-            <path d="M0 43 C20 10, 32 54, 53 30 S78 12, 94 34 S120 48, 137 24 S162 13, 178 31 S200 49, 220 17" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MarketingVisual() {
-  return (
-    <div className="cn-visual">
-      <div className="marketing-core">
-        <div className="marketing-ring ring1" />
-        <div className="marketing-ring ring2" />
-        <div className="marketing-ring ring3" />
-
-        <div className="campaign-core">
-          <span>CAMPAIGN</span>
-          <strong>78%</strong>
-          <small>CONVERSION</small>
-        </div>
-      </div>
-
-      <div className="campaign-card campaign-one">
-        <span>Reach</span>
-        <strong>1.8M</strong>
-        <div className="mini-bars">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
-
-      <div className="campaign-card campaign-two">
-        <span>Conversion</span>
-        <strong className="pink-text">+42%</strong>
-        <div className="conversion-path">
-          <b />
-          <b />
-          <b />
-        </div>
-      </div>
-
-      <div className="campaign-card campaign-three">
-        <span>Audience</span>
-        <div className="audience">
-          <i>◉</i>
-          <i>◉</i>
-          <i>◉</i>
-          <i>◉</i>
-        </div>
-        <small>Targeted Segments</small>
-      </div>
-
-      <div className="campaign-card campaign-four">
-        <span>ROI</span>
-        <strong className="green-text">4.6x</strong>
-        <small>Campaign Return</small>
-      </div>
-    </div>
-  );
-}
-
-function CareerVisual() {
-  return (
-    <div className="cn-visual">
-      <div className="career-roadmap">
-        <div className="career-line" />
-
-        {[
-          ["01", "Learn", "Skills"],
-          ["02", "Build", "Projects"],
-          ["03", "Prove", "Ability"],
-          ["04", "Launch", "Career"],
-        ].map(([num, title, sub], index) => (
-          <div className={`career-node node-${index + 1}`} key={num}>
-            <span>{num}</span>
-            <div className="career-node-icon">
-              {index === 0 ? "✦" : index === 1 ? "◆" : index === 2 ? "✓" : "↗"}
-            </div>
-            <strong>{title}</strong>
-            <small>{sub}</small>
-          </div>
-        ))}
-      </div>
-
-      <div className="career-card career-card-one">
-        <span>Skill Score</span>
-        <strong>92%</strong>
-        <div className="score-track">
-          <i />
-        </div>
-      </div>
-
-      <div className="career-card career-card-two">
-        <span>Career Match</span>
-        <strong className="green-text">Excellent</strong>
-        <small>Based on your profile</small>
-      </div>
-
-      <div className="career-card career-card-three">
-        <span>Next Goal</span>
-        <strong>Build Portfolio</strong>
-        <small>3 milestones remaining</small>
-      </div>
-    </div>
-  );
-}
-
-function BusinessVisual() {
-  return (
-    <div className="cn-visual">
-      <div className="business-center">
-        <div className="business-glow" />
-        <div className="business-icon">↗</div>
-        <strong>GROWTH</strong>
-        <small>ENGINE</small>
-      </div>
-
-      <div className="business-card bc-one">
-        <span>Revenue</span>
-        <strong>₹24.8L</strong>
-        <small>+18.6% this quarter</small>
-      </div>
-
-      <div className="business-card bc-two">
-        <span>Market Position</span>
-        <div className="market-meter">
-          <i />
-        </div>
-        <strong>82%</strong>
-      </div>
-
-      <div className="business-card bc-three">
-        <span>Strategy Score</span>
-        <strong className="green-text">94/100</strong>
-        <div className="strategy-dots">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
-
-      <div className="business-card bc-four">
-        <span>Execution</span>
-        <strong>On Track</strong>
-        <div className="execution-line">
-          <i />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroVisual({ type }: { type: Slide["visual"] }) {
-  if (type === "marketing") return <MarketingVisual />;
-  if (type === "career") return <CareerVisual />;
-  if (type === "business") return <BusinessVisual />;
-  return <GrowthVisual />;
-}
-
-function ProcessSection() {
-  const steps = [
-    {
-      num: "01",
-      title: "Ideate",
-      icon: "✦",
-      text: "We understand your challenges and identify the right opportunities.",
-    },
-    {
-      num: "02",
-      title: "Plan",
-      icon: "▣",
-      text: "We design a practical strategy and actionable roadmap.",
-    },
-    {
-      num: "03",
-      title: "Build",
-      icon: "</>",
-      text: "We build, integrate and implement with speed and precision.",
-    },
-    {
-      num: "04",
-      title: "Measure",
-      icon: "↗",
-      text: "We track results, optimize continuously and drive sustainable growth.",
-    },
-  ];
-
-  return (
-    <section className="cn-process-section">
-      <div className="cn-process">
-        <div className="section-heading">
-          <span className="section-kicker">HOW WE CREATE IMPACT</span>
-          <h2>Our Proven Process</h2>
-          <p>From idea to impact — we follow a simple, data-driven approach.</p>
-        </div>
-
-        <div className="process-flow">
-          {steps.map((step, index) => (
-            <React.Fragment key={step.num}>
-              <div className="process-step">
-                <div className={`process-icon icon-${index + 1}`}>
-                  {step.icon}
-                </div>
-                <span className="process-number">{step.num}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </div>
-
-              {index < steps.length - 1 && (
-                <div className="process-arrow">
-                  <ArrowIcon direction="right" />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-
-      <div className="cn-best">
-        <div className="section-heading">
-          <span className="section-kicker">OUR CORE CAPABILITIES</span>
-          <h2>What We Do Best</h2>
-          <p>End-to-end expertise to help you grow, scale and lead.</p>
-        </div>
-
-        <div className="capability-grid">
-          {[
-            {
-              icon: "▥",
-              title: "Business & Analytics",
-              text: "Financial modeling, BI dashboards, forecasting and data-driven insights.",
-            },
-            {
-              icon: "⌁",
-              title: "Marketing & Growth",
-              text: "Campaign strategy, funnels, content, ads and growth marketing systems.",
-            },
-            {
-              icon: "</>",
-              title: "Engineering & Tech",
-              text: "Web, mobile, cloud, APIs and scalable digital product development.",
-            },
-            {
-              icon: "◆",
-              title: "Career & Student Tools",
-              text: "Resume tools, mock tests, career guidance and practical learning resources.",
-            },
-          ].map((item, index) => (
-            <div className="capability-card" key={item.title}>
-              <div className={`capability-icon cap-${index + 1}`}>
-                {item.icon}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-              <button>Explore <span>→</span></button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MetricsSection() {
-  const metrics = [
-    ["✦", "5+", "Years of Impact"],
-    ["♧", "500+", "Happy Clients"],
-    ["◉", "13+", "Expertise Areas"],
-    ["🚀", "100+", "Tools & Frameworks"],
-    ["☆", "4.9/5", "Client Rating"],
-    ["◎", "25+", "Countries Reached"],
-  ];
-
-  return (
-    <section className="cn-metrics">
-      {metrics.map(([icon, value, label]) => (
-        <div className="metric" key={label}>
-          <span className="metric-icon">{icon}</span>
-          <div>
-            <strong>{value}</strong>
-            <small>{label}</small>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-export function HomeView() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const slide = slides[activeSlide];
-
-  const nextSlide = () => {
-    setActiveSlide((current) => (current + 1) % slides.length);
-  };
-
-  const previousSlide = () => {
-    setActiveSlide(
-      (current) => (current - 1 + slides.length) % slides.length
-    );
-  };
-
-  useEffect(() => {
-    if (isPaused) return;
-
-    const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 6500);
-
-    return () => window.clearInterval(timer);
-  }, [isPaused]);
 
   return (
     <>
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
-        .cn-home {
-          width: 100%;
-          min-height: 100vh;
-          background:
-            radial-gradient(circle at 10% 20%, rgba(113,56,255,.07), transparent 28%),
-            radial-gradient(circle at 90% 40%, rgba(139,92,246,.06), transparent 30%),
-            #f8f9fd;
-          color: #11162b;
-          font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-          overflow: hidden;
-        }
-
-        .cn-home button {
-          font-family: inherit;
-        }
-
-        .cn-hero {
-          width: calc(100% - 100px);
-          max-width: 1440px;
-          min-height: 650px;
-          margin: 28px auto 18px;
-          border-radius: 28px;
-          overflow: hidden;
-          position: relative;
-          background: #080a2d;
-          border: 1px solid rgba(115,83,255,.35);
-          box-shadow:
-            0 25px 80px rgba(54,35,130,.18),
-            inset 0 1px 0 rgba(255,255,255,.08);
-        }
-
-        .cn-hero::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(121,93,255,.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(121,93,255,.06) 1px, transparent 1px);
-          background-size: 48px 48px;
-          mask-image: linear-gradient(to right, transparent 0%, black 40%, black 100%);
-          pointer-events: none;
-        }
-
-        .cn-hero::after {
-          content: "";
-          position: absolute;
-          width: 550px;
-          height: 550px;
-          right: 5%;
-          top: 8%;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(124,58,237,.18), transparent 68%);
-          filter: blur(20px);
-          pointer-events: none;
-        }
-
-        .cn-hero-inner {
-          min-height: 650px;
-          display: grid;
-          grid-template-columns: 43% 57%;
-          position: relative;
-          z-index: 2;
-        }
-
-        .cn-hero-copy {
-          padding: 58px 20px 45px 70px;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          position: relative;
-          z-index: 5;
-        }
-
-        .cn-eyebrow {
-          width: fit-content;
-          padding: 10px 18px;
-          border-radius: 30px;
-          color: #a98cff;
-          border: 1px solid rgba(160,133,255,.22);
-          background: rgba(120,77,255,.12);
-          font-size: 13px;
-          font-weight: 800;
-          letter-spacing: .6px;
-          margin-bottom: 30px;
-          box-shadow: 0 8px 30px rgba(91,54,200,.12);
-        }
-
-        .cn-hero-title {
-          color: white;
-          font-size: clamp(48px, 5vw, 76px);
-          line-height: .98;
-          letter-spacing: -4px;
-          margin: 0;
-          font-weight: 900;
-        }
-
-        .cn-gradient-text {
-          background: linear-gradient(100deg, #7652ff, #b13cff, #8b5cf6);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-
-        .cn-hero-description {
-          color: #d7d9ef;
-          max-width: 590px;
-          font-size: 16px;
-          line-height: 1.8;
-          margin: 26px 0 28px;
-        }
-
-        .cn-actions {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-        }
-
-        .cn-primary-btn,
-        .cn-secondary-btn {
-          border-radius: 14px;
-          padding: 15px 23px;
-          font-weight: 800;
-          font-size: 14px;
-          cursor: pointer;
-          transition: .25s ease;
-        }
-
-        .cn-primary-btn {
-          color: white;
-          border: 0;
-          background: linear-gradient(100deg,#5734ff,#8b2cff);
-          box-shadow: 0 12px 32px rgba(106,54,255,.42);
-        }
-
-        .cn-primary-btn:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 16px 38px rgba(106,54,255,.55);
-        }
-
-        .cn-secondary-btn {
-          color: white;
-          background: rgba(255,255,255,.035);
-          border: 1px solid rgba(255,255,255,.55);
-        }
-
-        .cn-secondary-btn:hover {
-          background: rgba(255,255,255,.1);
-          transform: translateY(-3px);
-        }
-
-        .cn-hero-stats {
-          display: flex;
-          align-items: center;
-          margin-top: 38px;
-          gap: 22px;
-          color: white;
-        }
-
-        .cn-stat {
+        .cn-social-rail {
+          position: fixed;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 80;
           display: flex;
           flex-direction: column;
-          min-width: 90px;
-        }
-
-        .cn-stat strong {
-          font-size: 25px;
-          line-height: 1;
-        }
-
-        .cn-stat span {
-          color: #aeb2ce;
-          font-size: 11px;
-          margin-top: 7px;
-        }
-
-        .cn-stat-divider {
-          width: 1px;
-          height: 42px;
-          background: rgba(255,255,255,.2);
-        }
-
-        .cn-rating {
-          display: flex;
-          align-items: center;
           gap: 8px;
         }
 
-        .cn-rating-star {
-          color: #ffd22e;
-          font-size: 23px;
-        }
-
-        .cn-slider-controls {
-          position: absolute;
-          right: 28px;
-          top: 28px;
+        .cn-social-item {
+          width: 43px;
+          height: 43px;
+          border-radius: 13px;
           display: flex;
-          gap: 10px;
-          z-index: 20;
-        }
-
-        .cn-slider-control {
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          border: 1px solid rgba(255,255,255,.16);
-          background: rgba(0,0,0,.28);
-          color: white;
-          display: grid;
-          place-items: center;
-          cursor: pointer;
-          backdrop-filter: blur(10px);
-          transition: .25s ease;
-        }
-
-        .cn-slider-control:hover {
-          background: rgba(113,56,255,.5);
-          transform: scale(1.05);
-        }
-
-        .cn-slide-dots {
-          position: absolute;
-          bottom: 25px;
-          right: 39%;
-          z-index: 20;
-          display: flex;
-          gap: 12px;
-        }
-
-        .cn-dot {
-          width: 11px;
-          height: 11px;
-          border-radius: 50%;
-          border: 0;
-          padding: 0;
-          cursor: pointer;
-          background: rgba(255,255,255,.75);
-          transition: .3s ease;
-        }
-
-        .cn-dot.active {
-          width: 32px;
-          border-radius: 20px;
-          background: linear-gradient(90deg,#7c4dff,#b03cff);
-          box-shadow: 0 0 18px rgba(125,74,255,.8);
-        }
-
-        .cn-visual {
-          height: 100%;
-          min-height: 650px;
-          position: relative;
-          overflow: hidden;
-          animation: visualEnter .7s ease both;
-        }
-
-        @keyframes visualEnter {
-          from { opacity: 0; transform: scale(.97) translateX(20px); }
-          to { opacity: 1; transform: scale(1) translateX(0); }
-        }
-
-        .cn-rocket-wrap {
-          position: absolute;
-          width: 560px;
-          height: 560px;
-          left: 50%;
-          top: 48%;
-          transform: translate(-50%,-50%);
-        }
-
-        .cn-rocket-glow {
-          position: absolute;
-          width: 230px;
-          height: 230px;
-          left: 50%;
-          top: 42%;
-          transform: translate(-50%,-50%);
-          background: #873dff;
-          filter: blur(80px);
-          opacity: .45;
-          animation: glowPulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-          50% { opacity: .7; transform: translate(-50%,-50%) scale(1.18); }
-        }
-
-        .cn-orbit {
-          position: absolute;
-          left: 50%;
-          top: 54%;
-          transform: translate(-50%,-50%);
-          border: 1px solid rgba(142,99,255,.22);
-          border-radius: 50%;
-        }
-
-        .orbit-one {
-          width: 320px;
-          height: 320px;
-          animation: orbitPulse 3s infinite;
-        }
-
-        .orbit-two {
-          width: 430px;
-          height: 430px;
-          animation: orbitPulse 3s .5s infinite;
-        }
-
-        .orbit-three {
-          width: 530px;
-          height: 530px;
-          animation: orbitPulse 3s 1s infinite;
-        }
-
-        @keyframes orbitPulse {
-          50% { opacity: .35; transform: translate(-50%,-50%) scale(1.03); }
-        }
-
-        .cn-rocket {
-          position: absolute;
-          left: 50%;
-          top: 24%;
-          width: 110px;
-          height: 210px;
-          transform: translateX(-50%);
-          animation: rocketFloat 3.5s ease-in-out infinite;
-          z-index: 5;
-        }
-
-        @keyframes rocketFloat {
-          0%,100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(-13px); }
-        }
-
-        .cn-rocket-body {
-          position: absolute;
-          width: 72px;
-          height: 142px;
-          left: 19px;
-          top: 25px;
-          border-radius: 48% 48% 42% 42%;
-          background: linear-gradient(105deg,#d6c7ff,#ffffff 45%,#c5b2ff);
-          border: 2px solid rgba(255,255,255,.8);
-          box-shadow:
-            0 0 20px rgba(184,137,255,.9),
-            inset -8px 0 14px rgba(95,50,180,.22);
-          z-index: 3;
-        }
-
-        .cn-rocket-nose {
-          position: absolute;
-          width: 50px;
-          height: 55px;
-          left: 30px;
-          top: 0;
-          border-radius: 70% 70% 25% 25%;
-          background: linear-gradient(120deg,#a578ff,#541fff);
-          transform: rotate(0deg);
-          z-index: 4;
-          clip-path: polygon(50% 0,100% 100%,0 100%);
-          box-shadow: 0 0 30px rgba(150,86,255,.8);
-        }
-
-        .cn-rocket-window {
-          position: absolute;
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          left: 16px;
-          top: 45px;
-          background: #16143b;
-          border: 5px solid #8e5cff;
-          box-shadow: 0 0 18px #a45cff;
-          display: grid;
-          place-items: center;
-        }
-
-        .cn-window-core {
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: radial-gradient(circle at 35% 30%,#fff,#8bd8ff 30%,#6e35ff 75%);
-        }
-
-        .cn-rocket-fin {
-          position: absolute;
-          width: 38px;
-          height: 75px;
-          top: 95px;
-          background: linear-gradient(140deg,#793aff,#3b21a5);
-          z-index: 2;
-        }
-
-        .cn-rocket-fin.left {
-          left: 0;
-          clip-path: polygon(100% 0,100% 100%,0 75%);
-        }
-
-        .cn-rocket-fin.right {
-          right: 0;
-          clip-path: polygon(0 0,100% 75%,0 100%);
-        }
-
-        .cn-flame {
-          position: absolute;
-          top: 153px;
-          left: 34px;
-          width: 42px;
-          height: 90px;
-          z-index: 1;
-        }
-
-        .cn-flame span {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          border-radius: 50% 50% 55% 55%;
-          background: linear-gradient(#fff,#b94dff,#5e2dff);
-          filter: blur(1px);
-        }
-
-        .cn-flame span:nth-child(1) {
-          width: 40px;
-          height: 88px;
-          animation: flame 0.22s infinite alternate;
-        }
-
-        .cn-flame span:nth-child(2) {
-          width: 24px;
-          height: 62px;
-          background: linear-gradient(#fff,#d06cff,#813aff);
-          animation: flame .18s infinite alternate-reverse;
-        }
-
-        .cn-flame span:nth-child(3) {
-          width: 10px;
-          height: 42px;
-          background: white;
-          animation: flame .16s infinite alternate;
-        }
-
-        @keyframes flame {
-          to { transform: translateX(-50%) scaleY(.75) scaleX(1.15); }
-        }
-
-        .cn-platform {
-          position: absolute;
-          left: 50%;
-          top: 65%;
-          width: 370px;
-          height: 100px;
-          transform: translateX(-50%);
-        }
-
-        .cn-platform-ring {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%,-50%);
-          border-radius: 50%;
-          border: 3px solid #8b42ff;
-          box-shadow: 0 0 22px rgba(139,66,255,.7);
-        }
-
-        .ring-a { width: 300px; height: 76px; }
-        .ring-b { width: 235px; height: 60px; border-color:#bc55ff; }
-        .ring-c { width: 170px; height: 44px; border-color:#6c48ff; }
-
-        .cn-platform-core {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 130px;
-          height: 32px;
-          transform: translate(-50%,-50%);
-          border-radius: 50%;
-          background: #7c38ff;
-          box-shadow:
-            0 0 40px #9c3dff,
-            0 0 80px rgba(156,61,255,.7);
-        }
-
-        .cn-particle {
-          position: absolute;
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #b68aff;
-          box-shadow: 0 0 15px #a66bff;
-          animation: particleFloat 3s infinite ease-in-out;
-        }
-
-        .p1 { left: 20%; top: 20%; }
-        .p2 { left: 78%; top: 25%; animation-delay: .7s; }
-        .p3 { left: 15%; top: 65%; animation-delay: 1s; }
-        .p4 { left: 85%; top: 62%; animation-delay: 1.4s; }
-        .p5 { left: 35%; top: 78%; animation-delay: 1.8s; }
-        .p6 { left: 67%; top: 15%; animation-delay: 2.2s; }
-
-        @keyframes particleFloat {
-          50% { transform: translateY(-18px); opacity: .45; }
-        }
-
-        .cn-data-card,
-        .campaign-card,
-        .career-card,
-        .business-card {
-          position: absolute;
-          border: 1px solid rgba(176,148,255,.25);
-          background: linear-gradient(145deg,rgba(40,39,77,.92),rgba(22,22,54,.88));
-          backdrop-filter: blur(14px);
-          box-shadow: 0 20px 45px rgba(0,0,0,.25);
-          color: white;
-          border-radius: 18px;
-          z-index: 8;
-          animation: cardFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes cardFloat {
-          0%,100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-9px) rotate(.5deg); }
-        }
-
-        .cn-data-card {
-          padding: 17px;
-        }
-
-        .data-card-head {
-          display: flex;
-          justify-content: space-between;
           align-items: center;
-          color: #bfc1d7;
-          font-size: 11px;
-          font-weight: 700;
-          margin-bottom: 9px;
+          justify-content: center;
+          color: #fff;
+          text-decoration: none;
+          border: 1px solid rgba(255,255,255,.3);
+          box-shadow: 0 9px 24px rgba(30,25,75,.2);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition:
+            transform .22s ease,
+            box-shadow .22s ease,
+            filter .22s ease;
         }
 
-        .cn-data-card strong {
-          font-size: 24px;
-          display: block;
+        .cn-social-item:hover {
+          transform: translateX(-5px) scale(1.06);
+          box-shadow: 0 14px 30px rgba(30,25,75,.28);
+          filter: brightness(1.08);
         }
 
-        .cn-data-card small {
-          color: #8f92ae;
-          font-size: 9px;
+        .cn-social-item svg {
+          width: 19px;
+          height: 19px;
         }
 
-        .mini-icon {
-          width: 26px;
-          height: 26px;
-          border-radius: 8px;
-          display: grid;
-          place-items: center;
-          font-size: 12px;
+        .cn-social-whatsapp {
+          background: linear-gradient(145deg,#25D366,#128C7E);
         }
 
-        .mini-icon.purple { background:#754aff; }
-        .mini-icon.green { background:#164e4e; color:#51e6bd; }
-        .mini-icon.pink { background:#542054; color:#e98aff; }
-
-        .green-text { color:#58e5bc !important; }
-        .pink-text { color:#f56fc1 !important; }
-
-        .card-top-left {
-          width: 225px;
-          left: 3%;
-          top: 10%;
-        }
-
-        .card-top-right {
-          width: 215px;
-          right: 4%;
-          top: 12%;
-          animation-delay: .5s;
-        }
-
-        .card-left {
-          width: 190px;
-          left: 5%;
-          top: 42%;
-          animation-delay: 1s;
-        }
-
-        .card-right {
-          width: 205px;
-          right: 7%;
-          top: 36%;
-          animation-delay: 1.3s;
-        }
-
-        .card-bottom-right {
-          width: 210px;
-          right: 1%;
-          bottom: 10%;
-          animation-delay: 1.8s;
-        }
-
-        .bar-chart {
-          height: 85px;
-          display: flex;
-          gap: 7px;
-          align-items: end;
-          margin-top: 8px;
-        }
-
-        .bar-chart i {
-          flex: 1;
-          border-radius: 5px 5px 1px 1px;
-          background: linear-gradient(#d681ff,#743fff);
-          box-shadow: 0 0 10px rgba(130,66,255,.35);
-        }
-
-        .donut {
-          width: 76px;
-          height: 76px;
-          border-radius: 50%;
-          margin: 10px auto;
-          display: grid;
-          place-items: center;
-          background: conic-gradient(#8b45ff 0 78%,#29284c 78% 100%);
-          position: relative;
-        }
-
-        .donut::after {
-          content: "";
-          position: absolute;
-          width: 55px;
-          height: 55px;
-          border-radius: 50%;
-          background:#222144;
-        }
-
-        .donut span {
-          z-index: 2;
-          font-weight: 900;
-        }
-
-        .tiny-lines {
-          display:flex;
-          gap:5px;
-        }
-
-        .tiny-lines i {
-          flex:1;
-          height:5px;
-          background:#754aff;
-          border-radius:5px;
-        }
-
-        .progress-row {
-          display:grid;
-          grid-template-columns: 70px 1fr;
-          gap:6px;
-          align-items:center;
-          margin:10px 0;
-          font-size:8px;
-          color:#c0c0d5;
-        }
-
-        .progress-row div {
-          height:5px;
-          border-radius:10px;
-          background:#323152;
-          overflow:hidden;
-        }
-
-        .progress-row i {
-          display:block;
-          height:100%;
-          background:linear-gradient(90deg,#8b5cf6,#d55cff);
-          border-radius:10px;
-        }
-
-        .line-graph {
-          height:45px;
-          margin-top:5px;
-        }
-
-        .line-graph svg {
-          width:100%;
-          height:100%;
-        }
-
-        .line-graph path {
-          fill:none;
-          stroke:#b74eff;
-          stroke-width:3;
-          filter:drop-shadow(0 0 4px #9a46ff);
-        }
-
-        /* MARKETING VISUAL */
-
-        .marketing-core {
-          position:absolute;
-          left:50%;
-          top:52%;
-          width:390px;
-          height:390px;
-          transform:translate(-50%,-50%);
-        }
-
-        .marketing-ring {
-          position:absolute;
-          left:50%;
-          top:50%;
-          transform:translate(-50%,-50%);
-          border-radius:50%;
-          border:1px solid rgba(219,83,255,.3);
-          animation: rotateRing 8s linear infinite;
-        }
-
-        .ring1 { width:230px;height:230px; }
-        .ring2 { width:320px;height:320px; animation-direction:reverse; }
-        .ring3 { width:390px;height:390px; }
-
-        @keyframes rotateRing {
-          to { transform:translate(-50%,-50%) rotate(360deg); }
-        }
-
-        .campaign-core {
-          position:absolute;
-          left:50%;
-          top:50%;
-          transform:translate(-50%,-50%);
-          width:160px;
-          height:160px;
-          border-radius:50%;
-          background:radial-gradient(circle,#923eff,#411e9e);
-          box-shadow:0 0 70px rgba(159,58,255,.75);
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-        }
-
-        .campaign-core span,
-        .campaign-core small {
-          font-size:9px;
-          color:#ddd3ff;
-          letter-spacing:2px;
-        }
-
-        .campaign-core strong {
-          font-size:42px;
-          margin:5px 0;
-        }
-
-        .campaign-card {
-          padding:16px;
-          min-width:175px;
-        }
-
-        .campaign-card span,
-        .career-card span,
-        .business-card span {
-          display:block;
-          color:#aaaaca;
-          font-size:10px;
-          margin-bottom:8px;
-        }
-
-        .campaign-card strong,
-        .career-card strong,
-        .business-card strong {
-          display:block;
-          font-size:22px;
-        }
-
-        .campaign-card small,
-        .career-card small,
-        .business-card small {
-          color:#8588a8;
-          font-size:9px;
-        }
-
-        .campaign-one { left:5%;top:12%; }
-        .campaign-two { right:5%;top:18%; animation-delay:.6s; }
-        .campaign-three { left:4%;bottom:15%; animation-delay:1s; }
-        .campaign-four { right:5%;bottom:12%; animation-delay:1.5s; }
-
-        .mini-bars {
-          height:35px;
-          display:flex;
-          gap:5px;
-          align-items:end;
-          margin-top:10px;
-        }
-
-        .mini-bars i {
-          flex:1;
-          background:#d252ff;
-          border-radius:3px;
-        }
-
-        .mini-bars i:nth-child(1){height:35%}
-        .mini-bars i:nth-child(2){height:55%}
-        .mini-bars i:nth-child(3){height:42%}
-        .mini-bars i:nth-child(4){height:75%}
-        .mini-bars i:nth-child(5){height:95%}
-
-        .conversion-path {
-          display:flex;
-          gap:12px;
-          margin-top:12px;
-        }
-
-        .conversion-path b {
-          width:22px;
-          height:22px;
-          border-radius:50%;
-          border:2px solid #a855f7;
-          position:relative;
-        }
-
-        .conversion-path b:not(:last-child)::after {
-          content:"";
-          position:absolute;
-          width:12px;
-          height:1px;
-          background:#a855f7;
-          right:-14px;
-          top:9px;
-        }
-
-        .audience {
-          display:flex;
-          gap:5px;
-          color:#b56cff;
-          font-size:22px;
-        }
-
-        /* CAREER VISUAL */
-
-        .career-roadmap {
-          position:absolute;
-          left:50%;
-          top:50%;
-          width:480px;
-          height:380px;
-          transform:translate(-50%,-50%);
-        }
-
-        .career-line {
-          position:absolute;
-          left:48px;
-          right:48px;
-          top:50%;
-          height:3px;
-          background:linear-gradient(90deg,#7046ff,#ce51ff,#53e1ba);
-          box-shadow:0 0 20px rgba(131,69,255,.6);
-        }
-
-        .career-node {
-          position:absolute;
-          top:42%;
-          width:100px;
-          text-align:center;
-          transform:translateY(-50%);
-        }
-
-        .career-node span {
-          color:#8c7aff;
-          font-size:10px;
-          font-weight:900;
-        }
-
-        .career-node-icon {
-          width:70px;
-          height:70px;
-          margin:7px auto;
-          border-radius:20px;
-          display:grid;
-          place-items:center;
-          font-size:27px;
-          background:linear-gradient(145deg,#743eff,#2e246f);
-          border:1px solid rgba(182,143,255,.45);
-          box-shadow:0 0 30px rgba(126,66,255,.3);
-        }
-
-        .career-node strong {
-          display:block;
-          color:white;
-          font-size:13px;
-        }
-
-        .career-node small {
-          color:#8e91ad;
-          font-size:9px;
+        .cn-social-email {
+          background: linear-gradient(145deg,#6366f1,#4338ca);
         }
 
-        .node-1{left:0}
-        .node-2{left:127px}
-        .node-3{right:127px}
-        .node-4{right:0}
-
-        .career-card {
-          padding:16px;
-          min-width:175px;
-        }
-
-        .career-card-one { left:2%;top:8%; }
-        .career-card-two { right:3%;top:11%; animation-delay:.8s; }
-        .career-card-three { left:50%;bottom:6%;transform:translateX(-50%);animation-delay:1.3s; }
-
-        .score-track,
-        .execution-line {
-          height:6px;
-          border-radius:10px;
-          background:#303052;
-          margin-top:10px;
-          overflow:hidden;
-        }
-
-        .score-track i {
-          display:block;
-          width:92%;
-          height:100%;
-          background:linear-gradient(90deg,#7246ff,#b84eff);
-        }
-
-        /* BUSINESS VISUAL */
-
-        .business-center {
-          position:absolute;
-          left:50%;
-          top:50%;
-          transform:translate(-50%,-50%);
-          width:210px;
-          height:210px;
-          border-radius:50%;
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          background:radial-gradient(circle,#783bff,#21184e);
-          border:1px solid #a06cff;
-          box-shadow:0 0 70px rgba(126,58,255,.7);
-          z-index:5;
-        }
-
-        .business-glow {
-          position:absolute;
-          inset:-25px;
-          border:1px solid rgba(164,111,255,.25);
-          border-radius:50%;
-          animation:businessPulse 2s infinite;
-        }
-
-        @keyframes businessPulse {
-          50%{transform:scale(1.12);opacity:.3}
-        }
-
-        .business-icon {
-          font-size:50px;
-          color:#fff;
-        }
-
-        .business-center strong {
-          font-size:19px;
-          letter-spacing:3px;
-        }
-
-        .business-center small {
-          color:#b9aaff;
-          letter-spacing:4px;
-        }
-
-        .business-card {
-          padding:17px;
-          min-width:180px;
-        }
-
-        .bc-one { left:4%;top:12%; }
-        .bc-two { right:4%;top:16%;animation-delay:.5s; }
-        .bc-three { left:4%;bottom:12%;animation-delay:1s; }
-        .bc-four { right:4%;bottom:12%;animation-delay:1.5s; }
-
-        .market-meter {
-          height:8px;
-          border-radius:20px;
-          background:#303052;
-          margin:12px 0 7px;
-        }
-
-        .market-meter i {
-          display:block;
-          width:82%;
-          height:100%;
-          border-radius:20px;
-          background:linear-gradient(90deg,#7246ff,#51ddb2);
-        }
-
-        .strategy-dots {
-          display:flex;
-          gap:6px;
-          margin-top:10px;
-        }
-
-        .strategy-dots i {
-          width:18px;
-          height:6px;
-          border-radius:10px;
-          background:#7548ff;
-        }
-
-        .strategy-dots i:last-child {
-          background:#363650;
-        }
-
-        .execution-line i {
-          display:block;
-          width:82%;
-          height:100%;
-          background:#55e3b7;
-        }
-
-        /* LOWER SECTIONS */
-
-        .cn-process-section {
-          width:calc(100% - 100px);
-          max-width:1440px;
-          margin:0 auto;
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:16px;
-        }
-
-        .cn-process,
-        .cn-best {
-          background:rgba(255,255,255,.9);
-          border:1px solid #e5e7f2;
-          border-radius:22px;
-          padding:28px 26px;
-          box-shadow:0 10px 35px rgba(30,34,80,.04);
-        }
-
-        .section-kicker {
-          color:#6645ed;
-          font-size:10px;
-          font-weight:900;
-          letter-spacing:1.2px;
-        }
-
-        .section-heading h2 {
-          margin:8px 0 5px;
-          font-size:27px;
-          letter-spacing:-1px;
-        }
-
-        .section-heading p {
-          margin:0;
-          color:#68708d;
-          font-size:13px;
-          line-height:1.6;
-        }
-
-        .process-flow {
-          margin-top:32px;
-          display:flex;
-          align-items:flex-start;
-          justify-content:space-between;
-        }
-
-        .process-step {
-          flex:1;
-          min-width:0;
-        }
-
-        .process-icon {
-          width:64px;
-          height:64px;
-          border-radius:50%;
-          border:1px solid #ddd7ff;
-          display:grid;
-          place-items:center;
-          color:#6945ff;
-          font-size:22px;
-          background:#fbfaff;
-          margin-bottom:10px;
-          transition:.3s ease;
-        }
-
-        .process-step:hover .process-icon {
-          transform:translateY(-6px) rotate(5deg);
-          box-shadow:0 12px 25px rgba(105,69,255,.14);
-        }
-
-        .icon-2 { color:#2585ff;border-color:#d5e7ff; }
-        .icon-3 { color:#9a4cff;border-color:#ead9ff; }
-        .icon-4 { color:#19b97c;border-color:#cef4e5; }
-
-        .process-number {
-          font-size:10px;
-          font-weight:900;
-          color:#a0a5bd;
-        }
-
-        .process-step h3 {
-          font-size:15px;
-          margin:5px 0;
-        }
-
-        .process-step p {
-          font-size:10px;
-          color:#68708d;
-          line-height:1.55;
-          padding-right:8px;
-        }
-
-        .process-arrow {
-          padding:22px 6px 0;
-          color:#9aa0bd;
-        }
-
-        .capability-grid {
-          margin-top:30px;
-          display:grid;
-          grid-template-columns:repeat(2,1fr);
-          gap:12px;
-        }
-
-        .capability-card {
-          border:1px solid #e8e8f3;
-          border-radius:16px;
-          padding:16px;
-          background:#fff;
-          transition:.3s ease;
+        .cn-social-call {
+          background: linear-gradient(145deg,#7c3aed,#5b21b6);
         }
 
-        .capability-card:hover {
-          transform:translateY(-5px);
-          box-shadow:0 15px 30px rgba(53,38,120,.08);
-          border-color:#d6ccff;
+        .cn-social-linkedin {
+          background: linear-gradient(145deg,#0A66C2,#07529b);
         }
 
-        .capability-icon {
-          width:38px;
-          height:38px;
-          border-radius:10px;
-          display:grid;
-          place-items:center;
-          color:#fff;
-          font-weight:900;
-          margin-bottom:12px;
+        .cn-social-instagram {
+          background: linear-gradient(145deg,#833AB4,#E1306C,#FCAF45);
         }
-
-        .cap-1{background:linear-gradient(135deg,#6541ff,#8e52ff)}
-        .cap-2{background:linear-gradient(135deg,#ed489b,#ff6dc0)}
-        .cap-3{background:linear-gradient(135deg,#2879ef,#38a3ff)}
-        .cap-4{background:linear-gradient(135deg,#16bd70,#35d995)}
-
-        .capability-card h3 {
-          font-size:12px;
-          margin:0 0 8px;
-        }
-
-        .capability-card p {
-          color:#747994;
-          font-size:10px;
-          line-height:1.55;
-          min-height:49px;
-        }
-
-        .capability-card button {
-          border:0;
-          background:none;
-          color:#613aff;
-          font-size:10px;
-          font-weight:900;
-          padding:0;
-          cursor:pointer;
-        }
-
-        .capability-card button span {
-          font-size:15px;
-          margin-left:3px;
-        }
-
-        .cn-metrics {
-          width:calc(100% - 100px);
-          max-width:1440px;
-          margin:16px auto 45px;
-          background:white;
-          border:1px solid #e5e7f2;
-          border-radius:22px;
-          padding:24px 28px;
-          display:grid;
-          grid-template-columns:repeat(6,1fr);
-          box-shadow:0 10px 35px rgba(30,34,80,.04);
-        }
-
-        .metric {
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          gap:12px;
-          border-right:1px solid #ececf4;
-        }
-
-        .metric:last-child {
-          border-right:0;
-        }
-
-        .metric-icon {
-          color:#6744ff;
-          font-size:27px;
-        }
-
-        .metric strong {
-          display:block;
-          font-size:22px;
-          line-height:1;
-        }
-
-        .metric small {
-          display:block;
-          color:#777d98;
-          font-size:9px;
-          margin-top:6px;
-        }
-
-        /* RESPONSIVE */
 
-        @media (max-width:1100px) {
-          .cn-hero,
-          .cn-process-section,
-          .cn-metrics {
-            width:calc(100% - 32px);
+        @media (max-width: 640px) {
+          .cn-social-rail {
+            right: 7px;
+            gap: 6px;
           }
 
-          .cn-hero-inner {
-            grid-template-columns:1fr;
+          .cn-social-item {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
           }
 
-          .cn-hero {
-            min-height:auto;
-          }
-
-          .cn-hero-copy {
-            min-height:510px;
-            padding:55px 45px 40px;
-          }
-
-          .cn-visual {
-            min-height:580px;
-          }
-
-          .cn-slide-dots {
-            right:50%;
-            transform:translateX(50%);
-          }
-
-          .cn-process-section {
-            grid-template-columns:1fr;
-          }
-
-          .cn-metrics {
-            grid-template-columns:repeat(3,1fr);
-            gap:20px;
-          }
-
-          .metric:nth-child(3) {
-            border-right:0;
-          }
-        }
-
-        @media (max-width:700px) {
-          .cn-hero,
-          .cn-process-section,
-          .cn-metrics {
-            width:calc(100% - 20px);
-          }
-
-          .cn-hero {
-            margin-top:12px;
-            border-radius:20px;
-          }
-
-          .cn-hero-copy {
-            min-height:550px;
-            padding:40px 24px 25px;
-          }
-
-          .cn-eyebrow {
-            font-size:10px;
-            margin-bottom:20px;
-          }
-
-          .cn-hero-title {
-            font-size:45px;
-            letter-spacing:-2.8px;
-          }
-
-          .cn-hero-description {
-            font-size:13px;
-            line-height:1.65;
-          }
-
-          .cn-hero-stats {
-            gap:11px;
-            margin-top:25px;
-          }
-
-          .cn-stat strong {
-            font-size:18px;
-          }
-
-          .cn-stat span {
-            font-size:8px;
-          }
-
-          .cn-slider-controls {
-            right:16px;
-            top:16px;
-          }
-
-          .cn-slider-control {
-            width:42px;
-            height:42px;
-          }
-
-          .cn-visual {
-            min-height:520px;
-          }
-
-          .cn-rocket-wrap {
-            transform:translate(-50%,-50%) scale(.72);
-          }
-
-          .cn-data-card {
-            transform:scale(.72);
-            transform-origin:center;
-          }
-
-          .card-top-left {
-            left:-5%;
-            top:8%;
-          }
-
-          .card-top-right {
-            right:-7%;
-            top:10%;
-          }
-
-          .card-left {
-            left:-5%;
-            top:48%;
-          }
-
-          .card-right {
-            right:-7%;
-            top:42%;
-          }
-
-          .card-bottom-right {
-            right:-8%;
-            bottom:5%;
-          }
-
-          .campaign-card,
-          .career-card,
-          .business-card {
-            transform:scale(.72);
-          }
-
-          .marketing-core,
-          .career-roadmap,
-          .business-center {
-            transform:translate(-50%,-50%) scale(.72);
-          }
-
-          .cn-process,
-          .cn-best {
-            padding:22px 17px;
-          }
-
-          .process-flow {
-            flex-direction:column;
-            gap:18px;
-          }
-
-          .process-step {
-            width:100%;
-          }
-
-          .process-arrow {
-            display:none;
-          }
-
-          .capability-grid {
-            grid-template-columns:1fr;
-          }
-
-          .cn-metrics {
-            grid-template-columns:repeat(2,1fr);
-            padding:18px 12px;
-          }
-
-          .metric {
-            border-right:0;
-            justify-content:flex-start;
-          }
-
-          .metric-icon {
-            font-size:21px;
-          }
-
-          .metric strong {
-            font-size:18px;
+          .cn-social-item svg {
+            width: 16px;
+            height: 16px;
           }
         }
       `}</style>
 
-      <main
-        className="cn-home"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+      <div className="cn-social-rail" aria-label="CareerNova contact links">
+        <a
+          className="cn-social-item cn-social-whatsapp"
+          href={`https://wa.me/917007260391?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          title="WhatsApp"
+        >
+          <MessageCircle />
+        </a>
+
+        <a
+          className="cn-social-item cn-social-email"
+          href="mailto:sudheersinghrajput8932@gmail.com"
+          aria-label="Email"
+          title="Email"
+        >
+          <Mail />
+        </a>
+
+        <a
+          className="cn-social-item cn-social-call"
+          href="tel:+917007260391"
+          aria-label="Call"
+          title="Call"
+        >
+          <Phone />
+        </a>
+
+        <a
+          className="cn-social-item cn-social-linkedin"
+          href="https://www.linkedin.com/in/sudhir-singh-rajput-2a894128a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          title="LinkedIn"
+        >
+          <Linkedin />
+        </a>
+
+        <a
+          className="cn-social-item cn-social-instagram"
+          href="https://www.instagram.com/thakur_sudhir_singh_rajput?igsi=cm1oZzFlenduem45"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          title="Instagram"
+        >
+          <Instagram />
+        </a>
+      </div>
+    </>
+  );
+};
+
+/* ---------------------------------------------------------
+   HERO VISUALS
+--------------------------------------------------------- */
+
+const RocketVisual = () => (
+  <div className="relative w-full h-full min-h-[350px] sm:min-h-[430px] lg:min-h-[500px] overflow-hidden">
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] rounded-full border border-violet-400/20 animate-[spin_18s_linear_infinite]" />
+      <div className="absolute w-[200px] h-[200px] sm:w-[270px] sm:h-[270px] rounded-full border border-purple-400/20 animate-[spin_12s_linear_infinite_reverse]" />
+
+      <div className="absolute w-[210px] h-[210px] sm:w-[280px] sm:h-[280px] rounded-full bg-violet-600/20 blur-[70px] animate-pulse" />
+
+      <div className="relative z-10 -translate-y-4 sm:-translate-y-8">
+        <motion.div
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="relative"
+        >
+          <div className="absolute -left-7 top-28 w-12 h-16 bg-gradient-to-br from-violet-600 to-indigo-900 rounded-l-full -rotate-12" />
+          <div className="absolute -right-7 top-28 w-12 h-16 bg-gradient-to-bl from-violet-600 to-indigo-900 rounded-r-full rotate-12" />
+
+          <div className="w-[72px] h-[150px] sm:w-[88px] sm:h-[185px] rounded-[50%_50%_38%_38%] bg-gradient-to-r from-slate-200 via-white to-violet-200 border-2 border-white/70 shadow-[0_0_35px_rgba(139,92,246,.65)] relative">
+            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[30px] border-r-[30px] border-b-[48px] border-l-transparent border-r-transparent border-b-violet-500" />
+
+            <div className="absolute top-12 sm:top-14 left-1/2 -translate-x-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-slate-950 border-[4px] border-violet-500 shadow-[0_0_20px_rgba(168,85,247,.9)] flex items-center justify-center">
+              <div className="w-3 h-3 rounded-full bg-cyan-300 shadow-[0_0_14px_rgba(103,232,249,.9)]" />
+            </div>
+          </div>
+
+          <div className="absolute top-[145px] sm:top-[178px] left-1/2 -translate-x-1/2 w-10 sm:w-14 h-24 sm:h-28">
+            <div className="absolute inset-0 rounded-b-full bg-gradient-to-b from-white via-fuchsia-400 to-violet-700 blur-[2px] animate-pulse" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 w-3 sm:w-4 h-16 sm:h-20 bg-white rounded-full" />
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-[17%] left-1/2 -translate-x-1/2 w-[210px] sm:w-[290px] h-12 sm:h-16 rounded-[50%] border-2 border-violet-500/70 shadow-[0_0_35px_rgba(139,92,246,.7)]">
+        <div className="absolute inset-3 rounded-[50%] bg-violet-500/20 blur-sm" />
+      </div>
+    </div>
+
+    <div className="absolute top-[10%] left-[3%] sm:left-[4%] w-[145px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-violet-400/25 p-3 sm:p-4 shadow-2xl backdrop-blur-xl animate-[float_4s_ease-in-out_infinite]">
+      <div className="flex items-center justify-between text-[9px] sm:text-[10px] text-slate-300">
+        <span>Business Analytics</span>
+        <BarChart3 className="w-4 h-4 text-violet-400" />
+      </div>
+      <div className="text-xl sm:text-2xl font-black text-white mt-2">+240%</div>
+      <div className="flex items-end gap-1 h-10 mt-2">
+        {[30, 48, 38, 62, 52, 78, 94].map((height, index) => (
+          <div
+            key={index}
+            className="flex-1 rounded-t bg-gradient-to-t from-violet-700 to-fuchsia-400"
+            style={{ height: `${height}%` }}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div className="absolute top-[14%] right-[3%] sm:right-[4%] w-[145px] sm:w-[185px] rounded-2xl bg-slate-900/90 border border-emerald-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl animate-[float_4.5s_ease-in-out_infinite]">
+      <div className="text-[9px] sm:text-[10px] text-slate-400">Revenue Growth</div>
+      <div className="text-xl sm:text-2xl font-black text-emerald-300 mt-2">+18.6%</div>
+      <div className="text-[8px] text-slate-500 mt-1">vs previous cycle</div>
+    </div>
+
+    <div className="absolute bottom-[12%] right-[2%] sm:right-[5%] w-[160px] sm:w-[200px] rounded-2xl bg-slate-900/90 border border-fuchsia-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl animate-[float_5s_ease-in-out_infinite]">
+      <div className="flex items-center justify-between text-[9px] sm:text-[10px] text-slate-400">
+        <span>User Engagement</span>
+        <TrendingUp className="w-4 h-4 text-fuchsia-400" />
+      </div>
+      <div className="h-10 mt-3 relative">
+        <svg viewBox="0 0 220 60" preserveAspectRatio="none" className="w-full h-full">
+          <path
+            d="M0 43 C20 10, 32 54, 53 30 S78 12, 94 34 S120 48, 137 24 S162 13, 178 31 S200 49, 220 17"
+            fill="none"
+            stroke="#b24dff"
+            strokeWidth="3"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div className="absolute bottom-[25%] left-[3%] sm:left-[6%] rounded-xl bg-violet-600/90 px-3 py-2 shadow-xl">
+      <div className="flex items-center gap-2">
+        <Rocket className="w-4 h-4 text-white" />
+        <span className="text-[9px] sm:text-[10px] font-bold text-white">Growth Engine Active</span>
+      </div>
+    </div>
+  </div>
+);
+
+const MarketingVisual = () => (
+  <div className="relative w-full h-full min-h-[350px] sm:min-h-[430px] lg:min-h-[500px] overflow-hidden">
+    <div className="absolute inset-0 flex items-center justify-center">
+      {[210, 290, 370].map((size, index) => (
+        <motion.div
+          key={size}
+          animate={{ rotate: index % 2 === 0 ? 360 : -360 }}
+          transition={{ duration: 18 + index * 4, repeat: Infinity, ease: 'linear' }}
+          className="absolute rounded-full border border-fuchsia-400/20"
+          style={{ width: size, height: size }}
+        />
+      ))}
+
+      <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-fuchsia-500 to-violet-700 shadow-[0_0_75px_rgba(217,70,239,.6)] flex flex-col items-center justify-center text-white relative z-10">
+        <Target className="w-7 h-7 sm:w-9 sm:h-9 mb-1" />
+        <span className="text-[8px] tracking-[3px]">CAMPAIGN</span>
+        <strong className="text-3xl sm:text-4xl font-black">78%</strong>
+        <span className="text-[8px] tracking-[2px]">CONVERSION</span>
+      </div>
+    </div>
+
+    <div className="absolute top-[11%] left-[3%] w-[155px] sm:w-[185px] rounded-2xl bg-slate-900/90 border border-fuchsia-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Campaign Reach</span>
+      <strong className="block text-xl sm:text-2xl text-white mt-2">1.8M</strong>
+      <div className="flex gap-1 items-end h-7 mt-2">
+        {[35, 55, 45, 75, 95].map((height, index) => (
+          <div
+            key={index}
+            className="flex-1 rounded-t bg-gradient-to-t from-fuchsia-700 to-pink-400"
+            style={{ height: `${height}%` }}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div className="absolute top-[18%] right-[3%] w-[155px] sm:w-[185px] rounded-2xl bg-slate-900/90 border border-emerald-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Campaign ROI</span>
+      <strong className="block text-xl sm:text-2xl text-emerald-300 mt-2">4.6x</strong>
+      <span className="text-[8px] text-slate-500">Return generated</span>
+    </div>
+
+    <div className="absolute bottom-[13%] left-[4%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-violet-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Audience Segments</span>
+      <div className="flex items-center gap-2 mt-3">
+        <Users className="w-5 h-5 text-violet-400" />
+        <div className="flex -space-x-2">
+          {['A', 'B', 'C', 'D'].map((letter) => (
+            <div key={letter} className="w-7 h-7 rounded-full bg-violet-600 border-2 border-slate-900 flex items-center justify-center text-[9px] font-bold text-white">
+              {letter}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div className="absolute bottom-[14%] right-[3%] w-[160px] sm:w-[195px] rounded-2xl bg-slate-900/90 border border-blue-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Conversion Path</span>
+      <div className="flex items-center gap-2 mt-3">
+        {[1, 2, 3].map((item) => (
+          <React.Fragment key={item}>
+            <div className="w-7 h-7 rounded-full border border-fuchsia-400 text-fuchsia-300 flex items-center justify-center text-[9px] font-bold">
+              {item}
+            </div>
+            {item < 3 && <div className="flex-1 h-px bg-fuchsia-400/40" />}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const CareerVisual = () => (
+  <div className="relative w-full h-full min-h-[350px] sm:min-h-[430px] lg:min-h-[500px] overflow-hidden">
+    <div className="absolute left-[8%] right-[8%] top-1/2 -translate-y-1/2 h-1 bg-gradient-to-r from-violet-500 via-fuchsia-400 to-emerald-400 shadow-[0_0_18px_rgba(139,92,246,.5)]" />
+
+    {[
+      { left: '3%', num: '01', icon: <GraduationCap />, title: 'Learn', sub: 'Skills' },
+      { left: '27%', num: '02', icon: <Code2 />, title: 'Build', sub: 'Projects' },
+      { left: '52%', num: '03', icon: <CheckCircle />, title: 'Prove', sub: 'Ability' },
+      { left: '76%', num: '04', icon: <ArrowRight />, title: 'Launch', sub: 'Career' },
+    ].map((node, index) => (
+      <motion.div
+        key={node.num}
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 3 + index * .3, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 -translate-y-1/2 text-center w-[80px] sm:w-[100px]"
+        style={{ left: node.left }}
       >
-        <section className="cn-hero">
-          <div className="cn-hero-inner" key={activeSlide}>
-            <div className="cn-hero-copy">
-              <div className="cn-eyebrow">✦ &nbsp; {slide.eyebrow}</div>
+        <div className="text-[9px] text-violet-300 font-black mb-2">{node.num}</div>
+        <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-900 border border-violet-300/30 shadow-[0_0_25px_rgba(124,58,237,.3)] flex items-center justify-center text-white">
+          {React.cloneElement(node.icon as React.ReactElement, { className: 'w-5 h-5 sm:w-7 sm:h-7' })}
+        </div>
+        <strong className="block text-white text-[11px] sm:text-xs mt-2">{node.title}</strong>
+        <span className="block text-slate-500 text-[8px] sm:text-[9px]">{node.sub}</span>
+      </motion.div>
+    ))}
 
-              <h1 className="cn-hero-title">{slide.title}</h1>
+    <div className="absolute top-[8%] left-[4%] w-[150px] sm:w-[185px] rounded-2xl bg-slate-900/90 border border-violet-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Skill Score</span>
+      <strong className="block text-xl sm:text-2xl text-white mt-1">92%</strong>
+      <div className="h-1.5 rounded-full bg-slate-700 mt-3 overflow-hidden">
+        <div className="w-[92%] h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-400" />
+      </div>
+    </div>
 
-              <p className="cn-hero-description">
-                {slide.description}
-              </p>
+    <div className="absolute top-[11%] right-[3%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-emerald-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Career Match</span>
+      <strong className="block text-lg sm:text-xl text-emerald-300 mt-1">Excellent</strong>
+      <span className="text-[8px] text-slate-500">Profile alignment</span>
+    </div>
 
-              <div className="cn-actions">
-                <button
-                  className="cn-primary-btn"
-                  onClick={() => {
-                    window.location.href = "/expertise";
-                  }}
-                >
-                  Explore Core Expertise&nbsp; →
-                </button>
+    <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 w-[190px] sm:w-[220px] rounded-2xl bg-slate-900/90 border border-fuchsia-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl text-center">
+      <span className="text-[9px] text-slate-400">Next Career Goal</span>
+      <strong className="block text-sm sm:text-base text-white mt-1">Build Portfolio</strong>
+      <span className="text-[8px] text-slate-500">3 milestones remaining</span>
+    </div>
+  </div>
+);
 
-                <button
-                  className="cn-secondary-btn"
-                  onClick={() => {
-                    window.location.href = "/contact";
-                  }}
-                >
-                  ◉ &nbsp; Consult With Expert
-                </button>
+const BusinessVisual = () => (
+  <div className="relative w-full h-full min-h-[350px] sm:min-h-[430px] lg:min-h-[500px] overflow-hidden">
+    <div className="absolute inset-0 flex items-center justify-center">
+      {[230, 310, 390].map((size, index) => (
+        <motion.div
+          key={size}
+          animate={{ scale: [1, 1.04, 1], rotate: index % 2 === 0 ? [0, 360] : [360, 0] }}
+          transition={{
+            duration: 12 + index * 3,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+          className="absolute rounded-full border border-violet-400/20"
+          style={{ width: size, height: size }}
+        />
+      ))}
+
+      <div className="relative z-10 w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br from-violet-600 to-indigo-950 border border-violet-300/40 shadow-[0_0_70px_rgba(124,58,237,.65)] flex flex-col items-center justify-center text-white">
+        <TrendingUp className="w-8 h-8 sm:w-10 sm:h-10 mb-1" />
+        <strong className="text-lg sm:text-xl tracking-[3px]">GROWTH</strong>
+        <span className="text-[8px] tracking-[4px] text-violet-200">ENGINE</span>
+      </div>
+    </div>
+
+    <div className="absolute top-[10%] left-[3%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-violet-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Revenue</span>
+      <strong className="block text-xl sm:text-2xl text-white mt-1">₹24.8L</strong>
+      <span className="text-[8px] text-emerald-300">+18.6% this quarter</span>
+    </div>
+
+    <div className="absolute top-[15%] right-[3%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-emerald-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Market Position</span>
+      <div className="h-1.5 rounded-full bg-slate-700 mt-3 overflow-hidden">
+        <div className="w-[82%] h-full rounded-full bg-gradient-to-r from-violet-500 to-emerald-400" />
+      </div>
+      <strong className="block text-lg text-emerald-300 mt-2">82%</strong>
+    </div>
+
+    <div className="absolute bottom-[10%] left-[3%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-fuchsia-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Strategy Score</span>
+      <strong className="block text-xl sm:text-2xl text-emerald-300 mt-1">94/100</strong>
+      <div className="flex gap-1 mt-3">
+        {[1, 2, 3, 4, 5].map((item) => (
+          <div key={item} className={`h-1.5 flex-1 rounded-full ${item === 5 ? 'bg-slate-700' : 'bg-violet-500'}`} />
+        ))}
+      </div>
+    </div>
+
+    <div className="absolute bottom-[11%] right-[3%] w-[155px] sm:w-[190px] rounded-2xl bg-slate-900/90 border border-blue-400/20 p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+      <span className="text-[9px] text-slate-400">Execution</span>
+      <strong className="block text-lg text-white mt-1">On Track</strong>
+      <div className="h-1.5 rounded-full bg-slate-700 mt-3 overflow-hidden">
+        <div className="w-[84%] h-full rounded-full bg-emerald-400" />
+      </div>
+    </div>
+  </div>
+);
+
+const HeroVisual = ({ type }: { type: HeroSlide['visual'] }) => {
+  if (type === 'marketing') return <MarketingVisual />;
+  if (type === 'career') return <CareerVisual />;
+  if (type === 'business') return <BusinessVisual />;
+  return <RocketVisual />;
+};
+
+/* ---------------------------------------------------------
+   HOME VIEW
+--------------------------------------------------------- */
+
+export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
+  };
+
+  const previousSlide = () => {
+    setActiveSlide(
+      (current) => (current - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
+    );
+  };
+
+  /* GUARANTEED AUTOPLAY - DOES NOT PAUSE ON HOVER */
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const slide = HERO_SLIDES[activeSlide];
+
+  const allReviews = [
+    {
+      quote:
+        "CareerNova's financial and break-even calculators gave us absolute clarity on our startup's unit economics before our seed round.",
+      name: "Aarav Sharma",
+      role: "Tech Founder & CEO",
+      rating: 5,
+      badge: "Startup Founder",
+      category: "Tools & Finance",
+    },
+    {
+      quote:
+        "The full-stack web engineering expertise and architecture guidance helped our team scale traffic 10x without any downtime.",
+      name: "Vikram Malhotra",
+      role: "CTO & Lead Architect",
+      rating: 5,
+      badge: "Core Expertise",
+      category: "Web Engineering",
+    },
+    {
+      quote:
+        "The AI career roadmap and resume analyzer tools completely transformed my interview prep. Landed an SDE role at a top product company!",
+      name: "Priya Verma",
+      role: "Senior Software Engineer",
+      rating: 5,
+      badge: "Career Roadmap",
+      category: "Tools & AI",
+    },
+    {
+      quote:
+        "Incredible suite of free tools. The cold email generator and strategic positioning templates saved our sales team dozens of hours.",
+      name: "Rohan Mehta",
+      role: "Growth & Marketing Lead",
+      rating: 5,
+      badge: "B2B Outreach",
+      category: "Business Strategy",
+    },
+    {
+      quote:
+        "Their custom iOS and Android app development execution is top-tier. Clean code, smooth animations, and delivered right on schedule.",
+      name: "Neha Kapoor",
+      role: "Product Manager",
+      rating: 5,
+      badge: "Core Expertise",
+      category: "Mobile Apps",
+    },
+    {
+      quote:
+        "The strategic lead generation framework optimized our entire sales pipeline and doubled our monthly inbound qualified leads.",
+      name: "Aditya Roy",
+      role: "Head of Sales",
+      rating: 5,
+      badge: "Lead Generation",
+      category: "Business Growth",
+    },
+  ];
+
+  return (
+    <div className="space-y-16 sm:space-y-20 animate-in fade-in duration-300">
+      <CareerNovaSocialRail />
+
+      {/* =====================================================
+          NEW HERO ONLY
+      ====================================================== */}
+
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative overflow-hidden rounded-3xl bg-[#080a2d] border border-violet-500/30 shadow-[0_25px_80px_rgba(54,35,130,.18)] mx-0"
+      >
+        <style>{`
+          @keyframes cn-float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+          }
+
+          @keyframes cn-grid-pulse {
+            0%,100% { opacity:.3; }
+            50% { opacity:.55; }
+          }
+
+          .cn-hero-grid {
+            background-image:
+              linear-gradient(rgba(124,77,255,.055) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(124,77,255,.055) 1px, transparent 1px);
+            background-size: 42px 42px;
+            animation: cn-grid-pulse 4s ease-in-out infinite;
+          }
+
+          .cn-hero-gradient {
+            background: linear-gradient(100deg,#7652ff,#c13cff,#8b5cf6);
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+          }
+
+          .cn-hero-content {
+            animation: cn-hero-content-in .65s ease both;
+          }
+
+          @keyframes cn-hero-content-in {
+            from {
+              opacity:0;
+              transform:translateX(-18px);
+            }
+            to {
+              opacity:1;
+              transform:translateX(0);
+            }
+          }
+
+          .cn-hero-visual {
+            animation: cn-hero-visual-in .7s ease both;
+          }
+
+          @keyframes cn-hero-visual-in {
+            from {
+              opacity:0;
+              transform:scale(.96) translateX(18px);
+            }
+            to {
+              opacity:1;
+              transform:scale(1) translateX(0);
+            }
+          }
+        `}</style>
+
+        <div className="absolute inset-0 cn-hero-grid pointer-events-none" />
+
+        <div className="absolute -top-40 -right-20 w-[480px] h-[480px] rounded-full bg-violet-600/15 blur-[100px] pointer-events-none" />
+
+        <div className="absolute -bottom-40 left-[25%] w-[420px] h-[420px] rounded-full bg-fuchsia-600/10 blur-[100px] pointer-events-none" />
+
+        <ParticleMeshCanvas />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[45%_55%] min-h-[620px]">
+          {/* HERO COPY */}
+          <div className="cn-hero-content flex flex-col justify-center px-6 sm:px-10 lg:px-14 xl:px-16 py-12 lg:py-14">
+            <div className="w-fit inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-400/20 text-violet-200 text-[10px] sm:text-xs font-black tracking-wider mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-violet-300 animate-pulse" />
+              {slide.eyebrow}
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl xl:text-[60px] font-black text-white tracking-[-2.5px] leading-[1.02] max-w-[650px]">
+              {slide.title}
+            </h1>
+
+            <p className="mt-6 max-w-[590px] text-sm sm:text-[15px] text-slate-300 leading-7">
+              {slide.description}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 mt-7">
+              <button
+                id="hero-explore-tools-btn"
+                onClick={() => onNavigate('tools')}
+                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-fuchsia-600 text-white font-black text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-violet-700/25 hover:-translate-y-1"
+              >
+                <span>Explore Tools</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              <button
+                id="hero-get-free-consultation-btn"
+                onClick={() => openAiAssistant({ mode: 'consultation' })}
+                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold text-xs sm:text-sm transition-all duration-300 hover:-translate-y-1"
+              >
+                <Bot className="w-4 h-4 text-violet-300" />
+                <span>Get Free Consultation</span>
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 mt-8">
+              <div>
+                <strong className="block text-xl text-white">{slide.stat}</strong>
+                <span className="text-[9px] text-slate-500">{slide.statLabel}</span>
               </div>
 
-              <div className="cn-hero-stats">
-                <div className="cn-stat">
-                  <strong>{slide.stat}</strong>
-                  <span>{slide.statLabel}</span>
-                </div>
+              <div className="h-9 w-px bg-white/10" />
 
-                <div className="cn-stat-divider" />
+              <div>
+                <strong className="block text-xl text-white">13+</strong>
+                <span className="text-[9px] text-slate-500">Expertise Areas</span>
+              </div>
 
-                <div className="cn-stat">
-                  <strong>13+</strong>
-                  <span>Expertise Areas</span>
-                </div>
+              <div className="h-9 w-px bg-white/10" />
 
-                <div className="cn-stat-divider" />
+              <div>
+                <strong className="block text-xl text-white">100+</strong>
+                <span className="text-[9px] text-slate-500">Tools & Frameworks</span>
+              </div>
 
-                <div className="cn-stat">
-                  <strong>100+</strong>
-                  <span>Tools & Frameworks</span>
-                </div>
+              <div className="h-9 w-px bg-white/10" />
 
-                <div className="cn-stat-divider" />
-
-                <div className="cn-rating">
-                  <span className="cn-rating-star">★</span>
-                  <div className="cn-stat">
-                    <strong>4.9/5</strong>
-                    <span>Client Rating</span>
-                  </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                <div>
+                  <strong className="block text-xl text-white">4.9/5</strong>
+                  <span className="text-[9px] text-slate-500">Client Rating</span>
                 </div>
               </div>
             </div>
 
+            <div className="flex flex-wrap items-center gap-2 mt-8">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1.5 text-[9px] text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                Free Calculators
+              </span>
+
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1.5 text-[9px] text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
+                AI-Powered
+              </span>
+
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1.5 text-[9px] text-slate-300">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                Secure
+              </span>
+            </div>
+          </div>
+
+          {/* HERO VISUAL */}
+          <div
+            key={`visual-${activeSlide}`}
+            className="cn-hero-visual relative min-h-[390px] sm:min-h-[470px] lg:min-h-[620px]"
+          >
             <HeroVisual type={slide.visual} />
           </div>
+        </div>
 
-          <div className="cn-slider-controls">
-            <button
-              className="cn-slider-control"
-              onClick={previousSlide}
-              aria-label="Previous slide"
-            >
-              <ArrowIcon direction="left" />
-            </button>
+        {/* SLIDER CONTROLS */}
+        <div className="absolute top-5 right-5 sm:top-7 sm:right-7 z-30 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={previousSlide}
+            aria-label="Previous hero slide"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/25 hover:bg-violet-600/60 border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-all"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next hero slide"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/25 hover:bg-violet-600/60 border border-white/15 text-white flex items-center justify-center backdrop-blur-md transition-all"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+        </div>
+
+        {/* SLIDE INDICATORS */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+          {HERO_SLIDES.map((heroSlide, index) => (
             <button
-              className="cn-slider-control"
-              onClick={nextSlide}
-              aria-label="Next slide"
-            >
-              <ArrowIcon direction="right" />
-            </button>
+              key={heroSlide.eyebrow}
+              type="button"
+              onClick={() => setActiveSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeSlide === index
+                  ? 'w-8 bg-gradient-to-r from-violet-400 to-fuchsia-400 shadow-[0_0_12px_rgba(168,85,247,.7)]'
+                  : 'w-2.5 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
+      </motion.section>
+
+      {/* =====================================================
+          EXISTING MARQUEE - RETAINED
+      ====================================================== */}
+
+      <InfiniteMarqueeBanner />
+
+      {/* =====================================================
+          EXISTING CONTENT - RETAINED
+      ====================================================== */}
+
+      <div className="bg-gradient-to-b from-gray-50/50 via-white to-gray-50/80 space-y-28 py-16 rounded-3xl">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 tracking-wider uppercase mb-4 inline-block">
+              🚀 Strategic Growth &amp; Expertise
+            </span>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">
+              Accelerate Your Business &amp; Career
+            </h2>
+
+            <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+              Explore our core consulting disciplines, high-conversion growth strategies, and advanced technical solutions.
+            </p>
           </div>
 
-          <div className="cn-slide-dots">
-            {slides.map((item, index) => (
-              <button
-                key={item.eyebrow}
-                className={`cn-dot ${
-                  activeSlide === index ? "active" : ""
-                }`}
-                onClick={() => setActiveSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: 'Full-Stack & AI Engineering',
+                desc: 'Build scalable, high-speed web architectures and intelligent AI-driven workflows.',
+                color: 'from-blue-500 to-indigo-600',
+                bg: 'bg-blue-50',
+                text: 'text-blue-600',
+                tab: 'career' as TabId,
+                sub: 'roadmap-guide',
+              },
+              {
+                title: 'High-Conversion B2B Outreach',
+                desc: 'Scale your sales pipeline and recruiter pitches with intelligent cold email strategies.',
+                color: 'from-emerald-500 to-teal-600',
+                bg: 'bg-emerald-50',
+                text: 'text-emerald-600',
+                tab: 'business' as TabId,
+                sub: 'cold-email',
+              },
+              {
+                title: 'Unit Economics & Break-Even',
+                desc: 'Calculate precise financial metrics, burn rates, and required monthly sales targets.',
+                color: 'from-purple-500 to-pink-600',
+                bg: 'bg-purple-50',
+                text: 'text-purple-600',
+                tab: 'tools' as TabId,
+                sub: 'break-even',
+              },
+              {
+                title: 'Strategic Market Positioning',
+                desc: 'Optimize your digital footprint, capture target market share, and maximize revenue growth.',
+                color: 'from-amber-500 to-orange-600',
+                bg: 'bg-amber-50',
+                text: 'text-amber-600',
+                tab: 'business' as TabId,
+                sub: 'strategy',
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                onClick={() => onNavigate(item.tab, item.sub)}
+                className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/80 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 hover:-translate-y-1.5 flex items-start gap-6 overflow-hidden cursor-pointer"
+              >
+                <div className={`absolute top-0 left-0 w-2 h-full bg-gradient-to-b ${item.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+
+                <div className={`w-14 h-14 rounded-2xl ${item.bg} ${item.text} flex items-center justify-center font-bold text-2xl shrink-0 group-hover:scale-110 transition-transform shadow-inner`}>
+                  ✦
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-extrabold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+
+                  <span className="inline-flex items-center gap-1.5 mt-5 text-indigo-600 font-bold text-sm group-hover:translate-x-1 transition-transform">
+                    Explore Expertise <span>→</span>
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
-        <ProcessSection />
+        {/* =====================================================
+            EXISTING SLIDING REVIEWS - RETAINED
+        ====================================================== */}
 
-        <MetricsSection />
-      </main>
-    </>
+        <section className="py-10 overflow-hidden">
+          <div className="text-center max-w-2xl mx-auto mb-14 px-4">
+            <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-violet-50 text-violet-600 border border-violet-100 tracking-wider uppercase mb-4 inline-block">
+              ⭐ Trusted by Leaders &amp; Engineers
+            </span>
+
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              What Clients Say About Our Tools &amp; Core Expertise
+            </h2>
+
+            <p className="mt-3 text-slate-600 text-sm sm:text-base">
+              Real feedback covering our free digital tools, engineering solutions, and strategic consulting.
+            </p>
+          </div>
+
+          <div className="relative w-full overflow-hidden flex mask-gradient-x">
+            <div className="absolute left-0 inset-y-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 inset-y-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            <motion.div
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{
+                ease: 'linear',
+                duration: 28,
+                repeat: Infinity,
+              }}
+              className="flex gap-6 shrink-0 py-4 px-3"
+            >
+              {[...allReviews, ...allReviews].map((review, idx) => (
+                <div
+                  key={idx}
+                  className="w-[340px] sm:w-[380px] bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between space-y-5 shrink-0 group"
+                >
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-amber-500">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                          />
+                        ))}
+                      </div>
+
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                          {review.category}
+                        </span>
+
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                          {review.badge}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-slate-700 text-sm leading-relaxed italic group-hover:text-slate-900 transition-colors">
+                      "{review.quote}"
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                      {review.name.charAt(0)}
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900">
+                        {review.name}
+                      </h4>
+                      <p className="text-xs text-slate-500">
+                        {review.role}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            EXISTING FINAL CTA - RETAINED
+        ====================================================== */}
+
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.55 }}
+          className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white text-center space-y-6 shadow-2xl relative overflow-hidden mx-4 sm:mx-8"
+        >
+          <div className="max-w-2xl mx-auto space-y-3">
+            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              Ready to transform your Career or launch your Business?
+            </h2>
+
+            <p className="text-sm sm:text-base text-indigo-100 leading-relaxed font-normal">
+              Join thousands of students, professionals, and founders who use CareerNova every day to reach their goals.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <button
+              id="bottom-explore-tools-btn"
+              onClick={() => onNavigate('tools')}
+              className="px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-indigo-700 font-black text-xs sm:text-sm transition-all shadow-lg hover:shadow-xl active:scale-95 cursor-pointer"
+            >
+              Explore All Free Tools
+            </button>
+
+            <button
+              id="bottom-get-free-consultation-btn"
+              onClick={() => openAiAssistant({ mode: 'consultation' })}
+              className="px-8 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-colors border border-white/20 flex items-center gap-2 cursor-pointer"
+            >
+              <Bot className="w-4 h-4 text-indigo-200" />
+              <span>Get Free Consultation</span>
+            </button>
+          </div>
+        </motion.section>
+      </div>
+    </div>
   );
-}
-
-export default HomeView;
+};
