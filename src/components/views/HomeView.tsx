@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -343,6 +343,13 @@ const ProcessSection = () => {
                 <Icon size={25} />
               </div>
 
+              <div className="cn-process-mini-visual" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+
               <small>{step.number}</small>
 
               <h3>{step.title}</h3>
@@ -421,8 +428,14 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
                 rotateY: index % 2 === 0 ? -2 : 2,
               }}
             >
-              <div className="cn-tool-icon">
-                <Icon size={25} />
+              <div className="cn-tool-visual" aria-hidden="true">
+                <div className="cn-tool-visual-grid" />
+                <div className="cn-tool-visual-orbit" />
+                <div className="cn-tool-icon">
+                  <Icon size={25} />
+                </div>
+                <span className="cn-tool-spark spark-a" />
+                <span className="cn-tool-spark spark-b" />
               </div>
 
               <h3>{tool.title}</h3>
@@ -566,54 +579,69 @@ const OfferingsSection = ({
 
 const MetricsSection = () => {
   const metrics = [
-    {
-      value: '2+',
-      label: 'Years of Impact',
-      icon: Sparkles,
-    },
-    {
-      value: '30+',
-      label: 'Clients',
-      icon: Users,
-    },
-    {
-      value: '10+',
-      label: 'Expertise Areas',
-      icon: Layers3,
-    },
-    {
-      value: '25+',
-      label: 'Tools & Frameworks',
-      icon: Workflow,
-    },
-    {
-      value: '4.9/5',
-      label: 'Client Rating',
-      icon: Sparkles,
-    },
-    {
-      value: '3+',
-      label: 'Countries Reached',
-      icon: Globe2,
-    },
+    { target: 2, suffix: '+', label: 'Years of Impact', icon: Sparkles, tone: 'metric-violet' },
+    { target: 30, suffix: '+', label: 'Clients', icon: Users, tone: 'metric-blue' },
+    { target: 10, suffix: '+', label: 'Expertise Areas', icon: Layers3, tone: 'metric-pink' },
+    { target: 25, suffix: '+', label: 'Tools & Frameworks', icon: Workflow, tone: 'metric-cyan' },
+    { target: 4.9, suffix: '/5', label: 'Client Rating', icon: Sparkles, tone: 'metric-orange' },
+    { target: 3, suffix: '+', label: 'Countries Reached', icon: Globe2, tone: 'metric-green' },
   ];
 
+  const [counts, setCounts] = useState(metrics.map(() => 0));
+
+  useEffect(() => {
+    let frame = 0;
+    const duration = 1200;
+    const start = performance.now();
+
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setCounts(metrics.map((metric) => {
+        const value = metric.target * eased;
+        return metric.target === 4.9
+          ? Math.min(4.9, Number(value.toFixed(1)))
+          : Math.floor(value);
+      }));
+
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      }
+    };
+
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
-    <section className="cn-metrics">
+    <section className="cn-metrics" aria-label="CareerNova impact metrics">
       {metrics.map((metric, index) => {
         const Icon = metric.icon;
 
         return (
           <motion.div
-            className="cn-metric"
+            className={`cn-metric ${metric.tone}`}
             key={metric.label}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.06 }}
+            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: index * 0.06, duration: 0.45 }}
+            whileHover={{ y: -5, scale: 1.02 }}
           >
-            <Icon size={19} />
-            <strong>{metric.value}</strong>
+            <div className="cn-metric-orbit" aria-hidden="true">
+              <i />
+              <i />
+            </div>
+            <div className="cn-metric-icon">
+              <Icon size={20} />
+            </div>
+            <strong>
+              {metric.target === 4.9
+                ? counts[index].toFixed(1)
+                : counts[index]}
+              {metric.suffix}
+            </strong>
             <span>{metric.label}</span>
           </motion.div>
         );
@@ -800,32 +828,47 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => (
 ========================================================= */
 
 const ReviewsSection = () => {
-  const [activeReview, setActiveReview] = useState(0);
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
-  const visibleReviews = useMemo(() => {
-    return [
-      REVIEWS[activeReview % REVIEWS.length],
-      REVIEWS[(activeReview + 1) % REVIEWS.length],
-      REVIEWS[(activeReview + 2) % REVIEWS.length],
-    ];
-  }, [activeReview]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveReview((current) => (current + 1) % REVIEWS.length);
-    }, 2700);
-
-    return () => window.clearInterval(timer);
-  }, []);
+  const nextReview = () => {
+    setDirection(1);
+    setReviewIndex((current) => (current + 1) % REVIEWS.length);
+  };
 
   const previousReview = () => {
-    setActiveReview(
+    setDirection(-1);
+    setReviewIndex(
       (current) => (current - 1 + REVIEWS.length) % REVIEWS.length,
     );
   };
 
-  const nextReview = () => {
-    setActiveReview((current) => (current + 1) % REVIEWS.length);
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setDirection(1);
+      setReviewIndex((current) => (current + 1) % REVIEWS.length);
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const visibleReviews = [0, 1, 2].map(
+    (offset) => REVIEWS[(reviewIndex + offset) % REVIEWS.length],
+  );
+
+  const slideVariants = {
+    enter: (slideDirection: number) => ({
+      x: slideDirection > 0 ? '105%' : '-105%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (slideDirection: number) => ({
+      x: slideDirection > 0 ? '-105%' : '105%',
+      opacity: 0,
+    }),
   };
 
   return (
@@ -848,11 +891,29 @@ const ReviewsSection = () => {
           <ChevronLeft size={22} />
         </button>
 
-        <div className="cn-review-track">
-          <AnimatePresence mode="popLayout">
-            {visibleReviews.map((review) => (
-              <ReviewCard key={`${review.name}-${activeReview}`} review={review} />
-            ))}
+        <div className="cn-review-viewport">
+          <AnimatePresence
+            initial={false}
+            custom={direction}
+            mode="sync"
+          >
+            <motion.div
+              key={reviewIndex}
+              className="cn-review-track"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+                opacity: { duration: 0.35 },
+              }}
+            >
+              {visibleReviews.map((review) => (
+                <ReviewCard key={review.name} review={review} />
+              ))}
+            </motion.div>
           </AnimatePresence>
         </div>
 
@@ -869,8 +930,11 @@ const ReviewsSection = () => {
         {REVIEWS.map((_, index) => (
           <button
             key={index}
-            className={index === activeReview ? 'active' : ''}
-            onClick={() => setActiveReview(index)}
+            className={index === reviewIndex ? 'active' : ''}
+            onClick={() => {
+              setDirection(index >= reviewIndex ? 1 : -1);
+              setReviewIndex(index);
+            }}
             aria-label={`Review ${index + 1}`}
           />
         ))}
@@ -902,6 +966,73 @@ const FinalCTA = ({ onNavigate }: { onNavigate: (tab: any) => void }) => (
 );
 
 /* =========================================================
+   RIGHT SOCIAL RAIL
+   Real brand-style SVG marks, no external image fetch.
+========================================================= */
+
+const SocialRail = () => (
+  <aside className="cn-social-rail" aria-label="CareerNova social links">
+    <a
+      href="https://wa.me/"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="WhatsApp"
+      className="cn-social-link whatsapp"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.5 3.5A11.7 11.7 0 0 0 12.15.05C5.7.05.45 5.3.45 11.75c0 2.06.54 4.08 1.56 5.84L.35 23.95l6.51-1.62a11.7 11.7 0 0 0 5.28 1.26h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.35-8.39ZM12.15 21.55h-.01a9.7 9.7 0 0 1-4.94-1.35l-.35-.2-3.86.96 1.03-3.76-.23-.38a9.68 9.68 0 0 1-1.49-5.07c0-5.35 4.35-9.7 9.7-9.7 2.59 0 5.03 1.01 6.86 2.84a9.64 9.64 0 0 1 2.84 6.87c0 5.34-4.35 9.69-9.7 9.69Zm5.32-7.26c-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.65.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.65-1.58-.89-2.17-.23-.57-.47-.49-.65-.5h-.55c-.19 0-.5.07-.76.36-.26.29-1 0.98-1 2.39s1.02 2.77 1.16 2.96c.15.19 2.01 3.07 4.87 4.31.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.72-.7 1.96-1.38.24-.68.24-1.27.17-1.39-.07-.12-.26-.19-.55-.34Z" />
+      </svg>
+    </a>
+
+    <a
+      href="mailto:"
+      aria-label="Email"
+      className="cn-social-link email"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.5 5.5h17A1.5 1.5 0 0 1 22 7v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17V7a1.5 1.5 0 0 1 1.5-1.5Zm0 2.15v.1l8.5 5.43 8.5-5.43v-.1h-17Zm17 1.89-7.98 5.1a1 1 0 0 1-1.04 0L3.5 9.54V17h17V9.54Z" />
+      </svg>
+    </a>
+
+    <a
+      href="tel:"
+      aria-label="Phone"
+      className="cn-social-link phone"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.62 2.5h2.1c.45 0 .84.3.96.74l.91 3.37c.1.37-.02.76-.3 1.02L8.95 8.97a15.7 15.7 0 0 0 6.08 6.08l1.34-1.34c.26-.26.65-.38 1.02-.28l3.37.9c.44.12.74.52.74.97v2.08c0 .64-.52 1.16-1.16 1.16C11.45 18.54 5.46 12.55 4.46 3.66 4.39 3.03 4.88 2.5 5.51 2.5h1.11Z" />
+      </svg>
+    </a>
+
+    <a
+      href="https://www.linkedin.com/"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="LinkedIn"
+      className="cn-social-link linkedin"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5.12 3.5A2.12 2.12 0 1 1 5.1 7.74 2.12 2.12 0 0 1 5.12 3.5ZM3.25 8.9h3.75V21H3.25V8.9Zm5.95 0h3.6v1.65h.05c.5-.95 1.72-1.95 3.54-1.95 3.79 0 4.49 2.49 4.49 5.73V21h-3.75v-5.92c0-1.41-.03-3.22-1.96-3.22-1.97 0-2.27 1.53-2.27 3.12V21H9.2V8.9Z" />
+      </svg>
+    </a>
+
+    <a
+      href="https://www.instagram.com/"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Instagram"
+      className="cn-social-link instagram"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
+        <circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" strokeWidth="2" />
+        <circle cx="17.5" cy="6.7" r="1.2" fill="currentColor" />
+      </svg>
+    </a>
+  </aside>
+);
+
+/* =========================================================
    HOME VIEW
 ========================================================= */
 
@@ -913,7 +1044,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
-    }, 2500);
+    }, 3000);
 
     return () => window.clearInterval(timer);
   }, []);
@@ -934,9 +1065,16 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
       <style>{`
         .cn-home {
           width: 100%;
+          max-width: 100%;
           position: relative;
           overflow: hidden;
           color: #111936;
+        }
+
+        .cn-home *,
+        .cn-home *::before,
+        .cn-home *::after {
+          box-sizing: border-box;
         }
 
         /* =================================================
@@ -945,7 +1083,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-hero {
           position: relative;
-          min-height: 540px;
+          min-height: 485px;
           border-radius: 30px;
           overflow: hidden;
           background:
@@ -986,8 +1124,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-hero-inner {
           position: relative;
           z-index: 3;
-          min-height: 540px;
-          padding: 55px 60px 70px;
+          min-height: 485px;
+          padding: 44px 52px 60px;
           display: grid;
           grid-template-columns: minmax(0,1.05fr) minmax(360px,.95fr);
           align-items: center;
@@ -1091,7 +1229,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         /* Hero vector */
 
         .cn-hero-visual {
-          min-height: 390px;
+          min-height: 340px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1100,7 +1238,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-vector-scene {
           width: min(430px,100%);
-          height: 390px;
+          height: 340px;
           position: relative;
           display: flex;
           align-items: center;
@@ -1543,6 +1681,34 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           max-width: 220px;
         }
 
+        .cn-process-mini-visual {
+          width: 86px;
+          height: 24px;
+          margin: -2px 0 10px;
+          display: flex;
+          align-items: flex-end;
+          gap: 5px;
+          opacity: .78;
+        }
+
+        .cn-process-mini-visual span {
+          flex: 1;
+          border-radius: 5px 5px 2px 2px;
+          background: linear-gradient(180deg,#8b5cf6,#38bdf8);
+          animation: cn-mini-rise 2.2s ease-in-out infinite;
+          transform-origin: bottom;
+        }
+
+        .cn-process-mini-visual span:nth-child(1) { height: 35%; animation-delay: 0s; }
+        .cn-process-mini-visual span:nth-child(2) { height: 58%; animation-delay: .15s; }
+        .cn-process-mini-visual span:nth-child(3) { height: 78%; animation-delay: .3s; }
+        .cn-process-mini-visual span:nth-child(4) { height: 100%; animation-delay: .45s; }
+
+        @keyframes cn-mini-rise {
+          0%,100% { transform: scaleY(.72); opacity: .62; }
+          50% { transform: scaleY(1); opacity: 1; }
+        }
+
         .cn-process-arrow {
           position: absolute;
           right: -13px;
@@ -1592,6 +1758,62 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .tool-blue::before { background: #2563eb; }
         .tool-green::before { background: #10b981; }
 
+
+        .cn-tool-visual {
+          height: 90px;
+          margin: -3px -4px 14px;
+          border-radius: 17px;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg,rgba(124,58,237,.08),rgba(56,189,248,.10));
+          border: 1px solid rgba(124,58,237,.08);
+        }
+
+        .cn-tool-visual-grid {
+          position: absolute;
+          inset: 0;
+          opacity: .45;
+          background-image:
+            linear-gradient(rgba(99,60,255,.10) 1px, transparent 1px),
+            linear-gradient(90deg,rgba(99,60,255,.10) 1px,transparent 1px);
+          background-size: 18px 18px;
+        }
+
+        .cn-tool-visual-orbit {
+          position: absolute;
+          width: 145px;
+          height: 55px;
+          border: 1px dashed rgba(99,60,255,.28);
+          border-radius: 50%;
+          transform: rotate(-18deg);
+          animation: cn-tool-orbit 7s linear infinite;
+        }
+
+        .cn-tool-spark {
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: currentColor;
+          opacity: .75;
+          animation: cn-spark-pulse 1.8s ease-in-out infinite;
+        }
+
+        .cn-tool-spark.spark-a { left: 18px; top: 17px; }
+        .cn-tool-spark.spark-b { right: 20px; bottom: 15px; animation-delay: .7s; }
+
+        @keyframes cn-tool-orbit {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes cn-spark-pulse {
+          0%,100% { transform: scale(.65); opacity: .35; }
+          50% { transform: scale(1.25); opacity: 1; }
+        }
         .cn-tool-icon {
           width: 49px;
           height: 49px;
@@ -1829,39 +2051,111 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           margin-top: 50px;
           display: grid;
           grid-template-columns: repeat(6,1fr);
-          gap: 1px;
-          background: #dde2f0;
-          border: 1px solid #dde2f0;
-          border-radius: 22px;
-          overflow: hidden;
-          box-shadow: 0 15px 40px rgba(44,51,90,.06);
+          gap: 10px;
+          padding: 10px;
+          border-radius: 25px;
+          background: linear-gradient(135deg,#1b174b,#30206d 48%,#112c55);
+          border: 1px solid rgba(99,60,255,.25);
+          box-shadow: 0 22px 55px rgba(48,34,115,.18);
         }
 
         .cn-metric {
           min-height: 145px;
-          padding: 20px 13px;
-          background: #fff;
+          padding: 18px 12px;
+          border-radius: 18px;
+          position: relative;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
+          color: #fff;
+          border: 1px solid rgba(255,255,255,.12);
+          background: linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+          transition: box-shadow .25s ease;
         }
 
-        .cn-metric svg {
-          color: #7041ff;
-          margin-bottom: 9px;
+        .cn-metric::before {
+          content: "";
+          position: absolute;
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+          right: -72px;
+          top: -72px;
+          background: currentColor;
+          opacity: .10;
         }
+
+        .cn-metric-icon {
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 9px;
+          background: currentColor;
+          color: #fff;
+          box-shadow: 0 10px 24px rgba(0,0,0,.16);
+        }
+
+        .cn-metric-icon svg { color: #fff; }
 
         .cn-metric strong {
-          font-size: 29px;
-          letter-spacing: -1px;
+          font-size: 30px;
+          line-height: 1;
+          letter-spacing: -1.2px;
+          position: relative;
+          z-index: 2;
         }
 
         .cn-metric span {
-          color: #68738f;
+          color: rgba(255,255,255,.75);
           font-size: 11px;
-          margin-top: 4px;
+          margin-top: 7px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .cn-metric-orbit {
+          position: absolute;
+          inset: auto 12px 9px auto;
+          width: 20px;
+          height: 20px;
+          border: 1px solid rgba(255,255,255,.25);
+          border-radius: 50%;
+          animation: cn-metric-spin 5s linear infinite;
+        }
+
+        .cn-metric-orbit i {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: #fff;
+          top: -2px;
+          left: 7px;
+        }
+
+        .cn-metric-orbit i:last-child {
+          top: auto;
+          bottom: -2px;
+          left: auto;
+          right: 7px;
+        }
+
+        .metric-violet { color: #a78bfa; }
+        .metric-blue { color: #60a5fa; }
+        .metric-pink { color: #f472b6; }
+        .metric-cyan { color: #22d3ee; }
+        .metric-orange { color: #fb923c; }
+        .metric-green { color: #34d399; }
+
+        @keyframes cn-metric-spin {
+          to { transform: rotate(360deg); }
         }
 
         /* =================================================
@@ -1878,10 +2172,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           padding: 0 54px;
         }
 
+        .cn-review-viewport {
+          position: relative;
+          overflow: hidden;
+          min-height: 335px;
+          border-radius: 27px;
+        }
+
         .cn-review-track {
+          position: absolute;
+          inset: 0;
           display: grid;
-          grid-template-columns: repeat(3,1fr);
+          grid-template-columns: repeat(3,minmax(0,1fr));
           gap: 18px;
+          width: 100%;
         }
 
         .cn-review-card {
@@ -2162,6 +2466,57 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         /* =================================================
+           RIGHT SOCIAL RAIL
+        ================================================= */
+
+        .cn-social-rail {
+          position: fixed;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 50;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+          padding: 9px;
+          border-radius: 18px;
+          background: rgba(255,255,255,.82);
+          border: 1px solid rgba(111,87,220,.16);
+          box-shadow: 0 18px 45px rgba(38,42,82,.14);
+          backdrop-filter: blur(14px);
+        }
+
+        .cn-social-link {
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          color: #fff;
+          box-shadow: 0 9px 20px rgba(35,42,78,.14);
+          transition: transform .22s ease, filter .22s ease;
+        }
+
+        .cn-social-link:hover {
+          transform: translateX(-4px) scale(1.06);
+          filter: brightness(1.05);
+        }
+
+        .cn-social-link svg {
+          width: 21px;
+          height: 21px;
+          fill: currentColor;
+        }
+
+        .cn-social-link.whatsapp { background: #25d366; }
+        .cn-social-link.email { background: linear-gradient(145deg,#6366f1,#8b5cf6); }
+        .cn-social-link.phone { background: linear-gradient(145deg,#0ea5e9,#2563eb); }
+        .cn-social-link.linkedin { background: #0a66c2; }
+        .cn-social-link.instagram { background: linear-gradient(145deg,#833ab4,#fd1d1d 58%,#fcb045); }
+
+        /* =================================================
            RESPONSIVE
         ================================================= */
 
@@ -2188,15 +2543,37 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-track {
-            grid-template-columns: repeat(2,1fr);
+            grid-template-columns: repeat(2,minmax(0,1fr));
           }
 
           .cn-review-card:nth-child(3) {
             display: none;
           }
+
+          .cn-review-viewport {
+            min-height: 335px;
+          }
         }
 
         @media (max-width: 780px) {
+          .cn-social-rail {
+            right: 8px;
+            padding: 6px;
+            gap: 6px;
+            border-radius: 15px;
+          }
+
+          .cn-social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+          }
+
+          .cn-social-link svg {
+            width: 18px;
+            height: 18px;
+          }
+
           .cn-hero {
             min-height: auto;
             border-radius: 22px;
@@ -2205,7 +2582,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-hero-inner {
             min-height: auto;
             grid-template-columns: 1fr;
-            padding: 35px 22px 65px;
+            padding: 32px 20px 58px;
             gap: 0;
           }
 
@@ -2235,8 +2612,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-vector-scene {
-            height: 275px;
-            transform: scale(.78);
+            height: 255px;
+            transform: scale(.76);
           }
 
           .cn-vector-core {
@@ -2273,6 +2650,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             display: none;
           }
 
+          .cn-process-mini-visual {
+            width: 72px;
+            height: 20px;
+          }
+
           .cn-process-step p {
             max-width: none;
           }
@@ -2296,14 +2678,25 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
           .cn-metrics {
             grid-template-columns: repeat(2,1fr);
+            gap: 7px;
+            padding: 7px;
           }
 
           .cn-metric {
             min-height: 125px;
+            padding: 16px 9px;
+          }
+
+          .cn-metric strong {
+            font-size: 25px;
           }
 
           .cn-review-slider {
             padding: 0;
+          }
+
+          .cn-review-viewport {
+            min-height: 310px;
           }
 
           .cn-review-track {
@@ -2333,6 +2726,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             right: 8px;
           }
 
+          .cn-review-viewport {
+            border-radius: 22px;
+          }
+
           .cn-final-cta {
             flex-direction: column;
             align-items: flex-start;
@@ -2347,8 +2744,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         @media (max-width: 480px) {
           .cn-hero-inner {
-            padding-left: 17px;
-            padding-right: 17px;
+            padding-left: 15px;
+            padding-right: 15px;
+          }
+
+          .cn-home {
+            width: 100%;
+            max-width: 100%;
           }
 
           .cn-hero-eyebrow {
@@ -2403,11 +2805,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
       `}</style>
 
       <div className="cn-home">
+        <SocialRail />
 
         {/* =================================================
             HERO
             5 tech/vector illustrations
-            Auto changes every 2.5 seconds
+            Auto changes every 3 seconds
         ================================================== */}
 
         <section className="cn-hero">
