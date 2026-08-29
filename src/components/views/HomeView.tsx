@@ -545,17 +545,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
     </div>
   </section>
 
-</div>
+<>
+ <motion.section
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: '-40px' }}
+  transition={{ duration: 0.55 }}
+  className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white text-center space-y-6 shadow-2xl relative overflow-hidden my-16"
 
-  </div>
-      {/* 11. 🚀 CALL TO ACTION BANNER */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.55 }}
-        className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white text-center space-y-6 shadow-xl shadow-indigo-600/20"
-      >
+      
         <div className="max-w-2xl mx-auto space-y-3">
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
             Ready to transform your Career or launch your Business?
