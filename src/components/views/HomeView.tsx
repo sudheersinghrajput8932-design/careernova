@@ -579,8 +579,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
             <Bot className="w-4 h-4 text-indigo-200" />
             <span>Get Free Consultation</span>
           </button>
-        </div>
-      </motion.section>
-    </>
-  );
+      </div>
+</motion.section>
+);
 };
