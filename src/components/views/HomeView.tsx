@@ -563,23 +563,23 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <button
-            id="bottom-explore-tools-btn"
-            onClick={() => onNavigate('tools')}
-            className="ambient-glow-cta px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-indigo-700 font-black text-xs sm:text-sm transition-all shadow-md hover:scale-[1.02] cursor-pointer"
-          >
-            Explore All Free Tools
-          </button>
-          <button
-            id="bottom-get-free-consultation-btn"
-            onClick={() => openAiAssistant({ mode: 'consultation' })}
-            className="px-8 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-colors border border-white/25 cursor-pointer backdrop-blur-xs flex items-center gap-2"
-          >
-            <Bot className="w-4 h-4 text-indigo-200" />
-            <span>Get Free Consultation</span>
-          </button>
-      </div>
+       <div className="flex flex-wrap items-center justify-center gap-4">
+  <button
+    id="bottom-explore-tools-btn"
+    onClick={() => onNavigate('tools')}
+    className="ambient-glow-cta px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-indigo-700 font-black text-xs sm:text-sm transition-all shadow-lg hover:shadow-xl active:scale-95"
+  >
+    Explore All Free Tools
+  </button>
+  <button
+    id="bottom-get-free-consultation-btn"
+    onClick={() => openAiAssistant({ mode: 'consultation' })}
+    className="px-8 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-colors border border-white/20 flex items-center gap-2"
+  >
+    <Bot className="w-4 h-4 text-indigo-200" />
+    <span>Get Free Consultation</span>
+  </button>
+</div>
 </motion.section>
 );
 };
