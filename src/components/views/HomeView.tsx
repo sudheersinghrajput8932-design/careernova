@@ -32,11 +32,26 @@ import {
   PieChart,
   PenTool,
 } from 'lucide-react';
-
 type HomeViewProps = {
   onNavigate: (tab: any) => void;
   onOpenAuth?: () => void;
 };
+
+const VISUAL_SPRITE = '/assets/careernova-visuals.svg';
+
+const AssetVisual = ({ id, label, className = '' }: { id: string; label?: string; className?: string }) => (
+  <svg
+    className={`cn-asset-visual ${className}`}
+    viewBox="0 0 220 160"
+    preserveAspectRatio="xMidYMid meet"
+    role={label ? 'img' : undefined}
+    aria-label={label}
+    aria-hidden={label ? undefined : true}
+    focusable="false"
+  >
+    <use href={`${VISUAL_SPRITE}#${id}`} />
+  </svg>
+);
 
 /* =========================================================
    HERO DATA
@@ -117,166 +132,13 @@ const HERO_SLIDES = [
 ========================================================= */
 
 const HeroVisual = ({ type }: { type: string }) => {
-  const visualMap: Record<string, React.ReactNode> = {
-    growth: (
-      <div className="cn-vector-scene growth-scene">
-        <div className="cn-orbit orbit-a" />
-        <div className="cn-orbit orbit-b" />
-        <div className="cn-vector-core">
-          <TrendingUp size={64} strokeWidth={1.5} />
-          <div className="cn-core-bars">
-            <i />
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-        </div>
-        <div className="cn-floating-node node-one">
-          <Target size={24} />
-        </div>
-        <div className="cn-floating-node node-two">
-          <Rocket size={24} />
-        </div>
-        <div className="cn-floating-node node-three">
-          <Zap size={24} />
-        </div>
-      </div>
-    ),
-
-    marketing: (
-      <div className="cn-vector-scene marketing-scene">
-        <div className="cn-marketing-ring ring-one" />
-        <div className="cn-marketing-ring ring-two" />
-        <div className="cn-vector-core">
-          <Megaphone size={62} strokeWidth={1.5} />
-          <div className="cn-signal signal-one" />
-          <div className="cn-signal signal-two" />
-          <div className="cn-signal signal-three" />
-        </div>
-        <div className="cn-floating-node node-one">
-          <Search size={23} />
-        </div>
-        <div className="cn-floating-node node-two">
-          <Sparkles size={23} />
-        </div>
-        <div className="cn-floating-node node-three">
-          <TrendingUp size={23} />
-        </div>
-      </div>
-    ),
-
-    analytics: (
-      <div className="cn-vector-scene analytics-scene">
-        <div className="cn-chart-grid">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="cn-chart-line">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="cn-vector-core">
-          <BarChart3 size={56} strokeWidth={1.5} />
-          <div className="cn-mini-chart">
-            <b />
-            <b />
-            <b />
-            <b />
-          </div>
-        </div>
-        <div className="cn-floating-node node-one">
-          <PieChart size={23} />
-        </div>
-        <div className="cn-floating-node node-two">
-          <Database size={23} />
-        </div>
-        <div className="cn-floating-node node-three">
-          <LineChart size={23} />
-        </div>
-      </div>
-    ),
-
-    technology: (
-      <div className="cn-vector-scene technology-scene">
-        <div className="cn-tech-network">
-          <span className="t1" />
-          <span className="t2" />
-          <span className="t3" />
-          <span className="t4" />
-          <span className="t5" />
-          <span className="t6" />
-        </div>
-        <div className="cn-vector-core">
-          <Code2 size={65} strokeWidth={1.5} />
-          <div className="cn-code-lines">
-            <i />
-            <i />
-            <i />
-          </div>
-        </div>
-        <div className="cn-floating-node node-one">
-          <Cpu size={23} />
-        </div>
-        <div className="cn-floating-node node-two">
-          <Network size={23} />
-        </div>
-        <div className="cn-floating-node node-three">
-          <ShieldCheck size={23} />
-        </div>
-      </div>
-    ),
-
-    career: (
-      <div className="cn-vector-scene career-scene">
-        <div className="cn-career-path">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="cn-vector-core">
-          <GraduationCap size={64} strokeWidth={1.5} />
-          <div className="cn-career-checks">
-            <i>
-              <CheckCircle2 size={16} />
-            </i>
-            <i>
-              <CheckCircle2 size={16} />
-            </i>
-            <i>
-              <CheckCircle2 size={16} />
-            </i>
-          </div>
-        </div>
-        <div className="cn-floating-node node-one">
-          <Lightbulb size={23} />
-        </div>
-        <div className="cn-floating-node node-two">
-          <BriefcaseBusiness size={23} />
-        </div>
-        <div className="cn-floating-node node-three">
-          <Rocket size={23} />
-        </div>
-      </div>
-    ),
+  const heroIds: Record<string, string> = {
+    growth: 'hero-growth', marketing: 'hero-marketing', analytics: 'hero-analytics',
+    technology: 'hero-technology', career: 'hero-career',
   };
-
   return (
-    <motion.div
-      className="cn-hero-visual"
-      initial={{ opacity: 0, scale: 0.94, x: 18 }}
-      animate={{ opacity: 1, scale: 1, x: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-    >
-      {visualMap[type]}
+    <motion.div className="cn-hero-visual" initial={{ opacity: 0, scale: .94, x: 18 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: .6, ease: 'easeOut' }}>
+      <AssetVisual id={heroIds[type] || 'hero-growth'} label={`${type} technology illustration`} className="cn-hero-asset" />
     </motion.div>
   );
 };
@@ -341,6 +203,10 @@ const ProcessSection = () => {
             >
               <div className="cn-process-icon">
                 <Icon size={25} />
+              </div>
+
+              <div className="cn-section-asset cn-process-asset" aria-hidden="true">
+                <AssetVisual id={`process-${['understand','plan','build','measure'][index]}`} />
               </div>
 
               <div className="cn-process-mini-visual" aria-hidden="true">
@@ -429,6 +295,7 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
               }}
             >
               <div className="cn-tool-visual" aria-hidden="true">
+                <AssetVisual id={`tool-${['analytics','marketing','engineering','career'][index]}`} className="cn-card-asset" />
                 <div className="cn-tool-visual-grid" />
                 <div className="cn-tool-visual-orbit" />
                 <div className="cn-tool-icon">
@@ -543,6 +410,7 @@ const OfferingsSection = ({
                 }}
               >
                 <div className="cn-offering-visual">
+                  <AssetVisual id={`expert-${['strategy','growth','technology','career','ai','communication'][index]}`} className="cn-card-asset" />
                   <div className="cn-offering-orbit" />
                   <div className="cn-offering-icon">
                     <Icon size={34} strokeWidth={1.7} />
@@ -654,74 +522,6 @@ const MetricsSection = () => {
    REVIEW AVATARS
 ========================================================= */
 
-const MaleAvatar = () => (
-  <svg
-    className="cn-avatar-svg"
-    viewBox="0 0 100 100"
-    aria-hidden="true"
-  >
-    <circle cx="50" cy="50" r="47" fill="url(#maleBg)" />
-    <circle cx="50" cy="40" r="22" fill="#f2b28e" />
-    <path
-      d="M28 39c1-20 14-29 25-29 14 0 25 10 27 28-9-7-17-11-29-10-7 1-14 5-23 11z"
-      fill="#24233a"
-    />
-    <path
-      d="M20 91c4-23 16-32 30-32s26 9 30 32"
-      fill="#3157c9"
-    />
-    <circle cx="42" cy="42" r="2" fill="#24233a" />
-    <circle cx="58" cy="42" r="2" fill="#24233a" />
-    <path
-      d="M44 51c4 3 8 3 12 0"
-      fill="none"
-      stroke="#a9574b"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <defs>
-      <linearGradient id="maleBg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#dfe8ff" />
-        <stop offset="100%" stopColor="#bcebe8" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
-
-const FemaleAvatar = () => (
-  <svg
-    className="cn-avatar-svg"
-    viewBox="0 0 100 100"
-    aria-hidden="true"
-  >
-    <circle cx="50" cy="50" r="47" fill="url(#femaleBg)" />
-    <circle cx="50" cy="42" r="21" fill="#efb08e" />
-    <path
-      d="M27 42c0-24 10-34 24-34 18 0 27 13 23 38-5-11-11-17-20-19-7 10-14 14-27 15z"
-      fill="#39233c"
-    />
-    <path
-      d="M20 91c3-22 15-31 30-31s27 9 30 31"
-      fill="#c82e75"
-    />
-    <circle cx="42" cy="43" r="2" fill="#39233c" />
-    <circle cx="58" cy="43" r="2" fill="#39233c" />
-    <path
-      d="M44 52c4 3 8 3 12 0"
-      fill="none"
-      stroke="#a9574b"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <defs>
-      <linearGradient id="femaleBg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#ffe5ef" />
-        <stop offset="100%" stopColor="#e4d9ff" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
-
 /* =========================================================
    REVIEWS
 ========================================================= */
@@ -787,7 +587,12 @@ const REVIEWS = [
    REVIEW CARD
 ========================================================= */
 
-const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => (
+const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
+  const avatarMap: Record<string, string> = {
+    'Aarav Mehta': 'avatar-m1', 'Riya Kapoor': 'avatar-f1', 'Karan Singh': 'avatar-m2',
+    'Ananya Sharma': 'avatar-f2', 'Vikram Rao': 'avatar-m3', 'Neha Verma': 'avatar-f3',
+  };
+  return (
   <motion.article
     className={`cn-review-card ${review.className}`}
     initial={{ opacity: 0, y: 15 }}
@@ -812,7 +617,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => (
 
     <div className="cn-review-person">
       <div className="cn-avatar">
-        {review.gender === 'male' ? <MaleAvatar /> : <FemaleAvatar />}
+        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} />
       </div>
 
       <div>
@@ -821,7 +626,8 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => (
       </div>
     </div>
   </motion.article>
-);
+  );
+};
 
 /* =========================================================
    REVIEWS SECTION
@@ -2802,7 +2608,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             animation: none !important;
           }
         }
-      `}</style>
+      `}        /* =================================================
+           SVG ASSET VISUALS
+        ================================================= */
+        .cn-asset-visual { width: 100%; height: 100%; display: block; overflow: visible; }
+        .cn-hero-asset { width: min(520px, 100%); height: 390px; filter: drop-shadow(0 24px 38px rgba(55,35,130,.22)); }
+        .cn-section-asset { width: 100%; height: 92px; margin: 0 0 10px; border-radius: 18px; overflow: hidden; }
+        .cn-process-asset { background: linear-gradient(135deg,rgba(99,102,241,.06),rgba(236,72,153,.06)); }
+        .cn-card-asset { position: absolute; inset: 0; width: 100%; height: 100%; padding: 4px; opacity: .96; pointer-events: none; }
+        .cn-tool-visual > .cn-card-asset, .cn-offering-visual > .cn-card-asset { z-index: 1; }
+        .cn-tool-visual-grid, .cn-tool-visual-orbit, .cn-tool-icon, .cn-tool-spark, .cn-offering-orbit, .cn-offering-icon, .cn-offering-particles { z-index: 2; }
+        .cn-avatar { width: 68px; height: 68px; flex: 0 0 68px; border-radius: 50%; overflow: hidden; background: #eef2ff; }
+        .cn-avatar .cn-asset-visual { width: 100%; height: 100%; transform: scale(1.12); transform-origin: center; }
+        @media (max-width: 640px) {
+          .cn-home { width: 100%; max-width: 100%; }
+          .cn-hero, .cn-section, .cn-metrics, .cn-reviews-section, .cn-final-cta { max-width: 100%; }
+          .cn-hero-asset { height: 285px; width: 100%; }
+          .cn-section-asset { height: 78px; }
+        }
+
+</style>
 
       <div className="cn-home">
         <SocialRail />
@@ -2932,3 +2757,5 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 };
 
 export default HomeView;
+
+
