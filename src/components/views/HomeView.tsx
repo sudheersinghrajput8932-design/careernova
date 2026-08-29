@@ -158,15 +158,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
         </div>
       </motion.section>
 
-      {/* Content Sections */}
+      {/* INFINITE SLIDING MARQUEE BANNER */}
+      <InfiniteMarqueeBanner />
+
+      {/* CONTENT SECTIONS & CORE EXPERTISE */}
       <div className="bg-gradient-to-b from-gray-50/50 via-white to-gray-50/80 space-y-28 py-16 rounded-3xl">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 tracking-wider uppercase mb-4 inline-block">
-              🚀 Strategic Growth & Expertise
+              🚀 Strategic Growth &amp; Expertise
             </span>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">
-              Accelerate Your Business & Career
+              Accelerate Your Business &amp; Career
             </h2>
             <p className="mt-4 text-lg text-gray-600 leading-relaxed">
               Explore our core consulting disciplines, high-conversion growth strategies, and advanced technical solutions.
@@ -192,7 +195,75 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
           </div>
         </section>
 
-        {/* Call to Action Banner */}
+        {/* CLIENT REVIEWS / TESTIMONIALS SECTION */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-violet-50 text-violet-600 border border-violet-100 tracking-wider uppercase mb-4 inline-block">
+              ⭐ Trusted by Leaders
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              What Professionals &amp; Founders Say
+            </h2>
+            <p className="mt-3 text-slate-600 text-sm sm:text-base">
+              Real feedback from users who accelerated their careers and scaled their businesses using our platform.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "CareerNova's financial and break-even calculators gave us absolute clarity on our startup's unit economics before our seed round.",
+                name: "Aarav Sharma",
+                role: "Tech Founder & CEO",
+                rating: 5,
+                badge: "Startup Founder"
+              },
+              {
+                quote: "The AI career roadmap and resume analyzer tools completely transformed my interview prep. Landed an SDE role at a top product company!",
+                name: "Priya Verma",
+                role: "Senior Software Engineer",
+                rating: 5,
+                badge: "Software Engineer"
+              },
+              {
+                quote: "Incredible suite of free tools. The cold email generator and strategic positioning templates saved our sales team dozens of hours.",
+                name: "Rohan Mehta",
+                role: "Growth & Marketing Lead",
+                rating: 5,
+                badge: "Growth Lead"
+              }
+            ].map((review, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6 relative hover:shadow-md transition-shadow">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
+                      {review.badge}
+                    </span>
+                  </div>
+                  <p className="text-slate-700 text-sm leading-relaxed italic">
+                    "{review.quote}"
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white font-bold flex items-center justify-center text-sm shadow-sm">
+                    {review.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">{review.name}</h4>
+                    <p className="text-xs text-slate-500">{review.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CALL TO ACTION BANNER */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
