@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { TabId, ToastMessage, UserProfile } from './types';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
-import { FloatingWidgets } from './components/common/FloatingWidgets';
 import { AIAssistantWidget } from './components/common/AIAssistantWidget';
 import { SocialProofToast } from './components/common/SocialProofToast';
 import { ToastContainer } from './components/common/Toast';
@@ -149,7 +148,6 @@ export default function App() {
       <Footer onNavigate={handleNavigate} />
 
       {/* Floating Widgets & Notifications */}
-      <FloatingWidgets onOpenCreator={() => setCreatorModalOpen(true)} />
       <AIAssistantWidget addToast={addToast} />
       <SocialProofToast />
       <ToastContainer toasts={toasts} removeToast={removeToast} />
