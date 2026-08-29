@@ -2627,7 +2627,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-section-asset { height: 78px; }
         }
 
-</style>
+      `}</style>
 
       <div className="cn-home">
         <SocialRail />
