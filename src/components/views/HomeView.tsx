@@ -2608,7 +2608,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             animation: none !important;
           }
         }
-      `}        /* =================================================
+        /* =================================================
            SVG ASSET VISUALS
         ================================================= */
         .cn-asset-visual { width: 100%; height: 100%; display: block; overflow: visible; }
