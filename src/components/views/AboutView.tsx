@@ -206,95 +206,67 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 4. Leadership & Engineering Specialists */}
-      <section className="space-y-6">
-        <div className="text-center space-y-1.5">
-          <div className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-wider text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
-            <Users className="w-3.5 h-3.5" />
-            <span>The People Behind CareerNova</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            Leadership &amp; Engineering Specialists
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-            Founders and engineers driving relentless innovation to deliver high-impact businesses for your journey.
-          </p>
-        </div>
+      <div className="space-y-6">
+  {/* Sudhir Singh Card */}
+  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div className="flex items-center gap-4">
+      <img src="/Sudhir.png" alt="Sudhir Singh" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
+      <div>
+        <h3 className="text-lg font-bold text-gray-900">Sudhir Singh</h3>
+        <p className="text-sm font-medium text-indigo-600">Master Architect & Chief Strategy Officer</p>
+      </div>
+    </div>
+    <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full">Overall Management & Growth</span>
+  </div>
+  <p className="text-gray-600 text-sm pl-2">
+    Driving high-impact business positioning, multi-channel customer acquisition funnel design, and strategic corporate roadmap execution to scale operations globally.
+  </p>
+  <div className="flex flex-wrap gap-2 pl-2">
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Growth Strategy</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Market Positioning</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Corporate Scaling</span>
+  </div>
 
-        <div className="space-y-5">
-          {specialists.map((specialist, idx) => (
-            <motion.div
-              key={specialist.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ ...smoothTransition, delay: idx * 0.1 }}
-              className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:shadow-md hover:border-indigo-500/50 transition-all duration-300 group"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center space-x-3.5">
-                  <div className={`w-13 h-13 ${specialist.avatarBg} text-white font-black rounded-2xl flex items-center justify-center text-lg shadow-md group-hover:scale-105 transition-transform duration-300`}>
-                    {specialist.initials}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-base sm:text-lg text-slate-900 group-hover:text-indigo-600 transition-colors">
-                      {specialist.name}
-                    </h3>
-                    <p className="text-xs text-indigo-600 font-semibold">
-                      {specialist.role}
-                    </p>
-                  </div>
-                </div>
-                <span className={`self-start sm:self-auto text-xs font-semibold px-3 py-1 rounded-full border ${specialist.badgeStyle}`}>
-                  {specialist.badge}
-                </span>
-              </div>
+  {/* Ashwani Kumar Card */}
+  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
+    <div className="flex items-center gap-4">
+      <img src="/Ashwani.png" alt="Ashwani Kumar" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
+      <div>
+        <h3 className="text-lg font-bold text-gray-900">Ashwani Kumar</h3>
+        <p className="text-sm font-medium text-purple-600">Principal Full-Stack & Cloud Specialist</p>
+      </div>
+    </div>
+    <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Full-Stack Architecture</span>
+  </div>
+  <p className="text-gray-600 text-sm pl-2">
+    Architecting high-performance, resilient end-to-end web applications with modern frameworks, containerized cloud infrastructure, and low-latency microservices.
+  </p>
+  <div className="flex flex-wrap gap-2 pl-2">
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Full-Stack Engineering</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Cloud & DevOps</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Scalable Backends</span>
+  </div>
 
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                {specialist.bio}
-              </p>
-
-              <div className="flex flex-wrap gap-2 pt-3 border-t border-slate-100">
-                {specialist.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[11px] bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-medium border border-slate-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. CTA Consult Banner */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={smoothTransition}
-        className="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 rounded-3xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between shadow-xl shadow-indigo-600/20 gap-5 sm:gap-6"
-      >
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shrink-0 border border-white/20">
-            <Headphones className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 className="font-bold text-base sm:text-lg">Ready to consult with our core team?</h3>
-            <p className="text-xs sm:text-sm text-indigo-100 mt-0.5">
-              Available for startup venture strategy, roadmap and tech architecture.
-            </p>
-          </div>
-        </div>
-        <button
-          onClick={() => onNavigate('contact')}
-          className="w-full sm:w-auto bg-white text-indigo-700 hover:bg-slate-100 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg transition-all hover:scale-105 active:scale-95 whitespace-nowrap cursor-pointer shrink-0"
-        >
-          Connect Team Directly
-        </button>
-      </motion.section>
+  {/* Ritesh Chaurasiya Card */}
+  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
+    <div className="flex items-center gap-4">
+      <img src="/Ritesh.png" alt="Ritesh Chaurasiya" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
+      <div>
+        <h3 className="text-lg font-bold text-gray-900">Ritesh Chaurasiya</h3>
+        <p className="text-sm font-medium text-emerald-600">Senior iOS & Mobile App Developer</p>
+      </div>
+    </div>
+    <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">Native iOS Developer</span>
+  </div>
+  <p className="text-gray-600 text-sm pl-2">
+    Crafting fluid, high-performance native iOS experiences with Swift, seamless human-interface guidelines compliance, and complex device-level API integrations.
+  </p>
+  <div className="flex flex-wrap gap-2 pl-2">
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Swift & SwiftUI</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Native iOS APIs</span>
+    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">App Performance</span>
+  </div>
+</div>
     </div>
   );
 };
