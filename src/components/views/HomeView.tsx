@@ -927,7 +927,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
-    }, 4000);
+    }, 2500);
 
     return () => window.clearInterval(timer);
   }, []);
@@ -2740,6 +2740,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           height: 100%;
           display: block;
           filter: drop-shadow(0 9px 13px rgba(31,41,91,.13));
+        }
+
+        /* ================= LEGACY HERO VISUAL SAFETY ================= */
+        /* The old floating metric artwork is intentionally disabled.
+           The hero renders only TechVectorVisual. */
+        .cn-home .cn-floating-card,
+        .cn-home .cn-growth-core,
+        .cn-home .cn-marketing-core,
+        .cn-home .cn-business-core,
+        .cn-home .cn-tech-core,
+        .cn-home .cn-orbit,
+        .cn-home .cn-marketing-ring,
+        .cn-home .cn-career-line,
+        .cn-home .cn-tech-network {
+          display: none !important;
         }
 
         /* ================= RESPONSIVE ================= */
