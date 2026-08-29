@@ -1,261 +1,134 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Sparkles,
+  ArrowRight,
+  Bot,
+  Star,
+  MessageCircle,
+  Mail,
+  Phone,
+  Linkedin,
+  Instagram,
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  Target,
+  Rocket,
+  BarChart3,
+  BriefcaseBusiness,
+  GraduationCap,
+  Code2,
+  LineChart,
+  Users,
+  Zap,
+  CheckCircle2,
+  ShieldCheck,
+  Calculator,
+  FileText,
+  PieChart,
+  Brain,
+  Globe2,
+  Layers3,
+} from 'lucide-react';
+
+import { TabId } from '../../types';
+import { ParticleMeshCanvas } from '../home/ParticleMeshCanvas';
+import { openAiAssistant } from '../../utils/aiAssistantTrigger';
+
+interface HomeViewProps {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+  onOpenAuth?: () => void;
+}
+
+/* =========================================================
+   HERO SLIDES
+========================================================= */
 
 type HeroSlide = {
+  id: string;
   eyebrow: string;
   title: React.ReactNode;
   description: string;
-  metricA: string;
-  metricALabel: string;
-  metricB: string;
-  metricBLabel: string;
-  metricC: string;
-  metricCLabel: string;
-  metricD: string;
-  metricDLabel: string;
-  theme: string;
+  visual: 'growth' | 'marketing' | 'career' | 'business' | 'technology';
 };
 
 const HERO_SLIDES: HeroSlide[] = [
   {
-    eyebrow: "CAREER & STUDENT ENGINE",
+    id: 'growth',
+    eyebrow: 'CAREERNOVA GROWTH ENGINE',
     title: (
       <>
-        Turn Your Skills Into A{" "}
-        <span className="cn-gradient-text">Stronger Career.</span>
+        Turn Skills, Strategy &amp; Technology Into{' '}
+        <span className="cn-hero-gradient">Leadership.</span>
       </>
     ),
     description:
-      "Use practical career tools, skill planning, resume guidance, assessments, and structured roadmaps to move from learning to opportunity.",
-    metricA: "92%",
-    metricALabel: "Skill Score",
-    metricB: "Excellent",
-    metricBLabel: "Career Match",
-    metricC: "100+",
-    metricCLabel: "Tools & Frameworks",
-    metricD: "4.9/5",
-    metricDLabel: "Client Rating",
-    theme: "career",
+      'Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to measurable execution.',
+    visual: 'growth',
   },
   {
-    eyebrow: "BUSINESS STRATEGY ENGINE",
+    id: 'marketing',
+    eyebrow: 'DIGITAL MARKETING & GROWTH',
     title: (
       <>
-        Transform Business Ideas Into{" "}
-        <span className="cn-gradient-text">Measurable Growth.</span>
+        Turn Attention Into{' '}
+        <span className="cn-hero-gradient">Measurable Growth.</span>
       </>
     ),
     description:
-      "Turn business challenges into practical strategy, analytics, digital execution, and measurable growth frameworks.",
-    metricA: "500+",
-    metricALabel: "Happy Clients",
-    metricB: "13+",
-    metricBLabel: "Expertise Areas",
-    metricC: "25+",
-    metricCLabel: "Markets Reached",
-    metricD: "4.9/5",
-    metricDLabel: "Client Rating",
-    theme: "business",
+      'Build smarter campaigns, understand audiences, improve conversion journeys, and create practical growth systems for modern businesses.',
+    visual: 'marketing',
   },
   {
-    eyebrow: "SKILLS • STRATEGY • TECHNOLOGY",
+    id: 'career',
+    eyebrow: 'CAREER & STUDENT ENGINE',
     title: (
       <>
-        Turn Skills, Strategy & Technology Into{" "}
-        <span className="cn-gradient-text">Leadership.</span>
+        Turn Your Skills Into A{' '}
+        <span className="cn-hero-gradient">Stronger Career.</span>
       </>
     ),
     description:
-      "Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems.",
-    metricA: "100+",
-    metricALabel: "Tools",
-    metricB: "13+",
-    metricBLabel: "Expertise Areas",
-    metricC: "500+",
-    metricCLabel: "Clients",
-    metricD: "4.9/5",
-    metricDLabel: "Rating",
-    theme: "leadership",
+      'Use practical career tools, skill planning, resume guidance, assessments, and structured roadmaps to move from learning to opportunity.',
+    visual: 'career',
+  },
+  {
+    id: 'business',
+    eyebrow: 'BUSINESS ANALYTICS & STRATEGY',
+    title: (
+      <>
+        Transform Business Ideas Into{' '}
+        <span className="cn-hero-gradient">Measurable Results.</span>
+      </>
+    ),
+    description:
+      'Connect analytics, financial planning, market positioning, revenue strategy, and execution into one practical growth framework.',
+    visual: 'business',
+  },
+  {
+    id: 'technology',
+    eyebrow: 'ENGINEERING & TECHNOLOGY',
+    title: (
+      <>
+        Build Digital Products That{' '}
+        <span className="cn-hero-gradient">Scale With Confidence.</span>
+      </>
+    ),
+    description:
+      'From web and mobile products to APIs, cloud systems and AI workflows — turn technical ideas into reliable digital experiences.',
+    visual: 'technology',
   },
 ];
 
-const REVIEWS = [
-  {
-    quote:
-      "CareerNova helped me turn scattered skills into a clear career direction. The tools and guidance were practical and easy to act on.",
-    name: "CareerNova User",
-    role: "Student & Career Builder",
-    rating: "5.0",
-  },
-  {
-    quote:
-      "The financial modelling and business guidance made complicated decisions much easier to understand and execute.",
-    name: "CareerNova Client",
-    role: "Business Professional",
-    rating: "4.9",
-  },
-  {
-    quote:
-      "The resume, career and skill-planning approach feels much more practical than generic career advice.",
-    name: "CareerNova Member",
-    role: "Working Professional",
-    rating: "5.0",
-  },
-];
+/* =========================================================
+   SOCIAL RAIL
+   IMPORTANT: NO LEFT SUPPORT BUTTON
+========================================================= */
 
-const CORE_EXPERTISE = [
-  {
-    number: "01",
-    title: "Business Analytics",
-    subtitle: "Data → Decisions",
-    description:
-      "Financial modelling, BI dashboards, forecasting, KPI analysis and data-driven business decisions.",
-    className: "orange",
-  },
-  {
-    number: "02",
-    title: "Financial Modelling",
-    subtitle: "Numbers → Strategy",
-    description:
-      "Valuation, forecasting, scenario analysis, financial planning and decision-ready models.",
-    className: "purple",
-  },
-  {
-    number: "03",
-    title: "Digital Marketing",
-    subtitle: "Reach → Growth",
-    description:
-      "Campaign strategy, content systems, funnels, audience growth and digital positioning.",
-    className: "blue",
-  },
-  {
-    number: "04",
-    title: "Engineering & Technology",
-    subtitle: "Build → Scale",
-    description:
-      "Web, mobile, cloud, APIs and scalable digital product development.",
-    className: "green",
-  },
-  {
-    number: "05",
-    title: "Career & Student Tools",
-    subtitle: "Skills → Opportunity",
-    description:
-      "Resume tools, mock tests, career guidance, skill planning and practical learning resources.",
-    className: "pink",
-  },
-];
-
-const TOOL_CAPABILITIES = [
-  {
-    icon: "▥",
-    title: "Excel & Financial Models",
-    text: "Advanced Excel, financial modelling, forecasting and valuation workflows.",
-    className: "tool-purple",
-  },
-  {
-    icon: "◫",
-    title: "BI & Analytics",
-    text: "Dashboards, KPI tracking, business intelligence and decision analytics.",
-    className: "tool-blue",
-  },
-  {
-    icon: "</>",
-    title: "Web & APIs",
-    text: "Modern web interfaces, APIs, integrations and scalable digital systems.",
-    className: "tool-indigo",
-  },
-  {
-    icon: "↗",
-    title: "Marketing Frameworks",
-    text: "Campaign planning, funnels, content strategy and growth frameworks.",
-    className: "tool-pink",
-  },
-  {
-    icon: "◎",
-    title: "Career Assessment",
-    text: "Resume analysis, skill assessment, mock tests and career planning tools.",
-    className: "tool-green",
-  },
-  {
-    icon: "◆",
-    title: "AI-Powered Tools",
-    text: "Practical AI workflows for productivity, research and career growth.",
-    className: "tool-cyan",
-  },
-];
-
-const PROCESS = [
-  {
-    number: "01",
-    icon: "✦",
-    title: "Ideate",
-    text: "We understand your challenge and identify the right opportunity.",
-  },
-  {
-    number: "02",
-    icon: "□",
-    title: "Plan",
-    text: "We design a practical strategy and actionable roadmap.",
-  },
-  {
-    number: "03",
-    icon: "</>",
-    title: "Build",
-    text: "We build, integrate and implement with speed and precision.",
-  },
-  {
-    number: "04",
-    icon: "↗",
-    title: "Measure",
-    text: "We track results, optimize continuously and drive sustainable growth.",
-  },
-];
-
-function ArrowIcon({ direction = "right" }: { direction?: "left" | "right" }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="18"
-      height="18"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {direction === "right" ? (
-        <>
-          <path d="M5 12h14" />
-          <path d="m13 6 6 6-6 6" />
-        </>
-      ) : (
-        <>
-          <path d="M19 12H5" />
-          <path d="m11 18-6-6 6-6" />
-        </>
-      )}
-    </svg>
-  );
-}
-
-function StarIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="18"
-      height="18"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="m12 2.8 2.82 5.72 6.31.92-4.56 4.45 1.08 6.29L12 17.2l-5.65 2.98 1.08-6.29-4.56-4.45 6.31-.92L12 2.8Z" />
-    </svg>
-  );
-}
-
-function SocialRail() {
+const CareerNovaSocialRail = () => {
   const whatsappMessage = encodeURIComponent(
-    "Hi Sudhir! I would like to discuss a CareerNova consultation."
+    'Hi Sudhir! I would like to discuss a CareerNova consultation.'
   );
 
   return (
@@ -268,9 +141,7 @@ function SocialRail() {
         aria-label="WhatsApp"
         title="WhatsApp"
       >
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.4-1.6a11.8 11.8 0 0 0 5.5 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4ZM12.1 21.7a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.9 9.8Zm5.4-7.4c-.3-.1-1.8-.9-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z" />
-        </svg>
+        <MessageCircle />
       </a>
 
       <a
@@ -279,10 +150,7 @@ function SocialRail() {
         aria-label="Email"
         title="Email"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="m3 7 9 6 9-6" />
-        </svg>
+        <Mail />
       </a>
 
       <a
@@ -291,9 +159,7 @@ function SocialRail() {
         aria-label="Call"
         title="Call"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 11.2 19a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.7.5 2.6.6a2 2 0 0 1 2 2.4Z" />
-        </svg>
+        <Phone />
       </a>
 
       <a
@@ -304,9 +170,7 @@ function SocialRail() {
         aria-label="LinkedIn"
         title="LinkedIn"
       >
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M5 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.6h.1c.5-1 1.8-2 3.7-2 4 0 4.8 2.6 4.8 6.1V21h-4v-5.6c0-1.3 0-3.1-1.9-3.1-1.8 0-2.1 1.5-2.1 3V21H9V9Z" />
-        </svg>
+        <Linkedin />
       </a>
 
       <a
@@ -317,1457 +181,742 @@ function SocialRail() {
         aria-label="Instagram"
         title="Instagram"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="3" y="3" width="18" height="18" rx="5" />
-          <circle cx="12" cy="12" r="4" />
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-        </svg>
+        <Instagram />
       </a>
     </div>
   );
-}
+};
 
-function GrowthGraph() {
-  const graphSteps = [
+/* =========================================================
+   HERO VISUAL 01 — GROWTH
+========================================================= */
+
+const GrowthVisual = () => (
+  <div className="cn-visual">
+    <div className="cn-orbit cn-orbit-a" />
+    <div className="cn-orbit cn-orbit-b" />
+    <div className="cn-orbit cn-orbit-c" />
+
+    <motion.div
+      className="cn-growth-core"
+      animate={{ y: [0, -9, 0] }}
+      transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <TrendingUp />
+      <span>GROWTH</span>
+      <strong>ENGINE</strong>
+    </motion.div>
+
+    <div className="cn-floating-card cn-fc-top-left">
+      <span>Revenue Growth</span>
+      <strong>+42.8%</strong>
+      <div className="cn-mini-bars">
+        {[35, 48, 42, 65, 58, 82, 96].map((h, i) => (
+          <i key={i} style={{ height: `${h}%` }} />
+        ))}
+      </div>
+    </div>
+
+    <div className="cn-floating-card cn-fc-top-right">
+      <span>Business Analytics</span>
+      <LineChart />
+      <strong>94.6</strong>
+      <small>Strategy Score</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-left">
+      <span>Market Position</span>
+      <div className="cn-progress">
+        <i style={{ width: '82%' }} />
+      </div>
+      <strong>82%</strong>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-right">
+      <span>Execution</span>
+      <CheckCircle2 />
+      <strong>On Track</strong>
+    </div>
+  </div>
+);
+
+/* =========================================================
+   HERO VISUAL 02 — MARKETING
+========================================================= */
+
+const MarketingVisual = () => (
+  <div className="cn-visual">
+    <div className="cn-marketing-ring ring-1" />
+    <div className="cn-marketing-ring ring-2" />
+    <div className="cn-marketing-ring ring-3" />
+
+    <motion.div
+      className="cn-marketing-core"
+      animate={{ scale: [1, 1.04, 1] }}
+      transition={{ duration: 3, repeat: Infinity }}
+    >
+      <Target />
+      <strong>78%</strong>
+      <span>CONVERSION</span>
+    </motion.div>
+
+    <div className="cn-floating-card cn-fc-top-left">
+      <span>Campaign Reach</span>
+      <strong>1.8M</strong>
+      <div className="cn-mini-bars">
+        {[25, 45, 35, 60, 75, 62, 90].map((h, i) => (
+          <i key={i} style={{ height: `${h}%` }} />
+        ))}
+      </div>
+    </div>
+
+    <div className="cn-floating-card cn-fc-top-right">
+      <span>Campaign ROI</span>
+      <strong>4.6x</strong>
+      <small>Return Generated</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-left">
+      <span>Lead Quality</span>
+      <strong>Excellent</strong>
+      <div className="cn-progress">
+        <i style={{ width: '91%' }} />
+      </div>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-right">
+      <span>Growth Funnel</span>
+      <BarChart3 />
+      <strong>+36%</strong>
+    </div>
+  </div>
+);
+
+/* =========================================================
+   HERO VISUAL 03 — CAREER
+========================================================= */
+
+const CareerVisual = () => (
+  <div className="cn-visual">
+    <div className="cn-career-line" />
+
+    {[
+      { icon: <GraduationCap />, title: 'Learn', sub: 'Skills' },
+      { icon: <Code2 />, title: 'Build', sub: 'Projects' },
+      { icon: <CheckCircle2 />, title: 'Prove', sub: 'Ability' },
+      { icon: <Rocket />, title: 'Launch', sub: 'Career' },
+    ].map((item, index) => (
+      <motion.div
+        key={item.title}
+        className="cn-career-node"
+        style={{ left: `${5 + index * 24}%` }}
+        animate={{ y: [0, -8, 0] }}
+        transition={{
+          duration: 3 + index * 0.25,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <small>0{index + 1}</small>
+        <div>{item.icon}</div>
+        <strong>{item.title}</strong>
+        <span>{item.sub}</span>
+      </motion.div>
+    ))}
+
+    <div className="cn-floating-card cn-fc-top-left">
+      <span>Skill Score</span>
+      <strong>92%</strong>
+      <div className="cn-progress">
+        <i style={{ width: '92%' }} />
+      </div>
+    </div>
+
+    <div className="cn-floating-card cn-fc-top-right">
+      <span>Career Match</span>
+      <strong>Excellent</strong>
+      <small>Profile Alignment</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-left">
+      <span>Resume Strength</span>
+      <strong>88/100</strong>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-right">
+      <span>Interview Ready</span>
+      <CheckCircle2 />
+      <strong>Ready</strong>
+    </div>
+  </div>
+);
+
+/* =========================================================
+   HERO VISUAL 04 — BUSINESS
+========================================================= */
+
+const BusinessVisual = () => (
+  <div className="cn-visual">
+    <div className="cn-business-grid" />
+
+    <motion.div
+      className="cn-business-core"
+      animate={{ rotate: [0, 3, -3, 0] }}
+      transition={{ duration: 5, repeat: Infinity }}
+    >
+      <PieChart />
+      <strong>BUSINESS</strong>
+      <span>INTELLIGENCE</span>
+    </motion.div>
+
+    <div className="cn-floating-card cn-fc-top-left">
+      <span>Profitability</span>
+      <strong>+31.4%</strong>
+      <small>Improvement</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-top-right">
+      <span>Forecast</span>
+      <LineChart />
+      <strong>96%</strong>
+      <small>Confidence</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-left">
+      <span>Financial Model</span>
+      <Calculator />
+      <strong>Optimized</strong>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-right">
+      <span>Strategy</span>
+      <Target />
+      <strong>Focused</strong>
+    </div>
+  </div>
+);
+
+/* =========================================================
+   HERO VISUAL 05 — TECHNOLOGY
+========================================================= */
+
+const TechnologyVisual = () => (
+  <div className="cn-visual">
+    <div className="cn-tech-network">
+      {Array.from({ length: 12 }).map((_, index) => (
+        <span
+          key={index}
+          style={{
+            left: `${10 + ((index * 17) % 80)}%`,
+            top: `${12 + ((index * 23) % 72)}%`,
+          }}
+        />
+      ))}
+    </div>
+
+    <motion.div
+      className="cn-tech-core"
+      animate={{ y: [0, -8, 0] }}
+      transition={{ duration: 3.2, repeat: Infinity }}
+    >
+      <Code2 />
+      <strong>BUILD</strong>
+      <span>→ SCALE</span>
+    </motion.div>
+
+    <div className="cn-floating-card cn-fc-top-left">
+      <span>API Health</span>
+      <strong>99.9%</strong>
+      <small>Operational</small>
+    </div>
+
+    <div className="cn-floating-card cn-fc-top-right">
+      <span>Cloud Systems</span>
+      <Globe2 />
+      <strong>Stable</strong>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-left">
+      <span>AI Workflow</span>
+      <Brain />
+      <strong>Active</strong>
+    </div>
+
+    <div className="cn-floating-card cn-fc-bottom-right">
+      <span>Deployment</span>
+      <Rocket />
+      <strong>Ready</strong>
+    </div>
+  </div>
+);
+
+const HeroVisual = ({ type }: { type: HeroSlide['visual'] }) => {
+  switch (type) {
+    case 'marketing':
+      return <MarketingVisual />;
+    case 'career':
+      return <CareerVisual />;
+    case 'business':
+      return <BusinessVisual />;
+    case 'technology':
+      return <TechnologyVisual />;
+    default:
+      return <GrowthVisual />;
+  }
+};
+
+/* =========================================================
+   PROCESS / INFOGRAPHIC
+========================================================= */
+
+const ProcessSection = ({
+  onNavigate,
+}: {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+}) => {
+  const steps = [
     {
-      number: "01",
-      title: "Discover",
-      label: "Identify",
-      icon: "⌕",
-      className: "graph-orange",
+      number: '01',
+      title: 'Ideate',
+      icon: <Sparkles />,
+      text: 'Understand the challenge, define the goal and identify the highest-impact opportunity.',
     },
     {
-      number: "02",
-      title: "Strategize",
-      label: "Plan",
-      icon: "✦",
-      className: "graph-purple",
+      number: '02',
+      title: 'Plan',
+      icon: <Target />,
+      text: 'Convert the idea into a practical strategy, roadmap and measurable execution plan.',
     },
     {
-      number: "03",
-      title: "Build",
-      label: "Execute",
-      icon: "</>",
-      className: "graph-blue",
+      number: '03',
+      title: 'Build',
+      icon: <Code2 />,
+      text: 'Build tools, systems, campaigns and digital experiences with speed and precision.',
     },
     {
-      number: "04",
-      title: "Optimize",
-      label: "Improve",
-      icon: "✓",
-      className: "graph-green",
-    },
-    {
-      number: "05",
-      title: "Grow",
-      label: "Scale",
-      icon: "↗",
-      className: "graph-pink",
+      number: '04',
+      title: 'Measure',
+      icon: <TrendingUp />,
+      text: 'Track performance, learn from data and continuously optimize for sustainable growth.',
     },
   ];
 
   return (
-    <section className="cn-growth-graph">
-      <div className="cn-section-kicker">CAREERNOVA GROWTH ENGINE</div>
-      <h2>From Idea to Measurable Impact</h2>
-      <p>
-        A connected approach that moves from discovery and strategy to
-        execution, optimization and sustainable growth.
-      </p>
+    <section className="cn-impact-section">
+      <div className="cn-impact-header">
+        <span>HOW WE CREATE IMPACT</span>
+        <h2>From Idea to Measurable Impact</h2>
+        <p>
+          A simple four-stage framework that turns ideas into practical,
+          trackable outcomes.
+        </p>
+      </div>
 
-      <div className="cn-graph-track">
-        <div className="cn-graph-line" />
+      <div className="cn-impact-infographic">
+        <div className="cn-impact-connector" />
 
-        {graphSteps.map((step) => (
-          <div className="cn-graph-step" key={step.number}>
-            <div className={`cn-graph-number ${step.className}`}>
-              {step.number}
+        {steps.map((step, index) => (
+          <motion.div
+            key={step.number}
+            className="cn-impact-step"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className={`cn-impact-icon impact-${index + 1}`}>
+              {step.icon}
             </div>
 
-            <div className={`cn-graph-node ${step.className}`}>
-              <span>{step.icon}</span>
-            </div>
+            <span className="cn-impact-number">{step.number}</span>
 
             <h3>{step.title}</h3>
-            <span className="cn-graph-label">{step.label}</span>
-          </div>
+
+            <p>{step.text}</p>
+
+            {index < steps.length - 1 && (
+              <ArrowRight className="cn-impact-arrow" />
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="cn-impact-bottom">
+        <div>
+          <span>MEASURE WHAT MATTERS</span>
+          <strong>Strategy → Execution → Learning → Growth</strong>
+        </div>
+
+        <button onClick={() => onNavigate('tools')}>
+          Explore Tools <ArrowRight />
+        </button>
+      </div>
+    </section>
+  );
+};
+
+/* =========================================================
+   WHAT WE DO BEST — TOOLS
+========================================================= */
+
+const ToolsSection = ({
+  onNavigate,
+}: {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+}) => {
+  const tools = [
+    {
+      title: 'Excel & Financial Models',
+      text: 'Advanced Excel workflows, financial modelling, forecasting and decision-support tools.',
+      icon: <Calculator />,
+      gradient: 'from-emerald-500 to-green-600',
+      tab: 'tools' as TabId,
+    },
+    {
+      title: 'Business Analytics',
+      text: 'Dashboards, KPI analysis, business intelligence and practical data-driven insights.',
+      icon: <BarChart3 />,
+      gradient: 'from-indigo-500 to-blue-600',
+      tab: 'business' as TabId,
+    },
+    {
+      title: 'Web & API Tools',
+      text: 'Web development, APIs, integrations and digital systems designed for real-world use.',
+      icon: <Code2 />,
+      gradient: 'from-violet-500 to-purple-600',
+      tab: 'tools' as TabId,
+    },
+    {
+      title: 'Marketing Frameworks',
+      text: 'Campaign planning, funnels, content systems, outreach and growth strategy.',
+      icon: <Target />,
+      gradient: 'from-pink-500 to-rose-600',
+      tab: 'business' as TabId,
+    },
+    {
+      title: 'Career Assessment',
+      text: 'Resume analysis, skill assessment, career guidance and structured planning.',
+      icon: <GraduationCap />,
+      gradient: 'from-cyan-500 to-blue-600',
+      tab: 'career' as TabId,
+    },
+    {
+      title: 'AI-Powered Tools',
+      text: 'AI workflows for productivity, research, career development and business growth.',
+      icon: <Brain />,
+      gradient: 'from-fuchsia-500 to-violet-600',
+      tab: 'tools' as TabId,
+    },
+  ];
+
+  return (
+    <section className="cn-tools-section">
+      <div className="cn-section-heading-center">
+        <span>OUR TOOL ECOSYSTEM</span>
+        <h2>What We Do Best</h2>
+        <p>
+          Practical tools and frameworks to help you learn, build, analyze and
+          grow.
+        </p>
+      </div>
+
+      <div className="cn-tools-grid">
+        {tools.map((tool, index) => (
+          <motion.button
+            key={tool.title}
+            className="cn-tool-card"
+            onClick={() => onNavigate(tool.tab)}
+            whileHover={{
+              y: -8,
+              rotateX: 3,
+              rotateY: index % 2 === 0 ? 2 : -2,
+            }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className={`cn-tool-icon bg-gradient-to-br ${tool.gradient}`}>
+              {tool.icon}
+            </div>
+
+            <h3>{tool.title}</h3>
+            <p>{tool.text}</p>
+
+            <span>
+              Explore <ArrowRight />
+            </span>
+          </motion.button>
         ))}
       </div>
     </section>
   );
-}
+};
 
-function HomeStyles() {
+/* =========================================================
+   CORE EXPERTISE / OUR OFFERINGS
+========================================================= */
+
+const OfferingsSection = ({
+  onNavigate,
+}: {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+}) => {
+  const offerings = [
+    {
+      number: '01',
+      title: 'Business Analytics',
+      subtitle: 'Data → Decisions',
+      text: 'Financial analysis, BI dashboards, forecasting, KPI systems and practical business intelligence.',
+      icon: <BarChart3 />,
+      color: 'amber',
+      tab: 'business' as TabId,
+      sub: 'strategy',
+    },
+    {
+      number: '02',
+      title: 'Financial Modelling',
+      subtitle: 'Numbers → Strategy',
+      text: 'Financial models, scenario planning, valuation thinking, break-even analysis and forecasting.',
+      icon: <Calculator />,
+      color: 'pink',
+      tab: 'tools' as TabId,
+      sub: 'break-even',
+    },
+    {
+      number: '03',
+      title: 'Digital Marketing',
+      subtitle: 'Reach → Growth',
+      text: 'Campaign strategy, content systems, funnels, outreach and measurable digital growth.',
+      icon: <Target />,
+      color: 'blue',
+      tab: 'business' as TabId,
+      sub: 'cold-email',
+    },
+    {
+      number: '04',
+      title: 'Engineering & Tech',
+      subtitle: 'Build → Scale',
+      text: 'Web, mobile, APIs, cloud integrations, automation and scalable digital product development.',
+      icon: <Code2 />,
+      color: 'green',
+      tab: 'career' as TabId,
+      sub: 'roadmap-guide',
+    },
+    {
+      number: '05',
+      title: 'Career & Student Tools',
+      subtitle: 'Skills → Opportunity',
+      text: 'Resume tools, assessments, career planning, mock tests and structured learning guidance.',
+      icon: <GraduationCap />,
+      color: 'purple',
+      tab: 'career' as TabId,
+      sub: 'roadmap-guide',
+    },
+    {
+      number: '06',
+      title: 'AI & Automation',
+      subtitle: 'Ideas → Intelligence',
+      text: 'AI-assisted workflows, productivity systems, intelligent analysis and practical automation.',
+      icon: <Brain />,
+      color: 'cyan',
+      tab: 'tools' as TabId,
+    },
+  ];
+
   return (
-    <style>{`
-      .cn-home {
-        --cn-purple: #5b2cff;
-        --cn-purple-2: #8b3dff;
-        --cn-blue: #246bff;
-        --cn-green: #12b981;
-        --cn-text: #111936;
-        --cn-muted: #607096;
-        --cn-border: #e5e8f3;
-        width: 100%;
-        overflow: hidden;
-        background:
-          radial-gradient(circle at 15% 15%, rgba(105,72,255,.08), transparent 28%),
-          radial-gradient(circle at 90% 45%, rgba(64,132,255,.06), transparent 25%),
-          #f8f9fd;
-        color: var(--cn-text);
-      }
-
-      .cn-home *,
-      .cn-home *::before,
-      .cn-home *::after {
-        box-sizing: border-box;
-      }
-
-      .cn-container {
-        width: min(1240px, calc(100% - 36px));
-        margin: 0 auto;
-      }
-
-      /* -------------------------------------------------
-         SOCIAL RAIL
-      ------------------------------------------------- */
-
-      .cn-social-rail {
-        position: fixed;
-        right: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .cn-social-item {
-        width: 48px;
-        height: 48px;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        text-decoration: none;
-        box-shadow: 0 12px 28px rgba(30, 36, 75, .20);
-        transition: transform .25s ease, box-shadow .25s ease;
-      }
-
-      .cn-social-item:hover {
-        transform: translateX(-5px) scale(1.05);
-        box-shadow: 0 16px 34px rgba(30, 36, 75, .28);
-      }
-
-      .cn-social-item svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      .cn-social-whatsapp {
-        background: linear-gradient(145deg, #25d366, #11a66a);
-      }
-
-      .cn-social-email {
-        background: linear-gradient(145deg, #6250ff, #4930d9);
-      }
-
-      .cn-social-call {
-        background: linear-gradient(145deg, #8439ed, #5420bc);
-      }
-
-      .cn-social-linkedin {
-        background: linear-gradient(145deg, #1685d5, #0759a7);
-      }
-
-      .cn-social-instagram {
-        background: linear-gradient(145deg, #833ab4, #e1306c, #fcb045);
-      }
-
-      /* IMPORTANT:
-         No left-side support button is rendered anywhere.
-      */
-
-      /* -------------------------------------------------
-         HERO
-      ------------------------------------------------- */
-
-      .cn-hero-wrap {
-        padding: 20px 0 0;
-      }
-
-      .cn-hero {
-        position: relative;
-        min-height: 500px;
-        border-radius: 28px;
-        overflow: hidden;
-        background:
-          radial-gradient(circle at 72% 50%, rgba(123,58,255,.30), transparent 23%),
-          radial-gradient(circle at 92% 15%, rgba(42,104,255,.20), transparent 24%),
-          linear-gradient(115deg, #080b2d 0%, #0d0b3e 52%, #16104c 100%);
-        border: 1px solid rgba(125, 91, 255, .55);
-        box-shadow: 0 24px 70px rgba(39, 31, 108, .20);
-      }
-
-      .cn-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: .30;
-        background-image:
-          linear-gradient(rgba(143, 110, 255, .08) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(143, 110, 255, .08) 1px, transparent 1px);
-        background-size: 46px 46px;
-        pointer-events: none;
-      }
-
-      .cn-hero::after {
-        content: "";
-        position: absolute;
-        width: 560px;
-        height: 560px;
-        right: 5%;
-        top: -160px;
-        border-radius: 50%;
-        border: 1px solid rgba(154, 117, 255, .13);
-        box-shadow:
-          0 0 0 70px rgba(125, 78, 255, .035),
-          0 0 0 140px rgba(125, 78, 255, .025);
-        pointer-events: none;
-      }
-
-      .cn-hero-content {
-        position: relative;
-        z-index: 4;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(380px, .92fr);
-        gap: 30px;
-        padding: 54px 52px 42px;
-        min-height: 500px;
-        align-items: center;
-      }
-
-      .cn-hero-copy {
-        max-width: 650px;
-      }
-
-      .cn-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 15px;
-        border: 1px solid rgba(155, 117, 255, .35);
-        background: rgba(91, 44, 255, .12);
-        color: #d9ccff;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: .08em;
-      }
-
-      .cn-hero h1 {
-        margin: 23px 0 17px;
-        max-width: 670px;
-        color: #fff;
-        font-size: clamp(42px, 5vw, 67px);
-        line-height: .98;
-        letter-spacing: -2.7px;
-        font-weight: 850;
-      }
-
-      .cn-gradient-text {
-        background: linear-gradient(100deg, #713cff, #d447ff);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .cn-hero-description {
-        max-width: 600px;
-        margin: 0;
-        color: #c7cbe2;
-        font-size: 16px;
-        line-height: 1.75;
-      }
-
-      .cn-hero-actions {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-        margin-top: 27px;
-      }
-
-      .cn-btn {
-        min-height: 46px;
-        border-radius: 13px;
-        padding: 0 20px;
-        border: 1px solid transparent;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        text-decoration: none;
-        font-weight: 800;
-        font-size: 13px;
-        cursor: pointer;
-        transition: transform .25s ease, box-shadow .25s ease;
-      }
-
-      .cn-btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .cn-btn-primary {
-        color: #fff;
-        background: linear-gradient(135deg, #6530ff, #9a3cff);
-        box-shadow: 0 12px 30px rgba(111, 47, 255, .35);
-      }
-
-      .cn-btn-secondary {
-        color: #fff;
-        border-color: rgba(255,255,255,.28);
-        background: rgba(255,255,255,.055);
-      }
-
-      .cn-hero-metrics {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0;
-        margin-top: 31px;
-      }
-
-      .cn-metric {
-        min-width: 120px;
-        padding: 0 18px;
-        border-right: 1px solid rgba(255,255,255,.18);
-      }
-
-      .cn-metric:first-child {
-        padding-left: 0;
-      }
-
-      .cn-metric:last-child {
-        border-right: 0;
-      }
-
-      .cn-metric-value {
-        display: block;
-        color: #fff;
-        font-size: 21px;
-        font-weight: 850;
-      }
-
-      .cn-metric-label {
-        display: block;
-        margin-top: 4px;
-        color: #9da5c4;
-        font-size: 10px;
-      }
-
-      /* Hero visual */
-
-      .cn-hero-visual {
-        position: relative;
-        min-height: 360px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .cn-visual-orbit {
-        position: absolute;
-        width: 330px;
-        height: 330px;
-        border: 1px solid rgba(159, 106, 255, .25);
-        border-radius: 50%;
-        box-shadow:
-          0 0 80px rgba(117, 59, 255, .14),
-          inset 0 0 80px rgba(117, 59, 255, .06);
-      }
-
-      .cn-visual-orbit::before,
-      .cn-visual-orbit::after {
-        content: "";
-        position: absolute;
-        border-radius: 50%;
-        border: 1px solid rgba(159, 106, 255, .16);
-        inset: 35px;
-      }
-
-      .cn-visual-orbit::after {
-        inset: 72px;
-      }
-
-      .cn-visual-core {
-        position: relative;
-        z-index: 2;
-        width: 142px;
-        height: 142px;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: radial-gradient(circle at 40% 35%, #b36aff, #5a24dc 52%, #291075);
-        border: 1px solid rgba(255,255,255,.28);
-        box-shadow:
-          0 0 30px rgba(148, 69, 255, .65),
-          0 0 80px rgba(107, 48, 255, .35);
-        color: #fff;
-      }
-
-      .cn-core-arrow {
-        font-size: 33px;
-        line-height: 1;
-      }
-
-      .cn-core-text {
-        margin-top: 8px;
-        font-size: 10px;
-        font-weight: 900;
-        letter-spacing: .22em;
-      }
-
-      .cn-float-card {
-        position: absolute;
-        z-index: 3;
-        min-width: 155px;
-        padding: 16px 17px;
-        border-radius: 17px;
-        border: 1px solid rgba(150, 133, 255, .20);
-        background: rgba(15, 21, 49, .90);
-        backdrop-filter: blur(16px);
-        box-shadow: 0 18px 35px rgba(0,0,0,.22);
-      }
-
-      .cn-float-card span {
-        display: block;
-        color: #8991b0;
-        font-size: 10px;
-      }
-
-      .cn-float-card strong {
-        display: block;
-        margin-top: 7px;
-        color: #fff;
-        font-size: 23px;
-      }
-
-      .cn-float-card .cn-mini-bar {
-        height: 6px;
-        margin-top: 9px;
-        overflow: hidden;
-        border-radius: 999px;
-        background: #303a58;
-      }
-
-      .cn-float-card .cn-mini-bar::after {
-        content: "";
-        display: block;
-        width: 82%;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg,#7041ff,#e253ff);
-      }
-
-      .cn-float-1 {
-        top: 12px;
-        left: 5px;
-      }
-
-      .cn-float-2 {
-        top: 72px;
-        right: -2px;
-      }
-
-      .cn-float-3 {
-        bottom: 14px;
-        left: 18px;
-      }
-
-      .cn-float-4 {
-        bottom: 20px;
-        right: 25px;
-      }
-
-      .cn-hero-controls {
-        position: absolute;
-        top: 17px;
-        right: 17px;
-        z-index: 7;
-        display: flex;
-        gap: 8px;
-      }
-
-      .cn-round-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        border: 1px solid rgba(255,255,255,.18);
-        color: #fff;
-        background: rgba(8, 11, 42, .55);
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-        transition: background .2s ease, transform .2s ease;
-      }
-
-      .cn-round-btn:hover {
-        background: rgba(92, 50, 255, .5);
-        transform: translateY(-2px);
-      }
-
-      .cn-hero-dots {
-        position: absolute;
-        bottom: 18px;
-        left: 50%;
-        z-index: 7;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-      }
-
-      .cn-dot {
-        width: 8px;
-        height: 8px;
-        border: 0;
-        border-radius: 50%;
-        background: rgba(255,255,255,.45);
-        cursor: pointer;
-        transition: width .25s ease, background .25s ease;
-      }
-
-      .cn-dot.active {
-        width: 24px;
-        border-radius: 999px;
-        background: #a74aff;
-      }
-
-      .cn-slide-progress {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        z-index: 8;
-        width: 100%;
-        height: 3px;
-        background: rgba(255,255,255,.07);
-      }
-
-      .cn-slide-progress span {
-        display: block;
-        height: 100%;
-        width: 100%;
-        transform-origin: left;
-        background: linear-gradient(90deg,#6431ff,#e54dff);
-        animation: cnProgress 6s linear infinite;
-      }
-
-      @keyframes cnProgress {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
-      }
-
-      /* -------------------------------------------------
-         REVIEWS
-      ------------------------------------------------- */
-
-      .cn-review-section {
-        padding: 48px 0 18px;
-      }
-
-      .cn-review-shell {
-        position: relative;
-        overflow: hidden;
-        padding: 38px 38px 34px;
-        border: 1px solid var(--cn-border);
-        border-radius: 26px;
-        background: rgba(255,255,255,.92);
-        box-shadow: 0 18px 50px rgba(41, 52, 95, .07);
-      }
-
-      .cn-review-heading {
-        text-align: center;
-        max-width: 760px;
-        margin: 0 auto 26px;
-      }
-
-      .cn-section-kicker {
-        color: #6333ff;
-        font-size: 11px;
-        font-weight: 900;
-        letter-spacing: .13em;
-      }
-
-      .cn-review-heading h2,
-      .cn-growth-graph h2,
-      .cn-two-column h2,
-      .cn-offerings h2 {
-        margin: 8px 0 8px;
-        font-size: clamp(29px, 3vw, 43px);
-        letter-spacing: -1.5px;
-      }
-
-      .cn-review-heading p,
-      .cn-growth-graph > p,
-      .cn-two-column > div > p,
-      .cn-offerings > p {
-        color: var(--cn-muted);
-        line-height: 1.65;
-        margin: 0;
-      }
-
-      .cn-review-card {
-        max-width: 900px;
-        min-height: 175px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 22px;
-        align-items: center;
-        padding: 26px 28px;
-        border-radius: 21px;
-        border: 1px solid #e5e1ff;
-        background:
-          radial-gradient(circle at 90% 15%, rgba(119,75,255,.12), transparent 25%),
-          linear-gradient(135deg,#fff,#faf9ff);
-      }
-
-      .cn-stars {
-        display: flex;
-        gap: 3px;
-        color: #ffb900;
-      }
-
-      .cn-review-quote {
-        margin: 11px 0;
-        font-size: 16px;
-        line-height: 1.7;
-        color: #2c3656;
-      }
-
-      .cn-review-author {
-        color: #65718e;
-        font-size: 12px;
-      }
-
-      .cn-review-author strong {
-        color: #18213d;
-      }
-
-      .cn-review-score {
-        width: 125px;
-        height: 125px;
-        border-radius: 24px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(145deg,#6730ff,#a340ff);
-        color: #fff;
-        box-shadow: 0 15px 30px rgba(103,48,255,.22);
-      }
-
-      .cn-review-score strong {
-        font-size: 28px;
-      }
-
-      .cn-review-score span {
-        margin-top: 4px;
-        font-size: 10px;
-        opacity: .85;
-      }
-
-      .cn-review-controls {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 19px;
-      }
-
-      .cn-review-dot {
-        width: 7px;
-        height: 7px;
-        border: 0;
-        padding: 0;
-        border-radius: 50%;
-        background: #cfd3e1;
-        cursor: pointer;
-      }
-
-      .cn-review-dot.active {
-        width: 22px;
-        border-radius: 999px;
-        background: #6730ff;
-      }
-
-      /* -------------------------------------------------
-         WEBLLISTO-INSPIRED CONNECTED GRAPH
-      ------------------------------------------------- */
-
-      .cn-growth-graph {
-        margin-top: 26px;
-        padding: 42px 32px 35px;
-        border: 1px solid #e6e9f2;
-        border-radius: 26px;
-        background: #fff;
-        text-align: center;
-        box-shadow: 0 15px 45px rgba(38, 47, 88, .05);
-      }
-
-      .cn-growth-graph > p {
-        max-width: 750px;
-        margin: 0 auto;
-      }
-
-      .cn-graph-track {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 15px;
-        margin-top: 36px;
-      }
-
-      .cn-graph-line {
-        position: absolute;
-        top: 78px;
-        left: 10%;
-        right: 10%;
-        height: 5px;
-        border-radius: 999px;
-        background: linear-gradient(
-          90deg,
-          #ff7420 0%,
-          #b52db8 25%,
-          #2774d8 50%,
-          #43bd7d 75%,
-          #8a27ef 100%
-        );
-        z-index: 0;
-      }
-
-      .cn-graph-line::before,
-      .cn-graph-line::after {
-        content: "";
-        position: absolute;
-        width: 45px;
-        height: 45px;
-        top: -20px;
-        border-top: 5px solid currentColor;
-        border-radius: 50%;
-        opacity: .8;
-      }
-
-      .cn-graph-line::before {
-        left: 18%;
-        color: #c0349c;
-        transform: rotate(13deg);
-      }
-
-      .cn-graph-line::after {
-        right: 18%;
-        color: #27b4bb;
-        transform: rotate(-13deg);
-      }
-
-      .cn-graph-step {
-        position: relative;
-        z-index: 2;
-        min-width: 0;
-      }
-
-      .cn-graph-number {
-        margin-bottom: 10px;
-        font-size: 35px;
-        line-height: 1;
-        font-weight: 900;
-      }
-
-      .graph-orange .cn-graph-number,
-      .cn-graph-number.graph-orange { color: #f36c21; }
-
-      .graph-purple .cn-graph-number,
-      .cn-graph-number.graph-purple { color: #b229a4; }
-
-      .graph-blue .cn-graph-number,
-      .cn-graph-number.graph-blue { color: #2772c8; }
-
-      .graph-green .cn-graph-number,
-      .cn-graph-number.graph-green { color: #41b97c; }
-
-      .graph-pink .cn-graph-number,
-      .cn-graph-number.graph-pink { color: #8522ef; }
-
-      .cn-graph-node {
-        width: 128px;
-        height: 108px;
-        margin: 0 auto;
-        display: grid;
-        place-items: center;
-        clip-path: polygon(
-          25% 5%, 75% 5%,
-          100% 50%, 75% 95%,
-          25% 95%, 0 50%
-        );
-        background: currentColor;
-        filter: drop-shadow(0 10px 15px rgba(30,40,80,.10));
-      }
-
-      .cn-graph-node::before {
-        content: "";
-        position: absolute;
-        width: 116px;
-        height: 96px;
-        clip-path: inherit;
-        background: #fff;
-      }
-
-      .cn-graph-node span {
-        position: relative;
-        z-index: 2;
-        color: currentColor;
-        font-size: 25px;
-        font-weight: 800;
-      }
-
-      .graph-orange { color: #f36c21; }
-      .graph-purple { color: #b229a4; }
-      .graph-blue { color: #2772c8; }
-      .graph-green { color: #41b97c; }
-      .graph-pink { color: #8522ef; }
-
-      .cn-graph-step h3 {
-        margin: 12px 0 4px;
-        font-size: 15px;
-      }
-
-      .cn-graph-label {
-        color: #77819d;
-        font-size: 11px;
-      }
-
-      /* -------------------------------------------------
-         PROCESS + TOOLS
-      ------------------------------------------------- */
-
-      .cn-two-column {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 22px;
-        margin-top: 26px;
-      }
-
-      .cn-panel {
-        padding: 34px;
-        border: 1px solid var(--cn-border);
-        border-radius: 26px;
-        background: rgba(255,255,255,.92);
-        box-shadow: 0 15px 45px rgba(38,47,88,.05);
-      }
-
-      .cn-process-row {
-        display: grid;
-        grid-template-columns: repeat(4,1fr);
-        gap: 13px;
-        margin-top: 30px;
-      }
-
-      .cn-process-item {
-        position: relative;
-      }
-
-      .cn-process-icon {
-        width: 54px;
-        height: 54px;
-        border: 1px solid #ded8ff;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: #6934ff;
-        font-weight: 800;
-        background: #fff;
-        margin-bottom: 14px;
-      }
-
-      .cn-process-item:not(:last-child)::after {
-        content: "→";
-        position: absolute;
-        top: 16px;
-        right: -10px;
-        color: #8d98b7;
-        font-size: 18px;
-      }
-
-      .cn-process-number {
-        color: #8b95ad;
-        font-size: 10px;
-      }
-
-      .cn-process-item h3 {
-        margin: 7px 0 5px;
-        font-size: 15px;
-      }
-
-      .cn-process-item p {
-        margin: 0;
-        color: #667392;
-        font-size: 11px;
-        line-height: 1.6;
-      }
-
-      .cn-tool-grid {
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 10px;
-        margin-top: 27px;
-      }
-
-      .cn-tool-card {
-        min-height: 143px;
-        padding: 16px;
-        border-radius: 17px;
-        border: 1px solid #e1e5f0;
-        background: #fff;
-        transition: transform .25s ease, box-shadow .25s ease;
-      }
-
-      .cn-tool-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 14px 30px rgba(39, 48, 89, .10);
-      }
-
-      .cn-tool-icon {
-        width: 37px;
-        height: 37px;
-        display: grid;
-        place-items: center;
-        border-radius: 10px;
-        color: #fff;
-        font-size: 12px;
-        font-weight: 900;
-        margin-bottom: 12px;
-      }
-
-      .tool-purple .cn-tool-icon { background: linear-gradient(135deg,#5c2cff,#933eff); }
-      .tool-blue .cn-tool-icon { background: linear-gradient(135deg,#1976ed,#3264ff); }
-      .tool-indigo .cn-tool-icon { background: linear-gradient(135deg,#3949d8,#6657ff); }
-      .tool-pink .cn-tool-icon { background: linear-gradient(135deg,#ed3c9c,#ff4c78); }
-      .tool-green .cn-tool-icon { background: linear-gradient(135deg,#10aa70,#22c878); }
-      .tool-cyan .cn-tool-icon { background: linear-gradient(135deg,#08a8bc,#18c6da); }
-
-      .cn-tool-card h3 {
-        margin: 0 0 7px;
-        font-size: 13px;
-      }
-
-      .cn-tool-card p {
-        margin: 0;
-        color: #697594;
-        font-size: 10px;
-        line-height: 1.55;
-      }
-
-      /* -------------------------------------------------
-         CORE EXPERTISE
-      ------------------------------------------------- */
-
-      .cn-offerings {
-        margin-top: 26px;
-        padding: 55px 32px 50px;
-        border-radius: 28px;
-        background:
-          radial-gradient(circle at 20% 0%, rgba(255, 198, 95, .14), transparent 20%),
-          radial-gradient(circle at 80% 0%, rgba(106, 92, 255, .13), transparent 23%),
-          #fff;
-        border: 1px solid #e7e9f1;
-        text-align: center;
-      }
-
-      .cn-offerings > p {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .cn-offering-grid {
-        display: grid;
-        grid-template-columns: repeat(5,1fr);
-        gap: 17px;
-        margin-top: 42px;
-      }
-
-      .cn-offering-card {
-        min-height: 330px;
-        padding: 0 16px 22px;
-        text-align: left;
-        border-radius: 20px;
-        background: #fff;
-        border: 1px solid #e1e4ed;
-        overflow: hidden;
-        perspective: 900px;
-        transition:
-          transform .25s ease,
-          box-shadow .25s ease,
-          border-color .25s ease;
-        transform-style: preserve-3d;
-      }
-
-      .cn-offering-card:hover {
-        transform: perspective(900px) rotateX(3deg) rotateY(-5deg) translateY(-8px);
-        box-shadow: 0 25px 50px rgba(41,48,88,.15);
-      }
-
-      .cn-offering-top {
-        height: 9px;
-        margin: 0 -16px 18px;
-      }
-
-      .cn-offering-card.orange .cn-offering-top { background: #f36c21; }
-      .cn-offering-card.purple .cn-offering-top { background: #ae2ca3; }
-      .cn-offering-card.blue .cn-offering-top { background: #2d70c8; }
-      .cn-offering-card.green .cn-offering-top { background: #43bb7d; }
-      .cn-offering-card.pink .cn-offering-top { background: #8a28ed; }
-
-      .cn-offering-number {
-        font-size: 36px;
-        font-weight: 900;
-        line-height: 1;
-        margin-bottom: 13px;
-      }
-
-      .cn-offering-card.orange .cn-offering-number { color: #f36c21; }
-      .cn-offering-card.purple .cn-offering-number { color: #ae2ca3; }
-      .cn-offering-card.blue .cn-offering-number { color: #2d70c8; }
-      .cn-offering-card.green .cn-offering-number { color: #43bb7d; }
-      .cn-offering-card.pink .cn-offering-number { color: #8a28ed; }
-
-      .cn-offering-icon {
-        width: 62px;
-        height: 62px;
-        margin-bottom: 16px;
-        display: grid;
-        place-items: center;
-        border-radius: 16px;
-        font-size: 25px;
-        font-weight: 800;
-        color: #fff;
-      }
-
-      .cn-offering-card.orange .cn-offering-icon { background: linear-gradient(145deg,#ff8a38,#ef5b0e); }
-      .cn-offering-card.purple .cn-offering-icon { background: linear-gradient(145deg,#ca38b4,#8220a5); }
-      .cn-offering-card.blue .cn-offering-icon { background: linear-gradient(145deg,#4591e5,#2163ba); }
-      .cn-offering-card.green .cn-offering-icon { background: linear-gradient(145deg,#57c98e,#26a56b); }
-      .cn-offering-card.pink .cn-offering-icon { background: linear-gradient(145deg,#a949f4,#7620dc); }
-
-      .cn-offering-card h3 {
-        margin: 0 0 6px;
-        font-size: 16px;
-      }
-
-      .cn-offering-subtitle {
-        color: #6f7996;
-        font-size: 11px;
-        font-weight: 800;
-      }
-
-      .cn-offering-card p {
-        margin: 15px 0 18px;
-        color: #66718e;
-        font-size: 11px;
-        line-height: 1.65;
-      }
-
-      .cn-explore {
-        color: #6333ff;
-        font-size: 11px;
-        font-weight: 900;
-      }
-
-      /* -------------------------------------------------
-         STATS
-      ------------------------------------------------- */
-
-      .cn-stats {
-        display: grid;
-        grid-template-columns: repeat(6,1fr);
-        margin: 26px 0 35px;
-        padding: 25px 10px;
-        border: 1px solid #e2e5ee;
-        border-radius: 22px;
-        background: #fff;
-      }
-
-      .cn-stat {
-        text-align: center;
-        padding: 0 12px;
-        border-right: 1px solid #e7e9f0;
-      }
-
-      .cn-stat:last-child {
-        border-right: 0;
-      }
-
-      .cn-stat-icon {
-        color: #6333ff;
-        font-size: 22px;
-      }
-
-      .cn-stat strong {
-        display: block;
-        margin-top: 6px;
-        font-size: 20px;
-      }
-
-      .cn-stat span {
-        color: #75809b;
-        font-size: 9px;
-      }
-
-      /* -------------------------------------------------
-         RESPONSIVE
-      ------------------------------------------------- */
-
-      @media (max-width: 1050px) {
-        .cn-hero-content {
-          grid-template-columns: 1fr .85fr;
-          padding: 45px 38px 38px;
-        }
-
-        .cn-hero h1 {
-          font-size: 51px;
-        }
-
-        .cn-offering-grid {
-          grid-template-columns: repeat(3,1fr);
-        }
-
-        .cn-stats {
-          grid-template-columns: repeat(3,1fr);
-          gap: 20px 0;
-        }
-
-        .cn-stat:nth-child(3) {
-          border-right: 0;
-        }
-      }
-
-      @media (max-width: 800px) {
-        .cn-container {
-          width: min(100% - 24px, 680px);
-        }
-
-        .cn-social-rail {
-          right: 8px;
-          gap: 7px;
-        }
-
-        .cn-social-item {
-          width: 40px;
-          height: 40px;
-          border-radius: 12px;
-        }
-
-        .cn-social-item svg {
-          width: 18px;
-          height: 18px;
-        }
-
-        .cn-hero {
-          min-height: 0;
-          border-radius: 21px;
-        }
-
-        .cn-hero-content {
-          display: block;
-          min-height: 0;
-          padding: 35px 24px 30px;
-        }
-
-        .cn-hero h1 {
-          font-size: 42px;
-          line-height: 1.01;
-          letter-spacing: -1.8px;
-          max-width: 560px;
-        }
-
-        .cn-hero-description {
-          font-size: 13px;
-          line-height: 1.65;
-        }
-
-        .cn-hero-visual {
-          min-height: 285px;
-          margin-top: 15px;
-        }
-
-        .cn-visual-orbit {
-          width: 245px;
-          height: 245px;
-        }
-
-        .cn-visual-core {
-          width: 108px;
-          height: 108px;
-        }
-
-        .cn-float-card {
-          min-width: 120px;
-          padding: 11px 12px;
-        }
-
-        .cn-float-card strong {
-          font-size: 17px;
-        }
-
-        .cn-float-1 {
-          top: 8px;
-          left: 0;
-        }
-
-        .cn-float-2 {
-          top: 40px;
-          right: 0;
-        }
-
-        .cn-float-3 {
-          bottom: 0;
-          left: 2px;
-        }
-
-        .cn-float-4 {
-          bottom: 0;
-          right: 2px;
-        }
-
-        .cn-two-column {
-          grid-template-columns: 1fr;
-        }
-
-        .cn-graph-track {
-          grid-template-columns: repeat(5, minmax(95px,1fr));
-          overflow-x: auto;
-          padding-bottom: 10px;
-        }
-
-        .cn-graph-line {
-          left: 10%;
-          right: 10%;
-          min-width: 550px;
-        }
-
-        .cn-graph-step {
-          min-width: 105px;
-        }
-
-        .cn-offering-grid {
-          grid-template-columns: repeat(2,1fr);
-        }
-
-        .cn-tool-grid {
-          grid-template-columns: repeat(2,1fr);
-        }
-      }
-
-      @media (max-width: 560px) {
-        .cn-container {
-          width: calc(100% - 18px);
-        }
-
-        .cn-hero-wrap {
-          padding-top: 10px;
-        }
-
-        .cn-hero-content {
-          padding: 28px 18px 25px;
-        }
-
-        .cn-eyebrow {
-          font-size: 9px;
-          padding: 8px 11px;
-        }
-
-        .cn-hero h1 {
-          font-size: 34px;
-          margin-top: 17px;
-        }
-
-        .cn-hero-description {
-          font-size: 12px;
-        }
-
-        .cn-hero-actions {
-          gap: 8px;
-          margin-top: 20px;
-        }
-
-        .cn-btn {
-          min-height: 42px;
-          padding: 0 14px;
-          font-size: 11px;
-        }
-
-        .cn-hero-metrics {
-          margin-top: 22px;
-        }
-
-        .cn-metric {
-          min-width: 25%;
-          padding: 0 8px;
-        }
-
-        .cn-metric-value {
-          font-size: 15px;
-        }
-
-        .cn-metric-label {
-          font-size: 8px;
-        }
-
-        .cn-hero-visual {
-          min-height: 245px;
-        }
-
-        .cn-visual-orbit {
-          width: 205px;
-          height: 205px;
-        }
-
-        .cn-visual-core {
-          width: 88px;
-          height: 88px;
-        }
-
-        .cn-core-arrow {
-          font-size: 23px;
-        }
-
-        .cn-core-text {
-          font-size: 7px;
-        }
-
-        .cn-float-card {
-          min-width: 91px;
-          padding: 9px;
-          border-radius: 12px;
-        }
-
-        .cn-float-card span {
-          font-size: 7px;
-        }
-
-        .cn-float-card strong {
-          font-size: 13px;
-        }
-
-        .cn-float-card .cn-mini-bar {
-          height: 4px;
-        }
-
-        .cn-hero-controls {
-          top: 10px;
-          right: 10px;
-        }
-
-        .cn-round-btn {
-          width: 36px;
-          height: 36px;
-        }
-
-        .cn-review-section {
-          padding-top: 25px;
-        }
-
-        .cn-review-shell,
-        .cn-panel,
-        .cn-growth-graph,
-        .cn-offerings {
-          padding: 24px 16px;
-          border-radius: 20px;
-        }
-
-        .cn-review-card {
-          grid-template-columns: 1fr;
-          min-height: 0;
-          padding: 20px;
-        }
-
-        .cn-review-score {
-          width: 100%;
-          height: 70px;
-          border-radius: 15px;
-          flex-direction: row;
-          gap: 8px;
-        }
-
-        .cn-review-score strong {
-          font-size: 22px;
-        }
-
-        .cn-process-row {
-          grid-template-columns: repeat(2,1fr);
-          row-gap: 24px;
-        }
-
-        .cn-process-item:not(:last-child)::after {
-          display: none;
-        }
-
-        .cn-tool-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .cn-offering-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .cn-offering-card {
-          min-height: 0;
-        }
-
-        .cn-stats {
-          grid-template-columns: repeat(2,1fr);
-        }
-
-        .cn-stat {
-          border-right: 0;
-          border-bottom: 1px solid #e7e9f0;
-          padding-bottom: 15px;
-        }
-
-        .cn-stat:nth-last-child(-n+2) {
-          border-bottom: 0;
-          padding-bottom: 0;
-        }
-
-        .cn-social-rail {
-          right: 5px;
-        }
-
-        .cn-social-item {
-          width: 36px;
-          height: 36px;
-        }
-      }
-    `}</style>
+    <section className="cn-offerings-section">
+      <div className="cn-offering-heading">
+        <div className="cn-offering-badge">
+          <Layers3 />
+          CORE EXPERTISE
+        </div>
+
+        <h2>Our Offerings</h2>
+
+        <p>
+          Explore CareerNova&apos;s core expertise across business, finance,
+          marketing, technology, career development and AI-powered workflows.
+        </p>
+      </div>
+
+      <div className="cn-offering-flow">
+        {offerings.map((item) => (
+          <motion.button
+            key={item.number}
+            className={`cn-offering-card cn-offering-${item.color}`}
+            onClick={() => onNavigate(item.tab, item.sub)}
+            whileHover={{
+              y: -10,
+              rotateX: 4,
+              rotateY: -3,
+              scale: 1.015,
+            }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="cn-offering-top">
+              <span>{item.number}</span>
+              <div className="cn-offering-icon">{item.icon}</div>
+            </div>
+
+            <h3>{item.title}</h3>
+            <strong>{item.subtitle}</strong>
+            <p>{item.text}</p>
+
+            <span className="cn-offering-link">
+              Explore Expertise <ArrowRight />
+            </span>
+          </motion.button>
+        ))}
+      </div>
+    </section>
   );
-}
+};
 
-export const HomeView: React.FC = () => {
-  const [heroIndex, setHeroIndex] = useState(2);
+/* =========================================================
+   METRICS
+========================================================= */
+
+const MetricsSection = () => {
+  const metrics = [
+    ['✦', '2+', 'Years'],
+    ['♧', '30+', 'Clients'],
+    ['◉', '10+', 'Expertise'],
+    ['🚀', '25+', 'Tools'],
+    ['☆', '4.9/5', 'Client Rating'],
+    ['◎', '3+', 'Countries'],
+  ];
+
+  return (
+    <section className="cn-metrics">
+      {metrics.map(([icon, value, label]) => (
+        <div className="cn-metric" key={label}>
+          <span>{icon}</span>
+          <div>
+            <strong>{value}</strong>
+            <small>{label}</small>
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+/* =========================================================
+   REVIEW DATA
+========================================================= */
+
+type Review = {
+  quote: string;
+  name: string;
+  role: string;
+  category: string;
+  gender: 'male' | 'female';
+  gradient: string;
+};
+
+const REVIEWS: Review[] = [
+  {
+    quote:
+      'CareerNova helped me turn scattered skills into a much clearer career direction. The tools were practical and genuinely easy to act on.',
+    name: 'Aarav Sharma',
+    role: 'Student & Career Builder',
+    category: 'Career Tools',
+    gender: 'male',
+    gradient: 'from-indigo-50 via-white to-violet-100',
+  },
+  {
+    quote:
+      'The financial modelling and business guidance made complicated decisions much easier to understand and execute.',
+    name: 'Neha Verma',
+    role: 'Business Professional',
+    category: 'Financial Modelling',
+    gender: 'female',
+    gradient: 'from-pink-50 via-white to-rose-100',
+  },
+  {
+    quote:
+      'The resume and career planning tools made my preparation much more structured than generic career advice.',
+    name: 'Arjun Mehta',
+    role: 'Working Professional',
+    category: 'Career Planning',
+    gender: 'male',
+    gradient: 'from-blue-50 via-white to-cyan-100',
+  },
+  {
+    quote:
+      'The analytics and strategy approach helped us look at our business numbers with much more clarity and confidence.',
+    name: 'Riya Kapoor',
+    role: 'Startup Founder',
+    category: 'Business Analytics',
+    gender: 'female',
+    gradient: 'from-fuchsia-50 via-white to-purple-100',
+  },
+  {
+    quote:
+      'The digital growth guidance was focused on practical execution rather than just theory. That made a big difference.',
+    name: 'Karan Singh',
+    role: 'Growth Professional',
+    category: 'Digital Marketing',
+    gender: 'male',
+    gradient: 'from-emerald-50 via-white to-teal-100',
+  },
+  {
+    quote:
+      'CareerNova combines tools, guidance and technology in a way that feels useful instead of overwhelming.',
+    name: 'Ananya Gupta',
+    role: 'Career & Learning User',
+    category: 'AI & Career',
+    gender: 'female',
+    gradient: 'from-amber-50 via-white to-orange-100',
+  },
+];
+
+/* =========================================================
+   ANIMATED REVIEW AVATAR
+========================================================= */
+
+const ReviewAvatar = ({ gender }: { gender: Review['gender'] }) => {
+  const female = gender === 'female';
+
+  return (
+    <motion.div
+      className={`cn-review-avatar ${
+        female ? 'cn-avatar-female' : 'cn-avatar-male'
+      }`}
+      animate={{
+        y: [0, -5, 0],
+        rotate: [0, 1.5, 0, -1.5, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      }}
+    >
+      <div className="cn-avatar-hair" />
+      <div className="cn-avatar-face">
+        <span className="cn-eye left" />
+        <span className="cn-eye right" />
+        <span className="cn-smile" />
+      </div>
+      <div className="cn-avatar-body" />
+    </motion.div>
+  );
+};
+
+/* =========================================================
+   REVIEWS — SLOW AUTOMATIC SLIDER
+   3 DESKTOP / 1 MOBILE
+========================================================= */
+
+const ReviewsSection = () => {
   const [reviewIndex, setReviewIndex] = useState(0);
 
-  const currentHero = useMemo(
-    () => HERO_SLIDES[heroIndex],
-    [heroIndex]
-  );
+  const nextReview = () => {
+    setReviewIndex((current) => (current + 1) % REVIEWS.length);
+  };
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setHeroIndex((current) => (current + 1) % HERO_SLIDES.length);
-    }, 6000);
-
-    return () => window.clearInterval(timer);
-  }, []);
+  const previousReview = () => {
+    setReviewIndex(
+      (current) => (current - 1 + REVIEWS.length) % REVIEWS.length
+    );
+  };
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -1777,392 +926,2347 @@ export const HomeView: React.FC = () => {
     return () => window.clearInterval(timer);
   }, []);
 
-  const goHero = (direction: number) => {
-    setHeroIndex((current) => {
-      const next = current + direction;
+  const visibleReviews = [0, 1, 2].map(
+    (offset) => REVIEWS[(reviewIndex + offset) % REVIEWS.length]
+  );
 
-      if (next < 0) return HERO_SLIDES.length - 1;
-      if (next >= HERO_SLIDES.length) return 0;
+  return (
+    <section className="cn-reviews-section">
+      <div className="cn-review-heading">
+        <span>
+          <Star /> TRUSTED BY LEARNERS &amp; LEADERS
+        </span>
 
-      return next;
-    });
+        <h2>What Clients Say About CareerNova</h2>
+
+        <p>
+          Practical tools, structured guidance and measurable outcomes built
+          around real career and business goals.
+        </p>
+      </div>
+
+      <div className="cn-review-carousel">
+        <button
+          className="cn-review-nav cn-review-prev"
+          onClick={previousReview}
+          aria-label="Previous reviews"
+        >
+          <ChevronLeft />
+        </button>
+
+        <div className="cn-review-grid">
+          <AnimatePresence mode="popLayout">
+            {visibleReviews.map((review, index) => (
+              <motion.article
+                key={`${review.name}-${reviewIndex}-${index}`}
+                className={`cn-review-card bg-gradient-to-br ${review.gradient}`}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{
+                  duration: 0.65,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <div className="cn-review-stars">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} fill="currentColor" />
+                  ))}
+                </div>
+
+                <span className="cn-review-category">
+                  {review.category}
+                </span>
+
+                <p className="cn-review-quote">
+                  &ldquo;{review.quote}&rdquo;
+                </p>
+
+                <div className="cn-review-person">
+                  <ReviewAvatar gender={review.gender} />
+
+                  <div>
+                    <strong>{review.name}</strong>
+                    <span>{review.role}</span>
+                  </div>
+                </div>
+
+                <div className="cn-review-mark">“</div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        <button
+          className="cn-review-nav cn-review-next"
+          onClick={nextReview}
+          aria-label="Next reviews"
+        >
+          <ChevronRight />
+        </button>
+      </div>
+
+      <div className="cn-review-dots">
+        {REVIEWS.map((review, index) => (
+          <button
+            key={review.name}
+            className={reviewIndex === index ? 'active' : ''}
+            onClick={() => setReviewIndex(index)}
+            aria-label={`Show review ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+const FinalCTA = ({
+  onNavigate,
+}: {
+  onNavigate: (tab: TabId, subTool?: string) => void;
+}) => (
+  <motion.section
+    initial={{ opacity: 0, y: 25 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.15 }}
+    transition={{ duration: 0.6 }}
+    className="cn-final-cta"
+  >
+    <div className="cn-final-glow" />
+
+    <div className="cn-final-content">
+      <div className="cn-final-badge">
+        <ShieldCheck />
+        Direct Access to CareerNova
+      </div>
+
+      <h2>Ready to turn your goal into a practical plan?</h2>
+
+      <p>
+        Explore CareerNova&apos;s tools, core expertise and growth systems —
+        or connect directly for a consultation.
+      </p>
+
+      <div className="cn-final-actions">
+        <button onClick={() => onNavigate('tools')}>
+          Explore All Tools
+          <ArrowRight />
+        </button>
+
+        <button
+          className="secondary"
+          onClick={() => openAiAssistant({ mode: 'consultation' })}
+        >
+          <Bot />
+          Get Free Consultation
+        </button>
+      </div>
+    </div>
+  </motion.section>
+);
+
+/* =========================================================
+   HOME VIEW
+========================================================= */
+
+export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
   };
 
-  const goReview = (direction: number) => {
-    setReviewIndex((current) => {
-      const next = current + direction;
-
-      if (next < 0) return REVIEWS.length - 1;
-      if (next >= REVIEWS.length) return 0;
-
-      return next;
-    });
+  const previousSlide = () => {
+    setActiveSlide(
+      (current) => (current - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
+    );
   };
 
-  const review = REVIEWS[reviewIndex];
+  /* EXACTLY 4 SECOND AUTOPLAY — NEVER PAUSES */
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
+    }, 4000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const slide = HERO_SLIDES[activeSlide];
 
   return (
     <>
-      <HomeStyles />
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        .cn-home {
+          width: 100%;
+          min-height: 100vh;
+          overflow-x: hidden;
+          background:
+            radial-gradient(circle at 10% 20%, rgba(113,56,255,.08), transparent 28%),
+            radial-gradient(circle at 90% 40%, rgba(139,92,246,.07), transparent 30%),
+            #f7f8fc;
+          color: #11162b;
+          font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+            BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .cn-home button {
+          font-family: inherit;
+          cursor: pointer;
+        }
+
+        /* ================= SOCIAL RAIL ================= */
+
+        .cn-social-rail {
+          position: fixed;
+          right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 100;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .cn-social-item {
+          width: 43px;
+          height: 43px;
+          border-radius: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          border: 1px solid rgba(255,255,255,.35);
+          box-shadow: 0 10px 25px rgba(30,25,75,.2);
+          transition: transform .25s ease, filter .25s ease;
+        }
+
+        .cn-social-item:hover {
+          transform: translateX(-5px) scale(1.07);
+          filter: brightness(1.08);
+        }
+
+        .cn-social-item svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .cn-social-whatsapp {
+          background: linear-gradient(145deg,#25D366,#128C7E);
+        }
+
+        .cn-social-email {
+          background: linear-gradient(145deg,#6366f1,#4338ca);
+        }
+
+        .cn-social-call {
+          background: linear-gradient(145deg,#7c3aed,#5b21b6);
+        }
+
+        .cn-social-linkedin {
+          background: linear-gradient(145deg,#0A66C2,#07529b);
+        }
+
+        .cn-social-instagram {
+          background: linear-gradient(145deg,#833AB4,#E1306C,#FCAF45);
+        }
+
+        /* ================= HERO ================= */
+
+        .cn-hero {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          height: 570px;
+          margin: 22px auto 18px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 28px;
+          background: #080a2d;
+          border: 1px solid rgba(115,83,255,.35);
+          box-shadow:
+            0 25px 80px rgba(54,35,130,.18),
+            inset 0 1px 0 rgba(255,255,255,.08);
+        }
+
+        .cn-hero::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(121,93,255,.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(121,93,255,.06) 1px, transparent 1px);
+          background-size: 44px 44px;
+          mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 35%,
+            black 100%
+          );
+          pointer-events: none;
+        }
+
+        .cn-hero-inner {
+          position: relative;
+          z-index: 5;
+          display: grid;
+          grid-template-columns: 46% 54%;
+          height: 100%;
+        }
+
+        .cn-hero-copy {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 44px 30px 44px 58px;
+          position: relative;
+          z-index: 10;
+        }
+
+        .cn-hero-eyebrow {
+          width: fit-content;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 9px 15px;
+          border-radius: 999px;
+          background: rgba(124,58,237,.13);
+          border: 1px solid rgba(167,139,250,.25);
+          color: #d8c8ff;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 1.5px;
+          margin-bottom: 20px;
+        }
+
+        .cn-hero-eyebrow svg {
+          width: 14px;
+          height: 14px;
+          color: #c084fc;
+        }
+
+        .cn-hero-title {
+          font-size: clamp(38px, 4.1vw, 62px);
+          line-height: .99;
+          letter-spacing: -2.8px;
+          font-weight: 950;
+          color: white;
+          max-width: 650px;
+        }
+
+        .cn-hero-gradient {
+          background: linear-gradient(
+            100deg,
+            #7652ff,
+            #c13cff,
+            #9b5cff
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .cn-hero-description {
+          margin-top: 18px;
+          max-width: 600px;
+          color: #cbd0e6;
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .cn-hero-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 22px;
+        }
+
+        .cn-hero-primary,
+        .cn-hero-secondary {
+          border-radius: 13px;
+          padding: 12px 18px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          font-weight: 900;
+          transition: all .25s ease;
+        }
+
+        .cn-hero-primary {
+          color: white;
+          border: 0;
+          background: linear-gradient(100deg,#5b35ff,#9b2cff);
+          box-shadow: 0 12px 30px rgba(124,58,237,.35);
+        }
+
+        .cn-hero-secondary {
+          color: white;
+          background: rgba(255,255,255,.04);
+          border: 1px solid rgba(255,255,255,.2);
+        }
+
+        .cn-hero-primary:hover,
+        .cn-hero-secondary:hover {
+          transform: translateY(-2px);
+        }
+
+        .cn-hero-stats {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 17px;
+          margin-top: 22px;
+        }
+
+        .cn-hero-stat strong {
+          display: block;
+          color: white;
+          font-size: 18px;
+          font-weight: 900;
+        }
+
+        .cn-hero-stat span {
+          display: block;
+          color: #858aa5;
+          font-size: 8px;
+          margin-top: 2px;
+        }
+
+        .cn-hero-divider {
+          width: 1px;
+          height: 28px;
+          background: rgba(255,255,255,.12);
+        }
+
+        .cn-hero-rating {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .cn-hero-rating svg {
+          color: #fbbf24;
+          fill: #fbbf24;
+          width: 18px;
+          height: 18px;
+        }
+
+        .cn-slider-arrows {
+          position: absolute;
+          right: 22px;
+          top: 20px;
+          z-index: 30;
+          display: flex;
+          gap: 8px;
+        }
+
+        .cn-slider-arrows button {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          color: white;
+          background: rgba(10,12,48,.5);
+          border: 1px solid rgba(255,255,255,.16);
+          backdrop-filter: blur(10px);
+          display: grid;
+          place-items: center;
+        }
+
+        .cn-slider-arrows button:hover {
+          background: rgba(124,58,237,.45);
+        }
+
+        .cn-slide-dots {
+          position: absolute;
+          bottom: 18px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 7px;
+          z-index: 40;
+        }
+
+        .cn-slide-dots button {
+          width: 8px;
+          height: 8px;
+          border: 0;
+          border-radius: 50%;
+          background: rgba(255,255,255,.45);
+          padding: 0;
+          transition: all .3s ease;
+        }
+
+        .cn-slide-dots button.active {
+          width: 28px;
+          border-radius: 10px;
+          background: #a855f7;
+        }
+
+        .cn-visual {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        .cn-visual::after {
+          content: "";
+          position: absolute;
+          inset: 10% 5% 8% 5%;
+          border-radius: 50%;
+          background: rgba(124,58,237,.12);
+          filter: blur(65px);
+          pointer-events: none;
+        }
+
+        .cn-orbit {
+          position: absolute;
+          left: 50%;
+          top: 51%;
+          transform: translate(-50%,-50%);
+          border-radius: 50%;
+          border: 1px solid rgba(168,85,247,.28);
+          animation: cn-spin 18s linear infinite;
+        }
+
+        .cn-orbit-a {
+          width: 330px;
+          height: 330px;
+        }
+
+        .cn-orbit-b {
+          width: 250px;
+          height: 250px;
+          animation-duration: 12s;
+          animation-direction: reverse;
+        }
+
+        .cn-orbit-c {
+          width: 410px;
+          height: 410px;
+          animation-duration: 25s;
+        }
+
+        @keyframes cn-spin {
+          to {
+            transform: translate(-50%,-50%) rotate(360deg);
+          }
+        }
+
+        .cn-growth-core,
+        .cn-marketing-core,
+        .cn-business-core,
+        .cn-tech-core {
+          position: absolute;
+          left: 50%;
+          top: 51%;
+          transform: translate(-50%,-50%);
+          z-index: 10;
+          width: 145px;
+          height: 145px;
+          border-radius: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          background: radial-gradient(
+            circle at 35% 25%,
+            #a855f7,
+            #5b21b6 62%,
+            #21105d
+          );
+          border: 1px solid rgba(255,255,255,.28);
+          box-shadow:
+            0 0 60px rgba(139,92,246,.55),
+            inset 0 0 30px rgba(255,255,255,.08);
+        }
+
+        .cn-growth-core svg,
+        .cn-marketing-core svg,
+        .cn-business-core svg,
+        .cn-tech-core svg {
+          width: 30px;
+          height: 30px;
+          margin-bottom: 5px;
+        }
+
+        .cn-growth-core span,
+        .cn-growth-core strong,
+        .cn-marketing-core span,
+        .cn-business-core strong,
+        .cn-business-core span,
+        .cn-tech-core strong,
+        .cn-tech-core span {
+          font-size: 9px;
+          letter-spacing: 2px;
+        }
+
+        .cn-growth-core strong {
+          font-size: 15px;
+        }
+
+        .cn-marketing-core strong {
+          font-size: 38px;
+          line-height: 1;
+        }
+
+        .cn-floating-card {
+          position: absolute;
+          z-index: 20;
+          width: 155px;
+          min-height: 72px;
+          padding: 11px 13px;
+          border-radius: 16px;
+          background: rgba(12,16,43,.88);
+          border: 1px solid rgba(167,139,250,.2);
+          box-shadow: 0 15px 35px rgba(0,0,0,.25);
+          backdrop-filter: blur(14px);
+          color: white;
+        }
+
+        .cn-floating-card span {
+          display: block;
+          font-size: 8px;
+          color: #9298b4;
+          margin-bottom: 4px;
+        }
+
+        .cn-floating-card strong {
+          font-size: 19px;
+          font-weight: 900;
+        }
+
+        .cn-floating-card small {
+          display: block;
+          color: #7f849e;
+          font-size: 7px;
+          margin-top: 3px;
+        }
+
+        .cn-floating-card svg {
+          width: 19px;
+          height: 19px;
+          color: #a78bfa;
+          margin: 2px 0;
+        }
+
+        .cn-fc-top-left {
+          top: 11%;
+          left: 2%;
+        }
+
+        .cn-fc-top-right {
+          top: 15%;
+          right: 2%;
+        }
+
+        .cn-fc-bottom-left {
+          bottom: 13%;
+          left: 2%;
+        }
+
+        .cn-fc-bottom-right {
+          bottom: 14%;
+          right: 2%;
+        }
+
+        .cn-mini-bars {
+          height: 23px;
+          display: flex;
+          align-items: end;
+          gap: 3px;
+          margin-top: 7px;
+        }
+
+        .cn-mini-bars i {
+          flex: 1;
+          border-radius: 3px 3px 0 0;
+          background: linear-gradient(to top,#7c3aed,#d946ef);
+          min-height: 3px;
+        }
+
+        .cn-progress {
+          width: 100%;
+          height: 5px;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #29304d;
+          margin-top: 7px;
+        }
+
+        .cn-progress i {
+          display: block;
+          height: 100%;
+          border-radius: inherit;
+          background: linear-gradient(90deg,#8b5cf6,#34d399);
+        }
+
+        /* MARKETING */
+
+        .cn-marketing-ring {
+          position: absolute;
+          left: 50%;
+          top: 51%;
+          transform: translate(-50%,-50%);
+          border: 1px solid rgba(217,70,239,.22);
+          border-radius: 50%;
+          animation: cn-spin 20s linear infinite;
+        }
+
+        .ring-1 {
+          width: 210px;
+          height: 210px;
+        }
+
+        .ring-2 {
+          width: 300px;
+          height: 300px;
+          animation-duration: 15s;
+          animation-direction: reverse;
+        }
+
+        .ring-3 {
+          width: 390px;
+          height: 390px;
+          animation-duration: 26s;
+        }
+
+        .cn-marketing-core {
+          background: radial-gradient(circle at 35% 25%,#ec4899,#7c3aed 65%,#26105d);
+        }
+
+        .cn-marketing-core strong {
+          font-size: 36px;
+        }
+
+        .cn-marketing-core span {
+          font-size: 7px;
+        }
+
+        /* CAREER */
+
+        .cn-career-line {
+          position: absolute;
+          left: 8%;
+          right: 8%;
+          top: 51%;
+          height: 4px;
+          border-radius: 20px;
+          background: linear-gradient(
+            90deg,
+            #7c3aed,
+            #d946ef,
+            #3b82f6,
+            #34d399
+          );
+          box-shadow: 0 0 20px rgba(139,92,246,.5);
+        }
+
+        .cn-career-node {
+          position: absolute;
+          top: 51%;
+          transform: translateY(-50%);
+          width: 75px;
+          text-align: center;
+          z-index: 12;
+        }
+
+        .cn-career-node small {
+          display: block;
+          color: #c4b5fd;
+          font-size: 8px;
+          font-weight: 900;
+          margin-bottom: 5px;
+        }
+
+        .cn-career-node div {
+          width: 54px;
+          height: 54px;
+          margin: auto;
+          display: grid;
+          place-items: center;
+          border-radius: 15px;
+          color: white;
+          background: linear-gradient(145deg,#6d28d9,#312e81);
+          border: 1px solid rgba(196,181,253,.3);
+          box-shadow: 0 0 25px rgba(124,58,237,.35);
+        }
+
+        .cn-career-node svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        .cn-career-node strong {
+          display: block;
+          color: white;
+          font-size: 10px;
+          margin-top: 5px;
+        }
+
+        .cn-career-node span {
+          color: #747b9b;
+          font-size: 7px;
+        }
+
+        /* BUSINESS */
+
+        .cn-business-grid {
+          position: absolute;
+          inset: 5%;
+          background-image:
+            linear-gradient(rgba(99,102,241,.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99,102,241,.08) 1px, transparent 1px);
+          background-size: 32px 32px;
+          transform: perspective(500px) rotateX(58deg) translateY(70px);
+          opacity: .75;
+        }
+
+        .cn-business-core {
+          background: radial-gradient(circle at 35% 25%,#2563eb,#4f46e5 60%,#21105d);
+        }
+
+        /* TECHNOLOGY */
+
+        .cn-tech-network {
+          position: absolute;
+          inset: 0;
+        }
+
+        .cn-tech-network span {
+          position: absolute;
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background: #67e8f9;
+          box-shadow: 0 0 15px #22d3ee;
+          animation: cn-pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes cn-pulse {
+          50% {
+            transform: scale(1.8);
+            opacity: .45;
+          }
+        }
+
+        .cn-tech-core {
+          background: radial-gradient(circle at 35% 25%,#06b6d4,#2563eb 60%,#1e1b4b);
+        }
+
+        /* ================= IMPACT ================= */
+
+        .cn-impact-section {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 18px auto;
+          padding: 42px 36px 32px;
+          background: white;
+          border: 1px solid #e2e5f0;
+          border-radius: 28px;
+          box-shadow: 0 15px 50px rgba(31,41,91,.07);
+        }
+
+        .cn-impact-header span,
+        .cn-section-heading-center span {
+          color: #7040ff;
+          font-size: 10px;
+          font-weight: 950;
+          letter-spacing: 2px;
+        }
+
+        .cn-impact-header h2,
+        .cn-section-heading-center h2 {
+          margin: 8px 0 4px;
+          font-size: clamp(28px,3vw,42px);
+          line-height: 1.05;
+          letter-spacing: -1.5px;
+          color: #11162b;
+        }
+
+        .cn-impact-header p,
+        .cn-section-heading-center p {
+          margin: 0;
+          color: #66708f;
+          font-size: 13px;
+        }
+
+        .cn-impact-infographic {
+          position: relative;
+          display: grid;
+          grid-template-columns: repeat(4,1fr);
+          gap: 22px;
+          margin-top: 40px;
+        }
+
+        .cn-impact-connector {
+          position: absolute;
+          left: 12%;
+          right: 12%;
+          top: 39px;
+          height: 3px;
+          background: linear-gradient(
+            90deg,
+            #8b5cf6,
+            #c026d3,
+            #2563eb,
+            #10b981
+          );
+          z-index: 0;
+        }
+
+        .cn-impact-step {
+          position: relative;
+          z-index: 2;
+          padding: 0 8px;
+        }
+
+        .cn-impact-icon {
+          width: 78px;
+          height: 78px;
+          margin-bottom: 14px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          color: white;
+          border: 7px solid white;
+          box-shadow: 0 8px 25px rgba(49,46,129,.16);
+        }
+
+        .cn-impact-icon svg {
+          width: 27px;
+          height: 27px;
+        }
+
+        .impact-1 { background: linear-gradient(145deg,#7c3aed,#8b5cf6); }
+        .impact-2 { background: linear-gradient(145deg,#2563eb,#4f46e5); }
+        .impact-3 { background: linear-gradient(145deg,#c026d3,#ec4899); }
+        .impact-4 { background: linear-gradient(145deg,#059669,#10b981); }
+
+        .cn-impact-number {
+          color: #9299b3;
+          font-size: 9px;
+          font-weight: 900;
+        }
+
+        .cn-impact-step h3 {
+          margin: 5px 0;
+          font-size: 18px;
+          color: #11162b;
+        }
+
+        .cn-impact-step p {
+          margin: 0;
+          max-width: 230px;
+          color: #66708f;
+          font-size: 11px;
+          line-height: 1.65;
+        }
+
+        .cn-impact-arrow {
+          position: absolute;
+          right: -14px;
+          top: 27px;
+          color: #9ca3bf;
+          width: 22px;
+        }
+
+        .cn-impact-bottom {
+          margin-top: 30px;
+          padding: 16px 20px;
+          border-radius: 16px;
+          background: linear-gradient(100deg,#f6f2ff,#faf7ff);
+          border: 1px solid #e8ddff;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 15px;
+        }
+
+        .cn-impact-bottom span {
+          display: block;
+          color: #7c3aed;
+          font-size: 8px;
+          font-weight: 950;
+          letter-spacing: 1.5px;
+        }
+
+        .cn-impact-bottom strong {
+          display: block;
+          margin-top: 3px;
+          color: #303653;
+          font-size: 13px;
+        }
+
+        .cn-impact-bottom button {
+          border: 0;
+          border-radius: 11px;
+          padding: 10px 15px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          color: white;
+          background: linear-gradient(100deg,#6538ff,#a52cff);
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .cn-impact-bottom button svg {
+          width: 14px;
+        }
+
+        /* ================= TOOLS ================= */
+
+        .cn-tools-section {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 18px auto;
+          padding: 42px 36px;
+          background: white;
+          border: 1px solid #e2e5f0;
+          border-radius: 28px;
+        }
+
+        .cn-section-heading-center {
+          text-align: center;
+          max-width: 720px;
+          margin: auto;
+        }
+
+        .cn-tools-grid {
+          display: grid;
+          grid-template-columns: repeat(6,1fr);
+          gap: 12px;
+          margin-top: 30px;
+          perspective: 1000px;
+        }
+
+        .cn-tool-card {
+          min-height: 225px;
+          text-align: left;
+          padding: 17px;
+          border-radius: 19px;
+          border: 1px solid #e4e7f1;
+          background: linear-gradient(145deg,#fff,#fafaff);
+          box-shadow: 0 10px 30px rgba(31,41,91,.06);
+          transition: box-shadow .25s ease;
+        }
+
+        .cn-tool-card:hover {
+          box-shadow: 0 20px 45px rgba(79,70,229,.15);
+        }
+
+        .cn-tool-icon {
+          width: 44px;
+          height: 44px;
+          display: grid;
+          place-items: center;
+          color: white;
+          border-radius: 13px;
+          box-shadow: 0 8px 18px rgba(79,70,229,.18);
+        }
+
+        .cn-tool-icon svg {
+          width: 21px;
+          height: 21px;
+        }
+
+        .cn-tool-card h3 {
+          margin: 14px 0 6px;
+          color: #17203b;
+          font-size: 13px;
+          line-height: 1.3;
+        }
+
+        .cn-tool-card p {
+          margin: 0;
+          color: #6d7592;
+          font-size: 9px;
+          line-height: 1.65;
+        }
+
+        .cn-tool-card > span {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          margin-top: 14px;
+          color: #6738ff;
+          font-size: 9px;
+          font-weight: 950;
+        }
+
+        .cn-tool-card > span svg {
+          width: 11px;
+        }
+
+        /* ================= OFFERINGS ================= */
+
+        .cn-offerings-section {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 18px auto;
+          padding: 44px 36px;
+          background:
+            radial-gradient(circle at 10% 0%,rgba(245,158,11,.06),transparent 30%),
+            radial-gradient(circle at 90% 100%,rgba(124,58,237,.07),transparent 30%),
+            white;
+          border: 1px solid #e2e5f0;
+          border-radius: 28px;
+        }
+
+        .cn-offering-heading {
+          text-align: center;
+          max-width: 800px;
+          margin: auto;
+        }
+
+        .cn-offering-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 8px 13px;
+          border-radius: 999px;
+          color: #7040ff;
+          background: #f3efff;
+          border: 1px solid #e5dcff;
+          font-size: 9px;
+          font-weight: 950;
+          letter-spacing: 1.5px;
+        }
+
+        .cn-offering-badge svg {
+          width: 13px;
+        }
+
+        .cn-offering-heading h2 {
+          margin: 10px 0 5px;
+          font-size: clamp(30px,3vw,44px);
+          letter-spacing: -1.5px;
+        }
+
+        .cn-offering-heading p {
+          margin: 0;
+          color: #66708f;
+          font-size: 12px;
+          line-height: 1.65;
+        }
+
+        .cn-offering-flow {
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          gap: 15px;
+          margin-top: 32px;
+          perspective: 1200px;
+        }
+
+        .cn-offering-card {
+          position: relative;
+          min-height: 235px;
+          padding: 19px;
+          text-align: left;
+          overflow: hidden;
+          border-radius: 20px;
+          border: 1px solid;
+          background: white;
+          box-shadow: 0 12px 30px rgba(31,41,91,.07);
+          transition: box-shadow .25s ease;
+        }
+
+        .cn-offering-card::after {
+          content: "";
+          position: absolute;
+          width: 130px;
+          height: 130px;
+          right: -55px;
+          bottom: -60px;
+          border-radius: 50%;
+          opacity: .13;
+        }
+
+        .cn-offering-card:hover {
+          box-shadow: 0 24px 55px rgba(31,41,91,.14);
+        }
+
+        .cn-offering-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .cn-offering-top > span {
+          font-size: 10px;
+          font-weight: 950;
+          opacity: .7;
+        }
+
+        .cn-offering-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          display: grid;
+          place-items: center;
+          color: white;
+          box-shadow: 0 9px 20px rgba(31,41,91,.14);
+        }
+
+        .cn-offering-icon svg {
+          width: 23px;
+        }
+
+        .cn-offering-card h3 {
+          margin: 15px 0 3px;
+          font-size: 17px;
+          color: #17203b;
+        }
+
+        .cn-offering-card > strong {
+          font-size: 9px;
+          letter-spacing: .6px;
+        }
+
+        .cn-offering-card p {
+          color: #66708f;
+          font-size: 10px;
+          line-height: 1.65;
+          margin: 9px 0 14px;
+        }
+
+        .cn-offering-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 9px;
+          font-weight: 950;
+        }
+
+        .cn-offering-link svg {
+          width: 12px;
+        }
+
+        .cn-offering-amber {
+          border-color: #fde2a9;
+          background: linear-gradient(145deg,#fff,#fffaf0);
+        }
+
+        .cn-offering-amber .cn-offering-icon {
+          background: linear-gradient(145deg,#f59e0b,#ea580c);
+        }
+
+        .cn-offering-amber > strong,
+        .cn-offering-amber .cn-offering-link {
+          color: #d97706;
+        }
+
+        .cn-offering-pink {
+          border-color: #fbcfe8;
+          background: linear-gradient(145deg,#fff,#fff4fa);
+        }
+
+        .cn-offering-pink .cn-offering-icon {
+          background: linear-gradient(145deg,#ec4899,#db2777);
+        }
+
+        .cn-offering-pink > strong,
+        .cn-offering-pink .cn-offering-link {
+          color: #db2777;
+        }
+
+        .cn-offering-blue {
+          border-color: #bfdbfe;
+          background: linear-gradient(145deg,#fff,#f4f8ff);
+        }
+
+        .cn-offering-blue .cn-offering-icon {
+          background: linear-gradient(145deg,#3b82f6,#2563eb);
+        }
+
+        .cn-offering-blue > strong,
+        .cn-offering-blue .cn-offering-link {
+          color: #2563eb;
+        }
+
+        .cn-offering-green {
+          border-color: #bbf7d0;
+          background: linear-gradient(145deg,#fff,#f3fff7);
+        }
+
+        .cn-offering-green .cn-offering-icon {
+          background: linear-gradient(145deg,#10b981,#059669);
+        }
+
+        .cn-offering-green > strong,
+        .cn-offering-green .cn-offering-link {
+          color: #059669;
+        }
+
+        .cn-offering-purple {
+          border-color: #ddd6fe;
+          background: linear-gradient(145deg,#fff,#f8f5ff);
+        }
+
+        .cn-offering-purple .cn-offering-icon {
+          background: linear-gradient(145deg,#8b5cf6,#6d28d9);
+        }
+
+        .cn-offering-purple > strong,
+        .cn-offering-purple .cn-offering-link {
+          color: #7c3aed;
+        }
+
+        .cn-offering-cyan {
+          border-color: #a5f3fc;
+          background: linear-gradient(145deg,#fff,#f2fdff);
+        }
+
+        .cn-offering-cyan .cn-offering-icon {
+          background: linear-gradient(145deg,#06b6d4,#2563eb);
+        }
+
+        .cn-offering-cyan > strong,
+        .cn-offering-cyan .cn-offering-link {
+          color: #0891b2;
+        }
+
+        /* ================= METRICS ================= */
+
+        .cn-metrics {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 18px auto;
+          padding: 20px 18px;
+          display: grid;
+          grid-template-columns: repeat(6,1fr);
+          border-radius: 22px;
+          background: white;
+          border: 1px solid #e2e5f0;
+          box-shadow: 0 12px 35px rgba(31,41,91,.06);
+        }
+
+        .cn-metric {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          min-height: 55px;
+          border-right: 1px solid #edf0f6;
+        }
+
+        .cn-metric:last-child {
+          border-right: 0;
+        }
+
+        .cn-metric > span {
+          color: #633cff;
+          font-size: 21px;
+        }
+
+        .cn-metric strong {
+          display: block;
+          color: #151b35;
+          font-size: 19px;
+          line-height: 1;
+        }
+
+        .cn-metric small {
+          display: block;
+          margin-top: 4px;
+          color: #737b97;
+          font-size: 8px;
+        }
+
+        /* ================= REVIEWS ================= */
+
+        .cn-reviews-section {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 42px auto 25px;
+          padding: 45px 36px 35px;
+          border-radius: 28px;
+          background:
+            radial-gradient(circle at 0% 0%,rgba(124,58,237,.08),transparent 28%),
+            radial-gradient(circle at 100% 100%,rgba(236,72,153,.07),transparent 28%),
+            white;
+          border: 1px solid #e2e5f0;
+          box-shadow: 0 18px 55px rgba(31,41,91,.08);
+        }
+
+        .cn-review-heading {
+          text-align: center;
+          max-width: 900px;
+          margin: auto;
+        }
+
+        .cn-review-heading > span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          color: #7040ff;
+          font-size: 10px;
+          font-weight: 950;
+          letter-spacing: 1.5px;
+        }
+
+        .cn-review-heading > span svg {
+          width: 13px;
+          fill: #f59e0b;
+          color: #f59e0b;
+        }
+
+        .cn-review-heading h2 {
+          margin: 10px 0 5px;
+          color: #11162b;
+          font-size: clamp(29px,3.2vw,46px);
+          letter-spacing: -1.7px;
+        }
+
+        .cn-review-heading p {
+          margin: 0;
+          color: #66708f;
+          font-size: 13px;
+        }
+
+        .cn-review-carousel {
+          position: relative;
+          margin-top: 30px;
+        }
+
+        .cn-review-grid {
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          gap: 16px;
+          min-height: 310px;
+        }
+
+        .cn-review-card {
+          position: relative;
+          min-height: 310px;
+          padding: 23px;
+          border-radius: 22px;
+          border: 1px solid rgba(124,58,237,.14);
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(31,41,91,.07);
+        }
+
+        .cn-review-stars {
+          display: flex;
+          gap: 3px;
+          color: #f59e0b;
+        }
+
+        .cn-review-stars svg {
+          width: 15px;
+          height: 15px;
+        }
+
+        .cn-review-category {
+          display: inline-flex;
+          margin-top: 12px;
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: rgba(255,255,255,.75);
+          color: #5b35d5;
+          font-size: 8px;
+          font-weight: 900;
+        }
+
+        .cn-review-quote {
+          position: relative;
+          z-index: 2;
+          min-height: 105px;
+          margin: 17px 0 8px;
+          color: #39415f;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .cn-review-person {
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          bottom: 17px;
+          display: flex;
+          align-items: end;
+          gap: 11px;
+          z-index: 4;
+        }
+
+        .cn-review-person strong {
+          display: block;
+          color: #171d36;
+          font-size: 12px;
+        }
+
+        .cn-review-person span {
+          display: block;
+          color: #747c98;
+          font-size: 8px;
+          margin-top: 2px;
+        }
+
+        .cn-review-mark {
+          position: absolute;
+          right: 20px;
+          top: 16px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          color: white;
+          background: linear-gradient(145deg,#7c3aed,#c026d3);
+          font-size: 26px;
+          font-weight: 900;
+          box-shadow: 0 10px 22px rgba(124,58,237,.22);
+        }
+
+        /* AVATAR */
+
+        .cn-review-avatar {
+          position: relative;
+          width: 75px;
+          height: 78px;
+          flex: 0 0 75px;
+        }
+
+        .cn-avatar-face {
+          position: absolute;
+          z-index: 3;
+          left: 16px;
+          top: 13px;
+          width: 43px;
+          height: 45px;
+          border-radius: 45% 45% 48% 48%;
+          background: #ffd8b9;
+          box-shadow: inset -3px -3px 0 rgba(190,120,80,.08);
+        }
+
+        .cn-avatar-hair {
+          position: absolute;
+          z-index: 4;
+          left: 13px;
+          top: 5px;
+          width: 49px;
+          height: 27px;
+          border-radius: 50% 50% 25% 25%;
+          background: #241a2d;
+        }
+
+        .cn-avatar-female .cn-avatar-hair {
+          left: 9px;
+          top: 4px;
+          width: 57px;
+          height: 52px;
+          border-radius: 50% 50% 35% 35%;
+          background: #352035;
+        }
+
+        .cn-eye {
+          position: absolute;
+          top: 19px;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: #29243a;
+        }
+
+        .cn-eye.left {
+          left: 10px;
+        }
+
+        .cn-eye.right {
+          right: 10px;
+        }
+
+        .cn-smile {
+          position: absolute;
+          left: 50%;
+          bottom: 8px;
+          width: 13px;
+          height: 6px;
+          transform: translateX(-50%);
+          border-bottom: 2px solid #a84d55;
+          border-radius: 0 0 50% 50%;
+        }
+
+        .cn-avatar-body {
+          position: absolute;
+          z-index: 2;
+          left: 6px;
+          bottom: 0;
+          width: 65px;
+          height: 35px;
+          border-radius: 35px 35px 8px 8px;
+          background: linear-gradient(145deg,#5b35ff,#312e81);
+        }
+
+        .cn-avatar-female .cn-avatar-body {
+          background: linear-gradient(145deg,#ec4899,#9d174d);
+        }
+
+        .cn-review-nav {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 15;
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          border: 1px solid #dfe2ee;
+          background: white;
+          color: #5731d5;
+          display: grid;
+          place-items: center;
+          box-shadow: 0 10px 25px rgba(31,41,91,.12);
+        }
+
+        .cn-review-nav:hover {
+          background: #f5f1ff;
+        }
+
+        .cn-review-nav svg {
+          width: 20px;
+        }
+
+        .cn-review-prev {
+          left: -20px;
+        }
+
+        .cn-review-next {
+          right: -20px;
+        }
+
+        .cn-review-dots {
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          margin-top: 22px;
+        }
+
+        .cn-review-dots button {
+          width: 7px;
+          height: 7px;
+          border: 0;
+          padding: 0;
+          border-radius: 50%;
+          background: #cbd0e0;
+        }
+
+        .cn-review-dots button.active {
+          width: 25px;
+          border-radius: 10px;
+          background: #7138ff;
+        }
+
+        /* ================= FINAL CTA ================= */
+
+        .cn-final-cta {
+          width: calc(100% - 90px);
+          max-width: 1440px;
+          margin: 25px auto 45px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 28px;
+          background: linear-gradient(105deg,#4338ca,#6d28d9,#a21caf);
+          color: white;
+          padding: 48px 30px;
+          box-shadow: 0 25px 60px rgba(79,70,229,.2);
+        }
+
+        .cn-final-glow {
+          position: absolute;
+          width: 330px;
+          height: 330px;
+          right: -100px;
+          top: -160px;
+          border-radius: 50%;
+          background: rgba(255,255,255,.12);
+          filter: blur(30px);
+        }
+
+        .cn-final-content {
+          position: relative;
+          z-index: 2;
+          max-width: 800px;
+          margin: auto;
+          text-align: center;
+        }
+
+        .cn-final-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 11px;
+          border-radius: 999px;
+          background: rgba(255,255,255,.13);
+          border: 1px solid rgba(255,255,255,.2);
+          font-size: 9px;
+          font-weight: 900;
+        }
+
+        .cn-final-badge svg {
+          width: 13px;
+        }
+
+        .cn-final-content h2 {
+          margin: 14px 0 8px;
+          font-size: clamp(27px,3.5vw,44px);
+          letter-spacing: -1.5px;
+        }
+
+        .cn-final-content p {
+          margin: auto;
+          max-width: 620px;
+          color: #e4ddff;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .cn-final-actions {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 22px;
+        }
+
+        .cn-final-actions button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          padding: 12px 17px;
+          border: 0;
+          border-radius: 12px;
+          color: #4c1d95;
+          background: white;
+          font-size: 11px;
+          font-weight: 950;
+        }
+
+        .cn-final-actions button.secondary {
+          color: white;
+          background: rgba(255,255,255,.12);
+          border: 1px solid rgba(255,255,255,.22);
+        }
+
+        .cn-final-actions svg {
+          width: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+          .cn-tools-grid {
+            grid-template-columns: repeat(3,1fr);
+          }
+
+          .cn-metrics {
+            grid-template-columns: repeat(3,1fr);
+          }
+
+          .cn-metric:nth-child(3) {
+            border-right: 0;
+          }
+
+          .cn-metric:nth-child(n+4) {
+            border-top: 1px solid #edf0f6;
+          }
+        }
+
+        @media (max-width: 900px) {
+          .cn-hero {
+            height: auto;
+            min-height: 720px;
+          }
+
+          .cn-hero-inner {
+            grid-template-columns: 1fr;
+          }
+
+          .cn-hero-copy {
+            padding: 38px 28px 10px;
+          }
+
+          .cn-visual {
+            min-height: 340px;
+          }
+
+          .cn-impact-infographic {
+            grid-template-columns: repeat(2,1fr);
+          }
+
+          .cn-impact-connector {
+            display: none;
+          }
+
+          .cn-offering-flow {
+            grid-template-columns: repeat(2,1fr);
+          }
+
+          .cn-review-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .cn-review-card {
+            display: none;
+          }
+
+          .cn-review-card:first-child {
+            display: block;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .cn-social-rail {
+            right: 7px;
+            gap: 6px;
+          }
+
+          .cn-social-item {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+          }
+
+          .cn-social-item svg {
+            width: 17px;
+            height: 17px;
+          }
+
+          .cn-hero,
+          .cn-impact-section,
+          .cn-tools-section,
+          .cn-offerings-section,
+          .cn-metrics,
+          .cn-reviews-section,
+          .cn-final-cta {
+            width: calc(100% - 28px);
+          }
+
+          .cn-hero {
+            min-height: 650px;
+            margin-top: 12px;
+            border-radius: 22px;
+          }
+
+          .cn-hero-copy {
+            padding: 31px 20px 0;
+          }
+
+          .cn-hero-eyebrow {
+            font-size: 8px;
+            padding: 7px 10px;
+            margin-bottom: 14px;
+          }
+
+          .cn-hero-title {
+            font-size: 35px;
+            letter-spacing: -1.8px;
+          }
+
+          .cn-hero-description {
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 14px;
+          }
+
+          .cn-hero-actions {
+            margin-top: 16px;
+          }
+
+          .cn-hero-primary,
+          .cn-hero-secondary {
+            padding: 10px 12px;
+            font-size: 9px;
+          }
+
+          .cn-hero-stats {
+            gap: 9px;
+            margin-top: 16px;
+          }
+
+          .cn-hero-stat strong {
+            font-size: 14px;
+          }
+
+          .cn-hero-stat span {
+            font-size: 7px;
+          }
+
+          .cn-hero-divider {
+            height: 22px;
+          }
+
+          .cn-visual {
+            min-height: 300px;
+          }
+
+          .cn-slider-arrows {
+            right: 13px;
+            top: 13px;
+          }
+
+          .cn-slider-arrows button {
+            width: 34px;
+            height: 34px;
+          }
+
+          .cn-orbit-a {
+            width: 220px;
+            height: 220px;
+          }
+
+          .cn-orbit-b {
+            width: 165px;
+            height: 165px;
+          }
+
+          .cn-orbit-c {
+            width: 275px;
+            height: 275px;
+          }
+
+          .cn-growth-core,
+          .cn-marketing-core,
+          .cn-business-core,
+          .cn-tech-core {
+            width: 105px;
+            height: 105px;
+          }
+
+          .cn-growth-core svg,
+          .cn-marketing-core svg,
+          .cn-business-core svg,
+          .cn-tech-core svg {
+            width: 22px;
+            height: 22px;
+          }
+
+          .cn-growth-core strong,
+          .cn-growth-core span,
+          .cn-business-core strong,
+          .cn-business-core span,
+          .cn-tech-core strong,
+          .cn-tech-core span {
+            font-size: 7px;
+          }
+
+          .cn-marketing-core strong {
+            font-size: 28px;
+          }
+
+          .cn-floating-card {
+            width: 112px;
+            min-height: 54px;
+            padding: 7px 9px;
+            border-radius: 11px;
+          }
+
+          .cn-floating-card span {
+            font-size: 6px;
+          }
+
+          .cn-floating-card strong {
+            font-size: 13px;
+          }
+
+          .cn-floating-card small {
+            font-size: 6px;
+          }
+
+          .cn-fc-top-left {
+            top: 9%;
+          }
+
+          .cn-fc-top-right {
+            top: 12%;
+          }
+
+          .cn-fc-bottom-left {
+            bottom: 9%;
+          }
+
+          .cn-fc-bottom-right {
+            bottom: 10%;
+          }
+
+          .cn-career-line {
+            left: 7%;
+            right: 7%;
+          }
+
+          .cn-career-node {
+            width: 55px;
+          }
+
+          .cn-career-node div {
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+          }
+
+          .cn-career-node svg {
+            width: 18px;
+          }
+
+          .cn-career-node strong {
+            font-size: 7px;
+          }
+
+          .cn-career-node span,
+          .cn-career-node small {
+            font-size: 6px;
+          }
+
+          .cn-impact-section,
+          .cn-tools-section,
+          .cn-offerings-section,
+          .cn-reviews-section {
+            padding: 28px 16px;
+            border-radius: 21px;
+          }
+
+          .cn-impact-header h2,
+          .cn-section-heading-center h2,
+          .cn-offering-heading h2,
+          .cn-review-heading h2 {
+            font-size: 27px;
+          }
+
+          .cn-impact-header p,
+          .cn-section-heading-center p,
+          .cn-review-heading p {
+            font-size: 10px;
+          }
+
+          .cn-impact-infographic {
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 7px;
+            margin-top: 25px;
+          }
+
+          .cn-impact-icon {
+            width: 57px;
+            height: 57px;
+            border-width: 5px;
+          }
+
+          .cn-impact-icon svg {
+            width: 20px;
+          }
+
+          .cn-impact-step h3 {
+            font-size: 14px;
+          }
+
+          .cn-impact-step p {
+            font-size: 8px;
+          }
+
+          .cn-impact-arrow {
+            display: none;
+          }
+
+          .cn-impact-bottom {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .cn-impact-bottom button {
+            justify-content: center;
+          }
+
+          .cn-tools-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+          }
+
+          .cn-tool-card {
+            min-height: 185px;
+            padding: 13px;
+            border-radius: 15px;
+          }
+
+          .cn-tool-icon {
+            width: 37px;
+            height: 37px;
+          }
+
+          .cn-tool-card h3 {
+            font-size: 10px;
+            margin-top: 10px;
+          }
+
+          .cn-tool-card p {
+            font-size: 7px;
+          }
+
+          .cn-tool-card > span {
+            font-size: 7px;
+          }
+
+          .cn-offering-flow {
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+
+          .cn-offering-card {
+            min-height: 190px;
+            padding: 15px;
+          }
+
+          .cn-offering-card h3 {
+            font-size: 15px;
+          }
+
+          .cn-offering-card p {
+            font-size: 9px;
+          }
+
+          .cn-metrics {
+            grid-template-columns: repeat(2,1fr);
+            padding: 8px;
+          }
+
+          .cn-metric {
+            border-right: 1px solid #edf0f6;
+            min-height: 57px;
+          }
+
+          .cn-metric:nth-child(2n) {
+            border-right: 0;
+          }
+
+          .cn-metric:nth-child(n+3) {
+            border-top: 1px solid #edf0f6;
+          }
+
+          .cn-metric > span {
+            font-size: 16px;
+          }
+
+          .cn-metric strong {
+            font-size: 15px;
+          }
+
+          .cn-metric small {
+            font-size: 6px;
+          }
+
+          .cn-review-carousel {
+            margin-top: 22px;
+            padding: 0 4px;
+          }
+
+          .cn-review-card {
+            min-height: 330px;
+            padding: 18px;
+          }
+
+          .cn-review-nav {
+            width: 34px;
+            height: 34px;
+          }
+
+          .cn-review-prev {
+            left: -4px;
+          }
+
+          .cn-review-next {
+            right: -4px;
+          }
+
+          .cn-review-quote {
+            font-size: 10px;
+          }
+
+          .cn-review-person {
+            left: 15px;
+            right: 15px;
+          }
+
+          .cn-final-cta {
+            padding: 35px 18px;
+            border-radius: 22px;
+          }
+
+          .cn-final-content h2 {
+            font-size: 26px;
+          }
+
+          .cn-final-content p {
+            font-size: 10px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .cn-orbit,
+          .cn-marketing-ring,
+          .cn-tech-network span {
+            animation: none !important;
+          }
+        }
+      `}</style>
 
       <div className="cn-home">
-        <SocialRail />
+        {/* RIGHT CONTACT RAIL ONLY — NO LEFT SUPPORT BUTTON */}
+        <CareerNovaSocialRail />
 
-        {/* ================= HERO ================= */}
-        <div className="cn-hero-wrap">
-          <div className="cn-container">
-            <section className={`cn-hero cn-theme-${currentHero.theme}`}>
-              <div className="cn-hero-controls">
-                <button
-                  type="button"
-                  className="cn-round-btn"
-                  onClick={() => goHero(-1)}
-                  aria-label="Previous slide"
-                >
-                  <ArrowIcon direction="left" />
-                </button>
+        {/* =================================================
+            HERO
+        ================================================== */}
 
-                <button
-                  type="button"
-                  className="cn-round-btn"
-                  onClick={() => goHero(1)}
-                  aria-label="Next slide"
-                >
-                  <ArrowIcon />
-                </button>
-              </div>
+        <section className="cn-hero">
+          <ParticleMeshCanvas />
 
-              <div className="cn-hero-content">
-                <div className="cn-hero-copy">
-                  <div className="cn-eyebrow">
-                    ✦ {currentHero.eyebrow}
-                  </div>
-
-                  <h1>{currentHero.title}</h1>
-
-                  <p className="cn-hero-description">
-                    {currentHero.description}
-                  </p>
-
-                  <div className="cn-hero-actions">
-                    <a className="cn-btn cn-btn-primary" href="#core-expertise">
-                      Explore Core Expertise
-                      <ArrowIcon />
-                    </a>
-
-                    <a className="cn-btn cn-btn-secondary" href="#contact">
-                      ◉ Get Free Consultation
-                    </a>
-                  </div>
-
-                  <div className="cn-hero-metrics">
-                    <div className="cn-metric">
-                      <span className="cn-metric-value">
-                        {currentHero.metricA}
-                      </span>
-                      <span className="cn-metric-label">
-                        {currentHero.metricALabel}
-                      </span>
-                    </div>
-
-                    <div className="cn-metric">
-                      <span className="cn-metric-value">
-                        {currentHero.metricB}
-                      </span>
-                      <span className="cn-metric-label">
-                        {currentHero.metricBLabel}
-                      </span>
-                    </div>
-
-                    <div className="cn-metric">
-                      <span className="cn-metric-value">
-                        {currentHero.metricC}
-                      </span>
-                      <span className="cn-metric-label">
-                        {currentHero.metricCLabel}
-                      </span>
-                    </div>
-
-                    <div className="cn-metric">
-                      <span className="cn-metric-value">
-                        {currentHero.metricD}
-                      </span>
-                      <span className="cn-metric-label">
-                        {currentHero.metricDLabel}
-                      </span>
-                    </div>
-                  </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slide.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.65, ease: 'easeInOut' }}
+              className="cn-hero-inner"
+            >
+              <div className="cn-hero-copy">
+                <div className="cn-hero-eyebrow">
+                  <Sparkles />
+                  {slide.eyebrow}
                 </div>
 
-                <div className="cn-hero-visual" aria-hidden="true">
-                  <div className="cn-visual-orbit" />
+                <h1 className="cn-hero-title">{slide.title}</h1>
 
-                  <div className="cn-float-card cn-float-1">
-                    <span>Skill Score</span>
-                    <strong>{currentHero.metricA}</strong>
-                    <div className="cn-mini-bar" />
-                  </div>
+                <p className="cn-hero-description">
+                  {slide.description}
+                </p>
 
-                  <div className="cn-float-card cn-float-2">
-                    <span>Career Match</span>
-                    <strong>{currentHero.metricB}</strong>
-                  </div>
-
-                  <div className="cn-float-card cn-float-3">
-                    <span>Tools & Frameworks</span>
-                    <strong>{currentHero.metricC}</strong>
-                  </div>
-
-                  <div className="cn-float-card cn-float-4">
-                    <span>Client Rating</span>
-                    <strong>{currentHero.metricD}</strong>
-                  </div>
-
-                  <div className="cn-visual-core">
-                    <span className="cn-core-arrow">↗</span>
-                    <span className="cn-core-text">GROWTH ENGINE</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="cn-hero-dots">
-                {HERO_SLIDES.map((_, index) => (
+                <div className="cn-hero-actions">
                   <button
-                    type="button"
-                    key={index}
-                    className={`cn-dot ${
-                      heroIndex === index ? "active" : ""
-                    }`}
-                    onClick={() => setHeroIndex(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-
-              <div className="cn-slide-progress">
-                <span key={heroIndex} />
-              </div>
-            </section>
-          </div>
-        </div>
-
-        {/* ================= REVIEWS ================= */}
-        <section className="cn-review-section">
-          <div className="cn-container">
-            <div className="cn-review-shell">
-              <div className="cn-review-heading">
-                <div className="cn-section-kicker">
-                  ★ TRUSTED BY LEARNERS & LEADERS
-                </div>
-                <h2>What Clients Say About CareerNova</h2>
-                <p>
-                  Practical tools, structured guidance and measurable outcomes
-                  built around real career and business goals.
-                </p>
-              </div>
-
-              <div className="cn-review-card">
-                <div>
-                  <div className="cn-stars">
-                    <StarIcon />
-                    <StarIcon />
-                    <StarIcon />
-                    <StarIcon />
-                    <StarIcon />
-                  </div>
-
-                  <p className="cn-review-quote">
-                    “{review.quote}”
-                  </p>
-
-                  <div className="cn-review-author">
-                    <strong>{review.name}</strong> • {review.role}
-                  </div>
-                </div>
-
-                <div className="cn-review-score">
-                  <strong>{review.rating}</strong>
-                  <span>CLIENT RATING</span>
-                </div>
-              </div>
-
-              <div className="cn-review-controls">
-                <button
-                  type="button"
-                  className="cn-round-btn"
-                  onClick={() => goReview(-1)}
-                  aria-label="Previous review"
-                  style={{ width: 34, height: 34, color: "#34235f" }}
-                >
-                  <ArrowIcon direction="left" />
-                </button>
-
-                {REVIEWS.map((_, index) => (
-                  <button
-                    type="button"
-                    key={index}
-                    className={`cn-review-dot ${
-                      reviewIndex === index ? "active" : ""
-                    }`}
-                    onClick={() => setReviewIndex(index)}
-                    aria-label={`Go to review ${index + 1}`}
-                  />
-                ))}
-
-                <button
-                  type="button"
-                  className="cn-round-btn"
-                  onClick={() => goReview(1)}
-                  aria-label="Next review"
-                  style={{ width: 34, height: 34, color: "#34235f" }}
-                >
-                  <ArrowIcon />
-                </button>
-              </div>
-            </div>
-
-            {/* ================= GRAPH ================= */}
-            <GrowthGraph />
-
-            {/* ================= PROCESS + TOOLS ================= */}
-            <div className="cn-two-column">
-              <section className="cn-panel">
-                <div className="cn-section-kicker">
-                  HOW WE CREATE IMPACT
-                </div>
-                <h2>Our Proven Process</h2>
-                <p>
-                  From idea to impact — we follow a simple, data-driven
-                  approach.
-                </p>
-
-                <div className="cn-process-row">
-                  {PROCESS.map((item) => (
-                    <div className="cn-process-item" key={item.number}>
-                      <div className="cn-process-icon">{item.icon}</div>
-                      <div className="cn-process-number">{item.number}</div>
-                      <h3>{item.title}</h3>
-                      <p>{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <section className="cn-panel">
-                <div className="cn-section-kicker">
-                  OUR TOOL ECOSYSTEM
-                </div>
-                <h2>What We Do Best</h2>
-                <p>
-                  Practical tools and frameworks to help you learn, build,
-                  analyze and grow.
-                </p>
-
-                <div className="cn-tool-grid">
-                  {TOOL_CAPABILITIES.map((tool) => (
-                    <article
-                      className={`cn-tool-card ${tool.className}`}
-                      key={tool.title}
-                    >
-                      <div className="cn-tool-icon">{tool.icon}</div>
-                      <h3>{tool.title}</h3>
-                      <p>{tool.text}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-            {/* ================= CORE EXPERTISE / OFFERINGS ================= */}
-            <section className="cn-offerings" id="core-expertise">
-              <div className="cn-section-kicker">CORE EXPERTISE</div>
-
-              <h2>Our Offerings</h2>
-
-              <p>
-                Explore CareerNova's core expertise across business,
-                technology, marketing, finance and career development —
-                designed to turn knowledge into practical outcomes.
-              </p>
-
-              <div className="cn-offering-grid">
-                {CORE_EXPERTISE.map((item) => (
-                  <article
-                    key={item.number}
-                    className={`cn-offering-card ${item.className}`}
+                    className="cn-hero-primary"
+                    onClick={() => onNavigate('tools')}
                   >
-                    <div className="cn-offering-top" />
+                    Explore Core Tools
+                    <ArrowRight />
+                  </button>
 
-                    <div className="cn-offering-number">
-                      {item.number}
+                  <button
+                    className="cn-hero-secondary"
+                    onClick={() =>
+                      openAiAssistant({ mode: 'consultation' })
+                    }
+                  >
+                    <Bot />
+                    Get Free Consultation
+                  </button>
+                </div>
+
+                <div className="cn-hero-stats">
+                  <div className="cn-hero-stat">
+                    <strong>30+</strong>
+                    <span>Clients</span>
+                  </div>
+
+                  <div className="cn-hero-divider" />
+
+                  <div className="cn-hero-stat">
+                    <strong>10+</strong>
+                    <span>Expertise</span>
+                  </div>
+
+                  <div className="cn-hero-divider" />
+
+                  <div className="cn-hero-stat">
+                    <strong>25+</strong>
+                    <span>Tools</span>
+                  </div>
+
+                  <div className="cn-hero-divider" />
+
+                  <div className="cn-hero-rating">
+                    <Star />
+                    <div className="cn-hero-stat">
+                      <strong>4.9/5</strong>
+                      <span>Client Rating</span>
                     </div>
-
-                    <div className="cn-offering-icon">
-                      {item.className === "orange" && "⌕"}
-                      {item.className === "purple" && "₹"}
-                      {item.className === "blue" && "</>"}
-                      {item.className === "green" && "↗"}
-                      {item.className === "pink" && "✦"}
-                    </div>
-
-                    <h3>{item.title}</h3>
-
-                    <div className="cn-offering-subtitle">
-                      {item.subtitle}
-                    </div>
-
-                    <p>{item.description}</p>
-
-                    <span className="cn-explore">
-                      Explore →
-                    </span>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            {/* ================= STATS ================= */}
-            <section className="cn-stats">
-              <div className="cn-stat">
-                <div className="cn-stat-icon">♜</div>
-                <strong>5+</strong>
-                <span>Years of Impact</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="cn-stat">
-                <div className="cn-stat-icon">♧</div>
-                <strong>500+</strong>
-                <span>Happy Clients</span>
-              </div>
+              <HeroVisual type={slide.visual} />
+            </motion.div>
+          </AnimatePresence>
 
-              <div className="cn-stat">
-                <div className="cn-stat-icon">◉</div>
-                <strong>13+</strong>
-                <span>Expertise Areas</span>
-              </div>
+          <div className="cn-slider-arrows">
+            <button
+              onClick={previousSlide}
+              aria-label="Previous hero slide"
+            >
+              <ChevronLeft />
+            </button>
 
-              <div className="cn-stat">
-                <div className="cn-stat-icon">🚀</div>
-                <strong>100+</strong>
-                <span>Tools & Frameworks</span>
-              </div>
+            <button
+              onClick={nextSlide}
+              aria-label="Next hero slide"
+            >
+              <ChevronRight />
+            </button>
+          </div>
 
-              <div className="cn-stat">
-                <div className="cn-stat-icon">☆</div>
-                <strong>4.9/5</strong>
-                <span>Client Rating</span>
-              </div>
-
-              <div className="cn-stat">
-                <div className="cn-stat-icon">◎</div>
-                <strong>25+</strong>
-                <span>Countries Reached</span>
-              </div>
-            </section>
-
-            <div id="contact" style={{ height: 1 }} />
+          <div className="cn-slide-dots">
+            {HERO_SLIDES.map((item, index) => (
+              <button
+                key={item.id}
+                className={activeSlide === index ? 'active' : ''}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Hero slide ${index + 1}`}
+              />
+            ))}
           </div>
         </section>
+
+        {/* =================================================
+            FROM IDEA TO MEASURABLE IMPACT
+        ================================================== */}
+
+        <ProcessSection onNavigate={onNavigate} />
+
+        {/* =================================================
+            WHAT WE DO BEST — TOOLS
+        ================================================== */}
+
+        <ToolsSection onNavigate={onNavigate} />
+
+        {/* =================================================
+            OUR OFFERINGS — CORE EXPERTISE
+        ================================================== */}
+
+        <OfferingsSection onNavigate={onNavigate} />
+
+        {/* =================================================
+            FINAL REALISTIC METRICS
+        ================================================== */}
+
+        <MetricsSection />
+
+        {/* =================================================
+            REVIEWS — BELOW METRICS / LOWER HOMEPAGE
+        ================================================== */}
+
+        <ReviewsSection />
+
+        {/* =================================================
+            EXISTING FINAL CTA
+        ================================================== */}
+
+        <FinalCTA onNavigate={onNavigate} />
       </div>
     </>
   );
