@@ -581,6 +581,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
           </button>
         </div>
       </motion.section>
-    </div>
+    </>
   );
 };
