@@ -23,6 +23,7 @@ import {
   CheckCircle,
   MessageSquareQuote,
   BookOpen,
+
   ArrowUpRight,
   Target,
   Rocket
