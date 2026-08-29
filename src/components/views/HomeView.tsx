@@ -327,171 +327,224 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
           </span>
         </div>
       </motion.section>
-{/* Clean & Professional Home View Sections (Hero section ke niche ka code) */}
-  <div className="bg-gray-50 space-y-24 py-12">
+{/* Clean & Professional Home View Sections (Updated with Core Expertise & Direct Navigation) */}
+<div className="bg-gradient-to-b from-gray-50/50 via-white to-gray-50/80 space-y-28 py-16">
 
-    {/* 1. Featured Tools Section */}
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
-          Unlock Your Digital Potential
-        </h2>
-        <p className="mt-4 text-lg text-gray-600">
-          High-performance tools designed to accelerate your business growth and engineering workflows.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {[
-          { title: 'Salary Estimator Pro', desc: 'Calculate market-competitive salaries for tech roles instantly.' },
-          { title: 'Project Cost Calculator', desc: 'Get accurate budget estimates for your development projects.' },
-          { title: 'Competitor Analysis Tool', desc: 'Benchmark your digital presence against industry leaders.' },
-          { title: 'Lead Gen Audit', desc: 'Identify and fix bottlenecks in your conversion funnel.' }
-        ].map((tool, idx) => (
-          <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
-            <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xl shrink-0">
+  {/* 1. Core Expertise & Business Growth Section (Clickable & Direct Landing) */}
+  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 tracking-wider uppercase mb-4 inline-block">
+        🚀 Strategic Growth & Expertise
+      </span>
+      <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">
+        Accelerate Your Business & Career
+      </h2>
+      <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+        Explore our core consulting disciplines, high-conversion growth strategies, and advanced technical solutions.
+      </p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {[
+        { 
+          title: 'Full-Stack & AI Engineering', 
+          desc: 'Build scalable, high-speed web architectures and intelligent AI-driven workflows.', 
+          color: 'from-blue-500 to-indigo-600', 
+          bg: 'bg-blue-50', 
+          text: 'text-blue-600',
+          tab: 'career',
+          sub: 'roadmap-guide'
+        },
+        { 
+          title: 'High-Conversion B2B Outreach', 
+          desc: 'Scale your sales pipeline and recruiter pitches with intelligent cold email strategies.', 
+          color: 'from-emerald-500 to-teal-600', 
+          bg: 'bg-emerald-50', 
+          text: 'text-emerald-600',
+          tab: 'business',
+          sub: 'cold-email'
+        },
+        { 
+          title: 'Unit Economics & Break-Even', 
+          desc: 'Calculate precise financial metrics, burn rates, and required monthly sales targets.', 
+          color: 'from-purple-500 to-pink-600', 
+          bg: 'bg-purple-50', 
+          text: 'text-purple-600',
+          tab: 'tools',
+          sub: 'break-even'
+        },
+        { 
+          title: 'Strategic Market Positioning', 
+          desc: 'Optimize your digital footprint, capture target market share, and maximize revenue growth.', 
+          color: 'from-amber-500 to-orange-600', 
+          bg: 'bg-amber-50', 
+          text: 'text-amber-600',
+          tab: 'business',
+          sub: 'strategy'
+        }
+      ].map((item, idx) => (
+        <div 
+          key={idx} 
+          onClick={() => onNavigate(item.tab, item.sub)}
+          className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/80 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 hover:-translate-y-1.5 flex items-start gap-6 overflow-hidden cursor-pointer"
+        >
+          <div className={`absolute top-0 left-0 w-2 h-full bg-gradient-to-b ${item.color} opacity-80 group-hover:opacity-100 transition-opacity`}></div>
+          <div className={`w-14 h-14 rounded-2xl ${item.bg} ${item.text} flex items-center justify-center font-bold text-2xl shrink-0 group-hover:scale-110 transition-transform shadow-inner`}>
+            ✦
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-gray-900 group-hover:text-indigo-600 transition-colors">{item.title}</h3>
+            <p className="text-gray-600 mt-2 text-sm leading-relaxed">{item.desc}</p>
+            <span className="inline-flex items-center gap-1.5 mt-5 text-indigo-600 font-bold text-sm group-hover:translate-x-1 transition-transform">
+              Explore Expertise <span>→</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* 2. Professional Disciplines Section */}
+  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-purple-50 text-purple-600 border border-purple-100 tracking-wider uppercase mb-4 inline-block">
+        💡 Core Domains
+      </span>
+      <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">
+        Consulted Professional Disciplines
+      </h2>
+      <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+        Specialized expertise to solve your toughest business challenges.
+      </p>
+    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {[
+        { title: 'AI & Custom Development', desc: 'Build scalable, intelligent applications with cutting-edge AI integration.', color: 'from-indigo-500 to-purple-600', tab: 'career' },
+        { title: 'Growth Strategy & Marketing', desc: 'Leverage data-driven strategies to capture market share and scale revenue.', color: 'from-pink-500 to-rose-600', tab: 'business' },
+        { title: 'Product & UI/UX Design', desc: 'Create intuitive, user-centric digital experiences that convert.', color: 'from-cyan-500 to-blue-600', tab: 'tools' }
+      ].map((item, idx) => (
+        <div 
+          key={idx} 
+          onClick={() => onNavigate(item.tab)}
+          className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/80 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden cursor-pointer"
+        >
+          <div className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${item.color}`}></div>
+          <div>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 text-white flex items-center justify-center font-bold text-2xl mb-6 shadow-md group-hover:rotate-6 transition-transform">
               ⚡
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">{tool.title}</h3>
-              <p className="text-gray-600 mt-2 text-sm leading-relaxed">{tool.desc}</p>
-              <span className="inline-block mt-4 text-indigo-600 font-semibold text-sm hover:underline cursor-pointer">Explore Tool →</span>
-            </div>
+            <h3 className="text-2xl font-extrabold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">{item.title}</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-6">{item.desc}</p>
           </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 2. Professional Disciplines Section */}
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
-          Consulted Professional Disciplines
-        </h2>
-        <p className="mt-4 text-lg text-gray-600">
-          Specialized expertise to solve your toughest business challenges.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {[
-          { title: 'AI & Custom Development', desc: 'Build scalable, intelligent applications with cutting-edge AI integration.' },
-          { title: 'Growth Strategy & Marketing', desc: 'Leverage data-driven strategies to capture market share and scale revenue.' },
-          { title: 'Product & UI/UX Design', desc: 'Create intuitive, user-centric digital experiences that convert.' }
-        ].map((item, idx) => (
-          <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xl mb-6">
-                ✦
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">{item.desc}</p>
-            </div>
-            <span className="text-indigo-600 font-semibold text-sm hover:underline cursor-pointer">Learn More →</span>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 3. Latest Articles Section */}
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
-          Read Our Latest Articles
-        </h2>
-        <p className="mt-4 text-lg text-gray-600">
-          Insights and thought leadership on AI, tech, and business scaling.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[1, 2, 3].map((_, idx) => (
-          <div key={idx} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-            <div className="h-48 bg-indigo-50 flex items-center justify-center text-indigo-300 font-medium text-sm">
-              Article Thumbnail
-            </div>
-            <div className="p-6">
-              <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Technology</span>
-              <h3 className="text-lg font-bold text-gray-900 mt-4 mb-2 leading-snug">The Future of Scalable Web Architecture</h3>
-              <p className="text-gray-600 text-sm line-clamp-2">Unlocking high performance and reliability through modern backend frameworks and cloud strategies...</p>
-              <span className="inline-block mt-5 text-indigo-600 font-semibold text-sm hover:underline cursor-pointer">Read Article →</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 4. Auto-Sliding Client Reviews & Core Expertise Section */}
-    <section className="py-8 overflow-hidden">
-      <div className="text-center max-w-3xl mx-auto mb-12 px-4">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
-          Trusted by Founders & Leaders
-        </h2>
-        <p className="mt-4 text-lg text-gray-600">
-          Real feedback on our core expertise, technical execution, and business scaling results.
-        </p>
-      </div>
-
-      {/* Sliding Container */}
-      <div className="relative w-full flex overflow-x-hidden group">
-        <div className="flex space-x-6 animate-marquee py-4 whitespace-nowrap group-hover:[animation-play-state:paused]">
-          {[
-            {
-              name: 'Rahul Sharma',
-              role: 'Startup Founder',
-              expertise: 'AI & Full-Stack Architecture',
-              review: 'The core expertise in building scalable backends and intelligent systems completely transformed our product speed. Exceptional execution!',
-              rating: '★★★★★'
-            },
-            {
-              name: 'Ankit Verma',
-              role: 'Product Head',
-              expertise: 'Growth Strategy & Funnels',
-              review: 'Their strategic market positioning and acquisition funnel design helped us scale user acquisition by over 200%. Top-tier professional work.',
-              rating: '★★★★★'
-            },
-            {
-              name: 'Priya Singh',
-              role: 'iOS Lead',
-              expertise: 'Native Mobile Apps',
-              review: 'Flawless native iOS development and seamless API integrations. The attention to UI/UX detail and performance is incredible.',
-              rating: '★★★★★'
-            },
-            // Duplicate items for infinite smooth loop effect
-            {
-              name: 'Rahul Sharma',
-              role: 'Startup Founder',
-              expertise: 'AI & Full-Stack Architecture',
-              review: 'The core expertise in building scalable backends and intelligent systems completely transformed our product speed. Exceptional execution!',
-              rating: '★★★★★'
-            },
-            {
-              name: 'Ankit Verma',
-              role: 'Product Head',
-              expertise: 'Growth Strategy & Funnels',
-              review: 'Their strategic market positioning and acquisition funnel design helped us scale user acquisition by over 200%. Top-tier professional work.',
-              rating: '★★★★★'
-            }
-          ].map((item, idx) => (
-            <div key={idx} className="w-[350px] sm:w-[400px] shrink-0 bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between whitespace-normal">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full">{item.expertise}</span>
-                  <span className="text-amber-500 text-sm tracking-widest">{item.rating}</span>
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed italic mb-6">"{item.review}"</p>
-              </div>
-              <div className="border-t border-gray-100 pt-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-700 shrink-0">
-                  {item.name[0]}
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 text-sm">{item.name}</h4>
-                  <p className="text-gray-500 text-xs">{item.role}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          <span className="inline-flex items-center gap-1.5 text-purple-600 font-bold text-sm group-hover:translate-x-1 transition-transform">
+            Learn More <span>→</span>
+          </span>
         </div>
+      ))}
+    </div>
+  </section>
+
+  {/* 3. Latest Articles Section with Colorful Gradient Thumbnails */}
+  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 tracking-wider uppercase mb-4 inline-block">
+        📰 Thought Leadership
+      </span>
+      <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">
+        Read Our Latest Articles
+      </h2>
+      <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+        Insights and thought leadership on AI, tech, and business scaling.
+      </p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[
+        { title: 'The Future of Scalable Web Architecture', cat: 'Technology', gradient: 'from-blue-600 via-indigo-600 to-purple-700' },
+        { title: 'Mastering AI Integration in Modern SaaS', cat: 'Artificial Intelligence', gradient: 'from-purple-600 via-pink-600 to-rose-600' },
+        { title: 'Growth Hacks for B2B Startup Founders', cat: 'Business Growth', gradient: 'from-emerald-600 via-teal-600 to-cyan-700' }
+      ].map((art, idx) => (
+        <div key={idx} className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-100/80 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between">
+          <div className={`h-52 bg-gradient-to-tr ${art.gradient} p-6 flex flex-col justify-between relative overflow-hidden`}>
+            <div className="absolute inset-0 bg-black/10 backdrop-opacity-20 group-hover:bg-transparent transition-colors"></div>
+            <span className="relative z-10 text-xs font-bold text-white/90 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full w-max">
+              {art.cat}
+            </span>
+            <div className="relative z-10 text-white font-black text-lg tracking-wide opacity-90">
+              CareerNova Insights
+            </div>
+          </div>
+          <div className="p-8">
+            <h3 className="text-xl font-extrabold text-gray-900 mb-3 leading-snug group-hover:text-indigo-600 transition-colors">
+              {art.title}
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+              Unlocking high performance and reliability through modern frameworks, clean code practices, and smart strategic scaling...
+            </p>
+            <span className="inline-flex items-center gap-1.5 mt-6 text-indigo-600 font-bold text-sm group-hover:translate-x-1 transition-transform cursor-pointer">
+              Read Article <span>→</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* 4. Auto-Sliding Client Reviews (8 Vibrant Cards with Infinite Marquee Animation) */}
+  <section className="py-12 overflow-hidden bg-gradient-to-r from-indigo-900 via-slate-900 to-purple-950 text-white rounded-3xl mx-4 sm:mx-6 lg:mx-8 shadow-2xl relative">
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)]"></div>
+    <div className="text-center max-w-3xl mx-auto mb-14 px-4 relative z-10">
+      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 text-indigo-300 border border-white/10 tracking-wider uppercase mb-4 inline-block">
+        ⭐ Verified Testimonials
+      </span>
+      <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+        Trusted by Founders & Leaders
+      </h2>
+      <p className="mt-4 text-lg text-gray-300 leading-relaxed">
+        Real feedback on our core expertise, technical execution, and business scaling results.
+      </p>
+    </div>
+
+    {/* Infinite Sliding Marquee Wrapper */}
+    <div className="relative w-full flex overflow-x-hidden group py-4">
+      <div className="flex space-x-6 animate-marquee whitespace-nowrap group-hover:[animation-play-state:paused]">
+        {[
+          { name: 'Rahul Sharma', role: 'Startup Founder', expertise: 'AI & Full-Stack', review: 'The core expertise in building scalable backends completely transformed our product speed.', rating: '★★★★★' },
+          { name: 'Ankit Verma', role: 'Product Head', expertise: 'Growth Strategy', review: 'Strategic market positioning and funnels helped us scale user acquisition by over 200%.', rating: '★★★★★' },
+          { name: 'Priya Singh', role: 'iOS Lead', expertise: 'Native Mobile Apps', review: 'Flawless native iOS development and seamless API integrations. Attention to detail is incredible.', rating: '★★★★★' },
+          { name: 'Vikram Malhotra', role: 'CTO', expertise: 'Cloud Architecture', review: 'Exceptional architectural roadmaps and robust engineering execution. Saved us months of development time.', rating: '★★★★★' },
+          { name: 'Neha Gupta', role: 'Marketing Director', expertise: 'Brand Scaling', review: 'Their data-driven growth framework skyrocketed our conversion rates within weeks. Highly professional!', rating: '★★★★★' },
+          { name: 'Amit Patel', role: 'SaaS Founder', expertise: 'UI/UX Design', review: 'Clean, modern layouts and lightning-fast frontend delivery. Our users absolutely love the interface.', rating: '★★★★★' },
+          { name: 'Sneha Rao', role: 'Operations Manager', expertise: 'Workflow Automation', review: 'Seamless system integration and automation tools that streamlined our daily operational overhead.', rating: '★★★★★' },
+          { name: 'Karan Mehra', role: 'Tech Lead', expertise: 'Backend Security', review: 'Robust security audits and bulletproof API endpoints. Absolute masterclass in engineering standards.', rating: '★★★★★' },
+          // Duplicate set for flawless infinite loop effect
+          { name: 'Rahul Sharma', role: 'Startup Founder', expertise: 'AI & Full-Stack', review: 'The core expertise in building scalable backends completely transformed our product speed.', rating: '★★★★★' },
+          { name: 'Ankit Verma', role: 'Product Head', expertise: 'Growth Strategy', review: 'Strategic market positioning and funnels helped us scale user acquisition by over 200%.', rating: '★★★★★' },
+          { name: 'Priya Singh', role: 'iOS Lead', expertise: 'Native Mobile Apps', review: 'Flawless native iOS development and seamless API integrations. Attention to detail is incredible.', rating: '★★★★★' },
+          { name: 'Vikram Malhotra', role: 'CTO', expertise: 'Cloud Architecture', review: 'Exceptional architectural roadmaps and robust engineering execution. Saved us months of development time.', rating: '★★★★★' }
+        ].map((item, idx) => (
+          <div key={idx} className="w-[360px] sm:w-[400px] shrink-0 bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/15 shadow-xl flex flex-col justify-between whitespace-normal hover:bg-white/15 transition-all">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-bold text-indigo-200 bg-indigo-500/30 px-3 py-0.5 rounded-full border border-indigo-400/20">{item.expertise}</span>
+                <span className="text-amber-400 text-sm tracking-widest">{item.rating}</span>
+              </div>
+              <p className="text-gray-200 text-sm leading-relaxed italic mb-6">"{item.review}"</p>
+            </div>
+            <div className="border-t border-white/10 pt-4 flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-extrabold text-white shrink-0 shadow-md">
+                {item.name[0]}
+              </div>
+              <div>
+                <h4 className="font-extrabold text-white text-sm">{item.name}</h4>
+                <p className="text-indigo-300 text-xs">{item.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
+  </section>
+
+</div>
 
   </div>
       {/* 11. 🚀 CALL TO ACTION BANNER */}
