@@ -75,6 +75,57 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, wordIndex, typingSpeed]);
 
+  const allReviews = [
+    {
+      quote: "CareerNova's financial and break-even calculators gave us absolute clarity on our startup's unit economics before our seed round.",
+      name: "Aarav Sharma",
+      role: "Tech Founder & CEO",
+      rating: 5,
+      badge: "Startup Founder",
+      category: "Tools & Finance"
+    },
+    {
+      quote: "The full-stack web engineering expertise and architecture guidance helped our team scale traffic 10x without any downtime.",
+      name: "Vikram Malhotra",
+      role: "CTO & Lead Architect",
+      rating: 5,
+      badge: "Core Expertise",
+      category: "Web Engineering"
+    },
+    {
+      quote: "The AI career roadmap and resume analyzer tools completely transformed my interview prep. Landed an SDE role at a top product company!",
+      name: "Priya Verma",
+      role: "Senior Software Engineer",
+      rating: 5,
+      badge: "Career Roadmap",
+      category: "Tools & AI"
+    },
+    {
+      quote: "Incredible suite of free tools. The cold email generator and strategic positioning templates saved our sales team dozens of hours.",
+      name: "Rohan Mehta",
+      role: "Growth & Marketing Lead",
+      rating: 5,
+      badge: "B2B Outreach",
+      category: "Business Strategy"
+    },
+    {
+      quote: "Their custom iOS and Android app development execution is top-tier. Clean code, smooth animations, and delivered right on schedule.",
+      name: "Neha Kapoor",
+      role: "Product Manager",
+      rating: 5,
+      badge: "Core Expertise",
+      category: "Mobile Apps"
+    },
+    {
+      quote: "The strategic lead generation framework optimized our entire sales pipeline and doubled our monthly inbound qualified leads.",
+      name: "Aditya Roy",
+      role: "Head of Sales",
+      rating: 5,
+      badge: "Lead Generation",
+      category: "Business Growth"
+    }
+  ];
+
   return (
     <div className="space-y-16 sm:space-y-20 animate-in fade-in duration-300">
       {/* 1. HERO SECTION WITH CLEAN LIGHT GRADIENT & PARTICLE MESH */}
@@ -195,71 +246,68 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenAuth }) =>
           </div>
         </section>
 
-        {/* CLIENT REVIEWS / TESTIMONIALS SECTION */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+        {/* SMOOTH ANIMATED INFINITE SLIDING REVIEWS SECTION (TOOLS + CORE EXPERTISE) */}
+        <section className="py-10 overflow-hidden">
+          <div className="text-center max-w-2xl mx-auto mb-14 px-4">
             <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-violet-50 text-violet-600 border border-violet-100 tracking-wider uppercase mb-4 inline-block">
-              ⭐ Trusted by Leaders
+              ⭐ Trusted by Leaders &amp; Engineers
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              What Professionals &amp; Founders Say
+              What Clients Say About Our Tools &amp; Core Expertise
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base">
-              Real feedback from users who accelerated their careers and scaled their businesses using our platform.
+              Real feedback covering our free digital tools, engineering solutions, and strategic consulting.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                quote: "CareerNova's financial and break-even calculators gave us absolute clarity on our startup's unit economics before our seed round.",
-                name: "Aarav Sharma",
-                role: "Tech Founder & CEO",
-                rating: 5,
-                badge: "Startup Founder"
-              },
-              {
-                quote: "The AI career roadmap and resume analyzer tools completely transformed my interview prep. Landed an SDE role at a top product company!",
-                name: "Priya Verma",
-                role: "Senior Software Engineer",
-                rating: 5,
-                badge: "Software Engineer"
-              },
-              {
-                quote: "Incredible suite of free tools. The cold email generator and strategic positioning templates saved our sales team dozens of hours.",
-                name: "Rohan Mehta",
-                role: "Growth & Marketing Lead",
-                rating: 5,
-                badge: "Growth Lead"
-              }
-            ].map((review, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6 relative hover:shadow-md transition-shadow">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-amber-500">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                      ))}
+          {/* Infinite Sliding Marquee Track */}
+          <div className="relative w-full overflow-hidden flex mask-gradient-x">
+            <div className="absolute left-0 inset-y-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 inset-y-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            <motion.div
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ ease: 'linear', duration: 28, repeat: Infinity }}
+              className="flex gap-6 shrink-0 py-4 px-3"
+            >
+              {[...allReviews, ...allReviews].map((review, idx) => (
+                <div
+                  key={idx}
+                  className="w-[340px] sm:w-[380px] bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between space-y-5 shrink-0 group"
+                >
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-amber-500">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                          {review.category}
+                        </span>
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                          {review.badge}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
-                      {review.badge}
-                    </span>
+                    <p className="text-slate-700 text-sm leading-relaxed italic group-hover:text-slate-900 transition-colors">
+                      "{review.quote}"
+                    </p>
                   </div>
-                  <p className="text-slate-700 text-sm leading-relaxed italic">
-                    "{review.quote}"
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white font-bold flex items-center justify-center text-sm shadow-sm">
-                    {review.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900">{review.name}</h4>
-                    <p className="text-xs text-slate-500">{review.role}</p>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900">{review.name}</h4>
+                      <p className="text-xs text-slate-500">{review.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </motion.div>
           </div>
         </section>
 
