@@ -527,7 +527,7 @@ function MetricsSection() {
   );
 }
 
-export default function HomeView() {
+export function HomeView() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -2083,3 +2083,5 @@ export default function HomeView() {
     </>
   );
 }
+
+export default HomeView;
