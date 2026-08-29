@@ -4,7 +4,7 @@ import {
   Sparkles,
   ArrowRight,
   TrendingUp,
-  Briefcase,
+  Briefcase, 
   Bot,
   Calculator,
   ShieldCheck,
