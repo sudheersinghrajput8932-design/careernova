@@ -313,6 +313,78 @@ export const EXPERTISE_CARDS: ExpertiseCardItem[] = [
     businessImpact: 'Sustainable 3x+ growth in qualified organic inbound inquiries within 90-180 days.',
     whatsappMessage: 'Hi Sudhir! I want to scale our rankings with your Search Engine Optimization (SEO) & Growth Strategy.'
   }
+  {
+    id: 'marketing-campaign-growth',
+    cardNumber: 11,
+    title: 'Marketing Campaign & Growth Strategy',
+    category: 'Cloud & Growth',
+    focus: 'Campaign planning, audience targeting, funnels, content strategy, and measurable growth',
+    tag: 'Campaign Strategy',
+    icon: Megaphone,
+    accentColor: 'from-fuchsia-600 to-violet-600',
+    image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Turn scattered promotion into a structured growth engine. We help define the audience, positioning, offer, campaign architecture, creative direction, lead funnel, tracking framework, and optimization cycle so every campaign has a clear purpose and measurable outcome.',
+    motivationalQuote: 'Great campaigns do not just create attention; they create a path from attention to action.',
+    deliverables: [
+      'Audience Segmentation, Positioning & Customer Persona Mapping',
+      'Campaign Objective, Offer & Channel Strategy',
+      'Creative Direction, Copy Angles & Content Calendar',
+      'Landing Page, Lead Funnel & Conversion Tracking Plan',
+      'KPI Dashboard, A/B Testing & Campaign Optimization Framework'
+    ],
+    techStack: ['Google Ads', 'Meta Ads', 'Google Analytics 4', 'Search Console', 'Canva', 'Looker Studio', 'UTM Tracking'],
+    businessImpact: 'A clearer acquisition system with measurable campaign performance and repeatable optimization.',
+    whatsappMessage: 'Hi Sudhir! I want help with Marketing Campaign & Growth Strategy.'
+  },
+  {
+    id: 'student-career-digital-tools',
+    cardNumber: 12,
+    title: 'Student Career & Digital Tools',
+    category: 'Cloud & Growth',
+    focus: 'Career roadmaps, AI-assisted productivity, profile building, and practical digital skills',
+    tag: 'Student Growth',
+    icon: GraduationCap,
+    accentColor: 'from-cyan-600 to-indigo-600',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Connect learning with opportunity through practical career planning, skill-gap analysis, AI-assisted workflows, portfolio development, productivity systems, and project-based preparation designed around real student outcomes.',
+    motivationalQuote: 'Skills become valuable when you can demonstrate them clearly and apply them confidently.',
+    deliverables: [
+      'Personalized Career Direction & Skill-Gap Roadmap',
+      'Resume, LinkedIn & Portfolio Positioning Guidance',
+      'AI-Assisted Research, Writing & Productivity Workflows',
+      'Project Planning, Documentation & Portfolio Evidence',
+      'Placement, Interview & Professional Communication Preparation'
+    ],
+    techStack: ['ChatGPT / AI Tools', 'Excel / Google Sheets', 'Notion', 'Canva', 'LinkedIn', 'GitHub', 'Productivity Systems'],
+    businessImpact: 'A practical roadmap that turns learning progress into stronger projects, profiles, and career opportunities.',
+    whatsappMessage: 'Hi Sudhir! I want help with Student Career & Digital Tools and a practical roadmap.'
+  },
+  {
+    id: 'business-growth-revenue-strategy',
+    cardNumber: 13,
+    title: 'Business Growth & Revenue Strategy',
+    category: 'Business & Analytics',
+    focus: 'Revenue planning, pricing, unit economics, customer growth, and scalable business systems',
+    tag: 'Revenue Growth',
+    icon: LineChart,
+    accentColor: 'from-emerald-600 to-indigo-600',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80',
+    description:
+      'Build a practical revenue growth system around customer acquisition, pricing, unit economics, retention, sales processes, and performance measurement. The goal is to identify what drives profitable growth and turn it into a repeatable operating plan.',
+    motivationalQuote: 'Sustainable growth comes from understanding the economics behind every customer and every channel.',
+    deliverables: [
+      'Revenue Model, Pricing & Monetization Analysis',
+      'Customer Acquisition, Retention & Expansion Strategy',
+      'Unit Economics, CAC, LTV & Contribution Margin Review',
+      'Sales Funnel, Conversion & Revenue Pipeline Design',
+      'Growth KPI Framework, Targets & Monthly Review System'
+    ],
+    techStack: ['Excel / Google Sheets', 'Power BI', 'Google Analytics 4', 'CRM Systems', 'Looker Studio', 'Financial KPIs'],
+    businessImpact: 'Clearer revenue drivers, stronger unit economics, and a measurable operating framework for growth.',
+    whatsappMessage: 'Hi Sudhir! I want to discuss Business Growth & Revenue Strategy.'
+  }
 ];
 
 export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> = ({ onNavigate, addToast }) => {
@@ -407,7 +479,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
               className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wide text-indigo-700"
             >
               <Sparkles className="h-3.5 w-3.5" />
-              {heroSlides[heroIndex].eyebrow}
+              {heroSlides[heroIndex]?.eyebrow}
             </motion.div>
 
             <AnimatePresence mode="wait">
@@ -420,10 +492,10 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
                 className="mt-5"
               >
                 <h1 className="max-w-2xl text-3xl font-black leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                  {heroSlides[heroIndex].title}
+                  {heroSlides[heroIndex]?.title}
                 </h1>
                 <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-                  {heroSlides[heroIndex].text}
+                  {heroSlides[heroIndex]?.text}
                 </p>
 
                 <div className="mt-7 flex flex-wrap gap-3">
@@ -466,8 +538,8 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
             <AnimatePresence mode="wait">
               <motion.img
                 key={heroIndex}
-                src={heroSlides[heroIndex].image}
-                alt={heroSlides[heroIndex].tag}
+                src={heroSlides[heroIndex]?.image || EXPERTISE_CARDS[0].image}
+                alt={heroSlides[heroIndex]?.tag}
                 initial={{ opacity: 0, scale: 1.08, x: 45 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 1.04, x: -35 }}
@@ -485,7 +557,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
                 className="rounded-2xl border border-white/30 bg-slate-950/70 px-4 py-3 text-white shadow-xl backdrop-blur-md"
               >
                 <div className="text-[9px] font-bold uppercase tracking-widest text-indigo-200">Featured Expertise</div>
-                <div className="mt-0.5 text-sm font-black">{heroSlides[heroIndex].tag}</div>
+                <div className="mt-0.5 text-sm font-black">{heroSlides[heroIndex]?.tag}</div>
               </motion.div>
               <div className="flex gap-2">
                 <button onClick={prevSlide} aria-label="Previous slide" className="rounded-xl border border-white/30 bg-black/45 p-2.5 text-white backdrop-blur transition hover:bg-black/65">
