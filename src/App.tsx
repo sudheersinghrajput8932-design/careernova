@@ -16,7 +16,7 @@ import {
 } from './utils/seoAndRouting';
 
 // Dedicated Views
-import { HomeView } from './components/views/HomeView';
+import HomeView from './components/views/HomeView';
 import { ServicesView } from './components/views/ServicesView';
 import { SpecialistsExpertiseView } from './components/views/SpecialistsExpertiseView';
 import { ToolsView } from './components/views/ToolsView';
