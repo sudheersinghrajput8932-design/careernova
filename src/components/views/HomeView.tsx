@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   BarChart3,
   BriefcaseBusiness,
+  Calculator,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
