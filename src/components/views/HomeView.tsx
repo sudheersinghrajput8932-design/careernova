@@ -2638,103 +2638,241 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
            PROCESS
         ================================================= */
 
-        .cn-process-card {
-          position: relative;
-          display: grid;
-          grid-template-columns: repeat(4,1fr);
-          gap: 22px;
-          padding: 38px 30px;
-          border: 1px solid #dfe4f4;
-          border-radius: 28px;
-          background:
-            radial-gradient(circle at 10% 0%,rgba(124,58,237,.07),transparent 30%),
-            #fff;
-          box-shadow: 0 20px 55px rgba(44,52,90,.08);
-        }
+       /* ===== PREMIUM PROCESS SECTION ===== */
 
-        .cn-process-line {
-          position: absolute;
-          left: 11%;
-          right: 11%;
-          top: 71px;
-          height: 2px;
-          background: linear-gradient(90deg,#8b5cf6,#c026d3,#2563eb,#10b981);
-          opacity: .35;
-        }
+.cn-process-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  padding: 42px 38px 34px;
+  border: 1px solid rgba(139, 92, 246, 0.16);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(139, 92, 246, 0.09), transparent 28%),
+    radial-gradient(circle at 88% 80%, rgba(59, 130, 246, 0.07), transparent 30%),
+    rgba(255, 255, 255, 0.72);
+  box-shadow: 0 24px 70px rgba(48, 35, 100, 0.08);
+  overflow: hidden;
+}
 
-        .cn-process-step {
-          position: relative;
-          z-index: 2;
-        }
+.cn-process-line {
+  position: absolute;
+  top: 88px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.15),
+    rgba(139, 92, 246, 0.65),
+    rgba(59, 130, 246, 0.55),
+    rgba(16, 185, 129, 0.35)
+  );
+  background-size: 200% 100%;
+  animation: cnProcessFlow 4s linear infinite;
+}
 
-        .cn-process-icon {
-          width: 70px;
-          height: 70px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #fff;
-          color: #663cff;
-          border: 1px solid #ddd7ff;
-          box-shadow: 0 12px 28px rgba(87,62,190,.12);
-          margin-bottom: 17px;
-        }
+@keyframes cnProcessFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
 
-        .cn-process-step small {
-          color: #8b91aa;
-          font-weight: 800;
-          font-size: 11px;
-        }
+.cn-process-step {
+  position: relative;
+  min-width: 0;
+  z-index: 2;
+  padding: 0 4px;
+}
 
-        .cn-process-step h3 {
-          margin: 5px 0 7px;
-          font-size: 19px;
-        }
+.cn-process-icon-wrap {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 28px;
+}
 
-        .cn-process-step p {
-          margin: 0;
-          color: #68738f;
-          font-size: 13px;
-          line-height: 1.65;
-          max-width: 220px;
-        }
+.cn-process-icon {
+  position: relative;
+  z-index: 3;
+  width: 82px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  color: #633cff;
+  box-shadow:
+    0 12px 35px rgba(99, 60, 255, 0.13),
+    inset 0 0 0 7px rgba(139, 92, 246, 0.035);
+}
 
-        .cn-process-mini-visual {
-          width: 86px;
-          height: 24px;
-          margin: -2px 0 10px;
-          display: flex;
-          align-items: flex-end;
-          gap: 5px;
-          opacity: .78;
-        }
+.cn-process-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.18);
+  z-index: 1;
+}
 
-        .cn-process-mini-visual span {
-          flex: 1;
-          border-radius: 5px 5px 2px 2px;
-          background: linear-gradient(180deg,#8b5cf6,#38bdf8);
-          animation: cn-mini-rise 2.2s ease-in-out infinite;
-          transform-origin: bottom;
-        }
+.cn-process-asset {
+  min-height: 86px;
+  margin: 0 0 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  opacity: 0.95;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
 
-        .cn-process-mini-visual span:nth-child(1) { height: 35%; animation-delay: 0s; }
-        .cn-process-mini-visual span:nth-child(2) { height: 58%; animation-delay: .15s; }
-        .cn-process-mini-visual span:nth-child(3) { height: 78%; animation-delay: .3s; }
-        .cn-process-mini-visual span:nth-child(4) { height: 100%; animation-delay: .45s; }
+.cn-process-step:hover .cn-process-asset {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 14px 35px rgba(99, 60, 255, 0.1);
+}
 
-        @keyframes cn-mini-rise {
-          0%,100% { transform: scaleY(.72); opacity: .62; }
-          50% { transform: scaleY(1); opacity: 1; }
-        }
+.cn-process-mini-visual {
+  height: 34px;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  margin: 8px 0 14px;
+}
 
-        .cn-process-arrow {
-          position: absolute;
-          right: -13px;
-          top: 26px;
-          color: #9aa4c4;
-        }
+.cn-process-mini-visual span {
+  display: block;
+  width: 13px;
+  min-height: 7px;
+  border-radius: 5px 5px 2px 2px;
+  background: linear-gradient(180deg, #8b5cf6, #7dd3fc);
+}
 
+.cn-process-content {
+  padding: 20px 4px 4px;
+}
+
+.cn-process-number {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  color: #8b5cf6;
+}
+
+.cn-process-number span {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.cn-process-number strong {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.cn-process-content h3 {
+  margin: 0 0 10px;
+  color: #111936;
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.4px;
+}
+
+.cn-process-content p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.cn-process-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cn-process-status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.09);
+  animation: cnProcessDot 2s ease-in-out infinite;
+}
+
+@keyframes cnProcessDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+.cn-process-arrow {
+  position: absolute;
+  top: 70px;
+  right: -18px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  box-shadow: 0 8px 22px rgba(50, 35, 100, 0.08);
+}
+
+.cn-process-step:hover .cn-process-icon {
+  color: #5b21b6;
+  box-shadow:
+    0 16px 40px rgba(99, 60, 255, 0.2),
+    inset 0 0 0 7px rgba(139, 92, 246, 0.055);
+}
+
+@media (max-width: 1000px) {
+  .cn-process-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px 28px;
+  }
+
+  .cn-process-line {
+    display: none;
+  }
+
+  .cn-process-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cn-process-card {
+    grid-template-columns: 1fr;
+    padding: 30px 22px;
+  }
+
+  .cn-process-icon-wrap {
+    margin-left: 0;
+  }
+
+  .cn-process-content {
+    padding-top: 4px;
+  }
+
+  .cn-process-asset {
+    min-height: 70px;
+  }
+}
         /* =================================================
            TOOLS
         ================================================= */
