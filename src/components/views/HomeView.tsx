@@ -323,118 +323,1253 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
    CORE EXPERTISE / OFFERINGS
 ========================================================= */
 
+
+/* =========================================================
+   CORE EXPERTISE — PREMIUM LANDING SECTION
+========================================================= */
+
 const OfferingsSection = ({
   onNavigate,
 }: {
-  onNavigate: (tab: any) => void;
+  onNavigate: (tab: TabId, subTool?: string) => void;
 }) => {
-  const offerings = [
+  const expertise = [
     {
-      title: 'Business Strategy & Analytics',
-      text: 'Business intelligence, financial modeling, forecasting, KPI design and structured decision support.',
-      icon: BriefcaseBusiness,
-      tag: 'Strategy',
-      className: 'offer-orange',
+      title: 'Business Analytics',
+      text: 'Transform business data into actionable insights and smarter strategic decisions.',
+      icon: BarChart3,
+      className: 'cnx-purple',
+      sub: 'business',
     },
     {
-      title: 'Digital Marketing & Growth',
-      text: 'Positioning, campaign strategy, content systems, audience growth and measurable digital execution.',
+      title: 'Digital Marketing',
+      text: 'Build data-driven campaigns, stronger positioning and measurable digital growth.',
       icon: Megaphone,
-      tag: 'Growth',
-      className: 'offer-pink',
+      className: 'cnx-blue',
+      sub: 'strategy',
     },
     {
-      title: 'Engineering & Digital Systems',
-      text: 'Web development, APIs, automation, product systems and technology-led problem solving.',
+      title: 'Financial Modeling',
+      text: 'Build practical financial models for planning, forecasting and decision support.',
+      icon: Calculator,
+      className: 'cnx-green',
+      sub: 'break-even',
+    },
+    {
+      title: 'Web Development',
+      text: 'Modern, responsive websites and applications built with scalable technologies.',
       icon: Code2,
-      tag: 'Technology',
-      className: 'offer-blue',
+      className: 'cnx-orange',
+      sub: 'full-stack-web-dev',
     },
     {
-      title: 'Career Development',
-      text: 'Skill planning, career roadmaps, resume strategy, professional positioning and practical learning.',
-      icon: GraduationCap,
-      tag: 'Career',
-      className: 'offer-green',
-    },
-    {
-      title: 'AI & Automation',
-      text: 'AI-assisted workflows, productivity systems, automation concepts and practical intelligent tools.',
+      title: 'Data Science & AI',
+      text: 'Use intelligent analysis and AI-assisted workflows to solve practical problems.',
       icon: Bot,
-      tag: 'AI',
-      className: 'offer-violet',
+      className: 'cnx-pink',
+      sub: 'business-intelligence',
     },
     {
-      title: 'Presentation & Communication',
-      text: 'Pitch structures, professional presentations, business storytelling and clear visual communication.',
-      icon: Presentation,
-      tag: 'Communication',
-      className: 'offer-cyan',
+      title: 'Automation & Tools',
+      text: 'Automate repetitive workflows and create smarter productivity systems.',
+      icon: Zap,
+      className: 'cnx-violet',
+      sub: 'tools',
+    },
+    {
+      title: 'Career & Student Growth',
+      text: 'Turn learning into practical skills, stronger profiles and better opportunities.',
+      icon: GraduationCap,
+      className: 'cnx-cyan',
+      sub: 'roadmap-guide',
+    },
+    {
+      title: 'Strategy & Growth',
+      text: 'Connect strategy, positioning and execution into a clear growth framework.',
+      icon: Target,
+      className: 'cnx-red',
+      sub: 'strategy',
+    },
+  ];
+
+  const specialists = [
+    {
+      name: 'Sudhir Singh',
+      role: 'Principal Architect',
+      image:
+        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Sudhir.png',
+      className: 'cnx-specialist-purple',
+      description:
+        'Business intelligence, analytics, financial modelling and digital growth strategy.',
+      specializations: [
+        'Business Intelligence & Data Analytics',
+        'Financial Modelling',
+        'Digital Marketing',
+        'Marketing Strategy',
+      ],
+      skills: [
+        ['▥', 'Power BI'],
+        ['SQL', 'SQL'],
+        ['X', 'Excel'],
+        ['⌁', 'Analytics'],
+      ],
+    },
+    {
+      name: 'Ashwani Kumar',
+      role: 'Web Development Specialist',
+      image:
+        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Ashwani.png',
+      className: 'cnx-specialist-blue',
+      description:
+        'Modern web engineering across frontend technologies and enterprise backend systems.',
+      specializations: [
+        'JavaScript',
+        'HTML & CSS',
+        'PHP',
+        'Java Spring Boot',
+      ],
+      skills: [
+        ['JS', 'JavaScript'],
+        ['H5', 'HTML5'],
+        ['C3', 'CSS3'],
+        ['PHP', 'PHP'],
+        ['SB', 'Spring Boot'],
+      ],
+    },
+    {
+      name: 'Ritesh Chaurasiya',
+      role: 'iOS Developer',
+      image:
+        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Ritesh.png',
+      className: 'cnx-specialist-pink',
+      description:
+        'Native Apple application development focused on smooth, reliable mobile experiences.',
+      specializations: [
+        'iOS Development',
+        'Swift / SwiftUI',
+        'Native iOS Apps',
+        'App Development',
+      ],
+      skills: [
+        ['S', 'Swift'],
+        ['UI', 'SwiftUI'],
+        ['X', 'Xcode'],
+        ['', 'iOS'],
+      ],
+    },
+  ];
+
+  const trustPoints = [
+    {
+      icon: ShieldCheck,
+      title: 'Proven Expertise',
+      text: 'Practical experience across business, technology, analytics and growth.',
+      className: 'cnx-trust-purple',
+    },
+    {
+      icon: Target,
+      title: 'Result-Oriented',
+      text: 'Every solution is designed around a clear objective and measurable outcome.',
+      className: 'cnx-trust-blue',
+    },
+    {
+      icon: CheckCircle2,
+      title: 'Practical Solutions',
+      text: 'Simple, actionable frameworks instead of unnecessary complexity.',
+      className: 'cnx-trust-green',
+    },
+    {
+      icon: Users,
+      title: 'Client First',
+      text: 'Clear communication, transparent thinking and long-term relationships.',
+      className: 'cnx-trust-orange',
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Trusted & Secure',
+      text: 'Professional handling of business information and project requirements.',
+      className: 'cnx-trust-pink',
+    },
+    {
+      icon: Rocket,
+      title: 'Continuous Innovation',
+      text: 'Constantly improving tools, workflows and technology-led solutions.',
+      className: 'cnx-trust-cyan',
     },
   ];
 
   return (
-    <section className="cn-section cn-offerings-section">
-      <div className="cn-vertical-label">
-        <span>OUR</span>
-        <strong>OFFERINGS</strong>
-      </div>
+    <section className="cnx-core-expertise">
+      <style>{`
+        .cnx-core-expertise {
+          position: relative;
+          width: 100%;
+          margin-top: 70px;
+          overflow: hidden;
+          background: #fff;
+          color: #111936;
+        }
 
-      <div className="cn-offerings-content">
-        <div className="cn-section-heading left">
-          <span>CORE EXPERTISE</span>
-          <h2>Expertise That Moves Ideas Forward</h2>
+        .cnx-core-expertise *,
+        .cnx-core-expertise *::before,
+        .cnx-core-expertise *::after {
+          box-sizing: border-box;
+        }
+
+        .cnx-core-expertise button {
+          font: inherit;
+        }
+
+        .cnx-dark-expertise {
+          position: relative;
+          overflow: hidden;
+          padding: 76px 42px 64px;
+          background:
+            radial-gradient(
+              circle at 8% 20%,
+              rgba(108, 66, 255, 0.28),
+              transparent 27%
+            ),
+            radial-gradient(
+              circle at 92% 75%,
+              rgba(16, 155, 255, 0.18),
+              transparent 25%
+            ),
+            linear-gradient(145deg, #090d2c 0%, #0b1036 52%, #080c29 100%);
+        }
+
+        .cn-dark-expertise::before {
+          content: '';
+          position: absolute;
+          width: 420px;
+          height: 420px;
+          right: -190px;
+          top: -190px;
+          border-radius: 50%;
+          border: 1px solid rgba(180, 125, 255, 0.16);
+          box-shadow:
+            0 0 0 70px rgba(180, 125, 255, 0.025),
+            0 0 0 140px rgba(180, 125, 255, 0.02);
+          pointer-events: none;
+        }
+
+        .cn-dark-heading {
+          position: relative;
+          z-index: 2;
+          max-width: 850px;
+          margin: 0 auto 38px;
+          text-align: center;
+        }
+
+        .cn-dark-heading .cnx-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 10px;
+          color: #b56dff;
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 1.4px;
+          text-transform: uppercase;
+        }
+
+        .cn-dark-heading .cnx-eyebrow::before,
+        .cn-dark-heading .cnx-eyebrow::after {
+          content: '✦';
+          font-size: 12px;
+        }
+
+        .cn-dark-heading h2 {
+          margin: 0;
+          color: #fff;
+          font-size: clamp(34px, 4vw, 54px);
+          line-height: 1.05;
+          font-weight: 900;
+          letter-spacing: -1.8px;
+        }
+
+        .cn-dark-heading p {
+          max-width: 700px;
+          margin: 14px auto 0;
+          color: rgba(236, 239, 255, 0.78);
+          font-size: 15px;
+          line-height: 1.7;
+        }
+
+        .cnx-expertise-grid {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 14px;
+          max-width: 1450px;
+          margin: 0 auto;
+        }
+
+        .cnx-expertise-card {
+          position: relative;
+          min-height: 150px;
+          padding: 20px 19px;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,.18);
+          border-radius: 15px;
+          color: #fff;
+          text-align: left;
+          cursor: pointer;
+          box-shadow: 0 18px 45px rgba(0,0,0,.20);
+          transition:
+            transform .28s ease,
+            box-shadow .28s ease,
+            border-color .28s ease;
+        }
+
+        .cnx-expertise-card::before {
+          content: '';
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          right: -35px;
+          bottom: -65px;
+          border-radius: 50%;
+          background: rgba(255,255,255,.13);
+          filter: blur(2px);
+        }
+
+        .cnx-expertise-card::after {
+          content: '';
+          position: absolute;
+          left: -40px;
+          top: -55px;
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          background: rgba(255,255,255,.09);
+          filter: blur(8px);
+        }
+
+        .cnx-expertise-card:hover {
+          transform: translateY(-7px);
+          box-shadow: 0 28px 55px rgba(0,0,0,.30);
+          border-color: rgba(255,255,255,.45);
+        }
+
+        .cnx-expertise-card h3 {
+          position: relative;
+          z-index: 2;
+          max-width: 72%;
+          margin: 0 0 8px;
+          font-size: 17px;
+          line-height: 1.2;
+          font-weight: 900;
+        }
+
+        .cnx-expertise-card p {
+          position: relative;
+          z-index: 2;
+          max-width: 75%;
+          margin: 0;
+          color: rgba(255,255,255,.88);
+          font-size: 11.5px;
+          line-height: 1.55;
+        }
+
+        .cnx-expertise-icon {
+          position: absolute;
+          z-index: 2;
+          right: 18px;
+          bottom: 18px;
+          display: grid;
+          width: 54px;
+          height: 54px;
+          place-items: center;
+          border-radius: 15px;
+          background: rgba(255,255,255,.18);
+          border: 1px solid rgba(255,255,255,.28);
+          backdrop-filter: blur(8px);
+        }
+
+        .cnx-expertise-icon svg {
+          width: 31px;
+          height: 31px;
+        }
+
+        .cnx-expertise-arrow {
+          position: absolute;
+          z-index: 3;
+          left: 18px;
+          bottom: 18px;
+          display: grid;
+          width: 29px;
+          height: 29px;
+          place-items: center;
+          border-radius: 50%;
+          background: #fff;
+          color: #4220a8;
+          transition: transform .25s ease;
+        }
+
+        .cnx-expertise-card:hover .cnx-expertise-arrow {
+          transform: translateX(4px);
+        }
+
+        .cnx-purple {
+          background: linear-gradient(135deg,#4a17b8,#7137e9);
+        }
+
+        .cnx-blue {
+          background: linear-gradient(135deg,#0751bd,#0b7ee9);
+        }
+
+        .cnx-green {
+          background: linear-gradient(135deg,#008d62,#10b981);
+        }
+
+        .cnx-orange {
+          background: linear-gradient(135deg,#e97605,#ffb31b);
+        }
+
+        .cnx-pink {
+          background: linear-gradient(135deg,#c31372,#ec4899);
+        }
+
+        .cnx-violet {
+          background: linear-gradient(135deg,#6e20d2,#9333ea);
+        }
+
+        .cnx-cyan {
+          background: linear-gradient(135deg,#009bbd,#12b9d4);
+        }
+
+        .cnx-red {
+          background: linear-gradient(135deg,#d62f35,#f05b44);
+        }
+
+        .cnx-expertise-cta {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 18px;
+        }
+
+        .cnx-expertise-cta button {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 11px 20px;
+          border: 1px solid rgba(190,128,255,.8);
+          border-radius: 12px;
+          background: rgba(255,255,255,.035);
+          color: #c981ff;
+          font-size: 12px;
+          font-weight: 900;
+          cursor: pointer;
+          backdrop-filter: blur(10px);
+          transition: .25s ease;
+        }
+
+        .cnx-expertise-cta button:hover {
+          background: rgba(168,85,247,.13);
+          transform: translateY(-2px);
+        }
+
+        /* =================================================
+           SPECIALISTS
+        ================================================= */
+
+        .cnx-specialists {
+          position: relative;
+          padding: 58px 42px 66px;
+          background:
+            radial-gradient(
+              circle at 15% 20%,
+              rgba(124,58,237,.055),
+              transparent 26%
+            ),
+            #fff;
+        }
+
+        .cnx-light-heading {
+          max-width: 820px;
+          margin: 0 auto 32px;
+          text-align: center;
+        }
+
+        .cnx-light-heading span {
+          color: #7642ee;
+          font-size: 11px;
+          font-weight: 950;
+          letter-spacing: 1.35px;
+          text-transform: uppercase;
+        }
+
+        .cnx-light-heading h2 {
+          margin: 7px 0 0;
+          color: #10172f;
+          font-size: clamp(28px, 3vw, 38px);
+          line-height: 1.12;
+          font-weight: 950;
+          letter-spacing: -1px;
+        }
+
+        .cnx-heading-line {
+          width: 48px;
+          height: 4px;
+          margin: 10px auto 0;
+          border-radius: 10px;
+          background: linear-gradient(90deg,#6f38ff,#c047ff);
+        }
+
+        .cnx-light-heading p {
+          max-width: 680px;
+          margin: 11px auto 0;
+          color: #69738d;
+          font-size: 13px;
+          line-height: 1.65;
+        }
+
+        .cnx-specialist-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 22px;
+          max-width: 1260px;
+          margin: 0 auto;
+        }
+
+        .cnx-specialist-card {
+          position: relative;
+          overflow: hidden;
+          min-height: 390px;
+          padding: 25px 24px 20px;
+          border: 1px solid;
+          border-radius: 24px;
+          background: #fff;
+          box-shadow: 0 20px 55px rgba(31,41,91,.09);
+          transition:
+            transform .3s ease,
+            box-shadow .3s ease;
+        }
+
+        .cnx-specialist-card:hover {
+          transform: translateY(-9px);
+          box-shadow: 0 30px 70px rgba(31,41,91,.15);
+        }
+
+        .cnx-specialist-card::before {
+          content: '';
+          position: absolute;
+          width: 190px;
+          height: 190px;
+          top: -110px;
+          right: -70px;
+          border-radius: 50%;
+          opacity: .45;
+        }
+
+        .cnx-specialist-purple {
+          border-color: #d8c8ff;
+          background: linear-gradient(150deg,#fff,#faf7ff);
+        }
+
+        .cnx-specialist-purple::before {
+          background: #d9c7ff;
+        }
+
+        .cnx-specialist-blue {
+          border-color: #b9ddff;
+          background: linear-gradient(150deg,#fff,#f5fbff);
+        }
+
+        .cnx-specialist-blue::before {
+          background: #bce2ff;
+        }
+
+        .cnx-specialist-pink {
+          border-color: #ffc4e1;
+          background: linear-gradient(150deg,#fff,#fff7fb);
+        }
+
+        .cnx-specialist-pink::before {
+          background: #ffd0e7;
+        }
+
+        .cnx-specialist-top {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          gap: 17px;
+        }
+
+        .cnx-specialist-photo {
+          flex: 0 0 105px;
+          width: 105px;
+          height: 105px;
+          padding: 5px;
+          border: 1px solid rgba(124,58,237,.22);
+          border-radius: 50%;
+          background: linear-gradient(145deg,#fff,#eee8ff);
+          box-shadow: 0 12px 28px rgba(50,40,100,.12);
+        }
+
+        .cnx-specialist-photo img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+          border-radius: 50%;
+        }
+
+        .cnx-specialist-name {
+          min-width: 0;
+        }
+
+        .cnx-specialist-name h3 {
+          margin: 0;
+          color: #111936;
+          font-size: 19px;
+          font-weight: 950;
+          line-height: 1.15;
+        }
+
+        .cnx-specialist-name span {
+          display: block;
+          margin-top: 5px;
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .cnx-specialist-purple .cnx-specialist-name span {
+          color: #7542df;
+        }
+
+        .cnx-specialist-blue .cnx-specialist-name span {
+          color: #1476d4;
+        }
+
+        .cnx-specialist-pink .cnx-specialist-name span {
+          color: #d72d87;
+        }
+
+        .cnx-specialist-description {
+          position: relative;
+          z-index: 2;
+          margin: 17px 0 12px;
+          color: #69738c;
+          font-size: 12px;
+          line-height: 1.6;
+        }
+
+        .cnx-specializations {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          gap: 7px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .cnx-specializations li {
+          display: flex;
+          align-items: flex-start;
+          gap: 7px;
+          color: #28314c;
+          font-size: 11.5px;
+          font-weight: 650;
+          line-height: 1.4;
+        }
+
+        .cnx-specializations li::before {
+          content: '•';
+          font-size: 17px;
+          line-height: 11px;
+        }
+
+        .cnx-specialist-purple .cnx-specializations li::before {
+          color: #7542df;
+        }
+
+        .cnx-specialist-blue .cnx-specializations li::before {
+          color: #1476d4;
+        }
+
+        .cnx-specialist-pink .cnx-specializations li::before {
+          color: #d72d87;
+        }
+
+        .cnx-specialist-skills {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 7px;
+          margin-top: 18px;
+          padding-top: 16px;
+          border-top: 1px solid rgba(90,100,130,.12);
+        }
+
+        .cnx-skill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 8px;
+          border: 1px solid #e6e8f0;
+          border-radius: 9px;
+          background: rgba(255,255,255,.78);
+          color: #4a526b;
+          font-size: 9px;
+          font-weight: 850;
+          box-shadow: 0 4px 12px rgba(30,40,80,.05);
+        }
+
+        .cnx-skill b {
+          display: grid;
+          min-width: 19px;
+          height: 19px;
+          padding: 2px;
+          place-items: center;
+          border-radius: 6px;
+          background: #f0ebff;
+          color: #7140dd;
+          font-size: 8px;
+          font-weight: 950;
+        }
+
+        .cnx-specialist-blue .cnx-skill b {
+          background: #e5f3ff;
+          color: #0874cc;
+        }
+
+        .cnx-specialist-pink .cnx-skill b {
+          background: #ffe7f2;
+          color: #d62b82;
+        }
+
+        /* =================================================
+           TRUST
+        ================================================= */
+
+        .cnx-trust-section {
+          padding: 54px 42px 60px;
+          border-top: 1px solid #edf0f6;
+          background: linear-gradient(180deg,#fff,#fafbff);
+        }
+
+        .cnx-trust-grid {
+          display: grid;
+          grid-template-columns: repeat(6, minmax(0,1fr));
+          max-width: 1370px;
+          margin: 0 auto;
+          border: 1px solid #e5e8f0;
+          border-radius: 23px;
+          overflow: hidden;
+          background: #fff;
+          box-shadow: 0 18px 50px rgba(40,50,90,.06);
+        }
+
+        .cnx-trust-item {
+          min-height: 170px;
+          padding: 22px 17px;
+          text-align: center;
+          border-right: 1px solid #edf0f4;
+          transition: background .25s ease, transform .25s ease;
+        }
+
+        .cnx-trust-item:last-child {
+          border-right: 0;
+        }
+
+        .cnx-trust-item:hover {
+          background: #fbfcff;
+          transform: translateY(-3px);
+        }
+
+        .cnx-trust-icon {
+          display: grid;
+          width: 48px;
+          height: 48px;
+          margin: 0 auto 13px;
+          place-items: center;
+          border-radius: 15px;
+        }
+
+        .cnx-trust-icon svg {
+          width: 23px;
+          height: 23px;
+        }
+
+        .cnx-trust-purple .cnx-trust-icon {
+          background: #f0eaff;
+          color: #7340e8;
+        }
+
+        .cnx-trust-blue .cnx-trust-icon {
+          background: #e8f5ff;
+          color: #1478d4;
+        }
+
+        .cnx-trust-green .cnx-trust-icon {
+          background: #e8fbf1;
+          color: #07965f;
+        }
+
+        .cnx-trust-orange .cnx-trust-icon {
+          background: #fff2df;
+          color: #e17a00;
+        }
+
+        .cnx-trust-pink .cnx-trust-icon {
+          background: #ffeaf4;
+          color: #d62c83;
+        }
+
+        .cnx-trust-cyan .cnx-trust-icon {
+          background: #e5f9fc;
+          color: #079ab4;
+        }
+
+        .cnx-trust-item h3 {
+          margin: 0 0 6px;
+          color: #151c36;
+          font-size: 13px;
+          font-weight: 950;
+        }
+
+        .cnx-trust-item p {
+          margin: 0;
+          color: #717a91;
+          font-size: 10.5px;
+          line-height: 1.55;
+        }
+
+        /* =================================================
+           CAPABILITIES
+        ================================================= */
+
+        .cnx-capabilities {
+          padding: 54px 42px 68px;
+          background: #fff;
+        }
+
+        .cnx-capabilities-grid {
+          display: grid;
+          grid-template-columns: repeat(6,minmax(0,1fr));
+          gap: 15px;
+          max-width: 1370px;
+          margin: 0 auto;
+        }
+
+        .cnx-capability {
+          min-height: 120px;
+          padding: 17px;
+          border: 1px solid #e6e9f1;
+          border-radius: 17px;
+          background: #fff;
+          box-shadow: 0 8px 25px rgba(30,40,80,.045);
+          transition: .25s ease;
+        }
+
+        .cnx-capability:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 17px 35px rgba(30,40,80,.09);
+        }
+
+        .cnx-capability-icon {
+          display: grid;
+          width: 39px;
+          height: 39px;
+          margin-bottom: 11px;
+          place-items: center;
+          border-radius: 50%;
+          background: #eef0ff;
+          color: #6640e5;
+          font-size: 19px;
+        }
+
+        .cnx-capability h3 {
+          margin: 0 0 5px;
+          color: #18203b;
+          font-size: 12px;
+          font-weight: 950;
+        }
+
+        .cnx-capability p {
+          margin: 0;
+          color: #727b91;
+          font-size: 9.8px;
+          line-height: 1.5;
+        }
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 1100px) {
+          .cnx-expertise-grid {
+            grid-template-columns: repeat(2,minmax(0,1fr));
+          }
+
+          .cnx-trust-grid {
+            grid-template-columns: repeat(3,minmax(0,1fr));
+          }
+
+          .cnx-trust-item:nth-child(3) {
+            border-right: 0;
+          }
+
+          .cnx-trust-item:nth-child(-n+3) {
+            border-bottom: 1px solid #edf0f4;
+          }
+
+          .cnx-capabilities-grid {
+            grid-template-columns: repeat(3,minmax(0,1fr));
+          }
+        }
+
+        @media (max-width: 820px) {
+          .cnx-specialist-grid {
+            grid-template-columns: 1fr;
+            max-width: 560px;
+          }
+
+          .cnx-specialist-card {
+            min-height: auto;
+          }
+
+          .cnx-trust-grid {
+            grid-template-columns: repeat(2,minmax(0,1fr));
+          }
+
+          .cnx-trust-item:nth-child(3) {
+            border-right: 1px solid #edf0f4;
+          }
+
+          .cnx-trust-item:nth-child(even) {
+            border-right: 0;
+          }
+
+          .cnx-trust-item:nth-child(n+3) {
+            border-bottom: 0;
+          }
+
+          .cnx-trust-item:nth-child(-n+4) {
+            border-bottom: 1px solid #edf0f4;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .cn-dark-expertise,
+          .cnx-specialists,
+          .cnx-trust-section,
+          .cnx-capabilities {
+            padding-left: 17px;
+            padding-right: 17px;
+          }
+
+          .cn-dark-expertise {
+            padding-top: 52px;
+            padding-bottom: 48px;
+          }
+
+          .cnx-expertise-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .cnx-expertise-card {
+            min-height: 138px;
+          }
+
+          .cnx-specialist-top {
+            align-items: center;
+          }
+
+          .cnx-specialist-photo {
+            flex-basis: 88px;
+            width: 88px;
+            height: 88px;
+          }
+
+          .cnx-specialist-name h3 {
+            font-size: 17px;
+          }
+
+          .cnx-trust-grid,
+          .cnx-capabilities-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .cnx-trust-item,
+          .cnx-trust-item:nth-child(even),
+          .cnx-trust-item:nth-child(3) {
+            border-right: 0;
+            border-bottom: 1px solid #edf0f4;
+          }
+
+          .cnx-trust-item:last-child {
+            border-bottom: 0;
+          }
+
+          .cnx-capability {
+            min-height: 105px;
+          }
+        }
+      `}</style>
+
+      {/* =================================================
+          TOP — COLORFUL CORE EXPERTISE
+      ================================================= */}
+
+      <div className="cn-dark-expertise">
+        <div className="cn-dark-heading">
+          <span className="cnx-eyebrow">Our Core Strength</span>
+
+          <h2>Core Expertise</h2>
+
           <p>
-            Focused capabilities across strategy, growth, technology,
-            analytics and career development.
+            End-to-end capabilities that combine business thinking,
+            technology, analytics and growth to turn ideas into measurable
+            outcomes.
           </p>
         </div>
 
-        <div className="cn-offerings-grid">
-          {offerings.map((item, index) => {
+        <div className="cnx-expertise-grid">
+          {expertise.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <motion.article
+              <motion.button
                 key={item.title}
-                className={`cn-offering-card ${item.className}`}
-                initial={{ opacity: 0, y: 22 }}
+                type="button"
+                className={`cnx-expertise-card ${item.className}`}
+                onClick={() => onNavigate('expertise', item.sub)}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.12 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{
-                  y: -9,
-                  rotateX: 3,
-                  rotateY: index % 2 === 0 ? -3 : 3,
-                  scale: 1.015,
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.045,
+                  ease: 'easeOut',
                 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="cn-offering-visual">
-                  <AssetVisual id={`expert-${['strategy','growth','technology','career','ai','communication'][index]}`} className="cn-card-asset" />
-                  <div className="cn-offering-orbit" />
-                  <div className="cn-offering-icon">
-                    <Icon size={34} strokeWidth={1.7} />
-                  </div>
-                  <div className="cn-offering-particles">
-                    <i />
-                    <i />
-                    <i />
-                  </div>
+                <h3>{item.title}</h3>
+
+                <p>{item.text}</p>
+
+                <div className="cnx-expertise-icon">
+                  <Icon />
                 </div>
 
-                <div className="cn-offering-body">
-                  <span className="cn-offering-tag">{item.tag}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-
-                  <button onClick={() => onNavigate('expertise')}>
-                    Explore expertise
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </motion.article>
+                <span className="cnx-expertise-arrow">
+                  <ArrowRight size={16} />
+                </span>
+              </motion.button>
             );
           })}
+        </div>
+
+        <div className="cnx-expertise-cta">
+          <button
+            type="button"
+            onClick={() => onNavigate('expertise')}
+          >
+            Explore All Expertise
+            <ArrowRight size={17} />
+          </button>
+        </div>
+      </div>
+
+      {/* =================================================
+          SPECIALISTS
+      ================================================= */}
+
+      <div className="cnx-specialists">
+        <div className="cnx-light-heading">
+          <span>Meet Our Specialists</span>
+
+          <h2>Experts Driving Your Success</h2>
+
+          <div className="cnx-heading-line" />
+
+          <p>
+            A focused team bringing together business intelligence, financial
+            strategy, web engineering and native mobile development.
+          </p>
+        </div>
+
+        <div className="cnx-specialist-grid">
+          {specialists.map((person, index) => (
+            <motion.article
+              key={person.name}
+              className={`cnx-specialist-card ${person.className}`}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.09,
+              }}
+              whileHover={{ y: -8 }}
+            >
+              <div className="cnx-specialist-top">
+                <div className="cnx-specialist-photo">
+                  <img
+                    src={person.image}
+                    alt={`${person.name} - ${person.role}`}
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className="cnx-specialist-name">
+                  <h3>{person.name}</h3>
+                  <span>{person.role}</span>
+                </div>
+              </div>
+
+              <p className="cnx-specialist-description">
+                {person.description}
+              </p>
+
+              <ul className="cnx-specializations">
+                {person.specializations.map((specialization) => (
+                  <li key={specialization}>{specialization}</li>
+                ))}
+              </ul>
+
+              <div className="cnx-specialist-skills">
+                {person.skills.map(([shortName, label]) => (
+                  <span className="cnx-skill" key={label}>
+                    <b>{shortName}</b>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+
+      {/* =================================================
+          WHY CHOOSE CAREERNOVA
+      ================================================= */}
+
+      <div className="cnx-trust-section">
+        <div className="cnx-light-heading">
+          <span>Why Choose CareerNova</span>
+
+          <h2>Trusted Expertise. Real Impact.</h2>
+
+          <div className="cnx-heading-line" />
+
+          <p>
+            We combine practical knowledge, modern technology and a
+            result-oriented approach to create solutions people can actually
+            use.
+          </p>
+        </div>
+
+        <div className="cnx-trust-grid">
+          {trustPoints.map((point, index) => {
+            const Icon = point.icon;
+
+            return (
+              <motion.div
+                key={point.title}
+                className={`cnx-trust-item ${point.className}`}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  delay: index * 0.05,
+                  duration: 0.4,
+                }}
+              >
+                <div className="cnx-trust-icon">
+                  <Icon />
+                </div>
+
+                <h3>{point.title}</h3>
+
+                <p>{point.text}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* =================================================
+          CAPABILITIES / TOOLS
+      ================================================= */}
+
+      <div className="cnx-capabilities">
+        <div className="cnx-light-heading">
+          <span>Powerful Capabilities</span>
+
+          <h2>Tools That Power Growth</h2>
+
+          <div className="cnx-heading-line" />
+
+          <p>
+            A practical technology and strategy stack supporting our core
+            expertise.
+          </p>
+        </div>
+
+        <div className="cnx-capabilities-grid">
+          {[
+            {
+              icon: '📊',
+              title: 'Financial Tools',
+              text: 'Model, analyse and plan with financial clarity.',
+            },
+            {
+              icon: '◔',
+              title: 'Analytics Tools',
+              text: 'Turn data into insights and visual decisions.',
+            },
+            {
+              icon: '🚀',
+              title: 'Productivity',
+              text: 'Automate, organize and get more done.',
+            },
+            {
+              icon: '🤖',
+              title: 'AI & Automation',
+              text: 'Use intelligent workflows to scale execution.',
+            },
+            {
+              icon: '📣',
+              title: 'Marketing Tools',
+              text: 'Reach, engage and convert the right audience.',
+            },
+            {
+              icon: '</>',
+              title: 'Development',
+              text: 'Build, deploy and scale modern digital products.',
+            },
+          ].map((tool, index) => (
+            <motion.div
+              className="cnx-capability"
+              key={tool.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{
+                delay: index * 0.06,
+                duration: 0.4,
+              }}
+              whileHover={{ y: -5 }}
+            >
+              <div className="cnx-capability-icon">{tool.icon}</div>
+
+              <h3>{tool.title}</h3>
+
+              <p>{tool.text}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
