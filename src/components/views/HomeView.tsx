@@ -398,7 +398,7 @@ const OfferingsSection = ({
       name: 'Sudhir Singh',
       role: 'Principal Architect',
       image:
-        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Sudhir.png',
+       '/Sudhir.png',
       className: 'cnx-specialist-purple',
       description:
         'Business intelligence, analytics, financial modelling and digital growth strategy.',
@@ -419,7 +419,7 @@ const OfferingsSection = ({
       name: 'Ashwani Kumar',
       role: 'Web Development Specialist',
       image:
-        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Ashwani.png',
+        '/Ashwani.png',
       className: 'cnx-specialist-blue',
       description:
         'Modern web engineering across frontend technologies and enterprise backend systems.',
@@ -441,7 +441,7 @@ const OfferingsSection = ({
       name: 'Ritesh Chaurasiya',
       role: 'iOS Developer',
       image:
-        'https://raw.githubusercontent.com/sudheersinghrajput8932-design/careernova/main/Ritesh.png',
+       '/Ritesh.png',
       className: 'cnx-specialist-pink',
       description:
         'Native Apple application development focused on smooth, reliable mobile experiences.',
