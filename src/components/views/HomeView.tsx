@@ -592,7 +592,7 @@ const OfferingsSection = ({
         .cn-dark-heading p {
           max-width: 700px;
           margin: 14px auto 0;
-          color: rgba(236, 239, 255, 0.78);
+          color: #53627a;
           font-size: 15px;
           line-height: 1.7;
         }
