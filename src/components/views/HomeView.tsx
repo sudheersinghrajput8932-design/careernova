@@ -187,53 +187,130 @@ const ProcessSection = () => {
         </p>
       </div>
 
-      <div className="cn-process-card">
-        <div className="cn-process-line" />
+     <div className="cn-process-card">
+  <div className="cn-process-line" />
 
-        {steps.map((step, index) => {
-          const Icon = step.icon;
+  {steps.map((step, index) => {
+    const Icon = step.icon;
 
-          return (
-            <motion.div
-              key={step.number}
-              className="cn-process-step"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: index * 0.08 }}
-            >
-              <div className="cn-process-icon">
-                <Icon size={25} />
-              </div>
+    return (
+      <motion.div
+        key={step.number}
+        className="cn-process-step"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{
+          duration: 0.55,
+          delay: index * 0.12,
+          ease: "easeOut",
+        }}
+        whileHover={{ y: -8 }}
+      >
+        <div className="cn-process-icon-wrap">
+          <div className="cn-process-icon">
+            <Icon size={25} />
+          </div>
 
-              <div className="cn-section-asset cn-process-asset" aria-hidden="true">
-                <AssetVisual id={`process-${['understand','plan','build','measure'][index]}`} />
-              </div>
+          <motion.div
+            className="cn-process-pulse"
+            animate={{
+              scale: [1, 1.18, 1],
+              opacity: [0.35, 0.08, 0.35],
+            }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: index * 0.25,
+            }}
+          />
+        </div>
 
-              <div className="cn-process-mini-visual" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
+        <div className="cn-section-asset cn-process-asset" aria-hidden="true">
+          <AssetVisual
+            id={`process-${["understand", "plan", "build", "measure"][index]}`}
+          />
+        </div>
 
-              <small>{step.number}</small>
+        <div className="cn-process-mini-visual" aria-hidden="true">
+          <motion.span
+            animate={{ height: ["7px", "18px", "10px"] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              delay: index * 0.15,
+            }}
+          />
+          <motion.span
+            animate={{ height: ["12px", "24px", "15px"] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              delay: index * 0.25,
+            }}
+          />
+          <motion.span
+            animate={{ height: ["17px", "28px", "20px"] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              delay: index * 0.35,
+            }}
+          />
+          <motion.span
+            animate={{ height: ["22px", "34px", "25px"] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              delay: index * 0.45,
+            }}
+          />
+        </div>
 
-              <h3>{step.title}</h3>
+        <div className="cn-process-content">
+          <div className="cn-process-number">
+            <span>STEP</span>
+            <strong>{step.number}</strong>
+          </div>
 
-              <p>{step.text}</p>
+          <h3>{step.title}</h3>
 
-              {index < steps.length - 1 && (
-                <ArrowRight className="cn-process-arrow" size={20} />
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
-    </section>
-  );
-};
+          <p>{step.text}</p>
 
+          <div className="cn-process-status">
+            <span className="cn-process-status-dot" />
+            <span>
+              {index === 0
+                ? "Discover & clarify"
+                : index === 1
+                  ? "Strategy & roadmap"
+                  : index === 2
+                    ? "Execution & delivery"
+                    : "Track & optimise"}
+            </span>
+          </div>
+        </div>
+
+        {index < steps.length - 1 && (
+          <motion.div
+            className="cn-process-arrow"
+            animate={{ x: [0, 5, 0] }}
+            transition={{
+              duration: 1.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: index * 0.2,
+            }}
+          >
+            <ArrowRight size={20} />
+          </motion.div>
+        )}
+      </motion.div>
+    );
+  })}
+</div>
+</section>
 /* =========================================================
    TOOLS SECTION
 ========================================================= */
