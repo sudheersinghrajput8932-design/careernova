@@ -582,7 +582,7 @@ const OfferingsSection = ({
 
         .cn-dark-heading h2 {
           margin: 0;
-          color: #fff;
+         color: #3426a8;
           font-size: clamp(34px, 4vw, 54px);
           line-height: 1.05;
           font-weight: 900;
