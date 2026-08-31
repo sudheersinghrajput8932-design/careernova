@@ -132,14 +132,25 @@ const HERO_SLIDES = [
    Pure professional vector illustrations.
 ========================================================= */
 
+const heroImages: Record<string, string> = {
+  growth: '/assets/hero-growth.png',
+  marketing: '/assets/hero-marketing.png',
+  analytics: '/assets/hero-analytics.png',
+  technology: '/assets/hero-technology.png',
+  career: '/assets/hero-career.png',
+};
+
 const HeroVisual = ({ type }: { type: string }) => {
-  const heroIds: Record<string, string> = {
-    growth: 'hero-growth', marketing: 'hero-marketing', analytics: 'hero-analytics',
-    technology: 'hero-technology', career: 'hero-career',
-  };
   return (
     <motion.div className="cn-hero-visual" initial={{ opacity: 0, scale: .94, x: 18 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: .6, ease: 'easeOut' }}>
-      <AssetVisual id={heroIds[type] || 'hero-growth'} label={`${type} technology illustration`} className="cn-hero-asset" />
+      <div className="cn-hero-photo-frame">
+        <img
+          src={heroImages[type] || heroImages.growth}
+          alt={`${type} illustration`}
+          className="cn-hero-photo"
+          loading="eager"
+        />
+      </div>
     </motion.div>
   );
 };
@@ -3966,6 +3977,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
         .cn-asset-visual { width: 100%; height: 100%; display: block; overflow: visible; }
         .cn-hero-asset { width: min(520px, 100%); height: 390px; filter: drop-shadow(0 24px 38px rgba(55,35,130,.22)); }
+        .cn-hero-photo-frame {
+          width: min(480px, 100%);
+          aspect-ratio: 4 / 3;
+          border-radius: 24px;
+          overflow: hidden;
+          position: relative;
+          padding: 6px;
+          background: linear-gradient(135deg, rgba(129,140,248,.45), rgba(236,72,153,.35));
+          box-shadow: 0 24px 48px rgba(30,15,80,.35);
+        }
+        .cn-hero-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 18px;
+          display: block;
+        }
+        @media (max-width: 640px) {
+          .cn-hero-photo-frame { width: 100%; }
+        }
         .cn-section-asset { width: 100%; height: 92px; margin: 0 0 10px; border-radius: 18px; overflow: hidden; }
         .cn-process-asset { background: linear-gradient(135deg,rgba(99,102,241,.06),rgba(236,72,153,.06)); }
         .cn-card-asset { position: absolute; inset: 0; width: 100%; height: 100%; padding: 4px; opacity: .96; pointer-events: none; }
