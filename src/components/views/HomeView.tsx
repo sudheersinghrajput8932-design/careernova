@@ -40,11 +40,11 @@ type HomeViewProps = {
 
 const VISUAL_SPRITE = '/assets/careernova-visuals.svg';
 
-const AssetVisual = ({ id, label, className = '' }: { id: string; label?: string; className?: string }) => (
+const AssetVisual = ({ id, label, className = '', fit = 'meet' }: { id: string; label?: string; className?: string; fit?: 'meet' | 'slice' }) => (
   <svg
     className={`cn-asset-visual ${className}`}
     viewBox="0 0 220 160"
-    preserveAspectRatio="xMidYMid meet"
+    preserveAspectRatio={`xMidYMid ${fit}`}
     role={label ? 'img' : undefined}
     aria-label={label}
     aria-hidden={label ? undefined : true}
@@ -234,47 +234,6 @@ const ProcessSection = () => {
               repeat: Infinity,
               ease: "easeInOut",
               delay: index * 0.25,
-            }}
-          />
-        </div>
-
-        <div className="cn-section-asset cn-process-asset" aria-hidden="true">
-          <AssetVisual
-            id={`process-${["understand", "plan", "build", "measure"][index]}`}
-          />
-        </div>
-
-        <div className="cn-process-mini-visual" aria-hidden="true">
-          <motion.span
-            animate={{ height: ["7px", "18px", "10px"] }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              delay: index * 0.15,
-            }}
-          />
-          <motion.span
-            animate={{ height: ["12px", "24px", "15px"] }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              delay: index * 0.25,
-            }}
-          />
-          <motion.span
-            animate={{ height: ["17px", "28px", "20px"] }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              delay: index * 0.35,
-            }}
-          />
-          <motion.span
-            animate={{ height: ["22px", "34px", "25px"] }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              delay: index * 0.45,
             }}
           />
         </div>
@@ -1843,7 +1802,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 
     <div className="cn-review-person">
       <div className="cn-avatar">
-        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} />
+        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} fit="slice" />
       </div>
 
       <div>
@@ -2658,7 +2617,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px;
-  padding: 42px 38px 34px;
+  padding: 34px 34px 30px;
   border: 1px solid rgba(139, 92, 246, 0.16);
   border-radius: 28px;
   background:
@@ -2671,7 +2630,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 .cn-process-line {
   position: absolute;
-  top: 88px;
+  top: 79px;
   left: 10%;
   right: 10%;
   height: 2px;
@@ -2700,26 +2659,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 .cn-process-icon-wrap {
   position: relative;
-  width: 82px;
-  height: 82px;
-  margin: 0 auto 28px;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
 }
 
 .cn-process-icon {
   position: relative;
   z-index: 3;
-  width: 82px;
-  height: 82px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(124, 58, 237, 0.18);
   color: #633cff;
   box-shadow:
-    0 12px 35px rgba(99, 60, 255, 0.13),
-    inset 0 0 0 7px rgba(139, 92, 246, 0.035);
+    0 14px 38px rgba(99, 60, 255, 0.16),
+    inset 0 0 0 8px rgba(139, 92, 246, 0.045);
 }
 
 .cn-process-pulse {
@@ -2761,7 +2720,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-process-content {
-  padding: 20px 4px 4px;
+  padding: 4px 4px 4px;
 }
 
 .cn-process-number {
@@ -2831,7 +2790,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 .cn-process-arrow {
   position: absolute;
-  top: 70px;
+  top: 61px;
   right: -18px;
   z-index: 5;
   width: 36px;
