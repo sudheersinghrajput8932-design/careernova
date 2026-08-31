@@ -133,11 +133,11 @@ const HERO_SLIDES = [
 ========================================================= */
 
 const heroImages: Record<string, string> = {
-  growth: '/assets/hero-growth.png',
-  marketing: '/assets/hero-marketing.png',
-  analytics: '/assets/hero-analytics.png',
+  growth: '/assets/hero-growth.jpg',
+  marketing: '/assets/hero-marketing.jpg',
+  analytics: '/assets/hero-analytics.jpg',
   technology: '/assets/hero-technology.png',
-  career: '/assets/hero-career.png',
+  career: '/assets/hero-career.jpg',
 };
 
 const HeroVisual = ({ type }: { type: string }) => {
@@ -2115,7 +2115,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-hero {
           position: relative;
-          min-height: 485px;
+          min-height: 380px;
           border-radius: 30px;
           overflow: hidden;
           background:
@@ -2156,8 +2156,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-hero-inner {
           position: relative;
           z-index: 3;
-          min-height: 485px;
-          padding: 44px 52px 60px;
+          min-height: 380px;
+          padding: 34px 48px 40px;
           display: grid;
           grid-template-columns: minmax(0,1.05fr) minmax(360px,.95fr);
           align-items: center;
@@ -2187,12 +2187,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-hero-title {
-          margin: 25px 0 18px;
+          margin: 16px 0 12px;
           max-width: 730px;
           color: #fff;
-          font-size: clamp(46px,5vw,76px);
-          line-height: .98;
-          letter-spacing: -3px;
+          font-size: clamp(34px,3.6vw,56px);
+          line-height: 1.04;
+          letter-spacing: -2px;
           font-weight: 850;
         }
 
@@ -2208,8 +2208,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-hero-description {
           max-width: 650px;
           color: #bdc5df;
-          font-size: 17px;
-          line-height: 1.75;
+          font-size: 15px;
+          line-height: 1.65;
           margin: 0;
         }
 
@@ -2217,7 +2217,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
-          margin-top: 30px;
+          margin-top: 20px;
         }
 
         .cn-hero-primary,
@@ -2261,7 +2261,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         /* Hero vector */
 
         .cn-hero-visual {
-          min-height: 340px;
+          min-height: 260px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -3693,11 +3693,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         @media (max-width: 1100px) {
           .cn-hero-inner {
             grid-template-columns: 1fr .8fr;
-            padding: 45px 40px 65px;
+            padding: 32px 40px 36px;
           }
 
           .cn-hero-title {
-            font-size: clamp(43px,5vw,62px);
+            font-size: clamp(32px,4vw,46px);
           }
 
           .cn-tools-grid {
@@ -3752,14 +3752,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-hero-inner {
             min-height: auto;
             grid-template-columns: 1fr;
-            padding: 32px 20px 58px;
+            padding: 24px 20px 30px;
             gap: 0;
           }
 
           .cn-hero-title {
-            margin-top: 19px;
-            font-size: clamp(39px,11vw,53px);
-            letter-spacing: -2px;
+            margin-top: 14px;
+            font-size: clamp(28px,8vw,40px);
+            letter-spacing: -1.5px;
           }
 
           .cn-hero-description {
@@ -3777,8 +3777,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-hero-visual {
-            min-height: 270px;
-            margin-top: 15px;
+            min-height: 190px;
+            margin-top: 12px;
           }
 
           .cn-vector-scene {
@@ -3929,11 +3929,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-hero-title {
-            font-size: 37px;
+            font-size: 28px;
           }
 
           .cn-hero-visual {
-            min-height: 235px;
+            min-height: 170px;
           }
 
           .cn-vector-scene {
@@ -3978,32 +3978,35 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-asset-visual { width: 100%; height: 100%; display: block; overflow: visible; }
         .cn-hero-asset { width: min(520px, 100%); height: 390px; filter: drop-shadow(0 24px 38px rgba(55,35,130,.22)); }
         .cn-hero-photo-frame {
-          width: min(480px, 100%);
-          aspect-ratio: 4 / 3;
-          border-radius: 24px;
+          width: min(420px, 100%);
+          aspect-ratio: 16 / 10;
+          border-radius: 22px;
           overflow: hidden;
           position: relative;
           padding: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background: linear-gradient(135deg, rgba(129,140,248,.45), rgba(236,72,153,.35));
           box-shadow: 0 24px 48px rgba(30,15,80,.35);
         }
         .cn-hero-photo {
           width: 100%;
           height: 100%;
-          object-fit: cover;
-          border-radius: 18px;
+          object-fit: contain;
+          border-radius: 16px;
           display: block;
         }
         @media (max-width: 640px) {
-          .cn-hero-photo-frame { width: 100%; }
+          .cn-hero-photo-frame { width: 100%; aspect-ratio: 16 / 9; }
         }
         .cn-section-asset { width: 100%; height: 92px; margin: 0 0 10px; border-radius: 18px; overflow: hidden; }
         .cn-process-asset { background: linear-gradient(135deg,rgba(99,102,241,.06),rgba(236,72,153,.06)); }
         .cn-card-asset { position: absolute; inset: 0; width: 100%; height: 100%; padding: 4px; opacity: .96; pointer-events: none; }
         .cn-tool-visual > .cn-card-asset, .cn-offering-visual > .cn-card-asset { z-index: 1; }
         .cn-tool-visual-grid, .cn-tool-visual-orbit, .cn-tool-icon, .cn-tool-spark, .cn-offering-orbit, .cn-offering-icon, .cn-offering-particles { z-index: 2; }
-        .cn-avatar { width: 68px; height: 68px; flex: 0 0 68px; border-radius: 50%; overflow: hidden; background: #eef2ff; }
-        .cn-avatar .cn-asset-visual { width: 100%; height: 100%; transform: scale(1.12); transform-origin: center; }
+        .cn-avatar { width: 68px; height: 68px; flex: 0 0 68px; border-radius: 50%; overflow: hidden; background: #eef2ff; display: flex; align-items: center; justify-content: center; }
+        .cn-avatar .cn-asset-visual { width: 100%; height: 100%; }
         @media (max-width: 640px) {
           .cn-home { width: 100%; max-width: 100%; }
           .cn-hero, .cn-section, .cn-metrics, .cn-reviews-section, .cn-final-cta { max-width: 100%; }
