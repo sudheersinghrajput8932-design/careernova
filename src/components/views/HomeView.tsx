@@ -160,128 +160,92 @@ const HeroVisual = ({ type }: { type: string }) => {
 ========================================================= */
 
 const ProcessSection = () => {
-  const steps = [
+  const capabilities = [
     {
-      number: '01',
-      title: 'Understand',
-      text: 'We identify the real objective, current position and the opportunity ahead.',
-      icon: Search,
-    },
-    {
-      number: '02',
-      title: 'Plan',
-      text: 'We structure the right strategy, priorities and practical roadmap.',
-      icon: Target,
-    },
-    {
-      number: '03',
-      title: 'Build',
-      text: 'We turn the plan into tools, systems, content, projects or execution.',
+      title: 'Software Development',
+      text: 'Build modern web & software solutions.',
       icon: Code2,
+      tone: 'tone-a',
     },
     {
-      number: '04',
-      title: 'Measure',
-      text: 'We track outcomes, learn from results and continuously improve.',
+      title: 'Smarter Decisions',
+      text: 'Turn data into actionable insights.',
+      icon: BarChart3,
+      tone: 'tone-b',
+    },
+    {
+      title: 'Financial Intelligence',
+      text: 'Models & analysis for better choices.',
+      icon: Calculator,
+      tone: 'tone-c',
+    },
+    {
+      title: 'Digital Growth',
+      text: 'Strategy and marketing for better reach.',
       icon: TrendingUp,
+      tone: 'tone-d',
     },
   ];
 
   return (
     <section className="cn-section cn-process-section">
       <div className="cn-section-heading">
-        <span>HOW WE CREATE IMPACT</span>
-        <h2>From Idea to Measurable Impact</h2>
+        <span>WHAT WE HELP YOU ACHIEVE</span>
+        <h2>Practical Solutions For Real-World Goals</h2>
         <p>
-          A simple four-stage framework that turns ideas into practical,
-          trackable outcomes.
+          Four core capabilities that turn your ideas into working products,
+          sharper decisions and measurable growth.
         </p>
       </div>
 
-     <div className="cn-process-card">
-  <div className="cn-process-line" />
+      <div className="cn-process-card">
+        {capabilities.map((item, index) => {
+          const Icon = item.icon;
 
-  {steps.map((step, index) => {
-    const Icon = step.icon;
+          return (
+            <motion.div
+              key={item.title}
+              className={`cn-process-step ${item.tone}`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.55,
+                delay: index * 0.12,
+                ease: "easeOut",
+              }}
+              whileHover={{ y: -8 }}
+            >
+              <div className="cn-process-icon-wrap">
+                <div className="cn-process-icon">
+                  <Icon size={25} />
+                </div>
 
-    return (
-      <motion.div
-        key={step.number}
-        className="cn-process-step"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{
-          duration: 0.55,
-          delay: index * 0.12,
-          ease: "easeOut",
-        }}
-        whileHover={{ y: -8 }}
-      >
-        <div className="cn-process-icon-wrap">
-          <div className="cn-process-icon">
-            <Icon size={25} />
-          </div>
+                <motion.div
+                  className="cn-process-pulse"
+                  animate={{
+                    scale: [1, 1.18, 1],
+                    opacity: [0.35, 0.08, 0.35],
+                  }}
+                  transition={{
+                    duration: 2.4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.25,
+                  }}
+                />
+              </div>
 
-          <motion.div
-            className="cn-process-pulse"
-            animate={{
-              scale: [1, 1.18, 1],
-              opacity: [0.35, 0.08, 0.35],
-            }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.25,
-            }}
-          />
-        </div>
-
-        <div className="cn-process-content">
-          <div className="cn-process-number">
-            <span>STEP</span>
-            <strong>{step.number}</strong>
-          </div>
-
-          <h3>{step.title}</h3>
-
-          <p>{step.text}</p>
-
-          <div className="cn-process-status">
-            <span className="cn-process-status-dot" />
-            <span>
-              {index === 0
-                ? "Discover & clarify"
-                : index === 1
-                  ? "Strategy & roadmap"
-                  : index === 2
-                    ? "Execution & delivery"
-                    : "Track & optimise"}
-            </span>
-          </div>
-        </div>
-
-        {index < steps.length - 1 && (
-          <motion.div
-            className="cn-process-arrow"
-            animate={{ x: [0, 5, 0] }}
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.2,
-            }}
-          >
-            <ArrowRight size={20} />
-          </motion.div>
-        )}
-      </motion.div>
-    );
-  })}
-</div>
-</section> 
-    );
+              <div className="cn-process-content">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
 };
 /* =========================================================
    TOOLS SECTION
@@ -2616,111 +2580,81 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px;
-  padding: 34px 34px 30px;
-  border: 1px solid rgba(139, 92, 246, 0.16);
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 12% 20%, rgba(139, 92, 246, 0.09), transparent 28%),
-    radial-gradient(circle at 88% 80%, rgba(59, 130, 246, 0.07), transparent 30%),
-    rgba(255, 255, 255, 0.72);
-  box-shadow: 0 24px 70px rgba(48, 35, 100, 0.08);
-  overflow: hidden;
-}
-
-.cn-process-line {
-  position: absolute;
-  top: 79px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(139, 92, 246, 0.15),
-    rgba(139, 92, 246, 0.65),
-    rgba(59, 130, 246, 0.55),
-    rgba(16, 185, 129, 0.35)
-  );
-  background-size: 200% 100%;
-  animation: cnProcessFlow 4s linear infinite;
-}
-
-@keyframes cnProcessFlow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+  gap: 20px;
 }
 
 .cn-process-step {
   position: relative;
   min-width: 0;
-  z-index: 2;
-  padding: 0 4px;
+  overflow: hidden;
+  padding: 30px 24px 26px;
+  border-radius: 24px;
+  color: #fff;
+  box-shadow: 0 20px 45px rgba(30, 20, 70, 0.16);
 }
+
+.cn-process-step::before {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  right: -55px;
+  bottom: -60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.cn-process-step::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  left: -40px;
+  top: -50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  filter: blur(2px);
+}
+
+.cn-process-step.tone-a { background: linear-gradient(150deg,#5b21b6,#8b5cf6); }
+.cn-process-step.tone-b { background: linear-gradient(150deg,#0b5fc9,#38bdf8); }
+.cn-process-step.tone-c { background: linear-gradient(150deg,#b0158a,#ec4899); }
+.cn-process-step.tone-d { background: linear-gradient(150deg,#047a55,#10b981); }
 
 .cn-process-icon-wrap {
   position: relative;
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 20px;
+  z-index: 2;
+  width: 66px;
+  height: 66px;
+  margin: 0 0 20px;
 }
 
 .cn-process-icon {
   position: relative;
   z-index: 3;
-  width: 90px;
-  height: 90px;
+  width: 66px;
+  height: 66px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(124, 58, 237, 0.18);
-  color: #633cff;
-  box-shadow:
-    0 14px 38px rgba(99, 60, 255, 0.16),
-    inset 0 0 0 8px rgba(139, 92, 246, 0.045);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #fff;
+  backdrop-filter: blur(6px);
 }
 
 .cn-process-pulse {
   position: absolute;
   inset: -8px;
-  border-radius: 50%;
-  background: rgba(139, 92, 246, 0.18);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.22);
   z-index: 1;
 }
 
-.cn-process-asset {
-  min-height: 86px;
-  margin: 0 0 12px;
-  border-radius: 18px;
-  overflow: hidden;
-  opacity: 0.95;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.cn-process-step:hover .cn-process-asset {
-  transform: translateY(-3px) scale(1.015);
-  box-shadow: 0 14px 35px rgba(99, 60, 255, 0.1);
-}
-
-.cn-process-mini-visual {
-  height: 34px;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-  margin: 8px 0 14px;
-}
-
-.cn-process-mini-visual span {
-  display: block;
-  width: 13px;
-  min-height: 7px;
-  border-radius: 5px 5px 2px 2px;
-  background: linear-gradient(180deg, #8b5cf6, #7dd3fc);
-}
-
 .cn-process-content {
-  padding: 4px 4px 4px;
+  position: relative;
+  z-index: 2;
 }
 
 .cn-process-number {
@@ -2728,7 +2662,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   align-items: center;
   gap: 7px;
   margin-bottom: 10px;
-  color: #8b5cf6;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .cn-process-number span {
@@ -2740,11 +2674,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 .cn-process-number strong {
   font-size: 12px;
   font-weight: 900;
+  color: #fff;
 }
 
 .cn-process-content h3 {
   margin: 0 0 10px;
-  color: #111936;
+  color: #fff;
   font-size: 21px;
   font-weight: 850;
   letter-spacing: -0.4px;
@@ -2752,9 +2687,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 .cn-process-content p {
   margin: 0;
-  color: #64748b;
-  font-size: 14px;
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13.5px;
+  line-height: 1.65;
 }
 
 .cn-process-status {
@@ -2762,7 +2697,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   align-items: center;
   gap: 7px;
   margin-top: 18px;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.92);
   font-size: 11px;
   font-weight: 700;
 }
@@ -2772,8 +2707,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   height: 7px;
   flex: 0 0 7px;
   border-radius: 50%;
-  background: #8b5cf6;
-  box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.09);
+  background: #fff;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.22);
   animation: cnProcessDot 2s ease-in-out infinite;
 }
 
@@ -2788,61 +2723,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   }
 }
 
-.cn-process-arrow {
-  position: absolute;
-  top: 61px;
-  right: -18px;
-  z-index: 5;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(139, 92, 246, 0.15);
-  color: #8b5cf6;
-  box-shadow: 0 8px 22px rgba(50, 35, 100, 0.08);
-}
-
-.cn-process-step:hover .cn-process-icon {
-  color: #5b21b6;
-  box-shadow:
-    0 16px 40px rgba(99, 60, 255, 0.2),
-    inset 0 0 0 7px rgba(139, 92, 246, 0.055);
-}
-
 @media (max-width: 1000px) {
   .cn-process-card {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 42px 28px;
-  }
-
-  .cn-process-line {
-    display: none;
-  }
-
-  .cn-process-arrow {
-    display: none;
+    gap: 18px;
   }
 }
 
 @media (max-width: 600px) {
   .cn-process-card {
     grid-template-columns: 1fr;
-    padding: 30px 22px;
   }
 
-  .cn-process-icon-wrap {
-    margin-left: 0;
-  }
-
-  .cn-process-content {
-    padding-top: 4px;
-  }
-
-  .cn-process-asset {
-    min-height: 70px;
+  .cn-process-step {
+    padding: 26px 22px 24px;
   }
 }
         /* =================================================
