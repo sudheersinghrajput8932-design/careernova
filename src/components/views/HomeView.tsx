@@ -165,21 +165,25 @@ const ProcessSection = () => {
       title: 'Goal First, Service Later',
       text: 'We first understand your business, audience and target outcome, then recommend only what actually fits.',
       icon: Target,
+      tone: 'cn-process-purple',
     },
     {
       title: 'Built Around Your Customer',
       text: 'Every website, campaign or workflow is shaped around the people you want to attract and convert.',
       icon: Users,
+      tone: 'cn-process-blue',
     },
     {
       title: 'Clear Execution, No Guesswork',
       text: 'You get a practical plan, honest updates and work that moves step by step from idea to launch.',
       icon: Workflow,
+      tone: 'cn-process-green',
     },
     {
       title: 'Long-Term Growth Support',
       text: 'We do not disappear after delivery. We help you improve, measure and keep moving with confidence.',
       icon: ShieldCheck,
+      tone: 'cn-process-orange',
     },
   ];
 
@@ -245,7 +249,7 @@ const ProcessSection = () => {
             return (
               <motion.div
                 key={item.title}
-                className="cn-process-step"
+                className={`cn-process-step ${item.tone}`}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
@@ -256,8 +260,20 @@ const ProcessSection = () => {
                 }}
                 whileHover={{ y: -5 }}
               >
-                <div className="cn-process-icon">
-                  <Icon size={22} />
+                <div className="cn-process-orb">
+                  <motion.div
+                    className="cn-process-visual"
+                    animate={{ y: [0, -7, 0], rotate: [0, 3, 0] }}
+                    transition={{
+                      duration: 3.2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: index * 0.18,
+                    }}
+                  >
+                    <Icon size={30} />
+                  </motion.div>
+                  <span className="cn-process-ring" />
                 </div>
 
                 <div className="cn-process-content">
@@ -2743,42 +2759,103 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 .cn-process-step {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   min-width: 0;
-  padding: 24px 22px;
-  border: 1px solid #e7eaf3;
-  border-radius: 20px;
-  background: rgba(255,255,255,.86);
+  overflow: hidden;
+  padding: 26px 24px 24px;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 30px;
+  background: var(--process-bg);
   color: #111936;
-  box-shadow: 0 12px 34px rgba(45,56,105,.07);
+  box-shadow: 0 18px 44px rgba(45,56,105,.1);
 }
 
 .cn-process-step::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg,rgba(124,58,237,.08),rgba(20,184,166,.06));
-  opacity: 0;
-  transition: opacity .25s ease;
+  right: -48px;
+  top: -58px;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  background: var(--process-glow);
+  opacity: .58;
 }
 
-.cn-process-step:hover::before {
-  opacity: 1;
+.cn-process-step::after {
+  content: '';
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: 18px solid rgba(255,255,255,.48);
+  opacity: .6;
 }
 
-.cn-process-icon {
+.cn-process-purple {
+  --process-bg: linear-gradient(145deg,#fbf8ff,#f0eaff);
+  --process-glow: linear-gradient(135deg,#7c3aed,#c084fc);
+  --process-main: #6d28d9;
+  --process-soft: #ede9fe;
+}
+
+.cn-process-blue {
+  --process-bg: linear-gradient(145deg,#f5fbff,#e7f3ff);
+  --process-glow: linear-gradient(135deg,#0ea5e9,#60a5fa);
+  --process-main: #0876d9;
+  --process-soft: #e0f2fe;
+}
+
+.cn-process-green {
+  --process-bg: linear-gradient(145deg,#f2fff9,#dcfce7);
+  --process-glow: linear-gradient(135deg,#10b981,#34d399);
+  --process-main: #059669;
+  --process-soft: #dcfce7;
+}
+
+.cn-process-orange {
+  --process-bg: linear-gradient(145deg,#fff8ed,#ffedd5);
+  --process-glow: linear-gradient(135deg,#f97316,#fbbf24);
+  --process-main: #ea580c;
+  --process-soft: #ffedd5;
+}
+
+.cn-process-orb {
   position: relative;
   z-index: 2;
+  width: 92px;
+  height: 92px;
+}
+
+.cn-process-visual {
+  position: relative;
+  z-index: 3;
   display: grid;
-  width: 48px;
-  height: 48px;
+  width: 82px;
+  height: 82px;
   place-items: center;
-  border: 1px solid #dfe5f2;
-  border-radius: 16px;
-  background: #f7f9ff;
-  color: #5b35d5;
+  border: 1px solid rgba(255,255,255,.62);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,.7), transparent 34%),
+    var(--process-glow);
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(45,56,105,.18);
+}
+
+.cn-process-ring {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  width: 34px;
+  height: 34px;
+  border: 8px solid var(--process-soft);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(31,42,82,.1);
 }
 
 .cn-process-content {
@@ -2788,18 +2865,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-process-content > span {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 24px;
+  padding: 0 10px;
   margin-bottom: 8px;
-  color: #0f9f82;
+  border-radius: 999px;
+  background: rgba(255,255,255,.74);
+  color: var(--process-main);
   font-size: 10px;
   font-weight: 950;
   letter-spacing: 1.2px;
+  box-shadow: 0 8px 18px rgba(31,42,82,.07);
 }
 
 .cn-process-content h3 {
   margin: 0 0 8px;
   color: #111936;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   line-height: 1.2;
 }
