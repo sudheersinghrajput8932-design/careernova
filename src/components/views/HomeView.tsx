@@ -1675,36 +1675,47 @@ const MetricsSection = () => {
 
   return (
     <section className="cn-metrics" aria-label="CareerNova impact metrics">
-      {metrics.map((metric, index) => {
-        const Icon = metric.icon;
+      <div className="cn-metrics-heading">
+        <span>CAREERNOVA IN NUMBERS</span>
+        <h2>Growth Built With Practical Experience</h2>
+        <p>
+          A focused mix of clients, tools, expertise and real delivery
+          experience behind every project we take on.
+        </p>
+      </div>
 
-        return (
-          <motion.div
-            className={`cn-metric ${metric.tone}`}
-            key={metric.label}
-            initial={{ opacity: 0, y: 18, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ delay: index * 0.06, duration: 0.45 }}
-            whileHover={{ y: -5, scale: 1.02 }}
-          >
-            <div className="cn-metric-orbit" aria-hidden="true">
-              <i />
-              <i />
-            </div>
-            <div className="cn-metric-icon">
-              <Icon size={20} />
-            </div>
-            <strong>
-              {metric.target === 4.9
-                ? counts[index].toFixed(1)
-                : counts[index]}
-              {metric.suffix}
-            </strong>
-            <span>{metric.label}</span>
-          </motion.div>
-        );
-      })}
+      <div className="cn-metrics-bubbles">
+        {metrics.map((metric, index) => {
+          const Icon = metric.icon;
+
+          return (
+            <motion.div
+              className={`cn-metric ${metric.tone}`}
+              key={metric.label}
+              initial={{ opacity: 0, y: 28, scale: 0.92 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: index * 0.07, duration: 0.5, ease: 'easeOut' }}
+              whileHover={{ y: -8, scale: 1.035 }}
+            >
+              <div className="cn-metric-orbit" aria-hidden="true">
+                <i />
+                <i />
+              </div>
+              <div className="cn-metric-icon">
+                <Icon size={24} />
+              </div>
+              <strong>
+                {metric.target === 4.9
+                  ? counts[index].toFixed(1)
+                  : counts[index]}
+                {metric.suffix}
+              </strong>
+              <span>{metric.label}</span>
+            </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 };
@@ -1721,7 +1732,7 @@ const REVIEWS = [
   {
     category: 'Career Planning',
     quote:
-      'The resume and career planning tools made my preparation much more structured than generic career advice.',
+      'CareerNova made my resume, portfolio and interview preparation much more structured than generic career advice.',
     name: 'Aarav Mehta',
     role: 'Student & Career Builder',
     gender: 'male',
@@ -1730,7 +1741,7 @@ const REVIEWS = [
   {
     category: 'Business Analytics',
     quote:
-      'The analytics and strategy approach helped us look at our business numbers with much more clarity and confidence.',
+      'Their analytics approach helped us understand sales, expenses and growth priorities with much more clarity.',
     name: 'Riya Kapoor',
     role: 'Startup Founder',
     gender: 'female',
@@ -1739,7 +1750,7 @@ const REVIEWS = [
   {
     category: 'Digital Marketing',
     quote:
-      'The digital growth guidance was focused on practical execution rather than just theory. That made a big difference.',
+      'The marketing plan was practical, clear and focused on actions we could actually execute every week.',
     name: 'Karan Singh',
     role: 'Growth Professional',
     gender: 'male',
@@ -1748,7 +1759,7 @@ const REVIEWS = [
   {
     category: 'Technology',
     quote:
-      'The technology guidance helped us turn a rough idea into a much clearer digital product direction.',
+      'They turned my rough website idea into a clean plan with the right pages, user flow and launch priorities.',
     name: 'Ananya Sharma',
     role: 'Product Learner',
     gender: 'female',
@@ -1757,7 +1768,7 @@ const REVIEWS = [
   {
     category: 'AI & Automation',
     quote:
-      'The AI and automation concepts were practical and easy to understand. I could immediately see where they fit.',
+      'The automation suggestions were simple, useful and directly connected to the repetitive work in my business.',
     name: 'Vikram Rao',
     role: 'Business Professional',
     gender: 'male',
@@ -1766,11 +1777,47 @@ const REVIEWS = [
   {
     category: 'Business Strategy',
     quote:
-      'The structured approach gave us clarity on priorities, execution and the next steps for sustainable growth.',
+      'CareerNova helped us choose what to focus on first instead of confusing us with unnecessary features.',
     name: 'Neha Verma',
     role: 'Entrepreneur',
     gender: 'female',
     className: 'review-pink',
+  },
+  {
+    category: 'Web Development',
+    quote:
+      'The website work felt modern and business-focused. The team understood both design and conversion clearly.',
+    name: 'Ishaan Malhotra',
+    role: 'Small Business Owner',
+    gender: 'male',
+    className: 'review-indigo',
+  },
+  {
+    category: 'Student Growth',
+    quote:
+      'I finally got a clear learning roadmap instead of random courses. The guidance felt personal and practical.',
+    name: 'Pooja Nair',
+    role: 'MBA Student',
+    gender: 'female',
+    className: 'review-mint',
+  },
+  {
+    category: 'Financial Planning',
+    quote:
+      'The financial model was easy to understand and helped us discuss our plan with more confidence.',
+    name: 'Rahul Bansal',
+    role: 'Founder',
+    gender: 'male',
+    className: 'review-yellow',
+  },
+  {
+    category: 'Brand Positioning',
+    quote:
+      'They helped us explain our offer in a sharper way, so customers could understand our value faster.',
+    name: 'Meera Joshi',
+    role: 'Brand Consultant',
+    gender: 'female',
+    className: 'review-rose',
   },
 ];
 
@@ -1778,11 +1825,42 @@ const REVIEWS = [
    REVIEW CARD
 ========================================================= */
 
+const CartoonAvatar = ({ gender, name }: { gender: string; name: string }) => {
+  const isFemale = gender === 'female';
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2);
+
+  return (
+    <svg className="cn-avatar-svg" viewBox="0 0 120 120" role="img" aria-label={`${name} cartoon avatar`}>
+      <circle cx="60" cy="60" r="58" fill={isFemale ? '#f3d6ff' : '#d8f2ff'} />
+      <circle cx="38" cy="32" r="28" fill={isFemale ? '#f9a8d4' : '#93c5fd'} opacity=".86" />
+      <circle cx="85" cy="88" r="33" fill={isFemale ? '#c084fc' : '#22d3ee'} opacity=".72" />
+      <circle cx="60" cy="55" r="31" fill="#ffd8b5" />
+      {isFemale ? (
+        <>
+          <path d="M28 62c1-29 17-45 34-45 20 0 33 18 32 45-9-10-19-15-34-15-13 0-23 5-32 15z" fill="#3b2466" />
+          <path d="M34 74c4 22 17 33 28 33s24-11 28-33c-9 8-18 12-28 12s-19-4-28-12z" fill="#3b2466" opacity=".92" />
+        </>
+      ) : (
+        <path d="M30 48c5-22 20-33 38-29 14 3 22 13 24 29-16-7-34-8-62 0z" fill="#20315f" />
+      )}
+      <circle cx="48" cy="57" r="4" fill="#17203f" />
+      <circle cx="72" cy="57" r="4" fill="#17203f" />
+      <path d="M48 75c8 7 17 7 25 0" fill="none" stroke="#7c2d12" strokeWidth="5" strokeLinecap="round" />
+      <circle cx="38" cy="66" r="6" fill="#ffb6a3" opacity=".62" />
+      <circle cx="82" cy="66" r="6" fill="#ffb6a3" opacity=".62" />
+      <circle cx="94" cy="94" r="18" fill="#fff" opacity=".95" />
+      <text x="94" y="100" textAnchor="middle" fontSize="13" fontWeight="900" fill={isFemale ? '#a21caf' : '#0f65c9'}>
+        {initials}
+      </text>
+    </svg>
+  );
+};
+
 const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
-  const avatarMap: Record<string, string> = {
-    'Aarav Mehta': 'avatar-m1', 'Riya Kapoor': 'avatar-f1', 'Karan Singh': 'avatar-m2',
-    'Ananya Sharma': 'avatar-f2', 'Vikram Rao': 'avatar-m3', 'Neha Verma': 'avatar-f3',
-  };
   return (
   <motion.article
     className={`cn-review-card ${review.className}`}
@@ -1808,7 +1886,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 
     <div className="cn-review-person">
       <div className="cn-avatar">
-        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} fit="slice" box="0 0 160 160" />
+        <CartoonAvatar gender={review.gender} name={review.name} />
       </div>
 
       <div>
@@ -1825,48 +1903,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 ========================================================= */
 
 const ReviewsSection = () => {
-  const [reviewIndex, setReviewIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-
-  const nextReview = () => {
-    setDirection(1);
-    setReviewIndex((current) => (current + 1) % REVIEWS.length);
-  };
-
-  const previousReview = () => {
-    setDirection(-1);
-    setReviewIndex(
-      (current) => (current - 1 + REVIEWS.length) % REVIEWS.length,
-    );
-  };
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setDirection(1);
-      setReviewIndex((current) => (current + 1) % REVIEWS.length);
-    }, 2500);
-
-    return () => window.clearInterval(timer);
-  }, []);
-
-  const visibleReviews = [0, 1, 2].map(
-    (offset) => REVIEWS[(reviewIndex + offset) % REVIEWS.length],
-  );
-
-  const slideVariants = {
-    enter: (slideDirection: number) => ({
-      x: slideDirection > 0 ? '105%' : '-105%',
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (slideDirection: number) => ({
-      x: slideDirection > 0 ? '-105%' : '105%',
-      opacity: 0,
-    }),
-  };
+  const marqueeReviews = [...REVIEWS, ...REVIEWS];
 
   return (
     <section className="cn-reviews-section">
@@ -1880,61 +1917,13 @@ const ReviewsSection = () => {
       </div>
 
       <div className="cn-review-slider">
-        <button
-          className="cn-review-nav left"
-          onClick={previousReview}
-          aria-label="Previous reviews"
-        >
-          <ChevronLeft size={22} />
-        </button>
-
         <div className="cn-review-viewport">
-          <AnimatePresence
-            initial={false}
-            custom={direction}
-            mode="sync"
-          >
-            <motion.div
-              key={reviewIndex}
-              className="cn-review-track"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
-                opacity: { duration: 0.35 },
-              }}
-            >
-              {visibleReviews.map((review) => (
-                <ReviewCard key={review.name} review={review} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div className="cn-review-track">
+            {marqueeReviews.map((review, index) => (
+              <ReviewCard key={`${review.name}-${index}`} review={review} />
+            ))}
+          </div>
         </div>
-
-        <button
-          className="cn-review-nav right"
-          onClick={nextReview}
-          aria-label="Next reviews"
-        >
-          <ChevronRight size={22} />
-        </button>
-      </div>
-
-      <div className="cn-review-dots">
-        {REVIEWS.map((_, index) => (
-          <button
-            key={index}
-            className={index === reviewIndex ? 'active' : ''}
-            onClick={() => {
-              setDirection(index >= reviewIndex ? 1 : -1);
-              setReviewIndex(index);
-            }}
-            aria-label={`Review ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
@@ -3260,114 +3249,275 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-metrics {
-          margin-top: 50px;
-          display: grid;
-          grid-template-columns: repeat(6,1fr);
-          gap: 10px;
-          padding: 10px;
-          border-radius: 25px;
-          background: linear-gradient(135deg,#1b174b,#30206d 48%,#112c55);
-          border: 1px solid rgba(99,60,255,.25);
-          box-shadow: 0 22px 55px rgba(48,34,115,.18);
+          position: relative;
+          overflow: hidden;
+          margin: 54px auto 0;
+          padding: 34px 18px 12px;
+          border-radius: 30px;
+          background:
+            radial-gradient(circle at 8% 16%, rgba(124,58,237,.08), transparent 30%),
+            radial-gradient(circle at 90% 82%, rgba(20,184,166,.1), transparent 28%),
+            linear-gradient(180deg,#fff,#fbfcff);
+          border: 1px solid #eef1f7;
+        }
+
+        .cn-metrics-heading {
+          max-width: 850px;
+          margin: 0 auto 26px;
+          text-align: center;
+        }
+
+        .cn-metrics-heading span {
+          display: block;
+          color: #633cff;
+          font-size: 12px;
+          font-weight: 950;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-bottom: 9px;
+        }
+
+        .cn-metrics-heading h2 {
+          margin: 0;
+          color: #111936;
+          font-size: clamp(31px,3.4vw,48px);
+          font-weight: 950;
+          line-height: 1.05;
+        }
+
+        .cn-metrics-heading p {
+          max-width: 740px;
+          margin: 15px auto 0;
+          color: #5f6b84;
+          font-size: 16px;
+          line-height: 1.65;
+        }
+
+        .cn-metrics-bubbles {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0;
+          min-height: 315px;
+          padding: 18px 0 28px;
         }
 
         .cn-metric {
-          min-height: 145px;
-          padding: 18px 12px;
-          border-radius: 18px;
           position: relative;
           overflow: hidden;
+          flex: 0 0 245px;
+          width: 245px;
+          height: 245px;
+          margin-left: -18px;
+          padding: 34px 24px;
+          border-radius: 50%;
+          isolation: isolate;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,.12);
-          background: linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-          transition: box-shadow .25s ease;
+          color: var(--metric-main);
+          border: 1px solid rgba(255,255,255,.82);
+          background: var(--metric-bg);
+          box-shadow: 0 22px 48px rgba(38,48,88,.09);
+          transition: box-shadow .25s ease, transform .25s ease;
+        }
+
+        .cn-metric:first-child {
+          margin-left: 0;
+        }
+
+        .cn-metric:nth-child(even) {
+          margin-top: 54px;
         }
 
         .cn-metric::before {
           content: "";
           position: absolute;
-          width: 130px;
-          height: 130px;
+          inset: 18px;
           border-radius: 50%;
-          right: -72px;
-          top: -72px;
-          background: currentColor;
-          opacity: .10;
+          border: 1px solid rgba(255,255,255,.58);
+          opacity: .85;
+          z-index: -1;
+        }
+
+        .cn-metric::after {
+          content: "";
+          position: absolute;
+          right: 34px;
+          top: 34px;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: rgba(255,255,255,.82);
+          box-shadow: 0 10px 22px rgba(35,45,85,.08);
         }
 
         .cn-metric-icon {
-          width: 42px;
-          height: 42px;
-          border-radius: 13px;
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 9px;
-          background: currentColor;
-          color: #fff;
-          box-shadow: 0 10px 24px rgba(0,0,0,.16);
-        }
-
-        .cn-metric-icon svg { color: #fff; }
-
-        .cn-metric strong {
-          font-size: 30px;
-          line-height: 1;
-          letter-spacing: -1.2px;
+          margin-bottom: 14px;
+          background: rgba(255,255,255,.78);
+          box-shadow: 0 14px 28px rgba(38,48,88,.1);
           position: relative;
           z-index: 2;
+        }
+
+        .cn-metric-icon svg { color: var(--metric-main); }
+
+        .cn-metric strong {
+          font-size: 54px;
+          line-height: 1;
+          letter-spacing: 0;
+          position: relative;
+          z-index: 2;
+          color: var(--metric-main);
+          font-weight: 950;
         }
 
         .cn-metric span {
-          color: rgba(255,255,255,.75);
-          font-size: 11px;
-          margin-top: 7px;
+          max-width: 165px;
+          color: #3f4658;
+          font-size: 15px;
+          line-height: 1.35;
+          margin-top: 13px;
           position: relative;
           z-index: 2;
+          font-weight: 800;
         }
 
         .cn-metric-orbit {
           position: absolute;
-          inset: auto 12px 9px auto;
-          width: 20px;
-          height: 20px;
-          border: 1px solid rgba(255,255,255,.25);
+          inset: auto 24px 32px auto;
+          width: 38px;
+          height: 38px;
+          border: 1px solid rgba(255,255,255,.85);
           border-radius: 50%;
           animation: cn-metric-spin 5s linear infinite;
+          z-index: 2;
         }
 
         .cn-metric-orbit i {
           position: absolute;
-          width: 4px;
-          height: 4px;
+          width: 7px;
+          height: 7px;
           border-radius: 50%;
-          background: #fff;
-          top: -2px;
-          left: 7px;
+          background: var(--metric-main);
+          top: -3px;
+          left: 14px;
         }
 
         .cn-metric-orbit i:last-child {
           top: auto;
-          bottom: -2px;
+          bottom: -3px;
           left: auto;
-          right: 7px;
+          right: 14px;
+          background: #fff;
         }
 
-        .metric-violet { color: #a78bfa; }
-        .metric-blue { color: #60a5fa; }
-        .metric-pink { color: #f472b6; }
-        .metric-cyan { color: #22d3ee; }
-        .metric-orange { color: #fb923c; }
-        .metric-green { color: #34d399; }
+        .metric-violet {
+          --metric-main: #6d28d9;
+          --metric-bg: #f1ddff;
+        }
+
+        .metric-blue {
+          --metric-main: #0b4fc4;
+          --metric-bg: #dfe8ff;
+        }
+
+        .metric-pink {
+          --metric-main: #c026d3;
+          --metric-bg: #ffe0f1;
+        }
+
+        .metric-cyan {
+          --metric-main: #0184a8;
+          --metric-bg: #d8f7ff;
+        }
+
+        .metric-orange {
+          --metric-main: #b45309;
+          --metric-bg: #fff0c7;
+        }
+
+        .metric-green {
+          --metric-main: #047857;
+          --metric-bg: #d7f8ec;
+        }
 
         @keyframes cn-metric-spin {
           to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1180px) {
+          .cn-metrics-bubbles {
+            flex-wrap: wrap;
+            min-height: auto;
+            row-gap: 18px;
+          }
+
+          .cn-metric,
+          .cn-metric:first-child {
+            margin-left: 0;
+          }
+
+          .cn-metric:nth-child(even) {
+            margin-top: 34px;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .cn-metrics {
+            padding: 28px 12px 18px;
+            border-radius: 24px;
+          }
+
+          .cn-metrics-heading {
+            margin-bottom: 16px;
+          }
+
+          .cn-metrics-heading p {
+            font-size: 14px;
+          }
+
+          .cn-metrics-bubbles {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 12px;
+            padding: 10px 0 0;
+          }
+
+          .cn-metric {
+            width: 100%;
+            height: auto;
+            min-height: 164px;
+            border-radius: 28px;
+            padding: 22px 14px;
+          }
+
+          .cn-metric:nth-child(even) {
+            margin-top: 0;
+          }
+
+          .cn-metric strong {
+            font-size: 34px;
+          }
+
+          .cn-metric span {
+            font-size: 12px;
+          }
+
+          .cn-metric-icon {
+            width: 46px;
+            height: 46px;
+            margin-bottom: 10px;
+          }
         }
 
         /* =================================================
@@ -3375,35 +3525,41 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-reviews-section {
-          margin-top: 75px;
-          padding: 65px 0 25px;
+          margin-top: 48px;
+          padding: 42px 0 25px;
         }
 
         .cn-review-slider {
           position: relative;
-          padding: 0 54px;
+          padding: 0;
         }
 
         .cn-review-viewport {
           position: relative;
           overflow: hidden;
-          min-height: 410px;
-          border-radius: 27px;
+          min-height: 360px;
+          border-radius: 28px;
+          mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
         }
 
         .cn-review-track {
-          position: absolute;
-          inset: 0;
-          display: grid;
-          grid-template-columns: repeat(3,minmax(0,1fr));
+          display: flex;
           gap: 18px;
-          width: 100%;
+          width: max-content;
+          animation: cn-review-marquee 45s linear infinite;
+          will-change: transform;
+        }
+
+        .cn-review-track:hover {
+          animation-play-state: paused;
         }
 
         .cn-review-card {
-          min-height: 410px;
-          padding: 26px;
-          border-radius: 25px;
+          flex: 0 0 360px;
+          min-height: 350px;
+          padding: 24px;
+          border-radius: 28px;
           border: 1px solid rgba(124,58,237,.15);
           position: relative;
           overflow: hidden;
@@ -3450,6 +3606,22 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           background: linear-gradient(145deg,#fffaff,#ffe1ef);
         }
 
+        .review-indigo {
+          background: linear-gradient(145deg,#fbfbff,#e5e7ff);
+        }
+
+        .review-mint {
+          background: linear-gradient(145deg,#fbfffd,#d9fbe8);
+        }
+
+        .review-yellow {
+          background: linear-gradient(145deg,#fffdf5,#fff2bf);
+        }
+
+        .review-rose {
+          background: linear-gradient(145deg,#fff7fb,#ffdce8);
+        }
+
         .cn-review-top {
           display: flex;
           align-items: center;
@@ -3490,11 +3662,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-review-text {
-          margin: 25px 0 27px;
+          margin: 22px 0 24px;
           color: #243761;
-          font-size: 16px;
-          line-height: 1.75;
-          min-height: 125px;
+          font-size: 15px;
+          line-height: 1.72;
+          min-height: 118px;
         }
 
         .cn-review-person {
@@ -3504,11 +3676,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-avatar {
-          width: 68px;
-          height: 68px;
-          flex: 0 0 68px;
+          width: 72px;
+          height: 72px;
+          flex: 0 0 72px;
           overflow: hidden;
           border-radius: 50%;
+          border: 4px solid rgba(255,255,255,.78);
           box-shadow: 0 10px 22px rgba(39,46,90,.12);
         }
 
@@ -3584,6 +3757,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           width: 30px;
           border-radius: 99px;
           background: #7041ff;
+        }
+
+        @keyframes cn-review-marquee {
+          from {
+            transform: translateX(-50%);
+          }
+          to {
+            transform: translateX(0);
+          }
         }
 
         /* =================================================
@@ -3755,15 +3937,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-track {
-            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 16px;
           }
 
-          .cn-review-card:nth-child(3) {
-            display: none;
+          .cn-review-card {
+            flex-basis: 340px;
           }
 
           .cn-review-viewport {
-            min-height: 410px;
+            min-height: 360px;
           }
         }
 
@@ -3889,18 +4071,16 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            grid-template-columns: repeat(2,1fr);
-            gap: 7px;
-            padding: 7px;
+            padding: 28px 12px 18px;
           }
 
           .cn-metric {
-            min-height: 125px;
-            padding: 16px 9px;
+            min-height: 164px;
+            padding: 22px 14px;
           }
 
           .cn-metric strong {
-            font-size: 25px;
+            font-size: 34px;
           }
 
           .cn-review-slider {
@@ -3908,20 +4088,16 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-viewport {
-            min-height: 380px;
+            min-height: 350px;
           }
 
           .cn-review-track {
-            grid-template-columns: 1fr;
+            gap: 14px;
           }
 
           .cn-review-card {
-            min-height: 380px;
-          }
-
-          .cn-review-card:nth-child(2),
-          .cn-review-card:nth-child(3) {
-            display: none;
+            flex-basis: 310px;
+            min-height: 340px;
           }
 
           .cn-review-nav {
@@ -3992,11 +4168,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            grid-template-columns: 1fr 1fr;
+            padding-left: 8px;
+            padding-right: 8px;
           }
 
           .cn-metric strong {
-            font-size: 24px;
+            font-size: 31px;
           }
 
           .cn-review-text {
@@ -4009,6 +4186,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-floating-node,
           .cn-orbit,
           .cn-marketing-ring,
+          .cn-review-track,
           .cn-offering-orbit,
           .cn-tech-network span {
             animation: none !important;
