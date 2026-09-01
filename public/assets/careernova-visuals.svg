@@ -1,0 +1,560 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<style>
+  symbol { overflow: visible; }
+</style>
+  <symbol id="hero-growth" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="h0g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7c3aed"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="h0shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <circle cx="110" cy="80" r="57" fill="url(#h0g)" opacity=".16"/>
+    <circle cx="110" cy="80" r="43" fill="none" stroke="url(#h0g)" stroke-width="2" stroke-dasharray="6 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 80" to="360 110 80" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="110" cy="80" r="30" fill="url(#h0g)" filter="url(#h0shadow)">
+      <animate attributeName="r" values="28;32;28" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="88" text-anchor="middle" font-size="25" font-family="Arial,sans-serif" font-weight="800" fill="#fff">↗</text>
+    <text x="110" y="137" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" font-weight="800" letter-spacing="2" fill="#334155">GROWTH</text>
+    <g fill="url(#h0g)">
+      <circle cx="36" cy="35" r="8"><animate attributeName="cy" values="35;27;35" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="184" cy="40" r="6"><animate attributeName="cy" values="40;48;40" dur="2.7s" repeatCount="indefinite"/></circle>
+      <circle cx="182" cy="118" r="9"><animate attributeName="cx" values="182;190;182" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="43" cy="117" r="5"><animate attributeName="cx" values="43;35;43" dur="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </symbol>
+  <symbol id="hero-marketing" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="h1g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ec4899"/>
+        <stop offset="1" stop-color="#f59e0b"/>
+      </linearGradient>
+      <filter id="h1shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <circle cx="110" cy="80" r="57" fill="url(#h1g)" opacity=".16"/>
+    <circle cx="110" cy="80" r="43" fill="none" stroke="url(#h1g)" stroke-width="2" stroke-dasharray="6 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 80" to="360 110 80" dur="9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="110" cy="80" r="30" fill="url(#h1g)" filter="url(#h1shadow)">
+      <animate attributeName="r" values="28;32;28" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="88" text-anchor="middle" font-size="25" font-family="Arial,sans-serif" font-weight="800" fill="#fff">✦</text>
+    <text x="110" y="137" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" font-weight="800" letter-spacing="2" fill="#334155">MARKETING</text>
+    <g fill="url(#h1g)">
+      <circle cx="36" cy="35" r="8"><animate attributeName="cy" values="35;27;35" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="184" cy="40" r="6"><animate attributeName="cy" values="40;48;40" dur="2.7s" repeatCount="indefinite"/></circle>
+      <circle cx="182" cy="118" r="9"><animate attributeName="cx" values="182;190;182" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="43" cy="117" r="5"><animate attributeName="cx" values="43;35;43" dur="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </symbol>
+  <symbol id="hero-analytics" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="h2g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2563eb"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="h2shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <circle cx="110" cy="80" r="57" fill="url(#h2g)" opacity=".16"/>
+    <circle cx="110" cy="80" r="43" fill="none" stroke="url(#h2g)" stroke-width="2" stroke-dasharray="6 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 80" to="360 110 80" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="110" cy="80" r="30" fill="url(#h2g)" filter="url(#h2shadow)">
+      <animate attributeName="r" values="28;32;28" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="88" text-anchor="middle" font-size="25" font-family="Arial,sans-serif" font-weight="800" fill="#fff">▥</text>
+    <text x="110" y="137" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" font-weight="800" letter-spacing="2" fill="#334155">ANALYTICS</text>
+    <g fill="url(#h2g)">
+      <circle cx="36" cy="35" r="8"><animate attributeName="cy" values="35;27;35" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="184" cy="40" r="6"><animate attributeName="cy" values="40;48;40" dur="2.7s" repeatCount="indefinite"/></circle>
+      <circle cx="182" cy="118" r="9"><animate attributeName="cx" values="182;190;182" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="43" cy="117" r="5"><animate attributeName="cx" values="43;35;43" dur="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </symbol>
+  <symbol id="hero-technology" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="h3g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#0ea5e9"/>
+        <stop offset="1" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <filter id="h3shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <circle cx="110" cy="80" r="57" fill="url(#h3g)" opacity=".16"/>
+    <circle cx="110" cy="80" r="43" fill="none" stroke="url(#h3g)" stroke-width="2" stroke-dasharray="6 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 80" to="360 110 80" dur="11s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="110" cy="80" r="30" fill="url(#h3g)" filter="url(#h3shadow)">
+      <animate attributeName="r" values="28;32;28" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="88" text-anchor="middle" font-size="25" font-family="Arial,sans-serif" font-weight="800" fill="#fff">&lt;/&gt;</text>
+    <text x="110" y="137" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" font-weight="800" letter-spacing="2" fill="#334155">TECH</text>
+    <g fill="url(#h3g)">
+      <circle cx="36" cy="35" r="8"><animate attributeName="cy" values="35;27;35" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="184" cy="40" r="6"><animate attributeName="cy" values="40;48;40" dur="2.7s" repeatCount="indefinite"/></circle>
+      <circle cx="182" cy="118" r="9"><animate attributeName="cx" values="182;190;182" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="43" cy="117" r="5"><animate attributeName="cx" values="43;35;43" dur="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </symbol>
+  <symbol id="hero-career" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="h4g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#10b981"/>
+        <stop offset="1" stop-color="#6366f1"/>
+      </linearGradient>
+      <filter id="h4shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <circle cx="110" cy="80" r="57" fill="url(#h4g)" opacity=".16"/>
+    <circle cx="110" cy="80" r="43" fill="none" stroke="url(#h4g)" stroke-width="2" stroke-dasharray="6 8">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 80" to="360 110 80" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="110" cy="80" r="30" fill="url(#h4g)" filter="url(#h4shadow)">
+      <animate attributeName="r" values="28;32;28" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="110" y="88" text-anchor="middle" font-size="25" font-family="Arial,sans-serif" font-weight="800" fill="#fff">✓</text>
+    <text x="110" y="137" text-anchor="middle" font-size="10" font-family="Arial,sans-serif" font-weight="800" letter-spacing="2" fill="#334155">CAREER</text>
+    <g fill="url(#h4g)">
+      <circle cx="36" cy="35" r="8"><animate attributeName="cy" values="35;27;35" dur="2.2s" repeatCount="indefinite"/></circle>
+      <circle cx="184" cy="40" r="6"><animate attributeName="cy" values="40;48;40" dur="2.7s" repeatCount="indefinite"/></circle>
+      <circle cx="182" cy="118" r="9"><animate attributeName="cx" values="182;190;182" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="43" cy="117" r="5"><animate attributeName="cx" values="43;35;43" dur="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </symbol>
+  <symbol id="process-understand" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="p0g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#6366f1"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="p0shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="16" y="20" width="188" height="120" rx="24" fill="url(#p0g)" opacity=".10"/>
+    <path d="M35 104 C65 70 75 117 105 78 S155 45 187 62" fill="none" stroke="url(#p0g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7">
+      <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="35" cy="104" r="7" fill="#fff" stroke="url(#p0g)" stroke-width="4"/>
+    <circle cx="105" cy="78" r="7" fill="#fff" stroke="url(#p0g)" stroke-width="4"/>
+    <circle cx="187" cy="62" r="7" fill="#fff" stroke="url(#p0g)" stroke-width="4"/>
+    <circle cx="110" cy="80" r="23" fill="#fff" stroke="url(#p0g)" stroke-width="3"/>
+    <text x="110" y="87" text-anchor="middle" font-size="18" font-family="Arial,sans-serif" font-weight="800" fill="#6366f1">01</text>
+  </symbol>
+  <symbol id="process-plan" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="p1g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8b5cf6"/>
+        <stop offset="1" stop-color="#ec4899"/>
+      </linearGradient>
+      <filter id="p1shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="16" y="20" width="188" height="120" rx="24" fill="url(#p1g)" opacity=".10"/>
+    <path d="M35 104 C65 70 75 117 105 78 S155 45 187 62" fill="none" stroke="url(#p1g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7">
+      <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="35" cy="104" r="7" fill="#fff" stroke="url(#p1g)" stroke-width="4"/>
+    <circle cx="105" cy="78" r="7" fill="#fff" stroke="url(#p1g)" stroke-width="4"/>
+    <circle cx="187" cy="62" r="7" fill="#fff" stroke="url(#p1g)" stroke-width="4"/>
+    <circle cx="110" cy="80" r="23" fill="#fff" stroke="url(#p1g)" stroke-width="3"/>
+    <text x="110" y="87" text-anchor="middle" font-size="18" font-family="Arial,sans-serif" font-weight="800" fill="#8b5cf6">02</text>
+  </symbol>
+  <symbol id="process-build" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="p2g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#0ea5e9"/>
+        <stop offset="1" stop-color="#2563eb"/>
+      </linearGradient>
+      <filter id="p2shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="16" y="20" width="188" height="120" rx="24" fill="url(#p2g)" opacity=".10"/>
+    <path d="M35 104 C65 70 75 117 105 78 S155 45 187 62" fill="none" stroke="url(#p2g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7">
+      <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="35" cy="104" r="7" fill="#fff" stroke="url(#p2g)" stroke-width="4"/>
+    <circle cx="105" cy="78" r="7" fill="#fff" stroke="url(#p2g)" stroke-width="4"/>
+    <circle cx="187" cy="62" r="7" fill="#fff" stroke="url(#p2g)" stroke-width="4"/>
+    <circle cx="110" cy="80" r="23" fill="#fff" stroke="url(#p2g)" stroke-width="3"/>
+    <text x="110" y="87" text-anchor="middle" font-size="18" font-family="Arial,sans-serif" font-weight="800" fill="#0ea5e9">03</text>
+  </symbol>
+  <symbol id="process-measure" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="p3g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#10b981"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="p3shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="16" y="20" width="188" height="120" rx="24" fill="url(#p3g)" opacity=".10"/>
+    <path d="M35 104 C65 70 75 117 105 78 S155 45 187 62" fill="none" stroke="url(#p3g)" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7">
+      <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="35" cy="104" r="7" fill="#fff" stroke="url(#p3g)" stroke-width="4"/>
+    <circle cx="105" cy="78" r="7" fill="#fff" stroke="url(#p3g)" stroke-width="4"/>
+    <circle cx="187" cy="62" r="7" fill="#fff" stroke="url(#p3g)" stroke-width="4"/>
+    <circle cx="110" cy="80" r="23" fill="#fff" stroke="url(#p3g)" stroke-width="3"/>
+    <text x="110" y="87" text-anchor="middle" font-size="18" font-family="Arial,sans-serif" font-weight="800" fill="#10b981">04</text>
+  </symbol>
+  <symbol id="tool-analytics" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="t0g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#4f46e5"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="t0shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="22" y="25" width="176" height="110" rx="18" fill="#fff" stroke="url(#t0g)" stroke-width="2" filter="url(#t0shadow)"/>
+    <rect x="39" y="43" width="73" height="66" rx="10" fill="url(#t0g)" opacity=".12"/>
+    <path d="M49 96 L64 82 L77 88 L96 62" fill="none" stroke="#4f46e5" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="49" cy="96" r="4" fill="#4f46e5"/><circle cx="64" cy="82" r="4" fill="#22d3ee"/><circle cx="77" cy="88" r="4" fill="#4f46e5"/><circle cx="96" cy="62" r="4" fill="#22d3ee"/>
+    <rect x="128" y="48" width="51" height="9" rx="4" fill="#4f46e5" opacity=".22"/>
+    <rect x="128" y="66" width="38" height="9" rx="4" fill="#22d3ee" opacity=".28"/>
+    <rect x="128" y="84" width="45" height="9" rx="4" fill="#4f46e5" opacity=".18"/>
+    <circle cx="153" cy="113" r="14" fill="url(#t0g)"/>
+    <text x="153" y="119" text-anchor="middle" font-size="15" font-family="Arial,sans-serif" font-weight="800" fill="#fff">▥</text>
+  </symbol>
+  <symbol id="tool-marketing" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="t1g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#db2777"/>
+        <stop offset="1" stop-color="#f59e0b"/>
+      </linearGradient>
+      <filter id="t1shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="22" y="25" width="176" height="110" rx="18" fill="#fff" stroke="url(#t1g)" stroke-width="2" filter="url(#t1shadow)"/>
+    <rect x="39" y="43" width="73" height="66" rx="10" fill="url(#t1g)" opacity=".12"/>
+    <path d="M49 96 L64 82 L77 88 L96 62" fill="none" stroke="#db2777" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="49" cy="96" r="4" fill="#db2777"/><circle cx="64" cy="82" r="4" fill="#f59e0b"/><circle cx="77" cy="88" r="4" fill="#db2777"/><circle cx="96" cy="62" r="4" fill="#f59e0b"/>
+    <rect x="128" y="48" width="51" height="9" rx="4" fill="#db2777" opacity=".22"/>
+    <rect x="128" y="66" width="38" height="9" rx="4" fill="#f59e0b" opacity=".28"/>
+    <rect x="128" y="84" width="45" height="9" rx="4" fill="#db2777" opacity=".18"/>
+    <circle cx="153" cy="113" r="14" fill="url(#t1g)"/>
+    <text x="153" y="119" text-anchor="middle" font-size="15" font-family="Arial,sans-serif" font-weight="800" fill="#fff">↗</text>
+  </symbol>
+  <symbol id="tool-engineering" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="t2g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2563eb"/>
+        <stop offset="1" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <filter id="t2shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="22" y="25" width="176" height="110" rx="18" fill="#fff" stroke="url(#t2g)" stroke-width="2" filter="url(#t2shadow)"/>
+    <rect x="39" y="43" width="73" height="66" rx="10" fill="url(#t2g)" opacity=".12"/>
+    <path d="M49 96 L64 82 L77 88 L96 62" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="49" cy="96" r="4" fill="#2563eb"/><circle cx="64" cy="82" r="4" fill="#8b5cf6"/><circle cx="77" cy="88" r="4" fill="#2563eb"/><circle cx="96" cy="62" r="4" fill="#8b5cf6"/>
+    <rect x="128" y="48" width="51" height="9" rx="4" fill="#2563eb" opacity=".22"/>
+    <rect x="128" y="66" width="38" height="9" rx="4" fill="#8b5cf6" opacity=".28"/>
+    <rect x="128" y="84" width="45" height="9" rx="4" fill="#2563eb" opacity=".18"/>
+    <circle cx="153" cy="113" r="14" fill="url(#t2g)"/>
+    <text x="153" y="119" text-anchor="middle" font-size="15" font-family="Arial,sans-serif" font-weight="800" fill="#fff">&lt;/&gt;</text>
+  </symbol>
+  <symbol id="tool-career" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="t3g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#059669"/>
+        <stop offset="1" stop-color="#6366f1"/>
+      </linearGradient>
+      <filter id="t3shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="22" y="25" width="176" height="110" rx="18" fill="#fff" stroke="url(#t3g)" stroke-width="2" filter="url(#t3shadow)"/>
+    <rect x="39" y="43" width="73" height="66" rx="10" fill="url(#t3g)" opacity=".12"/>
+    <path d="M49 96 L64 82 L77 88 L96 62" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="49" cy="96" r="4" fill="#059669"/><circle cx="64" cy="82" r="4" fill="#6366f1"/><circle cx="77" cy="88" r="4" fill="#059669"/><circle cx="96" cy="62" r="4" fill="#6366f1"/>
+    <rect x="128" y="48" width="51" height="9" rx="4" fill="#059669" opacity=".22"/>
+    <rect x="128" y="66" width="38" height="9" rx="4" fill="#6366f1" opacity=".28"/>
+    <rect x="128" y="84" width="45" height="9" rx="4" fill="#059669" opacity=".18"/>
+    <circle cx="153" cy="113" r="14" fill="url(#t3g)"/>
+    <text x="153" y="119" text-anchor="middle" font-size="15" font-family="Arial,sans-serif" font-weight="800" fill="#fff">✓</text>
+  </symbol>
+  <symbol id="expert-strategy" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e0g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f97316"/>
+        <stop offset="1" stop-color="#f59e0b"/>
+      </linearGradient>
+      <filter id="e0shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e0g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="9s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e0shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e0g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">STRATEGY</text>
+    <circle cx="46" cy="50" r="6" fill="#f97316"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#f59e0b"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="expert-growth" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e1g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ec4899"/>
+        <stop offset="1" stop-color="#8b5cf6"/>
+      </linearGradient>
+      <filter id="e1shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e1g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#ec4899" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="10s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e1shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e1g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">GROWTH</text>
+    <circle cx="46" cy="50" r="6" fill="#ec4899"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#8b5cf6"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="expert-technology" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e2g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2563eb"/>
+        <stop offset="1" stop-color="#22d3ee"/>
+      </linearGradient>
+      <filter id="e2shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e2g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="11s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e2shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e2g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">TECH</text>
+    <circle cx="46" cy="50" r="6" fill="#2563eb"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#22d3ee"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="expert-career" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e3g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#10b981"/>
+        <stop offset="1" stop-color="#6366f1"/>
+      </linearGradient>
+      <filter id="e3shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e3g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="12s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e3shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e3g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">CAREER</text>
+    <circle cx="46" cy="50" r="6" fill="#10b981"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#6366f1"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="expert-ai" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e4g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7c3aed"/>
+        <stop offset="1" stop-color="#ec4899"/>
+      </linearGradient>
+      <filter id="e4shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e4g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="13s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e4shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e4g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">AI</text>
+    <circle cx="46" cy="50" r="6" fill="#7c3aed"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#ec4899"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="expert-communication" viewBox="0 0 220 160">
+    
+    <defs>
+      <linearGradient id="e5g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#06b6d4"/>
+        <stop offset="1" stop-color="#3b82f6"/>
+      </linearGradient>
+      <filter id="e5shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <rect x="12" y="15" width="196" height="130" rx="25" fill="url(#e5g)" opacity=".14"/>
+    <ellipse cx="110" cy="77" rx="65" ry="28" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="5 7">
+      <animateTransform attributeName="transform" type="rotate" from="0 110 77" to="360 110 77" dur="14s" repeatCount="indefinite"/>
+    </ellipse>
+    <circle cx="110" cy="77" r="31" fill="#fff" filter="url(#e5shadow)"/>
+    <circle cx="110" cy="77" r="23" fill="url(#e5g)"/>
+    <text x="110" y="83" text-anchor="middle" font-size="11" font-family="Arial,sans-serif" font-weight="900" fill="#fff">PITCH</text>
+    <circle cx="46" cy="50" r="6" fill="#06b6d4"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="176" cy="108" r="7" fill="#3b82f6"><animate attributeName="r" values="5;8;5" dur="2.6s" repeatCount="indefinite"/></circle>
+  </symbol>
+  <symbol id="avatar-m1" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a0g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#dbeafe"/>
+        <stop offset="1" stop-color="#2563eb"/>
+      </linearGradient>
+      <filter id="a0shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a0g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M61 60c1-23 14-34 31-34 18 0 31 13 32 34-12-9-21-12-31-10-10 2-17 6-32 10z" fill="#243b72"/>
+    <circle cx="100" cy="74" r="2.5" fill="#243b72"/><circle cx="120" cy="74" r="2.5" fill="#243b72"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#2563eb"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+  <symbol id="avatar-f1" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a1g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fce7f3"/>
+        <stop offset="1" stop-color="#db2777"/>
+      </linearGradient>
+      <filter id="a1shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a1g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M64 63c0-24 14-37 31-37 20 0 34 16 30 40-8-12-16-18-29-20-8 11-17 16-32 17z" fill="#43234b"/>
+    <circle cx="100" cy="74" r="2.5" fill="#43234b"/><circle cx="120" cy="74" r="2.5" fill="#43234b"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#db2777"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+  <symbol id="avatar-m2" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a2g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#dcfce7"/>
+        <stop offset="1" stop-color="#059669"/>
+      </linearGradient>
+      <filter id="a2shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a2g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M61 60c1-23 14-34 31-34 18 0 31 13 32 34-12-9-21-12-31-10-10 2-17 6-32 10z" fill="#253b2d"/>
+    <circle cx="100" cy="74" r="2.5" fill="#253b2d"/><circle cx="120" cy="74" r="2.5" fill="#253b2d"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#059669"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+  <symbol id="avatar-f2" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a3g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ede9fe"/>
+        <stop offset="1" stop-color="#7c3aed"/>
+      </linearGradient>
+      <filter id="a3shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a3g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M64 63c0-24 14-37 31-37 20 0 34 16 30 40-8-12-16-18-29-20-8 11-17 16-32 17z" fill="#3f275e"/>
+    <circle cx="100" cy="74" r="2.5" fill="#3f275e"/><circle cx="120" cy="74" r="2.5" fill="#3f275e"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#7c3aed"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+  <symbol id="avatar-m3" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a4g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffedd5"/>
+        <stop offset="1" stop-color="#ea580c"/>
+      </linearGradient>
+      <filter id="a4shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a4g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M61 60c1-23 14-34 31-34 18 0 31 13 32 34-12-9-21-12-31-10-10 2-17 6-32 10z" fill="#493022"/>
+    <circle cx="100" cy="74" r="2.5" fill="#493022"/><circle cx="120" cy="74" r="2.5" fill="#493022"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#ea580c"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+  <symbol id="avatar-f3" viewBox="0 0 160 160">
+    
+    <defs>
+      <linearGradient id="a5g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#cffafe"/>
+        <stop offset="1" stop-color="#0891b2"/>
+      </linearGradient>
+      <filter id="a5shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".16"/>
+      </filter>
+    </defs>
+    <g transform="translate(-30 0)">
+    <circle cx="110" cy="80" r="72" fill="url(#a5g)"/>
+    <circle cx="110" cy="72" r="27" fill="#efb08e"/>
+    <path d="M64 63c0-24 14-37 31-37 20 0 34 16 30 40-8-12-16-18-29-20-8 11-17 16-32 17z" fill="#233e46"/>
+    <circle cx="100" cy="74" r="2.5" fill="#233e46"/><circle cx="120" cy="74" r="2.5" fill="#233e46"/>
+    <path d="M103 84c5 4 9 4 14 0" fill="none" stroke="#a9574b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M62 148c5-33 21-49 48-49s43 16 48 49" fill="#0891b2"/>
+    <circle cx="110" cy="80" r="70" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  
+    </g></symbol>
+</svg>
