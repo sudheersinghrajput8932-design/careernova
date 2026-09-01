@@ -3198,7 +3198,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-review-viewport {
           position: relative;
           overflow: hidden;
-          min-height: 335px;
+          min-height: 410px;
           border-radius: 27px;
         }
 
@@ -3212,7 +3212,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-review-card {
-          min-height: 335px;
+          min-height: 410px;
           padding: 26px;
           border-radius: 25px;
           border: 1px solid rgba(124,58,237,.15);
@@ -3574,7 +3574,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-viewport {
-            min-height: 335px;
+            min-height: 410px;
           }
         }
 
@@ -3719,7 +3719,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-viewport {
-            min-height: 310px;
+            min-height: 380px;
           }
 
           .cn-review-track {
@@ -3727,7 +3727,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-card {
-            min-height: 310px;
+            min-height: 380px;
           }
 
           .cn-review-card:nth-child(2),
