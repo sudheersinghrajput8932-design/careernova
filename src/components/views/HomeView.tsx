@@ -40,10 +40,10 @@ type HomeViewProps = {
 
 const VISUAL_SPRITE = '/assets/careernova-visuals.svg';
 
-const AssetVisual = ({ id, label, className = '', fit = 'meet' }: { id: string; label?: string; className?: string; fit?: 'meet' | 'slice' }) => (
+const AssetVisual = ({ id, label, className = '', fit = 'meet', box = '0 0 220 160' }: { id: string; label?: string; className?: string; fit?: 'meet' | 'slice'; box?: string }) => (
   <svg
     className={`cn-asset-visual ${className}`}
-    viewBox="0 0 220 160"
+    viewBox={box}
     preserveAspectRatio={`xMidYMid ${fit}`}
     role={label ? 'img' : undefined}
     aria-label={label}
@@ -1766,7 +1766,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 
     <div className="cn-review-person">
       <div className="cn-avatar">
-        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} fit="slice" />
+        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} fit="slice" box="0 0 160 160" />
       </div>
 
       <div>
@@ -3859,7 +3859,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-tool-visual > .cn-card-asset, .cn-offering-visual > .cn-card-asset { z-index: 1; }
         .cn-tool-visual-grid, .cn-tool-visual-orbit, .cn-tool-icon, .cn-tool-spark, .cn-offering-orbit, .cn-offering-icon, .cn-offering-particles { z-index: 2; }
         .cn-avatar { width: 68px; height: 68px; flex: 0 0 68px; border-radius: 50%; overflow: hidden; background: #eef2ff; display: flex; align-items: center; justify-content: center; }
-        .cn-avatar .cn-asset-visual { width: 100%; height: 100%; }
+        .cn-avatar .cn-asset-visual { width: 100%; height: 100%; overflow: hidden; }
         @media (max-width: 640px) {
           .cn-home { width: 100%; max-width: 100%; }
           .cn-hero, .cn-section, .cn-metrics, .cn-reviews-section, .cn-final-cta { max-width: 100%; }
