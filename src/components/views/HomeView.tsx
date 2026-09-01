@@ -162,87 +162,113 @@ const HeroVisual = ({ type }: { type: string }) => {
 const ProcessSection = () => {
   const capabilities = [
     {
-      title: 'Software Development',
-      text: 'Build modern web & software solutions.',
-      icon: Code2,
-      tone: 'tone-a',
+      title: 'Goal First, Service Later',
+      text: 'We first understand your business, audience and target outcome, then recommend only what actually fits.',
+      icon: Target,
     },
     {
-      title: 'Smarter Decisions',
-      text: 'Turn data into actionable insights.',
-      icon: BarChart3,
-      tone: 'tone-b',
+      title: 'Built Around Your Customer',
+      text: 'Every website, campaign or workflow is shaped around the people you want to attract and convert.',
+      icon: Users,
     },
     {
-      title: 'Financial Intelligence',
-      text: 'Models & analysis for better choices.',
-      icon: Calculator,
-      tone: 'tone-c',
+      title: 'Clear Execution, No Guesswork',
+      text: 'You get a practical plan, honest updates and work that moves step by step from idea to launch.',
+      icon: Workflow,
     },
     {
-      title: 'Digital Growth',
-      text: 'Strategy and marketing for better reach.',
-      icon: TrendingUp,
-      tone: 'tone-d',
+      title: 'Long-Term Growth Support',
+      text: 'We do not disappear after delivery. We help you improve, measure and keep moving with confidence.',
+      icon: ShieldCheck,
     },
+  ];
+
+  const proofPoints = [
+    'Custom roadmap before execution',
+    'Business-friendly communication',
+    'Design, tech and growth together',
   ];
 
   return (
     <section className="cn-section cn-process-section">
       <div className="cn-section-heading">
-        <span>WHAT WE HELP YOU ACHIEVE</span>
+        <span>WHY CAREERNOVA IS DIFFERENT</span>
         <h2>Practical Solutions For Real-World Goals</h2>
         <p>
-          Four core capabilities that turn your ideas into working products,
-          sharper decisions and measurable growth.
+          We do not sell ready-made templates. We study your goals, your
+          customers and your market, then build practical digital solutions
+          that make sense for your next stage.
         </p>
       </div>
 
       <div className="cn-process-card">
-        {capabilities.map((item, index) => {
-          const Icon = item.icon;
+        <motion.div
+          className="cn-process-advisor"
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
+          <div className="cn-process-avatar-wrap">
+            <div className="cn-process-avatar">
+              <Users size={54} />
+            </div>
+            <span className="cn-process-avatar-badge">
+              <Sparkles size={15} />
+            </span>
+          </div>
 
-          return (
-            <motion.div
-              key={item.title}
-              className={`cn-process-step ${item.tone}`}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                duration: 0.55,
-                delay: index * 0.12,
-                ease: "easeOut",
-              }}
-              whileHover={{ y: -8 }}
-            >
-              <div className="cn-process-icon-wrap">
+          <div className="cn-process-advisor-copy">
+            <span>Client-first working style</span>
+            <h3>We build what your audience actually needs.</h3>
+            <p>
+              CareerNova combines strategy, design, technology and growth
+              thinking in one practical workflow, so your project feels clear
+              from the first conversation to the final result.
+            </p>
+          </div>
+
+          <div className="cn-process-proof-list">
+            {proofPoints.map((point) => (
+              <div key={point} className="cn-process-proof">
+                <CheckCircle2 size={17} />
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="cn-process-steps">
+          {capabilities.map((item, index) => {
+            const Icon = item.icon;
+
+            return (
+              <motion.div
+                key={item.title}
+                className="cn-process-step"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.09,
+                  ease: 'easeOut',
+                }}
+                whileHover={{ y: -5 }}
+              >
                 <div className="cn-process-icon">
-                  <Icon size={25} />
+                  <Icon size={22} />
                 </div>
 
-                <motion.div
-                  className="cn-process-pulse"
-                  animate={{
-                    scale: [1, 1.18, 1],
-                    opacity: [0.35, 0.08, 0.35],
-                  }}
-                  transition={{
-                    duration: 2.4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: index * 0.25,
-                  }}
-                />
-              </div>
-
-              <div className="cn-process-content">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </motion.div>
-          );
-        })}
+                <div className="cn-process-content">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -2579,153 +2605,215 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 .cn-process-card {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: minmax(290px, 0.9fr) minmax(0, 1.35fr);
+  gap: 22px;
+  align-items: stretch;
+  padding: 14px;
+  border: 1px solid #e5e9f4;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(99,102,241,.12), transparent 30%),
+    radial-gradient(circle at 100% 90%, rgba(20,184,166,.12), transparent 28%),
+    #fff;
+  box-shadow: 0 24px 70px rgba(31,42,82,.09);
+}
+
+.cn-process-advisor {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  padding: 30px;
+  border-radius: 22px;
+  background: linear-gradient(145deg,#111936,#25305f);
+  color: #fff;
+}
+
+.cn-process-advisor::after {
+  content: '';
+  position: absolute;
+  right: -72px;
+  bottom: -88px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 38px solid rgba(255,255,255,.08);
+}
+
+.cn-process-avatar-wrap {
+  position: relative;
+  z-index: 2;
+  width: 104px;
+  height: 104px;
+  margin-bottom: 24px;
+}
+
+.cn-process-avatar {
+  display: grid;
+  width: 104px;
+  height: 104px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 50%;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,255,255,.08)),
+    linear-gradient(135deg,#7c3aed,#14b8a6);
+  color: #fff;
+  box-shadow: 0 18px 44px rgba(0,0,0,.22);
+}
+
+.cn-process-avatar-badge {
+  position: absolute;
+  right: 2px;
+  bottom: 8px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 3px solid #111936;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+}
+
+.cn-process-advisor-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.cn-process-advisor-copy > span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #91f2d0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.cn-process-advisor-copy h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.cn-process-advisor-copy p {
+  max-width: 440px;
+  margin: 0;
+  color: rgba(255,255,255,.78);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.cn-process-proof-list {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.cn-process-proof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 14px;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.9);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.cn-process-proof svg {
+  flex: 0 0 auto;
+  color: #86efac;
+}
+
+.cn-process-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  min-width: 0;
 }
 
 .cn-process-step {
   position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
   min-width: 0;
-  overflow: hidden;
-  padding: 30px 24px 26px;
-  border-radius: 24px;
-  color: #fff;
-  box-shadow: 0 20px 45px rgba(30, 20, 70, 0.16);
+  padding: 24px 22px;
+  border: 1px solid #e7eaf3;
+  border-radius: 20px;
+  background: rgba(255,255,255,.86);
+  color: #111936;
+  box-shadow: 0 12px 34px rgba(45,56,105,.07);
 }
 
 .cn-process-step::before {
   content: '';
   position: absolute;
-  width: 160px;
-  height: 160px;
-  right: -55px;
-  bottom: -60px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,rgba(124,58,237,.08),rgba(20,184,166,.06));
+  opacity: 0;
+  transition: opacity .25s ease;
 }
 
-.cn-process-step::after {
-  content: '';
-  position: absolute;
-  width: 110px;
-  height: 110px;
-  left: -40px;
-  top: -50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  filter: blur(2px);
-}
-
-.cn-process-step.tone-a { background: linear-gradient(150deg,#5b21b6,#8b5cf6); }
-.cn-process-step.tone-b { background: linear-gradient(150deg,#0b5fc9,#38bdf8); }
-.cn-process-step.tone-c { background: linear-gradient(150deg,#b0158a,#ec4899); }
-.cn-process-step.tone-d { background: linear-gradient(150deg,#047a55,#10b981); }
-
-.cn-process-icon-wrap {
-  position: relative;
-  z-index: 2;
-  width: 66px;
-  height: 66px;
-  margin: 0 0 20px;
+.cn-process-step:hover::before {
+  opacity: 1;
 }
 
 .cn-process-icon {
   position: relative;
-  z-index: 3;
-  width: 66px;
-  height: 66px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  color: #fff;
-  backdrop-filter: blur(6px);
-}
-
-.cn-process-pulse {
-  position: absolute;
-  inset: -8px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.22);
-  z-index: 1;
+  z-index: 2;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid #dfe5f2;
+  border-radius: 16px;
+  background: #f7f9ff;
+  color: #5b35d5;
 }
 
 .cn-process-content {
   position: relative;
   z-index: 2;
+  min-width: 0;
 }
 
-.cn-process-number {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.cn-process-number span {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.cn-process-number strong {
-  font-size: 12px;
-  font-weight: 900;
-  color: #fff;
+.cn-process-content > span {
+  display: block;
+  margin-bottom: 8px;
+  color: #0f9f82;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 1.2px;
 }
 
 .cn-process-content h3 {
-  margin: 0 0 10px;
-  color: #fff;
-  font-size: 21px;
-  font-weight: 850;
-  letter-spacing: -0.4px;
+  margin: 0 0 8px;
+  color: #111936;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
 }
 
 .cn-process-content p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 13.5px;
-  line-height: 1.65;
-}
-
-.cn-process-status {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 18px;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.cn-process-status-dot {
-  width: 7px;
-  height: 7px;
-  flex: 0 0 7px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.22);
-  animation: cnProcessDot 2s ease-in-out infinite;
-}
-
-@keyframes cnProcessDot {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.75;
-  }
-  50% {
-    transform: scale(1.35);
-    opacity: 1;
-  }
+  color: #65708a;
+  font-size: 13px;
+  line-height: 1.62;
 }
 
 @media (max-width: 1000px) {
   .cn-process-card {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 18px;
   }
 }
@@ -2733,10 +2821,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 @media (max-width: 600px) {
   .cn-process-card {
     grid-template-columns: 1fr;
+    padding: 10px;
+    border-radius: 22px;
+  }
+
+  .cn-process-advisor {
+    padding: 24px 20px;
+  }
+
+  .cn-process-advisor-copy h3 {
+    font-size: 23px;
+  }
+
+  .cn-process-steps {
+    grid-template-columns: 1fr;
   }
 
   .cn-process-step {
-    padding: 26px 22px 24px;
+    grid-template-columns: 1fr;
+    gap: 13px;
+    padding: 22px 19px;
   }
 }
         /* =================================================
@@ -3664,8 +3768,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-process-card {
-            grid-template-columns: 1fr 1fr;
-            padding: 25px 18px;
+            grid-template-columns: 1fr;
+            padding: 12px;
           }
 
           .cn-process-line,
@@ -3997,5 +4101,3 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 };
 
 export default HomeView;
-
-
