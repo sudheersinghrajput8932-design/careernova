@@ -163,15 +163,182 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNotify }) => {
         </p>
       </motion.div>
 
-      {/* Main Split-Container Layout (Left: Form, Right: Solid Indigo Contact Info Card) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* LEFT CONTAINER: Input Form Fields (7 Columns) */}
+      {/* Main Split-Container Layout — premium Contact Us UI */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        {/* LEFT CONTAINER: Let's Connect + Have a project or idea in mind? + Visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ ...smoothTransition, delay: 0.2 }}
+          className="lg:col-span-5 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700 text-white rounded-3xl p-6 sm:p-9 shadow-xl shadow-indigo-600/25 flex flex-col justify-between space-y-8 relative overflow-hidden"
+        >
+          {/* Subtle decorative background shapes */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-violet-900/30 rounded-full blur-2xl pointer-events-none" />
+
+          {/* Top Section */}
+          <div className="space-y-6 relative z-10">
+            <div className="space-y-2 border-b border-white/20 pb-5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-[11px] font-bold">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>LET'S CONNECT</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                Contact Info
+              </h2>
+              <p className="text-xs sm:text-sm text-indigo-100 leading-relaxed font-normal">
+                Tell us what you are building, planning, or trying to solve. We'll help you find the right next step.
+              </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+              <div className="rounded-xl bg-white/10 border border-white/10 px-3 py-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-black text-white">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
+                  Let's Talk
+                </div>
+                <p className="mt-1 text-[10px] leading-relaxed text-indigo-100">Clear, direct communication.</p>
+              </div>
+              <div className="rounded-xl bg-white/10 border border-white/10 px-3 py-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-black text-white">
+                  <Clock className="w-3.5 h-3.5 text-sky-200" />
+                  Quick Response
+                </div>
+                <p className="mt-1 text-[10px] leading-relaxed text-indigo-100">A reply within 24 hours.</p>
+              </div>
+              <div className="rounded-xl bg-white/10 border border-white/10 px-3 py-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-black text-white">
+                  <Sparkles className="w-3.5 h-3.5 text-fuchsia-200" />
+                  Built For You
+                </div>
+                <p className="mt-1 text-[10px] leading-relaxed text-indigo-100">Focused on your goals.</p>
+              </div>
+            </div>
+            </div>
+
+            {/* Direct Contact Cards */}
+            <div className="space-y-4">
+              {/* Phone */}
+              <a
+                href="tel:+917007260391"
+                className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-200 group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
+                    Direct Phone / Hotline
+                  </div>
+                  <div className="text-base font-bold text-white group-hover:text-indigo-100">
+                    +91 7007260391
+                  </div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">
+                    Available Mon–Sun (9 AM – 9 PM IST)
+                  </div>
+                </div>
+              </a>
+
+              {/* Email */}
+              <a
+                href="mailto:sudheersinghrajput8932@gmail.com"
+                className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-200 group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
+                    Official Email
+                  </div>
+                  <div className="text-sm font-bold text-white break-all group-hover:text-indigo-100">
+                    sudheersinghrajput8932@gmail.com
+                  </div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">
+                    Guaranteed response within 24 hours
+                  </div>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15">
+                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
+                    Headquarters
+                  </div>
+                  <div className="text-sm font-bold text-white">
+                    India (Remote & Pan-India Network)
+                  </div>
+                  <div className="text-[11px] text-indigo-200 mt-0.5">
+                    Serving students & founders nationwide
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          {/* Premium contact illustration */}
+          <div className="relative z-10 flex justify-center py-1">
+            <div className="relative w-full max-w-sm h-36 sm:h-40 rounded-3xl bg-white/10 border border-white/15 overflow-hidden">
+              <div className="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-fuchsia-400/20 blur-2xl" />
+              <div className="absolute -bottom-14 -left-8 w-36 h-36 rounded-full bg-sky-400/20 blur-2xl" />
+
+              <div className="absolute left-7 top-7 w-28 h-20 rounded-2xl bg-white/95 shadow-2xl rotate-[-4deg] p-3">
+                <div className="h-2 w-12 rounded-full bg-indigo-200 mb-2" />
+                <div className="space-y-1.5">
+                  <div className="h-1.5 w-full rounded-full bg-slate-200" />
+                  <div className="h-1.5 w-4/5 rounded-full bg-slate-200" />
+                  <div className="h-1.5 w-3/5 rounded-full bg-indigo-200" />
+                </div>
+              </div>
+
+              <div className="absolute right-8 top-5 w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 border-4 border-white/70 shadow-xl flex items-center justify-center text-white">
+                <MessageSquare className="w-7 h-7" />
+              </div>
+
+              <div className="absolute right-24 bottom-5 w-11 h-11 rounded-2xl bg-emerald-400 text-slate-950 flex items-center justify-center shadow-xl rotate-[7deg]">
+                <Send className="w-5 h-5" />
+              </div>
+
+              <div className="absolute left-24 bottom-4 px-3 py-1.5 rounded-full bg-white/90 text-indigo-700 text-[10px] font-black shadow-lg flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3" />
+                Let's build something great
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom WhatsApp Instant Action */}
+          <div className="pt-4 border-t border-white/20 relative z-10 space-y-3">
+            <a
+              href="https://wa.me/917007260391?text=Hi%20Sudhir%2C%20I%20am%20reaching%20out%20from%20the%20CareerNova%20Contact%20Page."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Chat Directly on WhatsApp</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <p className="text-[11px] text-indigo-100 text-center">
+              Prefer instant messaging? Connect in seconds on WhatsApp.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+
+        {/* RIGHT CONTAINER: Send Us a Message Form */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.98 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ ...smoothTransition, delay: 0.1 }}
-          className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-10 flex flex-col justify-between space-y-6"
+          className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-lg shadow-slate-200/50 p-6 sm:p-10 flex flex-col justify-between space-y-6"
         >
           <div>
             <div className="space-y-1 border-b border-slate-100 pb-4 mb-6">
@@ -382,115 +549,6 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNotify }) => {
           </div>
         </motion.div>
 
-        {/* RIGHT CONTAINER: Solid Indigo "Contact Info" Card (5 Columns) */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ ...smoothTransition, delay: 0.2 }}
-          className="lg:col-span-5 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700 text-white rounded-3xl p-6 sm:p-9 shadow-xl shadow-indigo-600/25 flex flex-col justify-between space-y-8 relative overflow-hidden"
-        >
-          {/* Subtle decorative background shapes */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-violet-900/30 rounded-full blur-2xl pointer-events-none" />
-
-          {/* Top Section */}
-          <div className="space-y-6 relative z-10">
-            <div className="space-y-2 border-b border-white/20 pb-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-[11px] font-bold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Direct Access Hotline</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                Contact Info
-              </h2>
-              <p className="text-xs sm:text-sm text-indigo-100 leading-relaxed font-normal">
-                Reach out directly to our leadership team for immediate support, custom inquiries, or corporate training.
-              </p>
-            </div>
-
-            {/* Direct Contact Cards */}
-            <div className="space-y-4">
-              {/* Phone */}
-              <a
-                href="tel:+917007260391"
-                className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-200 group cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
-                    Direct Phone / Hotline
-                  </div>
-                  <div className="text-base font-bold text-white group-hover:text-indigo-100">
-                    +91 7007260391
-                  </div>
-                  <div className="text-[11px] text-indigo-200 mt-0.5">
-                    Available Mon–Sun (9 AM – 9 PM IST)
-                  </div>
-                </div>
-              </a>
-
-              {/* Email */}
-              <a
-                href="mailto:sudheersinghrajput8932@gmail.com"
-                className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-200 group cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
-                    Official Email
-                  </div>
-                  <div className="text-sm font-bold text-white break-all group-hover:text-indigo-100">
-                    sudheersinghrajput8932@gmail.com
-                  </div>
-                  <div className="text-[11px] text-indigo-200 mt-0.5">
-                    Guaranteed response within 24 hours
-                  </div>
-                </div>
-              </a>
-
-              {/* Location */}
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/10 border border-white/15">
-                <div className="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-indigo-200 font-semibold uppercase tracking-wider">
-                    Headquarters
-                  </div>
-                  <div className="text-sm font-bold text-white">
-                    India (Remote & Pan-India Network)
-                  </div>
-                  <div className="text-[11px] text-indigo-200 mt-0.5">
-                    Serving students & founders nationwide
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom WhatsApp Instant Action */}
-          <div className="pt-4 border-t border-white/20 relative z-10 space-y-3">
-            <a
-              href="https://wa.me/917007260391?text=Hi%20Sudhir%2C%20I%20am%20reaching%20out%20from%20the%20CareerNova%20Contact%20Page."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Chat Directly on WhatsApp</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-
-            <p className="text-[11px] text-indigo-100 text-center">
-              Prefer instant messaging? Connect in seconds on WhatsApp.
-            </p>
-          </div>
-        </motion.div>
       </div>
 
       {/* Frequently Asked Questions Section with Staggered Scroll Reveal */}
