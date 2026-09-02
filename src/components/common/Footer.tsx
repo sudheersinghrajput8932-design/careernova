@@ -82,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </div>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
-              Empowering students, working professionals, and business founders across India with AI-powered resume analyzers, financial models, high-converting digital services, and practical growth roadmaps.
+              CareerNova delivers end-to-end Core Expertise — Business Analytics, Digital Marketing, Financial Modeling, Web Development, Data Science &amp; AI, and Career &amp; Student Growth tools — built to turn ideas into measurable, real-world outcomes for students, professionals and founders across India.
             </p>
 
             {/* Social Icons */}
@@ -206,56 +206,74 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             <ul className="space-y-2.5 text-xs text-slate-600">
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'business')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>ATS Resume &amp; Cover Letter (₹299)</span>
+                  <span>Business Analytics</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'strategy')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>LinkedIn Optimization (₹499)</span>
+                  <span>Digital Marketing</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'break-even')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>MSME / Udyam Support (₹599)</span>
+                  <span>Financial Modeling</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'full-stack-web-dev')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Pitch Deck &amp; Presentation (₹1,499)</span>
+                  <span>Web Development</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'business-intelligence')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>GMB &amp; Local SEO Setup (₹999)</span>
+                  <span>Data Science &amp; AI</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('services')}
+                  onClick={() => onNavigate('expertise', 'tools')}
                   className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Monthly Social Posts (₹1,999/mo)</span>
+                  <span>Automation &amp; Tools</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('expertise', 'roadmap-guide')}
+                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Career &amp; Student Growth</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('expertise', 'strategy')}
+                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Strategy &amp; Growth</span>
                 </button>
               </li>
             </ul>
