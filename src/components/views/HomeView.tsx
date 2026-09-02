@@ -160,131 +160,105 @@ const HeroVisual = ({ type }: { type: string }) => {
 ========================================================= */
 
 const ProcessSection = () => {
-  const capabilities = [
+  const differentiators = [
     {
-      title: 'Goal First, Service Later',
-      text: 'We first understand your business, audience and target outcome, then recommend only what actually fits.',
-      icon: Target,
-      tone: 'cn-process-purple',
-    },
-    {
-      title: 'Built Around Your Customer',
-      text: 'Every website, campaign or workflow is shaped around the people you want to attract and convert.',
+      title: 'One Team, Not Five Vendors',
+      typical: 'Juggling separate agencies for strategy, design, code & growth',
+      ours: 'Strategy, engineering, analytics and growth — one accountable team',
       icon: Users,
-      tone: 'cn-process-blue',
+      avatarId: 'avatar-m1',
+      persona: 'Trusted by founders',
+      tone: 'tone-a',
     },
     {
-      title: 'Clear Execution, No Guesswork',
-      text: 'You get a practical plan, honest updates and work that moves step by step from idea to launch.',
-      icon: Workflow,
-      tone: 'cn-process-green',
+      title: 'Decisions Backed By Data',
+      typical: 'Recommendations based on templates or guesswork',
+      ours: 'Every decision grounded in real financial and analytics modeling',
+      icon: BarChart3,
+      avatarId: 'avatar-f1',
+      persona: 'Loved by analysts',
+      tone: 'tone-b',
     },
     {
-      title: 'Long-Term Growth Support',
-      text: 'We do not disappear after delivery. We help you improve, measure and keep moving with confidence.',
+      title: 'We Build It, Not Just Plan It',
+      typical: 'Slide decks and strategy PDFs that never ship',
+      ours: 'Working products, tools and systems you can actually use',
+      icon: Code2,
+      avatarId: 'avatar-m2',
+      persona: 'Backed by developers',
+      tone: 'tone-c',
+    },
+    {
+      title: 'Transparent Pricing, Always',
+      typical: 'Hidden hours and surprise invoices',
+      ours: 'Clear scope and honest pricing — no surprises',
       icon: ShieldCheck,
-      tone: 'cn-process-orange',
+      avatarId: 'avatar-f2',
+      persona: 'Trusted by clients',
+      tone: 'tone-d',
     },
-  ];
-
-  const proofPoints = [
-    'Custom roadmap before execution',
-    'Business-friendly communication',
-    'Design, tech and growth together',
   ];
 
   return (
-    <section className="cn-section cn-process-section">
+    <section className="cn-section cn-diff-section">
+      <div className="cn-diff-particles" aria-hidden="true">
+        <span /><span /><span /><span /><span /><span />
+      </div>
+
       <div className="cn-section-heading">
-        <span>WHY CAREERNOVA IS DIFFERENT</span>
-        <h2>Practical Solutions For Real-World Goals</h2>
-        <p>
-          We do not sell ready-made templates. We study your goals, your
-          customers and your market, then build practical digital solutions
-          that make sense for your next stage.
+        <span>WHY BUSINESSES CHOOSE US OVER OTHERS</span>
+        <h2 className="cn-diff-heading">Not Just Another Agency. Here's The Difference.</h2>
+        <p className="cn-diff-sub">
+          Most agencies sell you a plan. We sell you the outcome — built,
+          tested and delivered by one team you can actually reach.
         </p>
       </div>
 
-      <div className="cn-process-card">
-        <motion.div
-          className="cn-process-advisor"
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          <div className="cn-process-avatar-wrap">
-            <div className="cn-process-avatar">
-              <Users size={54} />
-            </div>
-            <span className="cn-process-avatar-badge">
-              <Sparkles size={15} />
-            </span>
-          </div>
+      <div className="cn-diff-grid">
+        {differentiators.map((item, index) => {
+          const Icon = item.icon;
 
-          <div className="cn-process-advisor-copy">
-            <span>Client-first working style</span>
-            <h3>We build what your audience actually needs.</h3>
-            <p>
-              CareerNova combines strategy, design, technology and growth
-              thinking in one practical workflow, so your project feels clear
-              from the first conversation to the final result.
-            </p>
-          </div>
+          return (
+            <motion.div
+              key={item.title}
+              className={`cn-diff-card ${item.tone}`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.55,
+                delay: index * 0.1,
+                ease: 'easeOut',
+              }}
+              whileHover={{ y: -6 }}
+            >
+              <div className="cn-diff-top">
+                <div className="cn-diff-icon">
+                  <Icon size={20} />
+                </div>
 
-          <div className="cn-process-proof-list">
-            {proofPoints.map((point) => (
-              <div key={point} className="cn-process-proof">
-                <CheckCircle2 size={17} />
-                <span>{point}</span>
+                <div className="cn-diff-persona">
+                  <div className="cn-diff-avatar">
+                    <AssetVisual id={item.avatarId} label={item.persona} fit="slice" box="0 0 160 160" />
+                  </div>
+                  <span>{item.persona}</span>
+                </div>
               </div>
-            ))}
-          </div>
-        </motion.div>
 
-        <div className="cn-process-steps">
-          {capabilities.map((item, index) => {
-            const Icon = item.icon;
+              <h3>{item.title}</h3>
 
-            return (
-              <motion.div
-                key={item.title}
-                className={`cn-process-step ${item.tone}`}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.09,
-                  ease: 'easeOut',
-                }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="cn-process-orb">
-                  <motion.div
-                    className="cn-process-visual"
-                    animate={{ y: [0, -7, 0], rotate: [0, 3, 0] }}
-                    transition={{
-                      duration: 3.2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: index * 0.18,
-                    }}
-                  >
-                    <Icon size={30} />
-                  </motion.div>
-                  <span className="cn-process-ring" />
-                </div>
+              <div className="cn-diff-row cn-diff-row-no">
+                <span className="cn-diff-tag">Typical agencies</span>
+                <p>{item.typical}</p>
+              </div>
 
-                <div className="cn-process-content">
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+              <div className="cn-diff-row cn-diff-row-yes">
+                <span className="cn-diff-tag">CareerNova</span>
+                <p>{item.ours}</p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
@@ -293,31 +267,42 @@ const ProcessSection = () => {
    TOOLS SECTION
 ========================================================= */
 
+const toolImages: Record<string, string> = {
+  analytics: '/assets/tool-analytics.png',
+  marketing: '/assets/tool-marketing.png',
+  engineering: '/assets/tool-engineering.png',
+  career: '/assets/tool-career.png',
+};
+
 const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
   const tools = [
     {
       title: 'Business Analytics',
-      text: 'Financial models, dashboards, forecasting and data-driven decision tools.',
+      text: 'Turn raw numbers into financial models, live dashboards and forecasts you can act on.',
       icon: BarChart3,
       className: 'tool-purple',
+      key: 'analytics',
     },
     {
       title: 'Marketing & Growth',
-      text: 'Campaign planning, content systems, growth funnels and digital strategy.',
+      text: 'Plan campaigns, build content systems and turn growth funnels into consistent digital reach.',
       icon: Megaphone,
       className: 'tool-pink',
+      key: 'marketing',
     },
     {
       title: 'Engineering & Tech',
-      text: 'Web, APIs, automation, cloud concepts and practical digital systems.',
+      text: 'Ship modern web apps, APIs, automation and cloud-ready systems that actually scale.',
       icon: Code2,
       className: 'tool-blue',
+      key: 'engineering',
     },
     {
       title: 'Career & Student Tools',
-      text: 'Career planning, skill mapping, resume support and practical learning tools.',
+      text: 'Map your skills, sharpen your resume and turn learning into a clear career roadmap.',
       icon: GraduationCap,
       className: 'tool-green',
+      key: 'career',
     },
   ];
 
@@ -351,14 +336,11 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
               }}
             >
               <div className="cn-tool-visual" aria-hidden="true">
-                <AssetVisual id={`tool-${['analytics','marketing','engineering','career'][index]}`} className="cn-card-asset" />
-                <div className="cn-tool-visual-grid" />
-                <div className="cn-tool-visual-orbit" />
+                <img src={toolImages[tool.key]} alt="" className="cn-tool-photo" loading="lazy" />
+                <div className="cn-tool-photo-overlay" />
                 <div className="cn-tool-icon">
-                  <Icon size={25} />
+                  <Icon size={22} />
                 </div>
-                <span className="cn-tool-spark spark-a" />
-                <span className="cn-tool-spark spark-b" />
               </div>
 
               <h3>{tool.title}</h3>
@@ -1675,47 +1657,36 @@ const MetricsSection = () => {
 
   return (
     <section className="cn-metrics" aria-label="CareerNova impact metrics">
-      <div className="cn-metrics-heading">
-        <span>CAREERNOVA IN NUMBERS</span>
-        <h2>Growth Built With Practical Experience</h2>
-        <p>
-          A focused mix of clients, tools, expertise and real delivery
-          experience behind every project we take on.
-        </p>
-      </div>
+      {metrics.map((metric, index) => {
+        const Icon = metric.icon;
 
-      <div className="cn-metrics-bubbles">
-        {metrics.map((metric, index) => {
-          const Icon = metric.icon;
-
-          return (
-            <motion.div
-              className={`cn-metric ${metric.tone}`}
-              key={metric.label}
-              initial={{ opacity: 0, y: 28, scale: 0.92 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: index * 0.07, duration: 0.5, ease: 'easeOut' }}
-              whileHover={{ y: -8, scale: 1.035 }}
-            >
-              <div className="cn-metric-orbit" aria-hidden="true">
-                <i />
-                <i />
-              </div>
-              <div className="cn-metric-icon">
-                <Icon size={24} />
-              </div>
-              <strong>
-                {metric.target === 4.9
-                  ? counts[index].toFixed(1)
-                  : counts[index]}
-                {metric.suffix}
-              </strong>
-              <span>{metric.label}</span>
-            </motion.div>
-          );
-        })}
-      </div>
+        return (
+          <motion.div
+            className={`cn-metric ${metric.tone}`}
+            key={metric.label}
+            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: index * 0.06, duration: 0.45 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+          >
+            <div className="cn-metric-orbit" aria-hidden="true">
+              <i />
+              <i />
+            </div>
+            <div className="cn-metric-icon">
+              <Icon size={20} />
+            </div>
+            <strong>
+              {metric.target === 4.9
+                ? counts[index].toFixed(1)
+                : counts[index]}
+              {metric.suffix}
+            </strong>
+            <span>{metric.label}</span>
+          </motion.div>
+        );
+      })}
     </section>
   );
 };
@@ -1732,7 +1703,7 @@ const REVIEWS = [
   {
     category: 'Career Planning',
     quote:
-      'CareerNova made my resume, portfolio and interview preparation much more structured than generic career advice.',
+      'The resume and career planning tools made my preparation much more structured than generic career advice.',
     name: 'Aarav Mehta',
     role: 'Student & Career Builder',
     gender: 'male',
@@ -1741,7 +1712,7 @@ const REVIEWS = [
   {
     category: 'Business Analytics',
     quote:
-      'Their analytics approach helped us understand sales, expenses and growth priorities with much more clarity.',
+      'The analytics and strategy approach helped us look at our business numbers with much more clarity and confidence.',
     name: 'Riya Kapoor',
     role: 'Startup Founder',
     gender: 'female',
@@ -1750,7 +1721,7 @@ const REVIEWS = [
   {
     category: 'Digital Marketing',
     quote:
-      'The marketing plan was practical, clear and focused on actions we could actually execute every week.',
+      'The digital growth guidance was focused on practical execution rather than just theory. That made a big difference.',
     name: 'Karan Singh',
     role: 'Growth Professional',
     gender: 'male',
@@ -1759,7 +1730,7 @@ const REVIEWS = [
   {
     category: 'Technology',
     quote:
-      'They turned my rough website idea into a clean plan with the right pages, user flow and launch priorities.',
+      'The technology guidance helped us turn a rough idea into a much clearer digital product direction.',
     name: 'Ananya Sharma',
     role: 'Product Learner',
     gender: 'female',
@@ -1768,7 +1739,7 @@ const REVIEWS = [
   {
     category: 'AI & Automation',
     quote:
-      'The automation suggestions were simple, useful and directly connected to the repetitive work in my business.',
+      'The AI and automation concepts were practical and easy to understand. I could immediately see where they fit.',
     name: 'Vikram Rao',
     role: 'Business Professional',
     gender: 'male',
@@ -1777,47 +1748,11 @@ const REVIEWS = [
   {
     category: 'Business Strategy',
     quote:
-      'CareerNova helped us choose what to focus on first instead of confusing us with unnecessary features.',
+      'The structured approach gave us clarity on priorities, execution and the next steps for sustainable growth.',
     name: 'Neha Verma',
     role: 'Entrepreneur',
     gender: 'female',
     className: 'review-pink',
-  },
-  {
-    category: 'Web Development',
-    quote:
-      'The website work felt modern and business-focused. The team understood both design and conversion clearly.',
-    name: 'Ishaan Malhotra',
-    role: 'Small Business Owner',
-    gender: 'male',
-    className: 'review-indigo',
-  },
-  {
-    category: 'Student Growth',
-    quote:
-      'I finally got a clear learning roadmap instead of random courses. The guidance felt personal and practical.',
-    name: 'Pooja Nair',
-    role: 'MBA Student',
-    gender: 'female',
-    className: 'review-mint',
-  },
-  {
-    category: 'Financial Planning',
-    quote:
-      'The financial model was easy to understand and helped us discuss our plan with more confidence.',
-    name: 'Rahul Bansal',
-    role: 'Founder',
-    gender: 'male',
-    className: 'review-yellow',
-  },
-  {
-    category: 'Brand Positioning',
-    quote:
-      'They helped us explain our offer in a sharper way, so customers could understand our value faster.',
-    name: 'Meera Joshi',
-    role: 'Brand Consultant',
-    gender: 'female',
-    className: 'review-rose',
   },
 ];
 
@@ -1825,42 +1760,11 @@ const REVIEWS = [
    REVIEW CARD
 ========================================================= */
 
-const CartoonAvatar = ({ gender, name }: { gender: string; name: string }) => {
-  const isFemale = gender === 'female';
-  const initials = name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2);
-
-  return (
-    <svg className="cn-avatar-svg" viewBox="0 0 120 120" role="img" aria-label={`${name} cartoon avatar`}>
-      <circle cx="60" cy="60" r="58" fill={isFemale ? '#f3d6ff' : '#d8f2ff'} />
-      <circle cx="38" cy="32" r="28" fill={isFemale ? '#f9a8d4' : '#93c5fd'} opacity=".86" />
-      <circle cx="85" cy="88" r="33" fill={isFemale ? '#c084fc' : '#22d3ee'} opacity=".72" />
-      <circle cx="60" cy="55" r="31" fill="#ffd8b5" />
-      {isFemale ? (
-        <>
-          <path d="M28 62c1-29 17-45 34-45 20 0 33 18 32 45-9-10-19-15-34-15-13 0-23 5-32 15z" fill="#3b2466" />
-          <path d="M34 74c4 22 17 33 28 33s24-11 28-33c-9 8-18 12-28 12s-19-4-28-12z" fill="#3b2466" opacity=".92" />
-        </>
-      ) : (
-        <path d="M30 48c5-22 20-33 38-29 14 3 22 13 24 29-16-7-34-8-62 0z" fill="#20315f" />
-      )}
-      <circle cx="48" cy="57" r="4" fill="#17203f" />
-      <circle cx="72" cy="57" r="4" fill="#17203f" />
-      <path d="M48 75c8 7 17 7 25 0" fill="none" stroke="#7c2d12" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="38" cy="66" r="6" fill="#ffb6a3" opacity=".62" />
-      <circle cx="82" cy="66" r="6" fill="#ffb6a3" opacity=".62" />
-      <circle cx="94" cy="94" r="18" fill="#fff" opacity=".95" />
-      <text x="94" y="100" textAnchor="middle" fontSize="13" fontWeight="900" fill={isFemale ? '#a21caf' : '#0f65c9'}>
-        {initials}
-      </text>
-    </svg>
-  );
-};
-
 const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
+  const avatarMap: Record<string, string> = {
+    'Aarav Mehta': 'avatar-m1', 'Riya Kapoor': 'avatar-f1', 'Karan Singh': 'avatar-m2',
+    'Ananya Sharma': 'avatar-f2', 'Vikram Rao': 'avatar-m3', 'Neha Verma': 'avatar-f3',
+  };
   return (
   <motion.article
     className={`cn-review-card ${review.className}`}
@@ -1886,7 +1790,7 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 
     <div className="cn-review-person">
       <div className="cn-avatar">
-        <CartoonAvatar gender={review.gender} name={review.name} />
+        <AssetVisual id={avatarMap[review.name] || (review.gender === 'male' ? 'avatar-m1' : 'avatar-f1')} label={`${review.gender} profile avatar`} fit="slice" box="0 0 160 160" />
       </div>
 
       <div>
@@ -1903,7 +1807,48 @@ const ReviewCard = ({ review }: { review: (typeof REVIEWS)[number] }) => {
 ========================================================= */
 
 const ReviewsSection = () => {
-  const marqueeReviews = [...REVIEWS, ...REVIEWS];
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const nextReview = () => {
+    setDirection(1);
+    setReviewIndex((current) => (current + 1) % REVIEWS.length);
+  };
+
+  const previousReview = () => {
+    setDirection(-1);
+    setReviewIndex(
+      (current) => (current - 1 + REVIEWS.length) % REVIEWS.length,
+    );
+  };
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setDirection(1);
+      setReviewIndex((current) => (current + 1) % REVIEWS.length);
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const visibleReviews = [0, 1, 2].map(
+    (offset) => REVIEWS[(reviewIndex + offset) % REVIEWS.length],
+  );
+
+  const slideVariants = {
+    enter: (slideDirection: number) => ({
+      x: slideDirection > 0 ? '105%' : '-105%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (slideDirection: number) => ({
+      x: slideDirection > 0 ? '-105%' : '105%',
+      opacity: 0,
+    }),
+  };
 
   return (
     <section className="cn-reviews-section">
@@ -1917,13 +1862,61 @@ const ReviewsSection = () => {
       </div>
 
       <div className="cn-review-slider">
+        <button
+          className="cn-review-nav left"
+          onClick={previousReview}
+          aria-label="Previous reviews"
+        >
+          <ChevronLeft size={22} />
+        </button>
+
         <div className="cn-review-viewport">
-          <div className="cn-review-track">
-            {marqueeReviews.map((review, index) => (
-              <ReviewCard key={`${review.name}-${index}`} review={review} />
-            ))}
-          </div>
+          <AnimatePresence
+            initial={false}
+            custom={direction}
+            mode="sync"
+          >
+            <motion.div
+              key={reviewIndex}
+              className="cn-review-track"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+                opacity: { duration: 0.35 },
+              }}
+            >
+              {visibleReviews.map((review) => (
+                <ReviewCard key={review.name} review={review} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
+
+        <button
+          className="cn-review-nav right"
+          onClick={nextReview}
+          aria-label="Next reviews"
+        >
+          <ChevronRight size={22} />
+        </button>
+      </div>
+
+      <div className="cn-review-dots">
+        {REVIEWS.map((_, index) => (
+          <button
+            key={index}
+            className={index === reviewIndex ? 'active' : ''}
+            onClick={() => {
+              setDirection(index >= reviewIndex ? 1 : -1);
+              setReviewIndex(index);
+            }}
+            aria-label={`Review ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
@@ -2607,314 +2600,206 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
        /* ===== PREMIUM PROCESS SECTION ===== */
 
-.cn-process-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(290px, 0.9fr) minmax(0, 1.35fr);
-  gap: 22px;
-  align-items: stretch;
-  padding: 14px;
-  border: 1px solid #e5e9f4;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 8% 12%, rgba(99,102,241,.12), transparent 30%),
-    radial-gradient(circle at 100% 90%, rgba(20,184,166,.12), transparent 28%),
-    #fff;
-  box-shadow: 0 24px 70px rgba(31,42,82,.09);
-}
-
-.cn-process-advisor {
+.cn-diff-section {
   position: relative;
   overflow: hidden;
-  min-width: 0;
-  padding: 30px;
-  border-radius: 22px;
-  background: linear-gradient(145deg,#111936,#25305f);
-  color: #fff;
-}
-
-.cn-process-advisor::after {
-  content: '';
-  position: absolute;
-  right: -72px;
-  bottom: -88px;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  border: 38px solid rgba(255,255,255,.08);
-}
-
-.cn-process-avatar-wrap {
-  position: relative;
-  z-index: 2;
-  width: 104px;
-  height: 104px;
-  margin-bottom: 24px;
-}
-
-.cn-process-avatar {
-  display: grid;
-  width: 104px;
-  height: 104px;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.28);
-  border-radius: 50%;
+  padding: 58px 46px 54px;
+  border-radius: 30px;
   background:
-    linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,255,255,.08)),
-    linear-gradient(135deg,#7c3aed,#14b8a6);
-  color: #fff;
-  box-shadow: 0 18px 44px rgba(0,0,0,.22);
+    radial-gradient(circle at 12% 15%, rgba(139, 92, 246, 0.22), transparent 30%),
+    radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.16), transparent 32%),
+    linear-gradient(150deg, #0a0d2e 0%, #12123f 55%, #180f38 100%);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  box-shadow: 0 30px 70px rgba(25, 15, 70, 0.22);
 }
 
-.cn-process-avatar-badge {
+.cn-diff-particles {
   position: absolute;
-  right: 2px;
-  bottom: 8px;
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 3px solid #111936;
-  border-radius: 50%;
-  background: #22c55e;
-  color: #fff;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.cn-process-advisor-copy {
+.cn-diff-particles span {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(196, 181, 253, 0.55);
+  animation: cnDiffFloat 6s ease-in-out infinite;
+}
+
+.cn-diff-particles span:nth-child(1) { left: 8%; top: 20%; animation-delay: 0s; }
+.cn-diff-particles span:nth-child(2) { left: 22%; top: 70%; animation-delay: .8s; background: rgba(103,232,249,.5); }
+.cn-diff-particles span:nth-child(3) { left: 48%; top: 12%; animation-delay: 1.6s; }
+.cn-diff-particles span:nth-child(4) { left: 68%; top: 60%; animation-delay: 2.4s; background: rgba(244,114,182,.5); }
+.cn-diff-particles span:nth-child(5) { left: 84%; top: 25%; animation-delay: 3.2s; }
+.cn-diff-particles span:nth-child(6) { left: 92%; top: 75%; animation-delay: 4s; background: rgba(103,232,249,.5); }
+
+@keyframes cnDiffFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .5; }
+  50% { transform: translateY(-22px) scale(1.4); opacity: 1; }
+}
+
+.cn-diff-heading {
+  color: #fff !important;
+}
+
+.cn-diff-section .cn-section-heading > span {
+  color: #c4b5fd !important;
+}
+
+.cn-diff-sub {
+  color: #b9c0e0 !important;
+}
+
+.cn-diff-grid {
   position: relative;
   z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
 }
 
-.cn-process-advisor-copy > span {
-  display: inline-flex;
-  margin-bottom: 12px;
-  color: #91f2d0;
-  font-size: 11px;
+.cn-diff-card {
+  position: relative;
+  padding: 22px 20px 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(10, 8, 40, 0.25);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.cn-diff-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 24px 55px rgba(10, 8, 40, 0.35);
+}
+
+.cn-diff-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cn-diff-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.tone-a .cn-diff-icon { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+.tone-b .cn-diff-icon { background: linear-gradient(135deg,#0ea5e9,#38bdf8); }
+.tone-c .cn-diff-icon { background: linear-gradient(135deg,#db2777,#ec4899); }
+.tone-d .cn-diff-icon { background: linear-gradient(135deg,#059669,#10b981); }
+
+.cn-diff-persona {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cn-diff-avatar {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.cn-diff-avatar .cn-asset-visual {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cn-diff-persona span {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  max-width: 78px;
+  line-height: 1.25;
+}
+
+.cn-diff-card h3 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 850;
+  line-height: 1.25;
+  letter-spacing: -.2px;
+}
+
+.cn-diff-row {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.cn-diff-row:last-child {
+  margin-bottom: 0;
+}
+
+.cn-diff-row-no {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.cn-diff-row-no p {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: line-through;
+  text-decoration-color: rgba(248, 113, 113, 0.5);
+}
+
+.cn-diff-row-yes {
+  background: rgba(139, 92, 246, 0.14);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.cn-diff-row-yes p {
+  color: #fff;
+}
+
+.cn-diff-tag {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 9px;
   font-weight: 900;
-  letter-spacing: 1.4px;
+  letter-spacing: .8px;
   text-transform: uppercase;
 }
 
-.cn-process-advisor-copy h3 {
-  margin: 0 0 12px;
-  color: #fff;
-  font-size: 27px;
-  font-weight: 950;
-  line-height: 1.1;
-}
+.cn-diff-row-no .cn-diff-tag { color: rgba(248, 113, 113, 0.75); }
+.cn-diff-row-yes .cn-diff-tag { color: #c4b5fd; }
 
-.cn-process-advisor-copy p {
-  max-width: 440px;
+.cn-diff-row p {
   margin: 0;
-  color: rgba(255,255,255,.78);
-  font-size: 14px;
-  line-height: 1.75;
-}
-
-.cn-process-proof-list {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.cn-process-proof {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 14px;
-  background: rgba(255,255,255,.08);
-  color: rgba(255,255,255,.9);
-  font-size: 12px;
-  font-weight: 750;
-}
-
-.cn-process-proof svg {
-  flex: 0 0 auto;
-  color: #86efac;
-}
-
-.cn-process-steps {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  min-width: 0;
-}
-
-.cn-process-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
-  min-width: 0;
-  overflow: hidden;
-  padding: 26px 24px 24px;
-  border: 1px solid rgba(255,255,255,.72);
-  border-radius: 30px;
-  background: var(--process-bg);
-  color: #111936;
-  box-shadow: 0 18px 44px rgba(45,56,105,.1);
-}
-
-.cn-process-step::before {
-  content: '';
-  position: absolute;
-  right: -48px;
-  top: -58px;
-  width: 154px;
-  height: 154px;
-  border-radius: 50%;
-  background: var(--process-glow);
-  opacity: .58;
-}
-
-.cn-process-step::after {
-  content: '';
-  position: absolute;
-  right: 28px;
-  bottom: 24px;
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  border: 18px solid rgba(255,255,255,.48);
-  opacity: .6;
-}
-
-.cn-process-purple {
-  --process-bg: linear-gradient(145deg,#fbf8ff,#f0eaff);
-  --process-glow: linear-gradient(135deg,#7c3aed,#c084fc);
-  --process-main: #6d28d9;
-  --process-soft: #ede9fe;
-}
-
-.cn-process-blue {
-  --process-bg: linear-gradient(145deg,#f5fbff,#e7f3ff);
-  --process-glow: linear-gradient(135deg,#0ea5e9,#60a5fa);
-  --process-main: #0876d9;
-  --process-soft: #e0f2fe;
-}
-
-.cn-process-green {
-  --process-bg: linear-gradient(145deg,#f2fff9,#dcfce7);
-  --process-glow: linear-gradient(135deg,#10b981,#34d399);
-  --process-main: #059669;
-  --process-soft: #dcfce7;
-}
-
-.cn-process-orange {
-  --process-bg: linear-gradient(145deg,#fff8ed,#ffedd5);
-  --process-glow: linear-gradient(135deg,#f97316,#fbbf24);
-  --process-main: #ea580c;
-  --process-soft: #ffedd5;
-}
-
-.cn-process-orb {
-  position: relative;
-  z-index: 2;
-  width: 92px;
-  height: 92px;
-}
-
-.cn-process-visual {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  width: 82px;
-  height: 82px;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.62);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 24%, rgba(255,255,255,.7), transparent 34%),
-    var(--process-glow);
-  color: #fff;
-  box-shadow: 0 16px 34px rgba(45,56,105,.18);
-}
-
-.cn-process-ring {
-  position: absolute;
-  right: 0;
-  bottom: 2px;
-  width: 34px;
-  height: 34px;
-  border: 8px solid var(--process-soft);
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 8px 18px rgba(31,42,82,.1);
-}
-
-.cn-process-content {
-  position: relative;
-  z-index: 2;
-  min-width: 0;
-}
-
-.cn-process-content > span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 38px;
-  height: 24px;
-  padding: 0 10px;
-  margin-bottom: 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.74);
-  color: var(--process-main);
-  font-size: 10px;
-  font-weight: 950;
-  letter-spacing: 1.2px;
-  box-shadow: 0 8px 18px rgba(31,42,82,.07);
-}
-
-.cn-process-content h3 {
-  margin: 0 0 8px;
-  color: #111936;
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1.2;
-}
-
-.cn-process-content p {
-  margin: 0;
-  color: #65708a;
-  font-size: 13px;
-  line-height: 1.62;
+  font-size: 12.5px;
+  line-height: 1.5;
 }
 
 @media (max-width: 1000px) {
-  .cn-process-card {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .cn-diff-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 600px) {
-  .cn-process-card {
+@media (max-width: 640px) {
+  .cn-diff-section {
+    padding: 40px 20px 34px;
+  }
+
+  .cn-diff-grid {
     grid-template-columns: 1fr;
-    padding: 10px;
-    border-radius: 22px;
-  }
-
-  .cn-process-advisor {
-    padding: 24px 20px;
-  }
-
-  .cn-process-advisor-copy h3 {
-    font-size: 23px;
-  }
-
-  .cn-process-steps {
-    grid-template-columns: 1fr;
-  }
-
-  .cn-process-step {
-    grid-template-columns: 1fr;
-    gap: 13px;
-    padding: 22px 19px;
   }
 }
         /* =================================================
@@ -2961,16 +2846,29 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 
         .cn-tool-visual {
-          height: 90px;
-          margin: -3px -4px 14px;
+          height: 140px;
+          margin: -3px -4px 16px;
           border-radius: 17px;
           position: relative;
           overflow: hidden;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(135deg,rgba(124,58,237,.08),rgba(56,189,248,.10));
-          border: 1px solid rgba(124,58,237,.08);
+          align-items: flex-end;
+          justify-content: flex-start;
+        }
+
+        .cn-tool-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .cn-tool-photo-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(15,10,40,0) 40%, rgba(15,10,40,.55) 100%);
         }
 
         .cn-tool-visual-grid {
@@ -3016,14 +2914,19 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           50% { transform: scale(1.25); opacity: 1; }
         }
         .cn-tool-icon {
-          width: 49px;
-          height: 49px;
-          border-radius: 14px;
+          position: relative;
+          z-index: 2;
+          margin: 0 0 0 14px;
+          transform: translateY(-14px);
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
           display: flex;
           align-items: center;
           justify-content: center;
           color: #fff;
-          margin-bottom: 18px;
+          box-shadow: 0 10px 22px rgba(20,10,50,.28);
+          border: 2px solid #fff;
         }
 
         .tool-purple .cn-tool-icon { background: linear-gradient(145deg,#7c3aed,#4f46e5); }
@@ -3249,275 +3152,114 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-metrics {
-          position: relative;
-          overflow: hidden;
-          margin: 54px auto 0;
-          padding: 34px 18px 12px;
-          border-radius: 30px;
-          background:
-            radial-gradient(circle at 8% 16%, rgba(124,58,237,.08), transparent 30%),
-            radial-gradient(circle at 90% 82%, rgba(20,184,166,.1), transparent 28%),
-            linear-gradient(180deg,#fff,#fbfcff);
-          border: 1px solid #eef1f7;
-        }
-
-        .cn-metrics-heading {
-          max-width: 850px;
-          margin: 0 auto 26px;
-          text-align: center;
-        }
-
-        .cn-metrics-heading span {
-          display: block;
-          color: #633cff;
-          font-size: 12px;
-          font-weight: 950;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          margin-bottom: 9px;
-        }
-
-        .cn-metrics-heading h2 {
-          margin: 0;
-          color: #111936;
-          font-size: clamp(31px,3.4vw,48px);
-          font-weight: 950;
-          line-height: 1.05;
-        }
-
-        .cn-metrics-heading p {
-          max-width: 740px;
-          margin: 15px auto 0;
-          color: #5f6b84;
-          font-size: 16px;
-          line-height: 1.65;
-        }
-
-        .cn-metrics-bubbles {
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 0;
-          min-height: 315px;
-          padding: 18px 0 28px;
+          margin-top: 50px;
+          display: grid;
+          grid-template-columns: repeat(6,1fr);
+          gap: 10px;
+          padding: 10px;
+          border-radius: 25px;
+          background: linear-gradient(135deg,#1b174b,#30206d 48%,#112c55);
+          border: 1px solid rgba(99,60,255,.25);
+          box-shadow: 0 22px 55px rgba(48,34,115,.18);
         }
 
         .cn-metric {
+          min-height: 145px;
+          padding: 18px 12px;
+          border-radius: 18px;
           position: relative;
           overflow: hidden;
-          flex: 0 0 245px;
-          width: 245px;
-          height: 245px;
-          margin-left: -18px;
-          padding: 34px 24px;
-          border-radius: 50%;
-          isolation: isolate;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
-          color: var(--metric-main);
-          border: 1px solid rgba(255,255,255,.82);
-          background: var(--metric-bg);
-          box-shadow: 0 22px 48px rgba(38,48,88,.09);
-          transition: box-shadow .25s ease, transform .25s ease;
-        }
-
-        .cn-metric:first-child {
-          margin-left: 0;
-        }
-
-        .cn-metric:nth-child(even) {
-          margin-top: 54px;
+          color: #fff;
+          border: 1px solid rgba(255,255,255,.12);
+          background: linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+          transition: box-shadow .25s ease;
         }
 
         .cn-metric::before {
           content: "";
           position: absolute;
-          inset: 18px;
+          width: 130px;
+          height: 130px;
           border-radius: 50%;
-          border: 1px solid rgba(255,255,255,.58);
-          opacity: .85;
-          z-index: -1;
-        }
-
-        .cn-metric::after {
-          content: "";
-          position: absolute;
-          right: 34px;
-          top: 34px;
-          width: 22px;
-          height: 22px;
-          border-radius: 50%;
-          background: rgba(255,255,255,.82);
-          box-shadow: 0 10px 22px rgba(35,45,85,.08);
+          right: -72px;
+          top: -72px;
+          background: currentColor;
+          opacity: .10;
         }
 
         .cn-metric-icon {
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 14px;
-          background: rgba(255,255,255,.78);
-          box-shadow: 0 14px 28px rgba(38,48,88,.1);
-          position: relative;
-          z-index: 2;
+          margin-bottom: 9px;
+          background: currentColor;
+          color: #fff;
+          box-shadow: 0 10px 24px rgba(0,0,0,.16);
         }
 
-        .cn-metric-icon svg { color: var(--metric-main); }
+        .cn-metric-icon svg { color: #fff; }
 
         .cn-metric strong {
-          font-size: 54px;
+          font-size: 30px;
           line-height: 1;
-          letter-spacing: 0;
+          letter-spacing: -1.2px;
           position: relative;
           z-index: 2;
-          color: var(--metric-main);
-          font-weight: 950;
         }
 
         .cn-metric span {
-          max-width: 165px;
-          color: #3f4658;
-          font-size: 15px;
-          line-height: 1.35;
-          margin-top: 13px;
+          color: rgba(255,255,255,.75);
+          font-size: 11px;
+          margin-top: 7px;
           position: relative;
           z-index: 2;
-          font-weight: 800;
         }
 
         .cn-metric-orbit {
           position: absolute;
-          inset: auto 24px 32px auto;
-          width: 38px;
-          height: 38px;
-          border: 1px solid rgba(255,255,255,.85);
+          inset: auto 12px 9px auto;
+          width: 20px;
+          height: 20px;
+          border: 1px solid rgba(255,255,255,.25);
           border-radius: 50%;
           animation: cn-metric-spin 5s linear infinite;
-          z-index: 2;
         }
 
         .cn-metric-orbit i {
           position: absolute;
-          width: 7px;
-          height: 7px;
+          width: 4px;
+          height: 4px;
           border-radius: 50%;
-          background: var(--metric-main);
-          top: -3px;
-          left: 14px;
+          background: #fff;
+          top: -2px;
+          left: 7px;
         }
 
         .cn-metric-orbit i:last-child {
           top: auto;
-          bottom: -3px;
+          bottom: -2px;
           left: auto;
-          right: 14px;
-          background: #fff;
+          right: 7px;
         }
 
-        .metric-violet {
-          --metric-main: #6d28d9;
-          --metric-bg: #f1ddff;
-        }
-
-        .metric-blue {
-          --metric-main: #0b4fc4;
-          --metric-bg: #dfe8ff;
-        }
-
-        .metric-pink {
-          --metric-main: #c026d3;
-          --metric-bg: #ffe0f1;
-        }
-
-        .metric-cyan {
-          --metric-main: #0184a8;
-          --metric-bg: #d8f7ff;
-        }
-
-        .metric-orange {
-          --metric-main: #b45309;
-          --metric-bg: #fff0c7;
-        }
-
-        .metric-green {
-          --metric-main: #047857;
-          --metric-bg: #d7f8ec;
-        }
+        .metric-violet { color: #a78bfa; }
+        .metric-blue { color: #60a5fa; }
+        .metric-pink { color: #f472b6; }
+        .metric-cyan { color: #22d3ee; }
+        .metric-orange { color: #fb923c; }
+        .metric-green { color: #34d399; }
 
         @keyframes cn-metric-spin {
           to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 1180px) {
-          .cn-metrics-bubbles {
-            flex-wrap: wrap;
-            min-height: auto;
-            row-gap: 18px;
-          }
-
-          .cn-metric,
-          .cn-metric:first-child {
-            margin-left: 0;
-          }
-
-          .cn-metric:nth-child(even) {
-            margin-top: 34px;
-          }
-        }
-
-        @media (max-width: 720px) {
-          .cn-metrics {
-            padding: 28px 12px 18px;
-            border-radius: 24px;
-          }
-
-          .cn-metrics-heading {
-            margin-bottom: 16px;
-          }
-
-          .cn-metrics-heading p {
-            font-size: 14px;
-          }
-
-          .cn-metrics-bubbles {
-            display: grid;
-            grid-template-columns: repeat(2,minmax(0,1fr));
-            gap: 12px;
-            padding: 10px 0 0;
-          }
-
-          .cn-metric {
-            width: 100%;
-            height: auto;
-            min-height: 164px;
-            border-radius: 28px;
-            padding: 22px 14px;
-          }
-
-          .cn-metric:nth-child(even) {
-            margin-top: 0;
-          }
-
-          .cn-metric strong {
-            font-size: 34px;
-          }
-
-          .cn-metric span {
-            font-size: 12px;
-          }
-
-          .cn-metric-icon {
-            width: 46px;
-            height: 46px;
-            margin-bottom: 10px;
-          }
         }
 
         /* =================================================
@@ -3525,41 +3267,35 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-reviews-section {
-          margin-top: 48px;
-          padding: 42px 0 25px;
+          margin-top: 75px;
+          padding: 65px 0 25px;
         }
 
         .cn-review-slider {
           position: relative;
-          padding: 0;
+          padding: 0 54px;
         }
 
         .cn-review-viewport {
           position: relative;
           overflow: hidden;
-          min-height: 360px;
-          border-radius: 28px;
-          mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+          min-height: 410px;
+          border-radius: 27px;
         }
 
         .cn-review-track {
-          display: flex;
+          position: absolute;
+          inset: 0;
+          display: grid;
+          grid-template-columns: repeat(3,minmax(0,1fr));
           gap: 18px;
-          width: max-content;
-          animation: cn-review-marquee 45s linear infinite;
-          will-change: transform;
-        }
-
-        .cn-review-track:hover {
-          animation-play-state: paused;
+          width: 100%;
         }
 
         .cn-review-card {
-          flex: 0 0 360px;
-          min-height: 350px;
-          padding: 24px;
-          border-radius: 28px;
+          min-height: 410px;
+          padding: 26px;
+          border-radius: 25px;
           border: 1px solid rgba(124,58,237,.15);
           position: relative;
           overflow: hidden;
@@ -3606,22 +3342,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           background: linear-gradient(145deg,#fffaff,#ffe1ef);
         }
 
-        .review-indigo {
-          background: linear-gradient(145deg,#fbfbff,#e5e7ff);
-        }
-
-        .review-mint {
-          background: linear-gradient(145deg,#fbfffd,#d9fbe8);
-        }
-
-        .review-yellow {
-          background: linear-gradient(145deg,#fffdf5,#fff2bf);
-        }
-
-        .review-rose {
-          background: linear-gradient(145deg,#fff7fb,#ffdce8);
-        }
-
         .cn-review-top {
           display: flex;
           align-items: center;
@@ -3662,11 +3382,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-review-text {
-          margin: 22px 0 24px;
+          margin: 25px 0 27px;
           color: #243761;
-          font-size: 15px;
-          line-height: 1.72;
-          min-height: 118px;
+          font-size: 16px;
+          line-height: 1.75;
+          min-height: 125px;
         }
 
         .cn-review-person {
@@ -3676,12 +3396,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-avatar {
-          width: 72px;
-          height: 72px;
-          flex: 0 0 72px;
+          width: 68px;
+          height: 68px;
+          flex: 0 0 68px;
           overflow: hidden;
           border-radius: 50%;
-          border: 4px solid rgba(255,255,255,.78);
           box-shadow: 0 10px 22px rgba(39,46,90,.12);
         }
 
@@ -3757,15 +3476,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           width: 30px;
           border-radius: 99px;
           background: #7041ff;
-        }
-
-        @keyframes cn-review-marquee {
-          from {
-            transform: translateX(-50%);
-          }
-          to {
-            transform: translateX(0);
-          }
         }
 
         /* =================================================
@@ -3937,15 +3647,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-track {
-            gap: 16px;
+            grid-template-columns: repeat(2,minmax(0,1fr));
           }
 
-          .cn-review-card {
-            flex-basis: 340px;
+          .cn-review-card:nth-child(3) {
+            display: none;
           }
 
           .cn-review-viewport {
-            min-height: 360px;
+            min-height: 410px;
           }
         }
 
@@ -4035,8 +3745,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-process-card {
-            grid-template-columns: 1fr;
-            padding: 12px;
+            grid-template-columns: 1fr 1fr;
+            padding: 25px 18px;
           }
 
           .cn-process-line,
@@ -4071,16 +3781,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            padding: 28px 12px 18px;
+            grid-template-columns: repeat(2,1fr);
+            gap: 7px;
+            padding: 7px;
           }
 
           .cn-metric {
-            min-height: 164px;
-            padding: 22px 14px;
+            min-height: 125px;
+            padding: 16px 9px;
           }
 
           .cn-metric strong {
-            font-size: 34px;
+            font-size: 25px;
           }
 
           .cn-review-slider {
@@ -4088,16 +3800,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-viewport {
-            min-height: 350px;
+            min-height: 380px;
           }
 
           .cn-review-track {
-            gap: 14px;
+            grid-template-columns: 1fr;
           }
 
           .cn-review-card {
-            flex-basis: 310px;
-            min-height: 340px;
+            min-height: 380px;
+          }
+
+          .cn-review-card:nth-child(2),
+          .cn-review-card:nth-child(3) {
+            display: none;
           }
 
           .cn-review-nav {
@@ -4168,12 +3884,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            padding-left: 8px;
-            padding-right: 8px;
+            grid-template-columns: 1fr 1fr;
           }
 
           .cn-metric strong {
-            font-size: 31px;
+            font-size: 24px;
           }
 
           .cn-review-text {
@@ -4186,7 +3901,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-floating-node,
           .cn-orbit,
           .cn-marketing-ring,
-          .cn-review-track,
           .cn-offering-orbit,
           .cn-tech-network span {
             animation: none !important;
@@ -4364,3 +4078,5 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 };
 
 export default HomeView;
+
+
