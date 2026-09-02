@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import {
   Star,
@@ -14,7 +14,10 @@ import {
   Cpu,
   Smartphone,
   ExternalLink,
-  MessageSquare
+  MessageSquare,
+  Mail,
+  User,
+  Send,
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -28,6 +31,35 @@ const smoothTransition = {
 };
 
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch('https://formspree.io/f/moeqdlpw', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(e.currentTarget),
+      });
+      if (res.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
   const engineeringPillars = [
     {
       step: '1. Autonomous Velocity',
@@ -267,6 +299,130 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
     <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">App Performance</span>
   </div>
 </div>
+
+      {/* 5. Contact Us Form */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={smoothTransition}
+        className="space-y-6"
+      >
+        <div className="text-center space-y-1.5">
+          <div className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Get In Touch</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            Have A Question Or A Project In Mind?
+          </h2>
+          <p className="text-slate-600 text-sm max-w-xl mx-auto">
+            Fill out the form below and our team will get back to you within 24 hours.
+          </p>
+        </div>
+
+        <form
+          onSubmit={handleFormSubmit}
+          className="bg-white p-6 sm:p-9 rounded-3xl border border-slate-200 shadow-sm max-w-2xl mx-auto space-y-5"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="name" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Full Name
+              </label>
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  placeholder="Your name"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  placeholder="you@example.com"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="subject" className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Subject
+            </label>
+            <input
+              id="subject"
+              name="subject"
+              type="text"
+              value={formData.subject}
+              onChange={handleFormChange}
+              placeholder="What's this about?"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows={5}
+              value={formData.message}
+              onChange={handleFormChange}
+              placeholder="Tell us a bit about what you need..."
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {status === 'sending' ? (
+              <span>Sending...</span>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                <span>Send Message</span>
+              </>
+            )}
+          </button>
+
+          {status === 'success' && (
+            <p className="text-center text-sm font-semibold text-emerald-600">
+              Thanks! Your message has been sent — we'll get back to you soon.
+            </p>
+          )}
+          {status === 'error' && (
+            <p className="text-center text-sm font-semibold text-red-600">
+              Something went wrong. Please try again or email us directly.
+            </p>
+          )}
+        </form>
+      </motion.section>
     </div>
   );
 };
