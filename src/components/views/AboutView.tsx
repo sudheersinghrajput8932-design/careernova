@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import {
   Star,
@@ -48,6 +48,20 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [agree, setAgree] = useState(true);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    const target = sessionStorage.getItem('cn_scrollTo');
+    if (target) {
+      sessionStorage.removeItem('cn_scrollTo');
+      const timer = setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -321,6 +335,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
       {/* 5. Let's Connect - Hero + Contact Form */}
       <motion.section
+        id="contact-form-section"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
