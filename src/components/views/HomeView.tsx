@@ -22,6 +22,7 @@ import {
   Sparkles,
   Star,
   Lock,
+  Coins,
   Target,
   TrendingUp,
   Users,
@@ -1418,6 +1419,130 @@ const OfferingsSection = ({
           background: #fff;
         }
 
+        .cnx-cap-hero {
+          display: grid;
+          grid-template-columns: minmax(0,480px) minmax(0,1fr);
+          align-items: center;
+          gap: 40px;
+          max-width: 1370px;
+          margin: 0 auto 46px;
+        }
+
+        .cnx-cap-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 7px 14px;
+          border-radius: 999px;
+          background: #f1e9ff;
+          color: #7642ee;
+          font-size: 11px;
+          font-weight: 950;
+          letter-spacing: 1.1px;
+          text-transform: uppercase;
+        }
+
+        .cnx-cap-badge svg {
+          width: 13px;
+          height: 13px;
+        }
+
+        .cnx-cap-title {
+          margin: 16px 0 0;
+          color: #10172f;
+          font-size: clamp(28px, 3.4vw, 40px);
+          line-height: 1.16;
+          font-weight: 950;
+          letter-spacing: -1px;
+        }
+
+        .cnx-cap-title .cnx-cap-highlight {
+          position: relative;
+          background: linear-gradient(90deg,#7c3aed,#d946ef);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .cnx-cap-title .cnx-cap-highlight::after {
+          content: '';
+          position: absolute;
+          left: 2px;
+          right: 2px;
+          bottom: -4px;
+          height: 3px;
+          border-radius: 10px;
+          background: linear-gradient(90deg,#7c3aed,#d946ef);
+        }
+
+        .cnx-cap-hero-copy p {
+          max-width: 470px;
+          margin: 16px 0 26px;
+          color: #69738d;
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .cnx-cap-points {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 22px;
+        }
+
+        .cnx-cap-point {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .cnx-cap-point-icon {
+          display: grid;
+          width: 38px;
+          height: 38px;
+          flex: 0 0 38px;
+          place-items: center;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 8px 18px rgba(40,50,90,.1);
+        }
+
+        .cnx-cap-point-icon svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .cnx-cap-point.tone-purple .cnx-cap-point-icon { color: #7340e8; }
+        .cnx-cap-point.tone-blue .cnx-cap-point-icon { color: #1478d4; }
+        .cnx-cap-point.tone-pink .cnx-cap-point-icon { color: #d62c83; }
+
+        .cnx-cap-point strong {
+          display: block;
+          color: #151c36;
+          font-size: 12.5px;
+          font-weight: 950;
+        }
+
+        .cnx-cap-point span {
+          display: block;
+          margin-top: 2px;
+          color: #838ca3;
+          font-size: 11px;
+          font-weight: 650;
+        }
+
+        .cnx-cap-hero-visual {
+          display: flex;
+          justify-content: center;
+        }
+
+        .cnx-cap-hero-visual img {
+          width: 100%;
+          max-width: 600px;
+          height: auto;
+          display: block;
+          filter: drop-shadow(0 22px 40px rgba(60,40,140,.14));
+        }
+
         .cnx-capabilities-grid {
           display: grid;
           grid-template-columns: repeat(6,minmax(0,1fr));
@@ -1427,44 +1552,122 @@ const OfferingsSection = ({
         }
 
         .cnx-capability {
-          min-height: 120px;
-          padding: 17px;
-          border: 1px solid #e6e9f1;
-          border-radius: 17px;
-          background: #fff;
-          box-shadow: 0 8px 25px rgba(30,40,80,.045);
-          transition: .25s ease;
+          min-height: 200px;
+          padding: 22px 18px;
+          border: 1px solid;
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+          transition: transform .25s ease, box-shadow .25s ease;
         }
 
         .cnx-capability:hover {
           transform: translateY(-5px);
-          box-shadow: 0 17px 35px rgba(30,40,80,.09);
+          box-shadow: 0 16px 34px rgba(40,50,90,.1);
         }
 
         .cnx-capability-icon {
           display: grid;
-          width: 39px;
-          height: 39px;
-          margin-bottom: 11px;
+          width: 46px;
+          height: 46px;
+          margin-bottom: 13px;
           place-items: center;
-          border-radius: 50%;
-          background: #eef0ff;
-          color: #6640e5;
-          font-size: 19px;
+          border-radius: 15px;
+          background: #fff;
+        }
+
+        .cnx-capability-icon svg {
+          width: 21px;
+          height: 21px;
         }
 
         .cnx-capability h3 {
-          margin: 0 0 5px;
+          margin: 0 0 6px;
           color: #18203b;
-          font-size: 12px;
+          font-size: 13.5px;
           font-weight: 950;
         }
 
         .cnx-capability p {
           margin: 0;
           color: #727b91;
-          font-size: 9.8px;
-          line-height: 1.5;
+          font-size: 11px;
+          line-height: 1.55;
+          flex: 1;
+        }
+
+        .cnx-capability-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 14px;
+          font-size: 11.5px;
+          font-weight: 950;
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+        }
+
+        .cnx-capability-cta span {
+          display: grid;
+          width: 26px;
+          height: 26px;
+          place-items: center;
+          border-radius: 50%;
+          background: #fff;
+          border: 1px solid;
+          transition: transform .2s ease;
+        }
+
+        .cnx-capability-cta span svg {
+          width: 13px;
+          height: 13px;
+        }
+
+        .cnx-capability:hover .cnx-capability-cta span {
+          transform: translateX(3px);
+        }
+
+        .cnx-cap-blue { border-color: #d3e9ff; background: #f5faff; }
+        .cnx-cap-blue .cnx-capability-icon,
+        .cnx-cap-blue .cnx-capability-cta,
+        .cnx-cap-blue .cnx-capability-cta span { color: #1478d4; }
+        .cnx-cap-blue .cnx-capability-cta span { border-color: #1478d4; }
+
+        .cnx-cap-purple { border-color: #e7dcff; background: #faf7ff; }
+        .cnx-cap-purple .cnx-capability-icon,
+        .cnx-cap-purple .cnx-capability-cta,
+        .cnx-cap-purple .cnx-capability-cta span { color: #7340e8; }
+        .cnx-cap-purple .cnx-capability-cta span { border-color: #7340e8; }
+
+        .cnx-cap-pink { border-color: #ffd3dd; background: #fff7f8; }
+        .cnx-cap-pink .cnx-capability-icon,
+        .cnx-cap-pink .cnx-capability-cta,
+        .cnx-cap-pink .cnx-capability-cta span { color: #d6284f; }
+        .cnx-cap-pink .cnx-capability-cta span { border-color: #d6284f; }
+
+        .cnx-cap-green { border-color: #cdf0dc; background: #f4fbf6; }
+        .cnx-cap-green .cnx-capability-icon,
+        .cnx-cap-green .cnx-capability-cta,
+        .cnx-cap-green .cnx-capability-cta span { color: #07965f; }
+        .cnx-cap-green .cnx-capability-cta span { border-color: #07965f; }
+
+        .cnx-cap-orange { border-color: #ffe1bd; background: #fffaf3; }
+        .cnx-cap-orange .cnx-capability-icon,
+        .cnx-cap-orange .cnx-capability-cta,
+        .cnx-cap-orange .cnx-capability-cta span { color: #e17a00; }
+        .cnx-cap-orange .cnx-capability-cta span { border-color: #e17a00; }
+
+        .cnx-cap-magenta { border-color: #f6cdf3; background: #fdf4fd; }
+        .cnx-cap-magenta .cnx-capability-icon,
+        .cnx-cap-magenta .cnx-capability-cta,
+        .cnx-cap-magenta .cnx-capability-cta span { color: #b3299b; }
+        .cnx-cap-magenta .cnx-capability-cta span { border-color: #b3299b; }
+
+        .cnx-capabilities-stats {
+          max-width: 1370px;
+          margin: 34px auto 0;
         }
 
         /* =================================================
@@ -1482,6 +1685,24 @@ const OfferingsSection = ({
 
           .cnx-capabilities-grid {
             grid-template-columns: repeat(3,minmax(0,1fr));
+          }
+
+          .cnx-cap-hero {
+            grid-template-columns: 1fr;
+            text-align: center;
+          }
+
+          .cnx-cap-hero-copy p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .cnx-cap-points {
+            justify-content: center;
+          }
+
+          .cnx-cap-hero-visual {
+            order: -1;
           }
         }
 
@@ -1542,7 +1763,11 @@ const OfferingsSection = ({
           }
 
           .cnx-capability {
-            min-height: 105px;
+            min-height: auto;
+          }
+
+          .cnx-cap-points {
+            gap: 14px;
           }
         }
       `}</style>
@@ -1808,71 +2033,146 @@ const OfferingsSection = ({
       ================================================= */}
 
       <div className="cnx-capabilities">
-        <div className="cnx-light-heading">
-          <span>Powerful Capabilities</span>
+        <div className="cnx-cap-hero">
+          <div className="cnx-cap-hero-copy">
+            <span className="cnx-cap-badge">
+              <Zap size={13} />
+              Powerful Capabilities
+            </span>
 
-          <h2>Tools That Power Growth</h2>
+            <h2 className="cnx-cap-title">
+              Everything You Need
+              <br />
+              to <span className="cnx-cap-highlight">Grow,</span> In One Place.
+            </h2>
 
-          <div className="cnx-heading-line" />
+            <p>
+              From finance to technology, we bring a powerful stack of tools,
+              insights and automation to help individuals and businesses
+              achieve real growth — faster and smarter.
+            </p>
 
-          <p>
-            A practical technology and strategy stack supporting our core
-            expertise.
-          </p>
+            <div className="cnx-cap-points">
+              <div className="cnx-cap-point tone-purple">
+                <div className="cnx-cap-point-icon">
+                  <Rocket />
+                </div>
+                <div>
+                  <strong>Smart Solutions</strong>
+                  <span>Built for real results</span>
+                </div>
+              </div>
+
+              <div className="cnx-cap-point tone-blue">
+                <div className="cnx-cap-point-icon">
+                  <ShieldCheck />
+                </div>
+                <div>
+                  <strong>Trusted Platform</strong>
+                  <span>Secure &amp; Reliable</span>
+                </div>
+              </div>
+
+              <div className="cnx-cap-point tone-pink">
+                <div className="cnx-cap-point-icon">
+                  <Users />
+                </div>
+                <div>
+                  <strong>Used by 500+</strong>
+                  <span>Learners &amp; Businesses</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="cnx-cap-hero-visual">
+            <img
+              src="/assets/capabilities-illustration.png"
+              alt="CareerNova specialist surrounded by AI tools, cloud solutions, analytics, productivity, development and marketing capabilities"
+              loading="lazy"
+            />
+          </div>
         </div>
 
         <div className="cnx-capabilities-grid">
           {[
             {
-              icon: '📊',
+              icon: Coins,
               title: 'Financial Tools',
-              text: 'Model, analyse and plan with financial clarity.',
+              text: 'Plan, analyse and manage your finances with clarity and confidence.',
+              className: 'cnx-cap-blue',
             },
             {
-              icon: '◔',
+              icon: PieChart,
               title: 'Analytics Tools',
-              text: 'Turn data into insights and visual decisions.',
+              text: 'Turn data into actionable insights and make smarter decisions.',
+              className: 'cnx-cap-purple',
             },
             {
-              icon: '🚀',
+              icon: Zap,
               title: 'Productivity',
-              text: 'Automate, organize and get more done.',
+              text: 'Automate tasks, organize your work and get more done every day.',
+              className: 'cnx-cap-pink',
             },
             {
-              icon: '🤖',
+              icon: Bot,
               title: 'AI & Automation',
-              text: 'Use intelligent workflows to scale execution.',
+              text: 'Use intelligent workflows to scale your ideas and execution.',
+              className: 'cnx-cap-green',
             },
             {
-              icon: '📣',
+              icon: Megaphone,
               title: 'Marketing Tools',
-              text: 'Reach, engage and convert the right audience.',
+              text: 'Reach, engage and convert the right audience effectively.',
+              className: 'cnx-cap-orange',
             },
             {
-              icon: '</>',
+              icon: Code2,
               title: 'Development',
-              text: 'Build, deploy and scale modern digital products.',
+              text: 'Build, deploy and scale modern digital products with ease.',
+              className: 'cnx-cap-magenta',
             },
-          ].map((tool, index) => (
-            <motion.div
-              className="cnx-capability"
-              key={tool.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.18 }}
-              transition={{
-                delay: index * 0.06,
-                duration: 0.4,
-              }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="cnx-capability-icon">{tool.icon}</div>
+          ].map((tool, index) => {
+            const Icon = tool.icon;
 
-              <h3>{tool.title}</h3>
+            return (
+              <motion.div
+                className={`cnx-capability ${tool.className}`}
+                key={tool.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{
+                  delay: index * 0.06,
+                  duration: 0.4,
+                }}
+                whileHover={{ y: -5 }}
+              >
+                <div className="cnx-capability-icon">
+                  <Icon />
+                </div>
 
-              <p>{tool.text}</p>
-            </motion.div>
-          ))}
+                <h3>{tool.title}</h3>
+
+                <p>{tool.text}</p>
+
+                <button
+                  type="button"
+                  className="cnx-capability-cta"
+                  onClick={() => onNavigate('tools')}
+                >
+                  Explore Now
+                  <span>
+                    <ArrowRight />
+                  </span>
+                </button>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="cnx-capabilities-stats">
+          <MetricsSection />
         </div>
       </div>
     </section>
@@ -1922,6 +2222,19 @@ const MetricsSection = () => {
 
   return (
     <section className="cn-metrics" aria-label="CareerNova impact metrics">
+      <div className="cn-metrics-blob cn-metrics-blob-a" aria-hidden="true" />
+      <div className="cn-metrics-blob cn-metrics-blob-b" aria-hidden="true" />
+
+      <div className="cn-metrics-brand">
+        <span className="cn-metrics-logo">C</span>
+        <div>
+          <strong>
+            Career<span>Nova</span>
+          </strong>
+          <p>Tools Today. Brighter Tomorrows.</p>
+        </div>
+      </div>
+
       {metrics.map((metric, index) => {
         const Icon = metric.icon;
 
@@ -1933,14 +2246,10 @@ const MetricsSection = () => {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ delay: index * 0.06, duration: 0.45 }}
-            whileHover={{ y: -5, scale: 1.02 }}
+            whileHover={{ y: -4 }}
           >
-            <div className="cn-metric-orbit" aria-hidden="true">
-              <i />
-              <i />
-            </div>
             <div className="cn-metric-icon">
-              <Icon size={20} />
+              <Icon size={18} />
             </div>
             <strong>
               {metric.target === 4.9
@@ -3417,115 +3726,131 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-metrics {
-          margin-top: 50px;
+          position: relative;
+          overflow: hidden;
+          margin-top: 0;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 28px;
+          padding: 34px 40px;
+          border-radius: 28px;
+          background: linear-gradient(120deg,#0e0a2e 0%,#1b1050 55%,#0c1c3f 100%);
+          border: 1px solid rgba(147,90,255,.22);
+          box-shadow: 0 26px 60px rgba(20,10,55,.28);
+        }
+
+        .cn-metrics-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(46px);
+          opacity: .35;
+          pointer-events: none;
+        }
+
+        .cn-metrics-blob-a {
+          width: 260px;
+          height: 260px;
+          left: -80px;
+          top: -110px;
+          background: #7c3aed;
+        }
+
+        .cn-metrics-blob-b {
+          width: 220px;
+          height: 220px;
+          right: -70px;
+          bottom: -100px;
+          background: #d946ef;
+        }
+
+        .cn-metrics-brand {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-right: auto;
+        }
+
+        .cn-metrics-logo {
           display: grid;
-          grid-template-columns: repeat(6,1fr);
-          gap: 10px;
-          padding: 10px;
-          border-radius: 25px;
-          background: linear-gradient(135deg,#1b174b,#30206d 48%,#112c55);
-          border: 1px solid rgba(99,60,255,.25);
-          box-shadow: 0 22px 55px rgba(48,34,115,.18);
+          width: 42px;
+          height: 42px;
+          flex: 0 0 42px;
+          place-items: center;
+          border-radius: 13px;
+          background: linear-gradient(135deg,#7c3aed,#3b82f6);
+          color: #fff;
+          font-size: 19px;
+          font-weight: 950;
+        }
+
+        .cn-metrics-brand strong {
+          display: block;
+          color: #fff;
+          font-size: 16px;
+          font-weight: 950;
+        }
+
+        .cn-metrics-brand strong span {
+          background: linear-gradient(90deg,#c084fc,#f0abfc);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .cn-metrics-brand p {
+          margin: 3px 0 0;
+          color: rgba(220,214,255,.65);
+          font-size: 11px;
+          font-weight: 650;
         }
 
         .cn-metric {
-          min-height: 145px;
-          padding: 18px 12px;
-          border-radius: 18px;
           position: relative;
-          overflow: hidden;
+          z-index: 1;
           display: flex;
+          flex: 1 1 90px;
+          min-width: 90px;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
           text-align: center;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,.12);
-          background: linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.035));
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-          transition: box-shadow .25s ease;
-        }
-
-        .cn-metric::before {
-          content: "";
-          position: absolute;
-          width: 130px;
-          height: 130px;
-          border-radius: 50%;
-          right: -72px;
-          top: -72px;
-          background: currentColor;
-          opacity: .10;
         }
 
         .cn-metric-icon {
-          width: 42px;
-          height: 42px;
-          border-radius: 13px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 9px;
-          background: currentColor;
-          color: #fff;
-          box-shadow: 0 10px 24px rgba(0,0,0,.16);
+          margin-bottom: 10px;
+          background: rgba(255,255,255,.08);
+          border: 1px solid rgba(255,255,255,.14);
+          color: currentColor;
         }
 
-        .cn-metric-icon svg { color: #fff; }
-
         .cn-metric strong {
-          font-size: 30px;
+          font-size: 24px;
           line-height: 1;
-          letter-spacing: -1.2px;
-          position: relative;
-          z-index: 2;
+          letter-spacing: -1px;
+          color: currentColor;
         }
 
         .cn-metric span {
-          color: rgba(255,255,255,.75);
-          font-size: 11px;
+          color: rgba(220,214,255,.65);
+          font-size: 10.5px;
           margin-top: 7px;
-          position: relative;
-          z-index: 2;
+          font-weight: 650;
         }
 
-        .cn-metric-orbit {
-          position: absolute;
-          inset: auto 12px 9px auto;
-          width: 20px;
-          height: 20px;
-          border: 1px solid rgba(255,255,255,.25);
-          border-radius: 50%;
-          animation: cn-metric-spin 5s linear infinite;
-        }
-
-        .cn-metric-orbit i {
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: #fff;
-          top: -2px;
-          left: 7px;
-        }
-
-        .cn-metric-orbit i:last-child {
-          top: auto;
-          bottom: -2px;
-          left: auto;
-          right: 7px;
-        }
-
-        .metric-violet { color: #a78bfa; }
+        .metric-violet { color: #c084fc; }
         .metric-blue { color: #60a5fa; }
         .metric-pink { color: #f472b6; }
         .metric-cyan { color: #22d3ee; }
-        .metric-orange { color: #fb923c; }
+        .metric-orange { color: #fbbf24; }
         .metric-green { color: #34d399; }
-
-        @keyframes cn-metric-spin {
-          to { transform: rotate(360deg); }
-        }
 
         /* =================================================
            REVIEWS
@@ -3908,7 +4233,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            grid-template-columns: repeat(3,1fr);
+            justify-content: center;
+            padding: 28px 26px;
+          }
+
+          .cn-metrics-brand {
+            flex: 1 1 100%;
+            justify-content: center;
+            margin-right: 0;
+            margin-bottom: 6px;
           }
 
           .cn-review-track {
@@ -4046,18 +4379,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            grid-template-columns: repeat(2,1fr);
-            gap: 7px;
-            padding: 7px;
+            gap: 18px 22px;
+            padding: 24px 20px;
           }
 
           .cn-metric {
-            min-height: 125px;
-            padding: 16px 9px;
+            flex: 1 1 28%;
+            min-width: 80px;
           }
 
           .cn-metric strong {
-            font-size: 25px;
+            font-size: 22px;
           }
 
           .cn-review-slider {
@@ -4149,11 +4481,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-metrics {
-            grid-template-columns: 1fr 1fr;
+            padding: 22px 16px;
+            gap: 16px;
+            border-radius: 22px;
+          }
+
+          .cn-metric {
+            flex: 1 1 40%;
           }
 
           .cn-metric strong {
-            font-size: 24px;
+            font-size: 22px;
           }
 
           .cn-review-text {
@@ -4316,12 +4654,6 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================== */}
 
         <OfferingsSection onNavigate={onNavigate} />
-
-        {/* =================================================
-            REALISTIC CURRENT METRICS
-        ================================================== */}
-
-        <MetricsSection />
 
         {/* =================================================
             REVIEWS
