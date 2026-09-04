@@ -20,6 +20,8 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Star,
+  Lock,
   Target,
   TrendingUp,
   Users,
@@ -511,7 +513,7 @@ const OfferingsSection = ({
       className: 'cnx-trust-blue',
     },
     {
-      icon: CheckCircle2,
+      icon: Lightbulb,
       title: 'Practical Solutions',
       text: 'Simple, actionable frameworks instead of unnecessary complexity.',
       className: 'cnx-trust-green',
@@ -523,7 +525,7 @@ const OfferingsSection = ({
       className: 'cnx-trust-orange',
     },
     {
-      icon: ShieldCheck,
+      icon: Lock,
       title: 'Trusted & Secure',
       text: 'Professional handling of business information and project requirements.',
       className: 'cnx-trust-pink',
@@ -534,6 +536,12 @@ const OfferingsSection = ({
       text: 'Constantly improving tools, workflows and technology-led solutions.',
       className: 'cnx-trust-cyan',
     },
+  ];
+
+  const trustStats = [
+    { icon: Users, value: '500+', label: 'Happy Clients', className: 'tone-purple' },
+    { icon: Rocket, value: '50+', label: 'Solutions Delivered', className: 'tone-blue' },
+    { icon: TrendingUp, value: '98%', label: 'Client Satisfaction', className: 'tone-green' },
   ];
 
   return (
@@ -1087,100 +1095,318 @@ const OfferingsSection = ({
         }
 
         /* =================================================
-           TRUST
+           TRUST — HERO + SOLUTIONS PANEL
         ================================================= */
 
         .cnx-trust-section {
-          padding: 54px 42px 60px;
+          padding: 54px 42px 70px;
           border-top: 1px solid #edf0f6;
           background: linear-gradient(180deg,#fff,#fafbff);
+        }
+
+        .cnx-trust-hero {
+          display: grid;
+          grid-template-columns: minmax(0,460px) minmax(0,1fr);
+          align-items: center;
+          gap: 40px;
+          max-width: 1370px;
+          margin: 0 auto;
+        }
+
+        .cnx-trust-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 7px 14px;
+          border-radius: 999px;
+          background: #f1e9ff;
+          color: #7642ee;
+          font-size: 11px;
+          font-weight: 950;
+          letter-spacing: 1.1px;
+          text-transform: uppercase;
+        }
+
+        .cnx-trust-badge svg {
+          width: 13px;
+          height: 13px;
+          fill: currentColor;
+        }
+
+        .cnx-trust-hero-title {
+          margin: 16px 0 0;
+          color: #10172f;
+          font-size: clamp(30px, 3.6vw, 44px);
+          line-height: 1.14;
+          font-weight: 950;
+          letter-spacing: -1px;
+        }
+
+        .cnx-trust-hero-title span {
+          background: linear-gradient(90deg,#7c3aed,#d946ef);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .cnx-trust-hero .cnx-heading-line {
+          margin: 16px 0;
+        }
+
+        .cnx-trust-hero-copy p {
+          max-width: 460px;
+          margin: 0 0 28px;
+          color: #69738d;
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .cnx-trust-stats {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          flex-wrap: wrap;
+        }
+
+        .cnx-trust-stat {
+          display: flex;
+          align-items: center;
+          gap: 11px;
+        }
+
+        .cnx-trust-stat-icon {
+          display: grid;
+          width: 42px;
+          height: 42px;
+          flex: 0 0 42px;
+          place-items: center;
+          border-radius: 13px;
+        }
+
+        .cnx-trust-stat-icon svg {
+          width: 19px;
+          height: 19px;
+        }
+
+        .cnx-trust-stat strong {
+          display: block;
+          font-size: 21px;
+          font-weight: 950;
+          line-height: 1.1;
+        }
+
+        .cnx-trust-stat small {
+          display: block;
+          margin-top: 3px;
+          color: #808aa2;
+          font-size: 10.5px;
+          font-weight: 750;
+        }
+
+        .cnx-trust-stat.tone-purple .cnx-trust-stat-icon { background: #f0eaff; color: #7340e8; }
+        .cnx-trust-stat.tone-purple strong { color: #7340e8; }
+        .cnx-trust-stat.tone-blue .cnx-trust-stat-icon { background: #e8f5ff; color: #1478d4; }
+        .cnx-trust-stat.tone-blue strong { color: #1478d4; }
+        .cnx-trust-stat.tone-green .cnx-trust-stat-icon { background: #e8fbf1; color: #07965f; }
+        .cnx-trust-stat.tone-green strong { color: #07965f; }
+
+        .cnx-trust-divider {
+          width: 1px;
+          height: 34px;
+          background: #e5e8f0;
+        }
+
+        .cnx-trust-hero-visual {
+          display: flex;
+          justify-content: center;
+        }
+
+        .cnx-trust-hero-visual img {
+          width: 100%;
+          max-width: 560px;
+          height: auto;
+          display: block;
+          filter: drop-shadow(0 22px 40px rgba(60,40,140,.14));
+        }
+
+        .cnx-trust-panel {
+          max-width: 1370px;
+          margin: 46px auto 0;
+          padding: 44px 36px 38px;
+          border-radius: 30px;
+          background: #fff;
+          border: 1px solid #eef0f7;
+          box-shadow: 0 26px 60px rgba(40,50,90,.08);
+        }
+
+        .cnx-trust-panel .cnx-light-heading {
+          margin-bottom: 30px;
         }
 
         .cnx-trust-grid {
           display: grid;
           grid-template-columns: repeat(6, minmax(0,1fr));
-          max-width: 1370px;
-          margin: 0 auto;
-          border: 1px solid #e5e8f0;
-          border-radius: 23px;
-          overflow: hidden;
-          background: #fff;
-          box-shadow: 0 18px 50px rgba(40,50,90,.06);
+          gap: 16px;
         }
 
         .cnx-trust-item {
-          min-height: 170px;
-          padding: 22px 17px;
+          min-height: 190px;
+          padding: 26px 18px 22px;
           text-align: center;
-          border-right: 1px solid #edf0f4;
-          transition: background .25s ease, transform .25s ease;
-        }
-
-        .cnx-trust-item:last-child {
-          border-right: 0;
+          border: 1px solid;
+          border-radius: 20px;
+          background: #fff;
+          transition: transform .25s ease, box-shadow .25s ease;
         }
 
         .cnx-trust-item:hover {
-          background: #fbfcff;
-          transform: translateY(-3px);
+          transform: translateY(-5px);
+          box-shadow: 0 16px 34px rgba(40,50,90,.1);
         }
 
         .cnx-trust-icon {
           display: grid;
-          width: 48px;
-          height: 48px;
-          margin: 0 auto 13px;
+          width: 54px;
+          height: 54px;
+          margin: 0 auto 15px;
           place-items: center;
-          border-radius: 15px;
+          border-radius: 16px;
         }
 
         .cnx-trust-icon svg {
-          width: 23px;
-          height: 23px;
+          width: 24px;
+          height: 24px;
         }
 
-        .cnx-trust-purple .cnx-trust-icon {
-          background: #f0eaff;
-          color: #7340e8;
-        }
+        .cnx-trust-purple { border-color: #e7dcff; background: #faf7ff; }
+        .cnx-trust-purple .cnx-trust-icon { background: linear-gradient(150deg,#8b5cf6,#7c3aed); color: #fff; }
 
-        .cnx-trust-blue .cnx-trust-icon {
-          background: #e8f5ff;
-          color: #1478d4;
-        }
+        .cnx-trust-blue { border-color: #d3e9ff; background: #f5faff; }
+        .cnx-trust-blue .cnx-trust-icon { background: #e8f5ff; color: #1478d4; }
 
-        .cnx-trust-green .cnx-trust-icon {
-          background: #e8fbf1;
-          color: #07965f;
-        }
+        .cnx-trust-green { border-color: #cdf0dc; background: #f4fbf6; }
+        .cnx-trust-green .cnx-trust-icon { background: #e8fbf1; color: #07965f; }
 
-        .cnx-trust-orange .cnx-trust-icon {
-          background: #fff2df;
-          color: #e17a00;
-        }
+        .cnx-trust-orange { border-color: #ffe1bd; background: #fffaf3; }
+        .cnx-trust-orange .cnx-trust-icon { background: #fff2df; color: #e17a00; }
 
-        .cnx-trust-pink .cnx-trust-icon {
-          background: #ffeaf4;
-          color: #d62c83;
-        }
+        .cnx-trust-pink { border-color: #ffd3e9; background: #fff7fb; }
+        .cnx-trust-pink .cnx-trust-icon { background: #ffeaf4; color: #d62c83; }
 
-        .cnx-trust-cyan .cnx-trust-icon {
-          background: #e5f9fc;
-          color: #079ab4;
-        }
+        .cnx-trust-cyan { border-color: #c9f0f6; background: #f2fcfd; }
+        .cnx-trust-cyan .cnx-trust-icon { background: #e5f9fc; color: #079ab4; }
 
         .cnx-trust-item h3 {
-          margin: 0 0 6px;
+          margin: 0 0 8px;
           color: #151c36;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 950;
         }
 
         .cnx-trust-item p {
           margin: 0;
           color: #717a91;
-          font-size: 10.5px;
-          line-height: 1.55;
+          font-size: 11px;
+          line-height: 1.6;
+        }
+
+        .cnx-trust-underline {
+          display: block;
+          width: 26px;
+          height: 3px;
+          margin: 14px auto 0;
+          border-radius: 10px;
+        }
+
+        .cnx-trust-purple .cnx-trust-underline { background: #7c3aed; }
+        .cnx-trust-blue .cnx-trust-underline { background: #1478d4; }
+        .cnx-trust-green .cnx-trust-underline { background: #07965f; }
+        .cnx-trust-orange .cnx-trust-underline { background: #e17a00; }
+        .cnx-trust-pink .cnx-trust-underline { background: #d62c83; }
+        .cnx-trust-cyan .cnx-trust-underline { background: #079ab4; }
+
+        .cnx-trust-cta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          margin-top: 34px;
+        }
+
+        .cnx-trust-btn-outline,
+        .cnx-trust-btn-solid {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 13px 24px;
+          border-radius: 999px;
+          border: none;
+          font-size: 13px;
+          font-weight: 900;
+          cursor: pointer;
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .cnx-trust-btn-outline {
+          border: 1.5px solid #c9b3ff;
+          background: #fff;
+          color: #7340e8;
+        }
+
+        .cnx-trust-btn-solid {
+          background: linear-gradient(120deg,#7c3aed,#a855f7);
+          color: #fff;
+          box-shadow: 0 14px 30px rgba(124,58,237,.3);
+        }
+
+        .cnx-trust-btn-outline:hover,
+        .cnx-trust-btn-solid:hover {
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 1100px) {
+          .cnx-trust-hero {
+            grid-template-columns: 1fr;
+            text-align: center;
+          }
+
+          .cnx-trust-hero-copy p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .cnx-trust-stats {
+            justify-content: center;
+          }
+
+          .cnx-trust-hero-visual {
+            order: -1;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .cnx-trust-panel {
+            padding: 30px 18px 28px;
+            border-radius: 22px;
+          }
+
+          .cnx-trust-stats {
+            gap: 14px;
+          }
+
+          .cnx-trust-divider {
+            display: none;
+          }
+
+          .cnx-trust-cta {
+            flex-direction: column;
+          }
+
+          .cnx-trust-btn-outline,
+          .cnx-trust-btn-solid {
+            width: 100%;
+            justify-content: center;
+          }
         }
 
         /* =================================================
@@ -1254,14 +1480,6 @@ const OfferingsSection = ({
             grid-template-columns: repeat(3,minmax(0,1fr));
           }
 
-          .cnx-trust-item:nth-child(3) {
-            border-right: 0;
-          }
-
-          .cnx-trust-item:nth-child(-n+3) {
-            border-bottom: 1px solid #edf0f4;
-          }
-
           .cnx-capabilities-grid {
             grid-template-columns: repeat(3,minmax(0,1fr));
           }
@@ -1279,22 +1497,6 @@ const OfferingsSection = ({
 
           .cnx-trust-grid {
             grid-template-columns: repeat(2,minmax(0,1fr));
-          }
-
-          .cnx-trust-item:nth-child(3) {
-            border-right: 1px solid #edf0f4;
-          }
-
-          .cnx-trust-item:nth-child(even) {
-            border-right: 0;
-          }
-
-          .cnx-trust-item:nth-child(n+3) {
-            border-bottom: 0;
-          }
-
-          .cnx-trust-item:nth-child(-n+4) {
-            border-bottom: 1px solid #edf0f4;
           }
         }
 
@@ -1337,17 +1539,6 @@ const OfferingsSection = ({
           .cnx-trust-grid,
           .cnx-capabilities-grid {
             grid-template-columns: 1fr;
-          }
-
-          .cnx-trust-item,
-          .cnx-trust-item:nth-child(even),
-          .cnx-trust-item:nth-child(3) {
-            border-right: 0;
-            border-bottom: 1px solid #edf0f4;
-          }
-
-          .cnx-trust-item:last-child {
-            border-bottom: 0;
           }
 
           .cnx-capability {
@@ -1495,46 +1686,120 @@ const OfferingsSection = ({
       ================================================= */}
 
       <div className="cnx-trust-section">
-        <div className="cnx-light-heading">
-          <span>Why Choose CareerNova</span>
+        <div className="cnx-trust-hero">
+          <div className="cnx-trust-hero-copy">
+            <span className="cnx-trust-badge">
+              <Star size={13} />
+              Why Choose CareerNova
+            </span>
 
-          <h2>Trusted Expertise. Real Impact.</h2>
+            <h2 className="cnx-trust-hero-title">
+              Trusted Expertise.
+              <br />
+              Real <span>Impact.</span>
+            </h2>
 
-          <div className="cnx-heading-line" />
+            <div className="cnx-heading-line" />
 
-          <p>
-            We combine practical knowledge, modern technology and a
-            result-oriented approach to create solutions people can actually
-            use.
-          </p>
+            <p>
+              We combine practical knowledge, modern technology and a
+              result-oriented approach to create solutions people can
+              actually use and grow with.
+            </p>
+
+            <div className="cnx-trust-stats">
+              {trustStats.map((stat, index) => {
+                const Icon = stat.icon;
+
+                return (
+                  <React.Fragment key={stat.label}>
+                    <div className={`cnx-trust-stat ${stat.className}`}>
+                      <div className="cnx-trust-stat-icon">
+                        <Icon />
+                      </div>
+
+                      <div>
+                        <strong>{stat.value}</strong>
+                        <small>{stat.label}</small>
+                      </div>
+                    </div>
+
+                    {index < trustStats.length - 1 && (
+                      <span className="cnx-trust-divider" aria-hidden="true" />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="cnx-trust-hero-visual">
+            <img
+              src="/assets/why-choose-illustration.png"
+              alt="CareerNova specialist working with AI tools, web development and automation"
+              loading="lazy"
+            />
+          </div>
         </div>
 
-        <div className="cnx-trust-grid">
-          {trustPoints.map((point, index) => {
-            const Icon = point.icon;
+        <div className="cnx-trust-panel">
+          <div className="cnx-light-heading">
+            <span>What Makes Us Different</span>
 
-            return (
-              <motion.div
-                key={point.title}
-                className={`cnx-trust-item ${point.className}`}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  delay: index * 0.05,
-                  duration: 0.4,
-                }}
-              >
-                <div className="cnx-trust-icon">
-                  <Icon />
-                </div>
+            <h2>Solutions That Create Real Value</h2>
 
-                <h3>{point.title}</h3>
+            <div className="cnx-heading-line" />
+          </div>
 
-                <p>{point.text}</p>
-              </motion.div>
-            );
-          })}
+          <div className="cnx-trust-grid">
+            {trustPoints.map((point, index) => {
+              const Icon = point.icon;
+
+              return (
+                <motion.div
+                  key={point.title}
+                  className={`cnx-trust-item ${point.className}`}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    delay: index * 0.05,
+                    duration: 0.4,
+                  }}
+                >
+                  <div className="cnx-trust-icon">
+                    <Icon />
+                  </div>
+
+                  <h3>{point.title}</h3>
+
+                  <p>{point.text}</p>
+
+                  <span className="cnx-trust-underline" aria-hidden="true" />
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="cnx-trust-cta">
+            <button
+              type="button"
+              className="cnx-trust-btn-outline"
+              onClick={() => onNavigate('expertise')}
+            >
+              Explore Our Services
+              <ArrowRight size={16} />
+            </button>
+
+            <button
+              type="button"
+              className="cnx-trust-btn-solid"
+              onClick={() => onNavigate('contact')}
+            >
+              Let's Work Together
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
       </div>
 
