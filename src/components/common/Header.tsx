@@ -122,10 +122,10 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             ) : (
               <button
-                onClick={() => handleNavClick('expertise')}
+                onClick={() => handleNavClick('about')}
                 className="ambient-glow-cta flex items-center gap-1.5 px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold transition-all duration-300 shadow-md shadow-indigo-600/25 hover:shadow-lg hover:shadow-indigo-600/35 hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer"
               >
-                <span>Get Started</span>
+                <span>Contact Us</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
@@ -166,10 +166,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="pt-2 border-t border-slate-200 flex items-center justify-between gap-3">
             <button
-              onClick={() => handleNavClick('expertise')}
+              onClick={() => handleNavClick('about')}
               className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold text-center shadow-md shadow-indigo-600/25 cursor-pointer"
             >
-              Get Started
+              Contact Us
             </button>
             <button
               onClick={() => {
