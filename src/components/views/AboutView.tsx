@@ -18,6 +18,20 @@ import {
   Mail,
   User,
   Send,
+  Phone,
+  List,
+  Lock,
+  Check,
+  MessageCircle,
+  Briefcase,
+  Handshake,
+  GraduationCap,
+  Laptop,
+  Coffee,
+  Leaf,
+  Target,
+  Lightbulb,
+  TrendingUp,
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -31,17 +45,22 @@ const smoothTransition = {
 };
 
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [agree, setAgree] = useState(true);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!agree) {
+      setStatus('error');
+      return;
+    }
     setStatus('sending');
     try {
       const res = await fetch('https://formspree.io/f/moeqdlpw', {
@@ -51,7 +70,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
       });
       if (res.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -300,128 +319,323 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   </div>
 </div>
 
-      {/* 5. Contact Us Form */}
+      {/* 5. Let's Connect - Hero + Contact Form */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="space-y-6"
+        className="space-y-10"
       >
-        <div className="text-center space-y-1.5">
-          <div className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>Get In Touch</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+          {/* LEFT: Hero content */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-bold px-3.5 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+              <span className="uppercase tracking-wider">Let's Connect</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+              Let's Build Something Great{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">
+                Together.
+              </span>
+            </h2>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-md">
+              Have a project in mind, a question, or just want to explore opportunities? We're always excited to connect and create something meaningful.
+            </p>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900">Quick Response</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">We usually reply within 24 hours.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900">100% Confidential</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">Your information is always safe with us.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-slate-900">Expert Guidance</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">Get the right advice for your goals.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative illustration panel — swap this block for your own workspace photo if you have one */}
+            <div className="relative rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-fuchsia-50 border border-indigo-100 p-6 sm:p-7 overflow-hidden">
+              <Send className="w-5 h-5 text-fuchsia-400 absolute top-5 right-6 -rotate-12" />
+              <div className="flex items-center gap-3.5">
+                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-indigo-600">
+                  <Laptop className="w-6 h-6" />
+                </div>
+                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-amber-600">
+                  <Coffee className="w-6 h-6" />
+                </div>
+                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-emerald-600">
+                  <Leaf className="w-6 h-6" />
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mt-5">
+                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
+                  <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
+                  New Projects
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
+                  <Handshake className="w-3.5 h-3.5 text-blue-600" />
+                  Partnerships
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
+                  <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
+                  Career Support
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
+                  <Mail className="w-3.5 h-3.5 text-orange-600" />
+                  General Enquiries
+                </span>
+              </div>
+            </div>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            Have A Question Or A Project In Mind?
-          </h2>
-          <p className="text-slate-600 text-sm max-w-xl mx-auto">
-            Fill out the form below and our team will get back to you within 24 hours.
-          </p>
+
+          {/* RIGHT: Contact Form Card */}
+          <div className="bg-white p-6 sm:p-9 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="text-left space-y-1.5 mb-6">
+              <div className="inline-flex items-center gap-1 text-[11px] uppercase font-bold tracking-wider text-indigo-700">
+                <span>Send Us A Message</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+                We're Here to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">Help</span>
+              </h2>
+              <p className="text-slate-600 text-sm">
+                Fill out the form below and our team will get back to you soon.
+              </p>
+            </div>
+
+            <form onSubmit={handleFormSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="name" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleFormChange}
+                      placeholder="Enter your full name"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      placeholder="Enter your email"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Phone Number
+                  </label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleFormChange}
+                      placeholder="Enter your phone number"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="subject" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    Subject <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <List className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <select
+                      id="subject"
+                      name="subject"
+                      required
+                      value={formData.subject}
+                      onChange={handleFormChange}
+                      className={`w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent appearance-none cursor-pointer ${
+                        formData.subject === '' ? 'text-slate-400' : 'text-slate-800'
+                      }`}
+                    >
+                      <option value="" disabled>Select a subject</option>
+                      <option value="New Projects">New Projects</option>
+                      <option value="Partnerships">Partnerships</option>
+                      <option value="Career Support">Career Support</option>
+                      <option value="General Enquiries">General Enquiries</option>
+                    </select>
+                    <svg className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-xs font-semibold text-slate-700 mb-1.5">
+                  Your Message <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <MessageSquare className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleFormChange}
+                    placeholder="Tell us about your requirement..."
+                    className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                  />
+                </div>
+              </div>
+
+              <label htmlFor="agree" className="flex items-start gap-2.5 cursor-pointer select-none">
+                <span className="relative flex-shrink-0 mt-0.5">
+                  <input
+                    id="agree"
+                    type="checkbox"
+                    checked={agree}
+                    onChange={(e) => setAgree(e.target.checked)}
+                    className="peer sr-only"
+                  />
+                  <span className="flex items-center justify-center w-4.5 h-4.5 rounded-md border-2 border-slate-300 bg-white peer-checked:bg-gradient-to-r peer-checked:from-indigo-600 peer-checked:to-fuchsia-600 peer-checked:border-transparent transition-all">
+                    {agree && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+                  </span>
+                </span>
+                <span className="text-xs text-slate-600">
+                  I agree to be contacted by CareerNova regarding my inquiry.
+                </span>
+              </label>
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 disabled:opacity-60 text-white text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-md shadow-indigo-600/25 cursor-pointer"
+              >
+                {status === 'sending' ? (
+                  <span>Sending...</span>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Send Message</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+
+              <p className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
+                <Lock className="w-3 h-3" />
+                <span>Your information is safe with us. We never share your data.</span>
+              </p>
+
+              {status === 'success' && (
+                <p className="text-center text-sm font-semibold text-emerald-600">
+                  Thanks! Your message has been sent — we'll get back to you soon.
+                </p>
+              )}
+              {status === 'error' && !agree && (
+                <p className="text-center text-sm font-semibold text-red-600">
+                  Please agree to be contacted before sending your message.
+                </p>
+              )}
+              {status === 'error' && agree && (
+                <p className="text-center text-sm font-semibold text-red-600">
+                  Something went wrong. Please try again or email us directly.
+                </p>
+              )}
+            </form>
+          </div>
         </div>
 
-        <form
-          onSubmit={handleFormSubmit}
-          className="bg-white p-6 sm:p-9 rounded-3xl border border-slate-200 shadow-sm max-w-2xl mx-auto space-y-5"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Bottom Feature Strip */}
+        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
             <div>
-              <label htmlFor="name" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Full Name
-              </label>
-              <div className="relative">
-                <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={handleFormChange}
-                  placeholder="Your name"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                />
+              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3">
+                <Target className="w-5 h-5" />
               </div>
+              <h4 className="font-bold text-sm text-slate-900">Turn Ideas Into Reality</h4>
+              <p className="text-xs text-slate-500 mt-1">Let's discuss how we can help you grow.</p>
+              <div className="w-8 h-0.5 bg-indigo-500 rounded-full mt-3" />
             </div>
-
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={handleFormChange}
-                  placeholder="you@example.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                />
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
+                <Lightbulb className="w-5 h-5" />
               </div>
+              <h4 className="font-bold text-sm text-slate-900">Innovative Solutions</h4>
+              <p className="text-xs text-slate-500 mt-1">Tailored to your unique needs.</p>
+              <div className="w-8 h-0.5 bg-blue-500 rounded-full mt-3" />
+            </div>
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
+                <Users className="w-5 h-5" />
+              </div>
+              <h4 className="font-bold text-sm text-slate-900">A Reliable Partner</h4>
+              <p className="text-xs text-slate-500 mt-1">Committed to your success.</p>
+              <div className="w-8 h-0.5 bg-emerald-500 rounded-full mt-3" />
+            </div>
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-3">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <h4 className="font-bold text-sm text-slate-900">Long-Term Growth</h4>
+              <p className="text-xs text-slate-500 mt-1">More than a service, a partnership.</p>
+              <div className="w-8 h-0.5 bg-orange-500 rounded-full mt-3" />
             </div>
           </div>
+        </div>
 
-          <div>
-            <label htmlFor="subject" className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Subject
-            </label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              value={formData.subject}
-              onChange={handleFormChange}
-              placeholder="What's this about?"
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows={5}
-              value={formData.message}
-              onChange={handleFormChange}
-              placeholder="Tell us a bit about what you need..."
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            {status === 'sending' ? (
-              <span>Sending...</span>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                <span>Send Message</span>
-              </>
-            )}
-          </button>
-
-          {status === 'success' && (
-            <p className="text-center text-sm font-semibold text-emerald-600">
-              Thanks! Your message has been sent — we'll get back to you soon.
-            </p>
-          )}
-          {status === 'error' && (
-            <p className="text-center text-sm font-semibold text-red-600">
-              Something went wrong. Please try again or email us directly.
-            </p>
-          )}
-        </form>
+        {/* Tagline */}
+        <p className="text-center text-lg sm:text-xl italic font-serif text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">
+          Your Next Opportunity Starts Here
+        </p>
       </motion.section>
     </div>
   );
