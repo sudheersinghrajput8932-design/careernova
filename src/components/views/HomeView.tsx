@@ -136,11 +136,11 @@ const HERO_SLIDES = [
 ========================================================= */
 
 const heroImages: Record<string, string> = {
-  growth: '/assets/hero-growth.jpg',
-  marketing: '/assets/hero-marketing.jpg',
-  analytics: '/assets/hero-analytics.jpg',
+  growth: '/assets/hero-growth.png',
+  marketing: '/assets/hero-marketing.png',
+  analytics: '/assets/hero-analytics.png',
   technology: '/assets/hero-technology.png',
-  career: '/assets/hero-career.jpg',
+  career: '/assets/hero-career.png',
 };
 
 const HeroVisual = ({ type }: { type: string }) => {
@@ -2591,16 +2591,19 @@ const SocialRail = () => (
 
 export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
 
   const slide = HERO_SLIDES[activeSlide];
 
   useEffect(() => {
+    if (isHeroPaused) return;
+
     const timer = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
     }, 3000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [isHeroPaused]);
 
   const previousSlide = () => {
     setActiveSlide(
@@ -4515,23 +4518,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-asset-visual { width: 100%; height: 100%; display: block; overflow: visible; }
         .cn-hero-asset { width: min(520px, 100%); height: 390px; filter: drop-shadow(0 24px 38px rgba(55,35,130,.22)); }
         .cn-hero-photo-frame {
-          width: min(420px, 100%);
+          width: min(460px, 100%);
           aspect-ratio: 16 / 10;
-          border-radius: 22px;
-          overflow: hidden;
           position: relative;
-          padding: 6px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, rgba(129,140,248,.45), rgba(236,72,153,.35));
-          box-shadow: 0 24px 48px rgba(30,15,80,.35);
+          background: transparent;
+          box-shadow: none;
+          padding: 0;
         }
         .cn-hero-photo {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          border-radius: 16px;
+          border-radius: 0;
           display: block;
         }
         @media (max-width: 640px) {
@@ -4562,7 +4563,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             Auto changes every 3 seconds
         ================================================== */}
 
-        <section className="cn-hero">
+        <section
+          className="cn-hero"
+          onMouseEnter={() => setIsHeroPaused(true)}
+          onMouseLeave={() => setIsHeroPaused(false)}
+          onTouchStart={() => setIsHeroPaused(true)}
+          onTouchEnd={() => setIsHeroPaused(false)}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
