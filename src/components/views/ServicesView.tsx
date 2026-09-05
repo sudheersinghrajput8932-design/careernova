@@ -293,62 +293,70 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="space-y-12 sm:space-y-16">
-      {/* 1. HERO HEADER — illustrated staircase (left) + growth panel (right) framing the headline */}
+      {/* 1. HERO HEADER — real live text (not baked into an image) with the two character illustrations flanking it on larger screens */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="relative max-w-6xl mx-auto rounded-3xl border border-slate-200 px-6 py-10 sm:py-14 overflow-hidden"
+        className="relative max-w-6xl mx-auto rounded-3xl border border-slate-200 bg-gradient-to-b from-indigo-50/50 via-white to-white overflow-hidden"
       >
-        {/* Real illustration as full hero background */}
-        <img
-          src="/assets/hero-banner.png"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {/* Soft white wash so the centered text stays readable over the illustration */}
-        <div className="absolute inset-0 bg-white/55" />
+        <div className="flex items-end justify-center gap-2 lg:gap-4 px-4 sm:px-6 py-8 sm:py-10">
+          {/* Left illustration — hidden on mobile so there's no wasted gap on small screens */}
+          <img
+            src="/assets/hero-illustration-left.png"
+            alt=""
+            aria-hidden="true"
+            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
+          />
 
-        {/* CENTER: headline content */}
-        <div className="relative z-20 text-center max-w-2xl mx-auto space-y-4">
-          {/* Floating Top Badge */}
-          <motion.div
-            animate={{ y: [-4, 0, -4] }}
-            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 text-xs font-bold shadow-md max-w-full"
-          >
-            <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-normal sm:whitespace-nowrap">CAREER & BUSINESS SERVICES MARKETPLACE</span>
-          </motion.div>
+          {/* CENTER: real headline content */}
+          <div className="text-center max-w-2xl mx-auto space-y-3 sm:space-y-4 py-2">
+            {/* Floating Top Badge */}
+            <motion.div
+              animate={{ y: [-4, 0, -4] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 text-xs font-bold shadow-md max-w-full"
+            >
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-normal sm:whitespace-nowrap">CAREER & BUSINESS SERVICES MARKETPLACE</span>
+            </motion.div>
 
-          {/* Shimmering Hero Headline */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Professional Growth Services at{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
-              Honest Pricing
-            </span>
-          </h1>
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
-            Accelerate your career, legal compliance, digital marketing, and AI workflow. Verified specialists, transparent INR pricing, and dedicated human support.
-          </p>
+            {/* Shimmering Hero Headline */}
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+              Professional Growth Services at{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
+                Honest Pricing
+              </span>
+            </h1>
+            <p className="text-xs sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
+              Accelerate your career, legal compliance, digital marketing, and AI workflow. Verified specialists, transparent INR pricing, and dedicated human support.
+            </p>
 
-          {/* Trust Guarantee Badges with Entrance & Hover Glow */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-slate-600">
-            <div className="feature-badge-glow flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span className="font-bold text-slate-900 whitespace-nowrap">100% Satisfaction Guaranteed</span>
-            </div>
-            <div className="feature-badge-glow flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-              <Clock className="w-4 h-4 text-indigo-600 shrink-0" />
-              <span className="font-bold text-slate-900 whitespace-nowrap">Fast 24-48h Delivery</span>
-            </div>
-            <div className="feature-badge-glow flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-              <Award className="w-4 h-4 text-amber-600 shrink-0" />
-              <span className="font-bold text-slate-900 whitespace-nowrap">Verified Specialists</span>
+            {/* Trust Guarantee Badges */}
+            <div className="pt-1 sm:pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs text-slate-600">
+              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">100% Satisfaction Guaranteed</span>
+              </div>
+              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
+                <Clock className="w-4 h-4 text-indigo-600 shrink-0" />
+                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">Fast 24-48h Delivery</span>
+              </div>
+              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
+                <Award className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">Verified Specialists</span>
+              </div>
             </div>
           </div>
+
+          {/* Right illustration — hidden on mobile so there's no wasted gap on small screens */}
+          <img
+            src="/assets/hero-illustration-right.png"
+            alt=""
+            aria-hidden="true"
+            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
+          />
         </div>
       </motion.div>
 
