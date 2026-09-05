@@ -271,33 +271,63 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSave
 
   return (
     <div className="space-y-8 sm:space-y-10">
-      {/* 1. Section Title (Outside / Above the Banner) */}
+      {/* 1. Hero Banner — real illustration background with live overlaid text (headline, eyebrow badge, guiding-principles copy) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="text-center"
+        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm min-h-[300px] sm:min-h-[360px] lg:min-h-[420px] flex items-center"
       >
-        <h1 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4 text-center">
-          Tools &amp; Generative Utilities Hub
-        </h1>
+        {/* Illustration background */}
+        <img
+          src="/assets/tools-hero-banner.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Soft wash so text stays readable on every screen size, strongest in the center where the copy sits */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/35 to-white/55" />
+        <div className="absolute inset-0 bg-white/10" />
 
-        {/* Vibrant Gradient Banner Box Directly Below Title */}
-        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 rounded-2xl px-4 py-5 sm:p-8 shadow-xl shadow-indigo-600/20 max-w-4xl mx-auto text-center">
-          <span className="text-[10px] md:text-xs tracking-widest text-indigo-200 uppercase mb-2 block text-center font-semibold">
-            OUR GUIDING PRINCIPLES
-          </span>
-          <p className="text-center text-white text-sm md:text-base font-medium leading-normal max-w-2xl mx-auto">
-            Supercharge your workflow with CareerNova’s suite of generative AI tools and career calculators. Get instant ATS resumes, startup plans, and financial estimates—100% free with complete privacy and zero sign-ups.
+        <div className="relative z-10 w-full px-5 sm:px-10 py-10 sm:py-12 text-center">
+          {/* Eyebrow Badge */}
+          <motion.div
+            animate={{ y: [-4, 0, -4] }}
+            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-600/10 border border-indigo-500/30 text-indigo-700 text-[10px] sm:text-xs font-bold shadow-md uppercase tracking-widest"
+          >
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span>Our Guiding Principles</span>
+          </motion.div>
+
+          {/* Headline with highlighted words */}
+          <h1 className="mt-4 text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto">
+            Tools &amp;{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600">
+              Generative Utilities Hub
+            </span>
+          </h1>
+
+          {/* Guiding-principles copy */}
+          <p className="mt-3 text-xs sm:text-base text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
+            Supercharge your workflow with CareerNova's suite of generative AI tools and career calculators. Get instant ATS resumes, startup plans, and financial estimates — 100% free with complete privacy and zero sign-ups.
           </p>
+
+          {/* Trust chip */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-slate-200 shadow-xs text-[11px] sm:text-xs font-bold text-slate-800">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              100% Free • Zero Sign-Ups • Full Privacy
+            </span>
+          </div>
 
           {/* Active Tool Back Button (if currently open) */}
           {activeRunningTool && (
             <div className="mt-5 flex justify-center">
               <button
                 onClick={handleCloseTool}
-                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-xs text-white border border-white/30 text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 backdrop-blur-xs text-white border border-indigo-500/30 text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer shadow-md shadow-indigo-600/30"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Tools Directory</span>
@@ -388,7 +418,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSave
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-xs"
+        className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 via-violet-50 to-fuchsia-50 border border-indigo-200/70 shadow-sm shadow-indigo-600/5"
       >
         <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 custom-scrollbar">
           {categories.map((cat) => (
@@ -398,7 +428,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSave
               className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-indigo-900/70 hover:text-indigo-900 hover:bg-white/70'
               }`}
             >
               {cat}
@@ -407,13 +437,13 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSave
         </div>
 
         <div className="relative w-full sm:w-80 lg:w-96">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-indigo-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by tool name, role, or keyword (e.g. ATS, CGPA, Legal)..."
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/80 border border-indigo-200 text-xs text-slate-900 placeholder-indigo-400/70 focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
           />
         </div>
       </motion.div>
