@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 import {
   Wrench,
   Search,
-  Sparkles,
   FileText,
   Lightbulb,
   PieChart,
@@ -25,8 +24,7 @@ import {
   Zap,
   CheckCircle2,
   Lock,
-  Download,
-  ShieldCheck
+  Download
 } from 'lucide-react';
 import { ResumeBuilder } from '../career/ResumeBuilder';
 import { AiResumeAssistant } from '../ai/AiResumeAssistant';
@@ -271,70 +269,33 @@ export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSave
 
   return (
     <div className="space-y-8 sm:space-y-10">
-      {/* 1. Hero Banner — real illustration background with live overlaid text (headline, eyebrow badge, guiding-principles copy) */}
+      {/* 1. Hero Banner — banner image carries its own title/copy, no overlaid text */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm min-h-[300px] sm:min-h-[360px] lg:min-h-[420px] flex items-center"
+        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
       >
-        {/* Illustration background */}
+        {/* Illustration banner (already contains title, description & badges) */}
         <img
           src="/assets/tools-hero-banner.png"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
+          alt="Tools & Generative Utilities Hub"
+          className="w-full h-auto object-cover block"
         />
-        {/* Soft wash so text stays readable on every screen size, strongest in the center where the copy sits */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/55 via-white/35 to-white/55" />
-        <div className="absolute inset-0 bg-white/10" />
 
-        <div className="relative z-10 w-full px-5 sm:px-10 py-10 sm:py-12 text-center">
-          {/* Eyebrow Badge */}
-          <motion.div
-            animate={{ y: [-4, 0, -4] }}
-            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-600/10 border border-indigo-500/30 text-indigo-700 text-[10px] sm:text-xs font-bold shadow-md uppercase tracking-widest"
-          >
-            <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span>Our Guiding Principles</span>
-          </motion.div>
-
-          {/* Headline with highlighted words */}
-          <h1 className="mt-4 text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight max-w-3xl mx-auto">
-            Tools &amp;{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600">
-              Generative Utilities Hub
-            </span>
-          </h1>
-
-          {/* Guiding-principles copy */}
-          <p className="mt-3 text-xs sm:text-base text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
-            Supercharge your workflow with CareerNova's suite of generative AI tools and career calculators. Get instant ATS resumes, startup plans, and financial estimates — 100% free with complete privacy and zero sign-ups.
-          </p>
-
-          {/* Trust chip */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-slate-200 shadow-xs text-[11px] sm:text-xs font-bold text-slate-800">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              100% Free • Zero Sign-Ups • Full Privacy
-            </span>
+        {/* Active Tool Back Button (if currently open) */}
+        {activeRunningTool && (
+          <div className="absolute inset-0 flex items-end justify-center pb-5 sm:pb-6">
+            <button
+              onClick={handleCloseTool}
+              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 backdrop-blur-xs text-white border border-indigo-500/30 text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer shadow-md shadow-indigo-600/30"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Tools Directory</span>
+            </button>
           </div>
-
-          {/* Active Tool Back Button (if currently open) */}
-          {activeRunningTool && (
-            <div className="mt-5 flex justify-center">
-              <button
-                onClick={handleCloseTool}
-                className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 backdrop-blur-xs text-white border border-indigo-500/30 text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer shadow-md shadow-indigo-600/30"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to Tools Directory</span>
-              </button>
-            </div>
-          )}
-        </div>
+        )}
       </motion.div>
 
       {/* 2. If a tool is currently open in active execution mode */}
