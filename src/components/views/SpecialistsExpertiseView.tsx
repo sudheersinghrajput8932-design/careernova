@@ -24,9 +24,6 @@ import {
   Filter,
   Star,
   Award,
-  Zap,
-  Terminal,
-  Server,
   Share2,
   Target,
   Megaphone,
@@ -438,7 +435,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
         <img
           src="/assets/core-expertise-hero-banner.png"
           alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
-          className="w-full h-auto object-cover block"
+          className="w-full h-[200px] sm:h-[300px] lg:h-[380px] object-cover block"
         />
       </section>
 
@@ -463,35 +460,6 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Growth strategy / infographic section */}
-      <section>
-        <div className="mx-auto max-w-3xl rounded-3xl bg-slate-950 p-6 text-white shadow-xl sm:p-8 lg:p-10">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-indigo-200">
-            <Zap className="h-3.5 w-3.5" /> From Idea To Execution
-          </div>
-          <h2 className="mt-5 text-2xl font-black leading-tight sm:text-3xl">A practical growth system, not just a list of services.</h2>
-          <p className="mt-3 text-sm leading-6 text-slate-300">
-            CareerNova brings strategy, technology, marketing and career execution into one structured journey.
-          </p>
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {[
-              ['01', 'Understand', 'Goal, audience, skill or business challenge'],
-              ['02', 'Plan', 'Roadmap, tools, campaign or solution architecture'],
-              ['03', 'Build', 'Execute the workflow, asset, system or project'],
-              ['04', 'Measure', 'Track results, learn and improve']
-            ].map(([n, title, text]) => (
-              <div key={n} className="flex gap-3 rounded-2xl border border-white/10 bg-white/[.04] p-3 transition hover:bg-white/[.08]">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-[10px] font-black text-indigo-300">{n}</div>
-                <div>
-                  <div className="text-xs font-black">{title}</div>
-                  <div className="mt-0.5 text-[10px] leading-4 text-slate-400">{text}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
