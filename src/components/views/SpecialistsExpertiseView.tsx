@@ -435,7 +435,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
         <img
           src="/assets/core-expertise-hero-banner.png"
           alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
-          className="w-full h-[200px] sm:h-[300px] lg:h-[380px] object-cover block"
+          className="w-full h-[130px] sm:h-[190px] lg:h-[240px] object-cover block"
         />
       </section>
 
