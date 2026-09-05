@@ -17,7 +17,6 @@ import {
   Star
 } from 'lucide-react';
 import { TabId } from '../../types';
-import heroBanner from '../../assets/hero-banner.png';
 
 interface ServicesViewProps {
   onNavigate: (tab: TabId, subTool?: string) => void;
@@ -304,7 +303,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
       >
         {/* Real illustration as full hero background */}
         <img
-          src={heroBanner}
+          src="/assets/hero-banner.png"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
