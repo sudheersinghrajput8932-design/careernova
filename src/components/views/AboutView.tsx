@@ -160,42 +160,102 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="text-center space-y-4"
+        className="space-y-8"
       >
-        <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-md">
-          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-          <span>About CareerNova</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* LEFT: Text content */}
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-md">
+              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+              <span>About CareerNova</span>
+            </div>
+
+            <div className="mt-4 text-[11px] sm:text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">
+              People &nbsp;|&nbsp; Skills &nbsp;|&nbsp; Opportunities
+            </div>
+
+            <h1 className="mt-3 text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+              <span className="text-slate-900">Democratizing Career &amp; </span>
+              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Business Intelligence
+              </span>
+            </h1>
+
+            <p className="mt-4 text-slate-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              We build next-generation AI and growth-proven frameworks to make high-growth tools accessible to every student, job seeker, and entrepreneur.
+            </p>
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto lg:mx-0">
+              <div className="flex items-center gap-2.5 text-left">
+                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+                  <Users className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900 leading-tight">People First</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Driven by real needs</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 text-left">
+                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center">
+                  <Target className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900 leading-tight">Skills Growth</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Tools that empower</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 text-left">
+                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
+                  <TrendingUp className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-900 leading-tight">Real Opportunities</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">Measurable impact</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Illustration */}
+          <div className="relative">
+            <img
+              src="/assets/about-hero.png"
+              alt="CareerNova - people, skills and opportunities"
+              className="w-full h-auto"
+              loading="eager"
+            />
+          </div>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Democratizing Career &amp; Business Intelligence
-        </h1>
-
-        <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          We build next-generation AI and growth-proven frameworks to make high-growth tools accessible to every student, job seeker, and entrepreneur.
-        </p>
-
         {/* Mission Banner */}
-        <div className="mt-8 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden text-left">
+        <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-          <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-200 block mb-2">
-            Our Guiding Mission
-          </span>
-          <p className="text-lg sm:text-2xl font-bold italic leading-snug max-w-3xl">
-            "Our mission is to make career development, business planning and digital tools simple and accessible for everyone."
-          </p>
-          <div className="mt-6 sm:mt-8 flex items-center justify-between">
-            <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/20">
-              <Headphones className="w-3.5 h-3.5 text-indigo-200" />
-              <span>Direct Support &amp; Active Advisory</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+            <div className="w-11 h-11 flex-shrink-0 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
+              <Target className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex-1">
+              <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-200 block mb-2">
+                Our Guiding Mission
+              </span>
+              <p className="text-lg sm:text-2xl font-bold italic leading-snug max-w-3xl">
+                "Our mission is to make career development, business planning and digital tools simple and accessible for everyone."
+              </p>
             </div>
             <button
               onClick={() => onNavigate('contact')}
-              className="text-xs font-bold text-white hover:text-indigo-200 flex items-center gap-1 transition-colors cursor-pointer"
+              className="self-start sm:self-center flex-shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-colors cursor-pointer"
             >
               <span>Learn More</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
+          </div>
+
+          <div className="mt-6 flex items-center gap-2 bg-black/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/20 w-fit">
+            <Headphones className="w-3.5 h-3.5 text-indigo-200" />
+            <span>Direct Support &amp; Active Advisory</span>
           </div>
         </div>
       </motion.section>
