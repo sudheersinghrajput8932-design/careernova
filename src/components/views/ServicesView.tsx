@@ -301,15 +301,23 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="relative max-w-6xl mx-auto rounded-3xl border border-slate-200 bg-gradient-to-b from-indigo-50/50 via-white to-white overflow-hidden"
       >
-        <div className="flex items-end justify-center gap-2 lg:gap-4 px-4 sm:px-6 py-8 sm:py-10">
-          {/* Left illustration — hidden on mobile so there's no wasted gap on small screens */}
-          <img
-            src="/assets/hero-illustration-left.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
-          />
+        {/* Left illustration — pinned to the container's left & bottom edges, hidden on mobile so there's no wasted gap */}
+        <img
+          src="/assets/hero-illustration-left.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden lg:block absolute left-0 bottom-0 w-64 xl:w-72 h-auto select-none pointer-events-none z-0"
+        />
 
+        {/* Right illustration — pinned to the container's right & bottom edges, hidden on mobile so there's no wasted gap */}
+        <img
+          src="/assets/hero-illustration-right.png"
+          alt=""
+          aria-hidden="true"
+          className="hidden lg:block absolute right-0 bottom-0 w-64 xl:w-72 h-auto select-none pointer-events-none z-0"
+        />
+
+        <div className="relative z-10 px-4 sm:px-6 lg:px-72 xl:px-80 py-8 sm:py-10">
           {/* CENTER: real headline content */}
           <div className="text-center max-w-2xl mx-auto space-y-3 sm:space-y-4 py-2">
             {/* Floating Top Badge */}
@@ -349,14 +357,6 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               </div>
             </div>
           </div>
-
-          {/* Right illustration — hidden on mobile so there's no wasted gap on small screens */}
-          <img
-            src="/assets/hero-illustration-right.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
-          />
         </div>
       </motion.div>
 
