@@ -4400,7 +4400,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-viewport {
-            min-height: 380px;
+            min-height: auto;
           }
 
           .cn-review-track {
@@ -4408,7 +4408,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-review-card {
-            min-height: 380px;
+            min-height: auto;
+            padding: 22px;
           }
 
           .cn-review-card:nth-child(2),
@@ -4550,6 +4551,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           .cn-hero, .cn-section, .cn-metrics, .cn-reviews-section, .cn-final-cta { max-width: 100%; }
           .cn-hero-asset { height: 285px; width: 100%; }
           .cn-section-asset { height: 78px; }
+
+          .cnx-core-expertise {
+            margin-top: 36px;
+          }
+
+          .cn-reviews-section {
+            margin-top: 30px;
+            padding: 32px 0 20px;
+          }
+
+          .cn-final-cta {
+            margin-top: 40px;
+            padding: 28px 20px;
+          }
         }
 
       `}</style>
