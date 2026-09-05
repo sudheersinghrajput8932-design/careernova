@@ -168,8 +168,7 @@ const ProcessSection = () => {
       title: 'One Team, Not Five Vendors',
       typical: 'Juggling separate agencies for strategy, design, code & growth',
       ours: 'Strategy, engineering, analytics and growth — one accountable team',
-      icon: Users,
-      avatarId: 'avatar-m1',
+      image: '/assets/diff-team.png',
       persona: 'Trusted by founders',
       tone: 'tone-a',
     },
@@ -177,8 +176,7 @@ const ProcessSection = () => {
       title: 'Decisions Backed By Data',
       typical: 'Recommendations based on templates or guesswork',
       ours: 'Every decision grounded in real financial and analytics modeling',
-      icon: BarChart3,
-      avatarId: 'avatar-f1',
+      image: '/assets/diff-data.png',
       persona: 'Loved by analysts',
       tone: 'tone-b',
     },
@@ -186,8 +184,7 @@ const ProcessSection = () => {
       title: 'We Build It, Not Just Plan It',
       typical: 'Slide decks and strategy PDFs that never ship',
       ours: 'Working products, tools and systems you can actually use',
-      icon: Code2,
-      avatarId: 'avatar-m2',
+      image: '/assets/diff-build.png',
       persona: 'Backed by developers',
       tone: 'tone-c',
     },
@@ -195,8 +192,7 @@ const ProcessSection = () => {
       title: 'Transparent Pricing, Always',
       typical: 'Hidden hours and surprise invoices',
       ours: 'Clear scope and honest pricing — no surprises',
-      icon: ShieldCheck,
-      avatarId: 'avatar-f2',
+      image: '/assets/diff-pricing.png',
       persona: 'Trusted by clients',
       tone: 'tone-d',
     },
@@ -219,8 +215,6 @@ const ProcessSection = () => {
 
       <div className="cn-diff-grid">
         {differentiators.map((item, index) => {
-          const Icon = item.icon;
-
           return (
             <motion.div
               key={item.title}
@@ -235,17 +229,14 @@ const ProcessSection = () => {
               }}
               whileHover={{ y: -6 }}
             >
+              <div className="cn-diff-glow" aria-hidden="true" />
+
               <div className="cn-diff-top">
                 <div className="cn-diff-icon">
-                  <Icon size={20} />
+                  <img src={item.image} alt={item.title} loading="lazy" />
                 </div>
 
-                <div className="cn-diff-persona">
-                  <div className="cn-diff-avatar">
-                    <AssetVisual id={item.avatarId} label={item.persona} fit="slice" box="0 0 160 160" />
-                  </div>
-                  <span>{item.persona}</span>
-                </div>
+                <span className="cn-diff-persona">{item.persona}</span>
               </div>
 
               <h3>{item.title}</h3>
@@ -3181,13 +3172,13 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   position: relative;
   overflow: hidden;
   padding: 58px 46px 54px;
-  border-radius: 30px;
+  border-radius: 32px;
   background:
-    radial-gradient(circle at 12% 15%, rgba(139, 92, 246, 0.22), transparent 30%),
-    radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.16), transparent 32%),
+    radial-gradient(circle at 12% 15%, rgba(139, 92, 246, 0.25), transparent 32%),
+    radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.18), transparent 34%),
     linear-gradient(150deg, #0a0d2e 0%, #12123f 55%, #180f38 100%);
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: 0 30px 70px rgba(25, 15, 70, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(25, 15, 70, 0.25);
 }
 
 .cn-diff-particles {
@@ -3235,79 +3226,104 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .cn-diff-card {
   position: relative;
-  padding: 22px 20px 24px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 40px rgba(10, 8, 40, 0.25);
-  transition: border-color .3s ease, box-shadow .3s ease;
+  padding: 24px 20px 26px;
+  border-radius: 26px;
+  background: linear-gradient(165deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 18px 40px rgba(10, 8, 40, 0.3);
+  overflow: hidden;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 
 .cn-diff-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 24px 55px rgba(10, 8, 40, 0.35);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 26px 55px rgba(10, 8, 40, 0.4);
 }
 
+.cn-diff-glow {
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: .35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tone-a .cn-diff-glow { background: #a855f7; }
+.tone-b .cn-diff-glow { background: #38bdf8; }
+.tone-c .cn-diff-glow { background: #ec4899; }
+.tone-d .cn-diff-glow { background: #10b981; }
+
 .cn-diff-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .cn-diff-icon {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  color: #fff;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  padding: 10px;
 }
 
-.tone-a .cn-diff-icon { background: linear-gradient(135deg,#7c3aed,#a855f7); }
-.tone-b .cn-diff-icon { background: linear-gradient(135deg,#0ea5e9,#38bdf8); }
-.tone-c .cn-diff-icon { background: linear-gradient(135deg,#db2777,#ec4899); }
-.tone-d .cn-diff-icon { background: linear-gradient(135deg,#059669,#10b981); }
-
-.cn-diff-persona {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.cn-diff-avatar {
-  width: 26px;
-  height: 26px;
-  flex: 0 0 26px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-}
-
-.cn-diff-avatar .cn-asset-visual {
+.cn-diff-icon img {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  object-fit: contain;
+  display: block;
 }
 
-.cn-diff-persona span {
-  color: rgba(255, 255, 255, 0.55);
+.tone-a .cn-diff-icon { box-shadow: 0 8px 24px rgba(168,85,247,.35); }
+.tone-b .cn-diff-icon { box-shadow: 0 8px 24px rgba(56,189,248,.35); }
+.tone-c .cn-diff-icon { box-shadow: 0 8px 24px rgba(236,72,153,.35); }
+.tone-d .cn-diff-icon { box-shadow: 0 8px 24px rgba(16,185,129,.35); }
+
+.cn-diff-persona {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  max-width: 96px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: .2px;
-  max-width: 78px;
-  line-height: 1.25;
+  line-height: 1.3;
+  text-align: right;
 }
 
 .cn-diff-card h3 {
+  position: relative;
+  z-index: 1;
   margin: 0 0 14px;
   color: #fff;
   font-size: 17px;
@@ -3317,9 +3333,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-diff-row {
+  position: relative;
+  z-index: 1;
   padding: 10px 12px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-bottom: 8px;
+  backdrop-filter: blur(4px);
 }
 
 .cn-diff-row:last-child {
@@ -3338,9 +3357,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-diff-row-yes {
-  background: rgba(139, 92, 246, 0.14);
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+.tone-a .cn-diff-row-yes { box-shadow: inset 3px 0 0 #a855f7; }
+.tone-b .cn-diff-row-yes { box-shadow: inset 3px 0 0 #38bdf8; }
+.tone-c .cn-diff-row-yes { box-shadow: inset 3px 0 0 #ec4899; }
+.tone-d .cn-diff-row-yes { box-shadow: inset 3px 0 0 #10b981; }
 
 .cn-diff-row-yes p {
   color: #fff;
@@ -3372,11 +3396,25 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
 @media (max-width: 640px) {
   .cn-diff-section {
-    padding: 40px 20px 34px;
+    padding: 36px 16px 30px;
+    border-radius: 24px;
   }
 
   .cn-diff-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cn-diff-card {
+    padding: 20px 18px 22px;
+    border-radius: 22px;
+  }
+
+  .cn-diff-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border-radius: 14px;
   }
 }
         /* =================================================
