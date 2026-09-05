@@ -231,15 +231,11 @@ const ProcessSection = () => {
             >
               <div className="cn-diff-glow" aria-hidden="true" />
 
-              <div className="cn-diff-top">
-                <div className="cn-diff-icon">
-                  <img src={item.image} alt={item.title} loading="lazy" />
-                </div>
-
-                <span className="cn-diff-persona">{item.persona}</span>
-              </div>
-
               <h3>{item.title}</h3>
+
+              <div className="cn-diff-media">
+                <img src={item.image} alt={item.title} loading="lazy" />
+              </div>
 
               <div className="cn-diff-row cn-diff-row-no">
                 <span className="cn-diff-tag">Typical agencies</span>
@@ -3270,55 +3266,35 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 .tone-d .cn-diff-glow { background: #10b981; }
 
 .cn-diff-top {
+  display: none;
+}
+
+.cn-diff-media {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.cn-diff-icon {
-  width: 58px;
-  height: 58px;
-  flex: 0 0 58px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(6px);
-  padding: 10px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 30px rgba(10, 8, 40, 0.35);
 }
 
-.cn-diff-icon img {
+.cn-diff-media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 
-.tone-a .cn-diff-icon { box-shadow: 0 8px 24px rgba(168,85,247,.35); }
-.tone-b .cn-diff-icon { box-shadow: 0 8px 24px rgba(56,189,248,.35); }
-.tone-c .cn-diff-icon { box-shadow: 0 8px 24px rgba(236,72,153,.35); }
-.tone-d .cn-diff-icon { box-shadow: 0 8px 24px rgba(16,185,129,.35); }
+.tone-a .cn-diff-media { box-shadow: 0 12px 30px rgba(168,85,247,.28); }
+.tone-b .cn-diff-media { box-shadow: 0 12px 30px rgba(56,189,248,.28); }
+.tone-c .cn-diff-media { box-shadow: 0 12px 30px rgba(236,72,153,.28); }
+.tone-d .cn-diff-media { box-shadow: 0 12px 30px rgba(16,185,129,.28); }
 
 .cn-diff-persona {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  max-width: 96px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  line-height: 1.3;
-  text-align: right;
+  display: none;
 }
 
 .cn-diff-card h3 {
@@ -3410,11 +3386,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
     border-radius: 22px;
   }
 
-  .cn-diff-icon {
-    width: 48px;
-    height: 48px;
-    flex: 0 0 48px;
-    border-radius: 14px;
+  .cn-diff-media {
+    aspect-ratio: 16 / 11;
+    border-radius: 16px;
+    margin-bottom: 12px;
   }
 }
         /* =================================================
