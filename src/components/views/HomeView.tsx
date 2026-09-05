@@ -166,6 +166,7 @@ const ProcessSection = () => {
   const differentiators = [
     {
       title: 'One Team, Not Five Vendors',
+      highlight: 'One Team',
       typical: 'Juggling separate agencies for strategy, design, code & growth',
       ours: 'Strategy, engineering, analytics and growth — one accountable team',
       image: '/assets/diff-team.png',
@@ -174,6 +175,7 @@ const ProcessSection = () => {
     },
     {
       title: 'Decisions Backed By Data',
+      highlight: 'By Data',
       typical: 'Recommendations based on templates or guesswork',
       ours: 'Every decision grounded in real financial and analytics modeling',
       image: '/assets/diff-data.png',
@@ -182,6 +184,7 @@ const ProcessSection = () => {
     },
     {
       title: 'We Build It, Not Just Plan It',
+      highlight: 'Build It',
       typical: 'Slide decks and strategy PDFs that never ship',
       ours: 'Working products, tools and systems you can actually use',
       image: '/assets/diff-build.png',
@@ -190,6 +193,7 @@ const ProcessSection = () => {
     },
     {
       title: 'Transparent Pricing, Always',
+      highlight: 'Transparent Pricing',
       typical: 'Hidden hours and surprise invoices',
       ours: 'Clear scope and honest pricing — no surprises',
       image: '/assets/diff-pricing.png',
@@ -197,6 +201,18 @@ const ProcessSection = () => {
       tone: 'tone-d',
     },
   ];
+
+  const renderTitle = (title: string, highlight: string) => {
+    const idx = title.indexOf(highlight);
+    if (idx === -1) return title;
+    return (
+      <>
+        {title.slice(0, idx)}
+        <span className="cn-diff-highlight">{highlight}</span>
+        {title.slice(idx + highlight.length)}
+      </>
+    );
+  };
 
   return (
     <section className="cn-section cn-diff-section">
@@ -231,20 +247,10 @@ const ProcessSection = () => {
             >
               <div className="cn-diff-glow" aria-hidden="true" />
 
-              <h3>{item.title}</h3>
+              <h3>{renderTitle(item.title, item.highlight)}</h3>
 
               <div className="cn-diff-media">
                 <img src={item.image} alt={item.title} loading="lazy" />
-              </div>
-
-              <div className="cn-diff-row cn-diff-row-no">
-                <span className="cn-diff-tag">Typical agencies</span>
-                <p>{item.typical}</p>
-              </div>
-
-              <div className="cn-diff-row cn-diff-row-yes">
-                <span className="cn-diff-tag">CareerNova</span>
-                <p>{item.ours}</p>
               </div>
             </motion.div>
           );
@@ -3306,6 +3312,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   font-weight: 850;
   line-height: 1.25;
   letter-spacing: -.2px;
+}
+
+.cn-diff-highlight {
+  background: linear-gradient(90deg, #c4b5fd, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tone-b .cn-diff-highlight { background: linear-gradient(90deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; }
+.tone-c .cn-diff-highlight { background: linear-gradient(90deg, #f9a8d4, #ec4899); -webkit-background-clip: text; background-clip: text; }
+.tone-d .cn-diff-highlight { background: linear-gradient(90deg, #6ee7b7, #10b981); -webkit-background-clip: text; background-clip: text; }
+
+.cn-diff-media {
+  margin-bottom: 0;
 }
 
 .cn-diff-row {
