@@ -35,9 +35,6 @@ import {
   LineChart,
   BrainCircuit,
   MousePointer2,
-  ChevronLeft,
-  ChevronRight,
-  ArrowUpRight,
   Check,
   Layers3
 } from 'lucide-react';
@@ -391,33 +388,8 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeCard, setActiveCard] = useState<ExpertiseCardItem | null>(null);
-  const [heroIndex, setHeroIndex] = useState(0);
 
   const categories = ['All', 'Business & Analytics', 'Web & CMS', 'Mobile & iOS', 'Cloud & Growth'];
-
-  const heroSlides = [
-    {
-      eyebrow: 'CareerNova Core Expertise',
-      title: 'Turn Skills, Strategy & Technology Into Growth.',
-      text: 'Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.',
-      image: EXPERTISE_CARDS.find((card) => card.id === 'financial-modeling')?.image || '',
-      tag: 'Business Intelligence'
-    },
-    {
-      eyebrow: 'Marketing & Campaign Strategy',
-      title: 'Build Campaigns That Have A Clear Direction.',
-      text: 'From audience targeting and campaign structure to funnels, content angles and measurable KPIs — create a growth system instead of random promotion.',
-      image: EXPERTISE_CARDS.find((card) => card.id === 'marketing-campaign-growth')?.image || EXPERTISE_CARDS[0]?.image || '',
-      tag: 'Growth Strategy'
-    },
-    {
-      eyebrow: 'For Students & Professionals',
-      title: 'Build The Skills Your Next Opportunity Needs.',
-      text: 'Use practical career tools, project workflows, productivity systems and skill roadmaps to turn learning into a stronger professional profile.',
-      image: EXPERTISE_CARDS.find((card) => card.id === 'student-career-digital-tools')?.image || EXPERTISE_CARDS[0]?.image || '',
-      tag: 'Student Growth'
-    }
-  ];
 
   const filteredCards = useMemo(() => {
     return EXPERTISE_CARDS.filter((card) => {
@@ -459,127 +431,15 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
     }
   };
 
-  const nextSlide = () => setHeroIndex((i) => (i + 1) % heroSlides.length);
-  const prevSlide = () => setHeroIndex((i) => (i - 1 + heroSlides.length) % heroSlides.length);
-
   return (
     <div className="space-y-10 sm:space-y-14">
-      {/* HERO — animated editorial / agency style */}
-      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 bg-white shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(99,102,241,0.13),transparent_30%),radial-gradient(circle_at_90%_70%,rgba(168,85,247,0.10),transparent_28%)]" />
-        <div className="absolute -right-28 -top-28 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
-        <div className="absolute -left-28 bottom-0 h-64 w-64 rounded-full bg-violet-200/25 blur-3xl" />
-
-        <div className="relative grid lg:grid-cols-[1.02fr_.98fr] min-h-[520px]">
-          <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-14">
-            <motion.div
-              key={`eyebrow-${heroIndex}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wide text-indigo-700"
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              {heroSlides[heroIndex]?.eyebrow}
-            </motion.div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={heroIndex}
-                initial={{ opacity: 0, x: 35 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -25 }}
-                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-5"
-              >
-                <h1 className="max-w-2xl text-3xl font-black leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                  {heroSlides[heroIndex]?.title}
-                </h1>
-                <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-                  {heroSlides[heroIndex]?.text}
-                </p>
-
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <button
-                    onClick={() => document.getElementById('expertise-library')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
-                  >
-                    Explore Expertise
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                  </button>
-                  <a
-                    href={getWhatsAppLink('Hi Sudhir! I would like to discuss a CareerNova consultation.')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-800 transition hover:border-indigo-200 hover:bg-indigo-50"
-                  >
-                    <MessageCircle className="h-4 w-4 text-emerald-600" />
-                    Get Consultation
-                  </a>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-9 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {[
-                ['13+', 'Expertise Areas'],
-                ['4', 'Core Categories'],
-                ['360°', 'Growth Focus'],
-                ['1', 'Practical Platform']
-              ].map(([value, label]) => (
-                <div key={label} className="rounded-2xl border border-slate-100 bg-white/80 p-3 shadow-sm backdrop-blur">
-                  <div className="text-lg font-black text-slate-950">{value}</div>
-                  <div className="mt-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-400">{label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative min-h-[310px] overflow-hidden lg:min-h-full">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={heroIndex}
-                src={heroSlides[heroIndex]?.image || EXPERTISE_CARDS[0]?.image || ''}
-                alt={heroSlides[heroIndex]?.tag}
-                initial={{ opacity: 0, scale: 1.08, x: 45 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 1.04, x: -35 }}
-                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 h-full w-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            </AnimatePresence>
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent lg:bg-gradient-to-r lg:from-white/10 lg:via-transparent lg:to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 sm:bottom-7 sm:left-7 sm:right-7">
-              <motion.div
-                key={`tag-${heroIndex}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-2xl border border-white/30 bg-slate-950/70 px-4 py-3 text-white shadow-xl backdrop-blur-md"
-              >
-                <div className="text-[9px] font-bold uppercase tracking-widest text-indigo-200">Featured Expertise</div>
-                <div className="mt-0.5 text-sm font-black">{heroSlides[heroIndex]?.tag}</div>
-              </motion.div>
-              <div className="flex gap-2">
-                <button onClick={prevSlide} aria-label="Previous slide" className="rounded-xl border border-white/30 bg-black/45 p-2.5 text-white backdrop-blur transition hover:bg-black/65">
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button onClick={nextSlide} aria-label="Next slide" className="rounded-xl border border-white/30 bg-black/45 p-2.5 text-white backdrop-blur transition hover:bg-black/65">
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-            <div className="absolute right-6 top-6 flex gap-1.5">
-              {heroSlides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setHeroIndex(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                  className={`h-1.5 rounded-full transition-all ${i === heroIndex ? 'w-7 bg-white' : 'w-2 bg-white/50'}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+      {/* HERO — banner image carries its own title/copy, no overlaid text */}
+      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)]">
+        <img
+          src="/assets/core-expertise-hero-banner.png"
+          alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
+          className="w-full h-auto object-cover block"
+        />
       </section>
 
       {/* Floating capability strip */}
@@ -607,8 +467,8 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
       </section>
 
       {/* Growth strategy / infographic section */}
-      <section className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
-        <div className="rounded-3xl bg-slate-950 p-6 text-white shadow-xl sm:p-8">
+      <section>
+        <div className="mx-auto max-w-3xl rounded-3xl bg-slate-950 p-6 text-white shadow-xl sm:p-8 lg:p-10">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-indigo-200">
             <Zap className="h-3.5 w-3.5" /> From Idea To Execution
           </div>
@@ -616,7 +476,7 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
           <p className="mt-3 text-sm leading-6 text-slate-300">
             CareerNova brings strategy, technology, marketing and career execution into one structured journey.
           </p>
-          <div className="mt-7 space-y-3">
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
             {[
               ['01', 'Understand', 'Goal, audience, skill or business challenge'],
               ['02', 'Plan', 'Roadmap, tools, campaign or solution architecture'],
@@ -630,42 +490,6 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
                   <div className="mt-0.5 text-[10px] leading-4 text-slate-400">{text}</div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
-          <div className="text-center">
-            <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-violet-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-violet-700">
-              <Sparkles className="h-3.5 w-3.5" /> What You Can Explore
-            </div>
-            <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">One expertise library. Multiple growth paths.</h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-              Move between business intelligence, engineering, marketing strategy and student-focused tools without leaving the same experience.
-            </p>
-          </div>
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {[
-              [BarChart3, 'Business & Analytics', 'Financial models, BI, CRM, ERP and business growth.'],
-              [Code2, 'Web & CMS', 'Full-stack websites and scalable WordPress systems.'],
-              [Smartphone, 'Mobile & iOS', 'Native iOS development, launch and performance.'],
-              [Megaphone, 'Marketing & Growth', 'Campaigns, SEO, funnels and growth strategy.']
-            ].map(([Icon, title, text], i) => (
-              <motion.button
-                key={String(title)}
-                whileHover={{ y: -3 }}
-                onClick={() => setSelectedCategory(i === 3 ? 'Cloud & Growth' : (i === 0 ? 'Business & Analytics' : i === 1 ? 'Web & CMS' : 'Mobile & iOS'))}
-                className="group rounded-2xl border border-slate-100 bg-slate-50 p-4 text-left transition hover:border-indigo-100 hover:bg-white hover:shadow-lg"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="rounded-xl bg-white p-2.5 text-indigo-600 shadow-sm">
-                    {React.createElement(Icon as React.ComponentType<{ className?: string }>, { className: 'h-4 w-4' })}
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-slate-300 transition group-hover:text-indigo-600" />
-                </div>
-                <div className="mt-4 text-sm font-black text-slate-900">{String(title)}</div>
-                <div className="mt-1 text-[11px] leading-5 text-slate-500">{String(text)}</div>
-              </motion.button>
             ))}
           </div>
         </div>
@@ -737,6 +561,9 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
                 onClick={() => setActiveCard(card)}
                 className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-shadow hover:border-indigo-200 hover:shadow-[0_22px_55px_-25px_rgba(79,70,229,.35)]"
               >
+                {/* Per-card color strip so every card reads as its own colour */}
+                <div className={`h-1.5 w-full bg-gradient-to-r ${card.accentColor}`} />
+
                 <div className="relative h-44 overflow-hidden bg-slate-100">
                   <img
                     src={card.image}
@@ -764,11 +591,11 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
                 <div className="p-4">
                   <p className="min-h-[42px] text-xs leading-5 text-slate-500">{card.focus}</p>
                   <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
-                    <span className="flex items-center gap-1.5 text-[11px] font-black text-indigo-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                    <span className={`flex items-center gap-1.5 text-[11px] font-black bg-gradient-to-r ${card.accentColor} bg-clip-text text-transparent`}>
+                      <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${card.accentColor}`} />
                       View Specifications
                     </span>
-                    <span className="rounded-lg bg-indigo-50 p-1.5 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
+                    <span className={`rounded-lg bg-gradient-to-r ${card.accentColor} p-1.5 text-white shadow-sm transition group-hover:scale-110`}>
                       <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                     </span>
                   </div>
