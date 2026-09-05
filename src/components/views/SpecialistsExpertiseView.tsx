@@ -430,34 +430,92 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
 
   return (
     <div className="space-y-10 sm:space-y-14">
-      {/* HERO — banner image carries its own title/copy, no overlaid text */}
-      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)] bg-slate-950">
-        <div className="flex h-[190px] w-full items-center justify-center sm:h-[260px] lg:h-[320px]">
-          <img
-            src="/assets/core-expertise-hero-banner.png"
-            alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
-            className="h-full w-full object-contain"
-          />
+      {/* HERO — text on one side, illustration on the other (same pattern as the Home page hero) */}
+      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 bg-white shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(99,102,241,0.13),transparent_30%),radial-gradient(circle_at_90%_70%,rgba(168,85,247,0.10),transparent_28%)]" />
+        <div className="absolute -right-28 -top-28 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
+        <div className="absolute -left-28 bottom-0 h-64 w-64 rounded-full bg-violet-200/25 blur-3xl" />
+
+        <div className="relative grid items-center gap-8 p-6 sm:p-10 lg:grid-cols-2 lg:gap-10 lg:p-14">
+          <div>
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wide text-indigo-700">
+              <Sparkles className="h-3.5 w-3.5" />
+              CareerNova Core Expertise
+            </div>
+
+            <h1 className="mt-5 max-w-xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+              Turn Skills, Strategy &amp;{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600">
+                Technology
+              </span>{' '}
+              Into Growth.
+            </h1>
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
+              Explore practical expertise across business analytics, digital marketing, engineering, career tools, and growth systems — built to move ideas from planning to execution.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <button
+                onClick={() => document.getElementById('expertise-library')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5"
+              >
+                Explore Expertise
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </button>
+              <a
+                href={getWhatsAppLink('Hi Sudhir! I would like to discuss a CareerNova consultation.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-800 transition hover:border-indigo-200 hover:bg-indigo-50"
+              >
+                <MessageCircle className="h-4 w-4 text-emerald-600" />
+                Get Consultation
+              </a>
+            </div>
+
+            <div className="mt-9 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {[
+                ['13+', 'Expertise Areas'],
+                ['4', 'Core Categories'],
+                ['360°', 'Growth Focus'],
+                ['1', 'Practical Platform']
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-2xl border border-slate-100 bg-white/80 p-3 shadow-sm backdrop-blur">
+                  <div className="text-lg font-black text-slate-950">{value}</div>
+                  <div className="mt-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-400">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative flex items-center justify-center">
+            <img
+              src="/assets/core-expertise-hero-illustration.png"
+              alt="Skills, strategy and technology growth illustration"
+              className="w-full max-w-sm object-contain sm:max-w-md lg:max-w-lg"
+            />
+          </div>
         </div>
       </section>
 
       {/* Floating capability strip */}
       <section className="relative -mt-5 px-2 sm:px-8">
-        <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_20px_50px_-30px_rgba(15,23,42,0.25)] sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {[
-            [Target, 'Strategy First', 'Clear objectives before execution'],
-            [BrainCircuit, 'Practical Thinking', 'Tools that solve real problems'],
-            [MousePointer2, 'Action Oriented', 'Plans designed to be implemented'],
-            [Layers3, 'End-to-End', 'Business, tech & career in one view']
-          ].map(([Icon, title, text]) => (
-            <div key={String(title)} className="group border-b border-slate-100 p-4 last:border-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+            { Icon: Target, title: 'Strategy First', text: 'Clear objectives before execution', bg: 'bg-red-50', border: 'border-red-100', iconBg: 'bg-red-600', titleColor: 'text-red-950', textColor: 'text-red-700/80' },
+            { Icon: BrainCircuit, title: 'Practical Thinking', text: 'Tools that solve real problems', bg: 'bg-green-50', border: 'border-green-100', iconBg: 'bg-green-600', titleColor: 'text-green-950', textColor: 'text-green-700/80' },
+            { Icon: MousePointer2, title: 'Action Oriented', text: 'Plans designed to be implemented', bg: 'bg-purple-50', border: 'border-purple-100', iconBg: 'bg-purple-600', titleColor: 'text-purple-950', textColor: 'text-purple-700/80' },
+            { Icon: Layers3, title: 'End-to-End', text: 'Business, tech & career in one view', bg: 'bg-pink-50', border: 'border-pink-100', iconBg: 'bg-pink-600', titleColor: 'text-pink-950', textColor: 'text-pink-700/80' }
+          ].map(({ Icon, title, text, bg, border, iconBg, titleColor, textColor }) => (
+            <div key={title} className={`group rounded-2xl border ${border} ${bg} p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md`}>
               <div className="flex items-start gap-3">
-                <div className="rounded-xl bg-indigo-50 p-2 text-indigo-600 transition group-hover:scale-110">
-                  {React.createElement(Icon as React.ComponentType<{ className?: string }>, { className: 'h-4 w-4' })}
+                <div className={`rounded-xl ${iconBg} p-2 text-white transition group-hover:scale-110`}>
+                  <Icon className="h-4 w-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-black text-slate-900">{String(title)}</div>
-                  <div className="mt-1 text-[10px] leading-4 text-slate-500">{String(text)}</div>
+                  <div className={`text-xs font-black ${titleColor}`}>{title}</div>
+                  <div className={`mt-1 text-[10px] leading-4 ${textColor}`}>{text}</div>
                 </div>
               </div>
             </div>
