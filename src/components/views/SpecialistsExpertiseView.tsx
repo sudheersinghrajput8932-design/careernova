@@ -431,12 +431,14 @@ export const SpecialistsExpertiseView: React.FC<SpecialistsExpertiseViewProps> =
   return (
     <div className="space-y-10 sm:space-y-14">
       {/* HERO — banner image carries its own title/copy, no overlaid text */}
-      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)]">
-        <img
-          src="/assets/core-expertise-hero-banner.png"
-          alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
-          className="w-full h-[130px] sm:h-[190px] lg:h-[240px] object-cover block"
-        />
+      <section className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-indigo-100 shadow-[0_25px_80px_-35px_rgba(79,70,229,0.35)] bg-slate-950">
+        <div className="flex h-[190px] w-full items-center justify-center sm:h-[260px] lg:h-[320px]">
+          <img
+            src="/assets/core-expertise-hero-banner.png"
+            alt="CareerNova Core Expertise — Turn Skills, Strategy & Technology Into Growth"
+            className="h-full w-full object-contain"
+          />
+        </div>
       </section>
 
       {/* Floating capability strip */}
