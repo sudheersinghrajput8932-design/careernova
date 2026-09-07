@@ -6,12 +6,15 @@ import {
   RotateCcw,
   ChevronDown,
   ArrowRight,
+  ArrowDown,
   Sparkles,
   Check,
   Copy,
   Briefcase,
   Rocket,
-  PhoneCall
+  PhoneCall,
+  Wrench,
+  BookOpen
 } from 'lucide-react';
 import { TabId, SubToolId } from '../../types';
 
@@ -75,6 +78,22 @@ export const QUICK_SERVICE_PILLS: QuickServicePill[] = [
     query: "How can I book a Free Consultation with CareerNova?",
     pillClasses: 'bg-gradient-to-r from-emerald-50/90 to-teal-50/90 border-emerald-200/80 text-emerald-900 hover:border-emerald-400 hover:bg-emerald-100/80 shadow-2xs',
     iconClasses: 'text-emerald-600',
+  },
+  {
+    id: 'free-tools',
+    label: 'Free Tools',
+    icon: Wrench,
+    query: "What free tools does CareerNova's Tools hub offer?",
+    pillClasses: 'bg-gradient-to-r from-violet-50/90 to-purple-50/90 border-violet-200/80 text-violet-900 hover:border-violet-400 hover:bg-violet-100/80 shadow-2xs',
+    iconClasses: 'text-violet-600',
+  },
+  {
+    id: 'blog-guides',
+    label: 'Blog & Guides',
+    icon: BookOpen,
+    query: "What topics does the CareerNova blog cover?",
+    pillClasses: 'bg-gradient-to-r from-pink-50/90 to-rose-50/90 border-pink-200/80 text-pink-900 hover:border-pink-400 hover:bg-pink-100/80 shadow-2xs',
+    iconClasses: 'text-pink-600',
   },
 ];
 
@@ -286,9 +305,13 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const userScrolledUpRef = useRef(false);
 
   // 1. Session Memory Restoration from localStorage
   useEffect(() => {
@@ -376,17 +399,60 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
     };
   }, [saveSession]);
 
-  // Auto-scroll chat
-  const scrollToBottom = () => {
+  // Auto-scroll chat — but don't yank the user down if they've scrolled up to re-read history
+  const scrollToBottom = (force = false) => {
+    if (!force && userScrolledUpRef.current) return;
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleMessagesScroll = () => {
+    const el = messagesContainerRef.current;
+    if (!el) return;
+    const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    const scrolledUp = distanceFromBottom > 64;
+    userScrolledUpRef.current = scrolledUp;
+    setShowJumpToLatest(scrolledUp);
+  };
+
+  const jumpToLatest = () => {
+    userScrolledUpRef.current = false;
+    setShowJumpToLatest(false);
+    scrollToBottom(true);
   };
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom();
+      userScrolledUpRef.current = false;
+      setShowJumpToLatest(false);
+      scrollToBottom(true);
       setTimeout(() => inputRef.current?.focus(), 150);
     }
-  }, [isOpen, messages]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  // Close on outside click or Escape — expected behaviour for a professional widget
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (widgetRef.current && !widgetRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
 
   const handleOpenToggle = () => {
     setIsOpen((prev) => !prev);
@@ -495,16 +561,28 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
       let fallbackText = '';
       const lowerQuery = query.toLowerCase();
 
-      if (lowerQuery.includes('core expertise') || lowerQuery.includes('10 core') || lowerQuery.includes('specialties') || lowerQuery.includes('pillars')) {
+      if (/^(hi|hello|hey|namaste|yo|hii+|hola)\b/.test(lowerQuery.trim())) {
+        fallbackText = `👋 Hey there! I'm the CareerNova AI Assistant.\n\nI can help you with:\n- 🎯 **Core Expertise** — our 10 expertise pillars\n- 🧰 **Tools** — free calculators & generators\n- 💼 **Services** — engineering, business & growth solutions\n- 📚 **Blog** — career & business guides\n- 📞 **Free Consultation** — talk to the team directly\n\nWhat would you like to explore?`;
+      } else if (lowerQuery.includes('thank') || lowerQuery.includes('shukriya') || lowerQuery.includes('thanku')) {
+        fallbackText = `You're welcome! 😊 If anything else comes to mind — services, tools, pricing, or a free consultation — I'm right here.`;
+      } else if (lowerQuery.includes('core expertise') || lowerQuery.includes('10 core') || lowerQuery.includes('specialties') || lowerQuery.includes('pillars')) {
         fallbackText = `CareerNova delivers end-to-end excellence across our **10 Core Expertise Pillars**:\n\n1. 📊 **Financial Modeling & Valuation**: DCF analysis, 3-statement models, unit economics (LTV/CAC), and investment pitch decks.\n2. 📈 **Business Intelligence & Analytics**: Executive KPI dashboards, SQL data pipelines, Power BI & Tableau visualization.\n3. 🔄 **Enterprise CRM & ERP Systems**: Salesforce, HubSpot, SAP integration, and automated workflow architecture.\n4. 🎯 **Strategic IT & Agile Project Management**: Scrum/Kanban roadmapping, sprint velocity tracking, Jira, and risk mitigation.\n5. 🌐 **Full-Stack Web Architecture**: Scalable, high-performance web applications with React, Next.js, Node.js, and TypeScript.\n6. ⚡ **Custom WordPress & CMS Engineering**: Bespoke high-speed themes, WooCommerce engines, and security hardening.\n7. 📱 **Native iOS Swift & SwiftUI**: High-velocity iOS apps with clean MVVM architecture, CoreData offline sync, and StoreKit IAP.\n8. ☁️ **Microservices, APIs & Cloud Scalability**: REST/GraphQL APIs, Docker containers, Kubernetes, and AWS/GCP serverless pipelines.\n9. 🚀 **App Store Optimization (ASO) & Growth**: Keyword index rank optimization, screenshot conversion A/B testing, and organic downloads.\n10. 🔍 **Advanced Technical SEO & Discovery**: Core Web Vitals optimization, schema markup, and organic search traffic growth.\n\nWhich core discipline would you like to discuss for your project or career?`;
       } else if (lowerQuery.includes('our services') || lowerQuery.includes('what tech and business') || lowerQuery.includes('services does careernova offer') || lowerQuery.includes('services & solutions') || lowerQuery.includes('offerings')) {
         fallbackText = `Here is a summary of CareerNova's **Tech & Business Offerings**:\n\n💻 **Engineering & Software Development**\n- Modern Full-Stack web platforms (React, Next.js, Node.js, TypeScript)\n- Native iOS mobile applications built with Swift & SwiftUI\n- Resilient cloud APIs, microservices, and automated database sync\n\n📊 **Financial Modeling & Strategic Business Analytics**\n- Startup financial models (DCF, 3-statement projections, unit economics)\n- Executive BI dashboards & automated data pipelines (Power BI, Tableau)\n- Enterprise CRM/ERP workflow integrations (Salesforce, HubSpot)\n\n🚀 **Growth, SEO & Store Discovery**\n- High-impact App Store Optimization (ASO) & conversion rate optimization\n- Advanced technical SEO audits & Core Web Vitals optimization\n\n🎯 **Career Strategy & Mentorship**\n- High-scoring ATS resume restructuring (Google's XYZ bullet formula)\n- STAR-method technical and behavioral interview preparation\n\nWould you like a free consultation on any of these services?`;
+      } else if (lowerQuery.includes('tools hub') || lowerQuery.includes('free tools') || lowerQuery.includes('generative utilities') || lowerQuery.includes('tools does careernova') || (lowerQuery.includes('tools') && !lowerQuery.includes('toolkit for'))) {
+        fallbackText = `🧰 **CareerNova Tools & Generative Utilities Hub** is a free suite of instant AI tools & calculators — no sign-up needed:\n\n- 📄 Resume & ATS optimization generators\n- 💰 Business calculators (break-even, unit economics, pricing)\n- 📊 Quick financial & growth estimators\n- ✍️ Content & productivity generators\n\nHead to the **Tools** tab in the navbar to try them instantly — 100% free and private. Want me to point you to a specific type of tool?`;
+      } else if (lowerQuery.includes('blog') || lowerQuery.includes('article') || lowerQuery.includes('guide') || lowerQuery.includes('playbook')) {
+        fallbackText = `📚 The **CareerNova Blog** covers practical, no-fluff guides across:\n\n- 🎯 **Career** — resumes, interviews, job-search strategy\n- 💼 **Business** — startup playbooks, pitch decks, growth models\n- 📣 **Marketing** — SEO, campaigns, funnels\n- 🤖 **AI** — productivity workflows & AI-powered tooling\n\nYou can filter by category and search by keyword on the Blog page. Want me to recommend an article on a specific topic?`;
+      } else if (lowerQuery.includes('about careernova') || lowerQuery.includes('who is careernova') || lowerQuery.includes('what is careernova') || lowerQuery.includes('company') || lowerQuery.includes('who are you') || lowerQuery.includes('mission')) {
+        fallbackText = `**CareerNova** is a practical growth partner combining tech engineering, business strategy, and career mentorship in one place.\n\nWe help individuals and businesses turn skills, strategy and technology into real growth — through hands-on services, free tools, and expert guidance led by **Sudhir Singh Rajput** and the team.\n\nCheck the **About Us** page for our full story, or ask me about a specific service!`;
+      } else if (lowerQuery.includes('price') || lowerQuery.includes('cost') || lowerQuery.includes('charge') || lowerQuery.includes('fees') || lowerQuery.includes('kitna')) {
+        fallbackText = `Pricing depends on project scope, timeline, and complexity — so the fastest way to get an accurate number is a quick **Free Consultation**.\n\n📞 WhatsApp/Call: **+91 7007260391**\n✉️ Email: **sudheersinghrajput8932@gmail.com**\n\nShare a brief about your project or goal right here and the team will get back with a clear quote within 12–24 hours.`;
       } else if (lowerQuery.includes('consultation') || lowerQuery.includes('free consult') || lowerQuery.includes('contact') || lowerQuery.includes('hire') || lowerQuery.includes('book') || emailMatch || phoneMatch) {
         fallbackText = `👋 **Free Consultation & Advisory Connect**\n\nCareerNova offers free introductory consultations for software engineering projects, business strategy, and career transitions.\n\n**Direct Contact Reach:**\n- 📞 Phone / WhatsApp: **+91 7007260391**\n- ✉️ Direct Email: **sudheersinghrajput8932@gmail.com**\n- ⏱️ Turnaround: **Within 12–24 hours**\n\nYou can also share your project requirements, target role, or contact info right here in the chat, and Sudhir Singh & the team will follow up directly!`;
       } else if (lowerQuery.includes('meaning') || lowerQuery.includes('definition') || lowerQuery.includes('dictionary') || lowerQuery.includes('matlab') || lowerQuery.includes('define')) {
         fallbackText = `I specialize exclusively in CareerNova's ecosystem, core tech services, career guidance, and business solutions.\n\nLet me know how I can help you with our full-stack engineering, financial modeling, iOS development, or other solutions!`;
       } else if (lowerQuery.includes('resume') || lowerQuery.includes('cv') || lowerQuery.includes('ats')) {
-        fallbackText = `I can help optimize your resume for high ATS scores using Google's XYZ formula (*"Accomplished [X] as measured by [Y], by doing [Z]"*).\n\nPaste your current bullet points or target role, and I will refine them for you directly!`;
+        fallbackText = `I can help optimize your resume for high ATS scores using Google's XYZ formula (*"Accomplished [X] as measured by [Y], by doing [Z]"*).\n\nPaste your current bullet points or target role, and I will refine them for you directly! You can also try our free **ATS Resume tool** in the Tools hub.`;
       } else if (lowerQuery.includes('financial') || lowerQuery.includes('valuation') || lowerQuery.includes('dcf') || lowerQuery.includes('model')) {
         fallbackText = `CareerNova provides comprehensive **Financial Modeling & Valuation** services, including discounted cash flow (DCF) models, 3-statement projections, unit economics (LTV/CAC), and investment pitch decks.\n\nWould you like a consultation on structuring your financial model?`;
       } else if (lowerQuery.includes('ios') || lowerQuery.includes('swift') || lowerQuery.includes('app')) {
@@ -512,7 +590,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
       } else if (lowerQuery.includes('web') || lowerQuery.includes('full-stack') || lowerQuery.includes('react') || lowerQuery.includes('next')) {
         fallbackText = `CareerNova engineers production-grade **Full-Stack Web Architectures** using React, Next.js, TypeScript, Node.js, and scalable cloud databases.\n\nHow can we assist with your web platform or product development?`;
       } else {
-        fallbackText = `I am here to assist you with CareerNova's tech services, career mentoring, and 10 Core Expertise pillars (Full-Stack Dev, iOS Swift, Financial Modeling, BI, CRM/ERP, Cloud APIs, ASO, and SEO).\n\nHow can I help with your project or career goals today?`;
+        fallbackText = `I am here to assist you with CareerNova's tech services, free **Tools**, **Blog** guides, career mentoring, and 10 Core Expertise pillars (Full-Stack Dev, iOS Swift, Financial Modeling, BI, CRM/ERP, Cloud APIs, ASO, and SEO).\n\nHow can I help with your project or career goals today?`;
       }
 
       const botReply: ChatMessage = {
@@ -580,17 +658,18 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
   return (
     <div
       id="careernova-ai-assistant-widget"
+      ref={widgetRef}
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end print:hidden select-none"
     >
       {/* 1. Expandable Futuristic Glassmorphic Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.88, y: 30, transformOrigin: 'bottom right' }}
+            initial={{ opacity: 0, scale: 0.9, y: 20, transformOrigin: 'bottom right' }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.88, y: 30 }}
-            transition={{ type: 'spring', damping: 26, stiffness: 320, mass: 0.8 }}
-            className="glass-glossy-panel mb-4 w-[92vw] sm:w-[410px] md:w-[440px] h-[580px] max-h-[85vh] text-slate-900 rounded-3xl flex flex-col overflow-hidden select-text relative"
+            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            transition={{ type: 'spring', damping: 30, stiffness: 420, mass: 0.7 }}
+            className="glass-glossy-panel mb-4 w-[88vw] sm:w-[368px] md:w-[392px] h-[500px] max-h-[78vh] text-slate-900 rounded-3xl flex flex-col overflow-hidden select-text relative"
           >
             {/* Top Glowing Cyan Shimmer Horizon Line */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-90 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
@@ -641,7 +720,12 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
             </div>
 
             {/* Chat Messages Body */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 text-xs sm:text-sm scrollbar-thin scrollbar-thumb-slate-200/70">
+            <div
+              ref={messagesContainerRef}
+              onScroll={handleMessagesScroll}
+              aria-live="polite"
+              className="flex-1 p-4 overflow-y-auto space-y-4 text-xs sm:text-sm scrollbar-thin scrollbar-thumb-slate-200/70"
+            >
               {messages.map((msg, index) => {
                 const isGreetingMessage = msg.id === 'msg-welcome-default' || (index === 0 && msg.sender === 'bot');
 
@@ -716,6 +800,23 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
               <div ref={messagesEndRef} />
             </div>
 
+            {/* Jump-to-latest pill — appears when the user has scrolled up mid-conversation */}
+            <AnimatePresence>
+              {showJumpToLatest && (
+                <motion.button
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
+                  transition={{ duration: 0.18 }}
+                  onClick={jumpToLatest}
+                  className="absolute bottom-[68px] left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-bold shadow-lg cursor-pointer hover:bg-slate-800 active:scale-95 transition-colors z-20"
+                >
+                  <ArrowDown className="w-3 h-3" />
+                  <span>New messages</span>
+                </motion.button>
+              )}
+            </AnimatePresence>
+
             {/* Futuristic Glossy Input Bar */}
             <form
               onSubmit={handleSendMessage}
@@ -728,6 +829,8 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask about CareerNova services, tech consulting, or career guidance..."
+                  maxLength={600}
+                  autoComplete="off"
                   className="flex-1 bg-transparent border-none text-slate-900 text-xs sm:text-sm placeholder-slate-400 focus:outline-none"
                   disabled={isLoading}
                 />
