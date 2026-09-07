@@ -60,40 +60,40 @@ export const QUICK_SERVICE_PILLS: QuickServicePill[] = [
     label: 'Core Expertise',
     icon: Briefcase,
     query: "What are CareerNova's 10 Core Expertise services?",
-    pillClasses: 'bg-gradient-to-r from-blue-50/90 to-indigo-50/90 border-blue-200/80 text-blue-900 hover:border-blue-400 hover:bg-blue-100/80 shadow-2xs',
-    iconClasses: 'text-blue-600',
+    pillClasses: 'bg-gradient-to-r from-indigo-500/15 to-indigo-400/10 border-indigo-400/30 text-indigo-200 hover:border-indigo-400/60 hover:bg-indigo-500/20 shadow-2xs',
+    iconClasses: 'text-indigo-300',
   },
   {
     id: 'our-services',
     label: 'Our Services',
     icon: Rocket,
     query: "What tech and business services does CareerNova offer?",
-    pillClasses: 'bg-gradient-to-r from-cyan-50/90 to-blue-50/90 border-cyan-200/80 text-cyan-900 hover:border-cyan-400 hover:bg-cyan-100/80 shadow-2xs',
-    iconClasses: 'text-cyan-600',
+    pillClasses: 'bg-gradient-to-r from-violet-500/15 to-indigo-500/10 border-violet-400/30 text-violet-200 hover:border-violet-400/60 hover:bg-violet-500/20 shadow-2xs',
+    iconClasses: 'text-violet-300',
   },
   {
     id: 'free-consultation',
     label: 'Free Consultation',
     icon: PhoneCall,
     query: "How can I book a Free Consultation with CareerNova?",
-    pillClasses: 'bg-gradient-to-r from-emerald-50/90 to-teal-50/90 border-emerald-200/80 text-emerald-900 hover:border-emerald-400 hover:bg-emerald-100/80 shadow-2xs',
-    iconClasses: 'text-emerald-600',
+    pillClasses: 'bg-gradient-to-r from-purple-500/15 to-violet-500/10 border-purple-400/30 text-purple-200 hover:border-purple-400/60 hover:bg-purple-500/20 shadow-2xs',
+    iconClasses: 'text-purple-300',
   },
   {
     id: 'free-tools',
     label: 'Free Tools',
     icon: Wrench,
     query: "What free tools does CareerNova's Tools hub offer?",
-    pillClasses: 'bg-gradient-to-r from-violet-50/90 to-purple-50/90 border-violet-200/80 text-violet-900 hover:border-violet-400 hover:bg-violet-100/80 shadow-2xs',
-    iconClasses: 'text-violet-600',
+    pillClasses: 'bg-gradient-to-r from-fuchsia-500/15 to-purple-500/10 border-fuchsia-400/30 text-fuchsia-200 hover:border-fuchsia-400/60 hover:bg-fuchsia-500/20 shadow-2xs',
+    iconClasses: 'text-fuchsia-300',
   },
   {
     id: 'blog-guides',
     label: 'Blog & Guides',
     icon: BookOpen,
     query: "What topics does the CareerNova blog cover?",
-    pillClasses: 'bg-gradient-to-r from-pink-50/90 to-rose-50/90 border-pink-200/80 text-pink-900 hover:border-pink-400 hover:bg-pink-100/80 shadow-2xs',
-    iconClasses: 'text-pink-600',
+    pillClasses: 'bg-gradient-to-r from-indigo-400/15 to-violet-400/10 border-indigo-300/30 text-indigo-100 hover:border-indigo-300/60 hover:bg-indigo-400/20 shadow-2xs',
+    iconClasses: 'text-indigo-200',
   },
 ];
 
@@ -621,29 +621,29 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
         <div className="flex items-center justify-end absolute top-0 right-0 -mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => handleCopyText(text, msgId)}
-            className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
+            className="p-1 rounded-md text-slate-500 hover:text-slate-200 hover:bg-white/10 transition-colors cursor-pointer"
             title="Copy message"
           >
             {copiedId === msgId ? (
-              <Check className="w-3 h-3 text-emerald-600" />
+              <Check className="w-3 h-3 text-emerald-400" />
             ) : (
               <Copy className="w-3 h-3" />
             )}
           </button>
         </div>
 
-        <div className="whitespace-pre-line text-xs sm:text-sm font-normal text-slate-800 leading-relaxed">
+        <div className="whitespace-pre-line text-xs sm:text-sm font-normal text-slate-100 leading-relaxed">
           {text.split('\n').map((line, lIdx) => {
             if (line.startsWith('### ')) {
               return (
-                <div key={lIdx} className="text-sm sm:text-base font-bold text-slate-900 my-1 tracking-tight">
+                <div key={lIdx} className="text-sm sm:text-base font-bold text-white my-1 tracking-tight">
                   {line.replace('### ', '').trim()}
                 </div>
               );
             }
             if (line.startsWith('## ')) {
               return (
-                <div key={lIdx} className="text-base sm:text-lg font-extrabold text-slate-900 my-1 tracking-tight">
+                <div key={lIdx} className="text-base sm:text-lg font-extrabold text-white my-1 tracking-tight">
                   {line.replace('## ', '').trim()}
                 </div>
               );
@@ -669,30 +669,30 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 16 }}
             transition={{ type: 'spring', damping: 30, stiffness: 420, mass: 0.7 }}
-            className="glass-glossy-panel mb-4 w-[88vw] sm:w-[368px] md:w-[392px] h-[500px] max-h-[78vh] text-slate-900 rounded-3xl flex flex-col overflow-hidden select-text relative"
+            className="bg-slate-950/95 backdrop-blur-2xl border border-white/10 mb-4 w-[88vw] sm:w-[368px] md:w-[392px] h-[500px] max-h-[78vh] text-slate-100 rounded-3xl flex flex-col overflow-hidden select-text relative shadow-2xl shadow-indigo-950/60"
           >
-            {/* Top Glowing Cyan Shimmer Horizon Line */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-90 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+            {/* Top Glowing Indigo/Violet Shimmer Horizon Line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-90 shadow-[0_0_12px_rgba(139,92,246,0.8)]" />
 
             {/* Header: Glossy Cyber Glass with Animated Robot Avatar */}
-            <div className="glass-glossy-panel-header px-5 py-3.5 flex items-center justify-between relative z-10">
+            <div className="px-5 py-3.5 flex items-center justify-between relative z-10 bg-gradient-to-r from-indigo-950/60 via-slate-900/60 to-violet-950/60 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="relative p-1.5 rounded-2xl bg-gradient-to-br from-white/90 to-cyan-50/80 border border-white/80 shadow-xs flex items-center justify-center">
+                <div className="relative p-1.5 rounded-2xl bg-gradient-to-br from-slate-800/90 to-indigo-950/80 border border-white/10 shadow-xs flex items-center justify-center">
                   <AnimatedRobotAvatar
                     className="w-7 h-7"
                     isLoading={isLoading}
                   />
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white shadow-xs" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-slate-900 shadow-xs" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-1.5">
+                  <h2 className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5">
                     <span>CareerNova Robo AI</span>
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-cyan-100/80 text-cyan-800 text-[9px] font-extrabold uppercase tracking-wider border border-cyan-200/80">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[9px] font-extrabold uppercase tracking-wider border border-indigo-400/30">
+                      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
                       <span>Advisor</span>
                     </span>
                   </h2>
-                  <p className="text-[11px] text-cyan-700 font-medium flex items-center gap-1">
+                  <p className="text-[11px] text-indigo-300 font-medium flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span>Active &amp; Ready</span>
                   </p>
@@ -702,7 +702,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={handleResetConversation}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-white/80 transition-all cursor-pointer border border-transparent hover:border-slate-200/80 hover:shadow-2xs active:scale-95"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-white/10 hover:shadow-2xs active:scale-95"
                   title="Reset conversation memory"
                   aria-label="Reset Conversation"
                 >
@@ -710,7 +710,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-white/80 transition-all cursor-pointer border border-transparent hover:border-slate-200/80 hover:shadow-2xs active:scale-95"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer border border-transparent hover:border-white/10 hover:shadow-2xs active:scale-95"
                   title="Minimize assistant"
                   aria-label="Close Assistant"
                 >
@@ -724,7 +724,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
               ref={messagesContainerRef}
               onScroll={handleMessagesScroll}
               aria-live="polite"
-              className="flex-1 p-4 overflow-y-auto space-y-4 text-xs sm:text-sm scrollbar-thin scrollbar-thumb-slate-200/70"
+              className="flex-1 p-4 overflow-y-auto space-y-4 text-xs sm:text-sm scrollbar-thin scrollbar-thumb-slate-700/70 bg-slate-950/60"
             >
               {messages.map((msg, index) => {
                 const isGreetingMessage = msg.id === 'msg-welcome-default' || (index === 0 && msg.sender === 'bot');
@@ -737,8 +737,8 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                     <div
                       className={`max-w-[92%] rounded-2xl p-3.5 leading-relaxed ${
                         msg.sender === 'user'
-                          ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white shadow-md shadow-blue-500/20 rounded-br-xs'
-                          : 'bg-white/85 backdrop-blur-md text-slate-800 border border-slate-200/80 shadow-xs rounded-bl-xs'
+                          ? 'bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 text-white shadow-md shadow-indigo-500/20 rounded-br-xs'
+                          : 'bg-slate-800/80 backdrop-blur-md text-slate-100 border border-white/10 shadow-xs rounded-bl-xs'
                       }`}
                     >
                       {msg.sender === 'bot' ? (
@@ -749,8 +749,8 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
 
                       {/* Small Interactive Options / Quick Service Pills right below greeting */}
                       {isGreetingMessage && (
-                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex flex-col gap-2">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                        <div className="mt-3 pt-2.5 border-t border-white/10 flex flex-col gap-2">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                             Quick Options:
                           </span>
                           <div className="flex flex-wrap items-center gap-1.5">
@@ -774,24 +774,24 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                         </div>
                       )}
                     </div>
-                    <span className="text-[10px] text-slate-400 mt-1 px-1">{msg.timestamp}</span>
+                    <span className="text-[10px] text-slate-500 mt-1 px-1">{msg.timestamp}</span>
                   </div>
                 );
               })}
 
               {/* Futuristic Quantum Pulse Thinking Animation */}
               {isLoading && (
-                <div className="flex items-center gap-3 p-3 bg-white/80 backdrop-blur-md border border-cyan-200/80 rounded-2xl rounded-bl-xs shadow-xs w-auto max-w-[220px]">
+                <div className="flex items-center gap-3 p-3 bg-slate-800/80 backdrop-blur-md border border-indigo-400/20 rounded-2xl rounded-bl-xs shadow-xs w-auto max-w-[220px]">
                   <div className="relative flex items-center justify-center w-6 h-6">
-                    <span className="absolute inset-0 rounded-full bg-cyan-400/30 animate-ping" />
+                    <span className="absolute inset-0 rounded-full bg-indigo-400/30 animate-ping" />
                     <AnimatedRobotAvatar className="w-5 h-5 relative z-10" isLoading />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-cyan-900">Robo AI Thinking</span>
+                    <span className="text-[11px] font-bold text-indigo-200">Robo AI Thinking</span>
                     <div className="flex items-center gap-1 mt-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-bounce" style={{ animationDelay: '300ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
                   </div>
                 </div>
@@ -809,7 +809,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                   exit={{ opacity: 0, y: 8, scale: 0.9 }}
                   transition={{ duration: 0.18 }}
                   onClick={jumpToLatest}
-                  className="absolute bottom-[68px] left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-bold shadow-lg cursor-pointer hover:bg-slate-800 active:scale-95 transition-colors z-20"
+                  className="absolute bottom-[68px] left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-[11px] font-bold shadow-lg shadow-indigo-950/50 cursor-pointer hover:from-indigo-500 hover:to-violet-500 active:scale-95 transition-colors z-20"
                 >
                   <ArrowDown className="w-3 h-3" />
                   <span>New messages</span>
@@ -820,9 +820,9 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
             {/* Futuristic Glossy Input Bar */}
             <form
               onSubmit={handleSendMessage}
-              className="p-3 bg-white/60 backdrop-blur-md border-t border-slate-200/70"
+              className="p-3 bg-slate-900/80 backdrop-blur-md border-t border-white/10"
             >
-              <div className="glass-glossy-input flex items-center gap-2 px-3 py-2 rounded-2xl transition-all">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-white/5 border border-white/10 focus-within:border-indigo-400/50 focus-within:bg-white/[0.07] transition-all">
                 <input
                   ref={inputRef}
                   type="text"
@@ -831,13 +831,13 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                   placeholder="Ask about CareerNova services, tech consulting, or career guidance..."
                   maxLength={600}
                   autoComplete="off"
-                  className="flex-1 bg-transparent border-none text-slate-900 text-xs sm:text-sm placeholder-slate-400 focus:outline-none"
+                  className="flex-1 bg-transparent border-none text-slate-100 text-xs sm:text-sm placeholder-slate-500 focus:outline-none"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="p-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 disabled:opacity-30 disabled:hover:from-cyan-500 text-white font-bold transition-all shadow-sm shadow-cyan-500/30 cursor-pointer disabled:cursor-not-allowed hover:scale-105 active:scale-95 flex items-center justify-center shrink-0"
+                  className="p-2 rounded-xl bg-gradient-to-r from-indigo-500 via-violet-600 to-purple-600 hover:from-indigo-400 hover:to-purple-500 disabled:opacity-30 disabled:hover:from-indigo-500 text-white font-bold transition-all shadow-sm shadow-indigo-500/30 cursor-pointer disabled:cursor-not-allowed hover:scale-105 active:scale-95 flex items-center justify-center shrink-0"
                   title="Send Message"
                   aria-label="Send Message"
                 >
@@ -859,15 +859,15 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
               animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               exit={{ opacity: 0, x: 20, y: 8, scale: 0.92 }}
               transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className="glass-glossy-panel absolute bottom-16 right-0 mb-2 w-[295px] sm:w-[330px] p-4 rounded-2xl text-slate-900 shadow-xl pointer-events-auto"
+              className="bg-slate-900/95 backdrop-blur-xl border border-white/10 absolute bottom-16 right-0 mb-2 w-[295px] sm:w-[330px] p-4 rounded-2xl text-slate-100 shadow-xl shadow-indigo-950/50 pointer-events-auto"
             >
               {/* Header inside Callout Window */}
-              <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
+              <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                  <div className="p-1 rounded-lg bg-cyan-50 border border-cyan-100">
-                    <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+                  <div className="p-1 rounded-lg bg-indigo-500/15 border border-indigo-400/20">
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-300" />
                   </div>
-                  <span className="text-xs font-bold text-slate-800 tracking-tight">
+                  <span className="text-xs font-bold text-slate-100 tracking-tight">
                     CareerNova AI Assistant
                   </span>
                 </div>
@@ -876,7 +876,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                 <button
                   onClick={handleDismissCallout}
                   aria-label="Close message"
-                  className="p-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-[#2563eb] transition-all cursor-pointer border border-[#2563eb]/30 hover:scale-110 active:scale-95 shadow-xs"
+                  className="p-1.5 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 transition-all cursor-pointer border border-indigo-400/30 hover:scale-110 active:scale-95 shadow-xs"
                   title="Dismiss callout"
                 >
                   <X className="w-3.5 h-3.5 stroke-[3]" />
@@ -888,16 +888,16 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
                 onClick={handleOpenToggle}
                 className="cursor-pointer group select-none"
               >
-                <p className="text-xs sm:text-sm font-medium text-slate-700 leading-relaxed group-hover:text-cyan-600 transition-colors">
+                <p className="text-xs sm:text-sm font-medium text-slate-300 leading-relaxed group-hover:text-violet-300 transition-colors">
                   Looking for tech architecture, full-stack development, or career consulting? Tap here to ask!
                 </p>
 
-                <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100">
-                  <span className="text-[11px] font-bold text-cyan-600 group-hover:text-cyan-700 flex items-center gap-1.5">
+                <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/10">
+                  <span className="text-[11px] font-bold text-violet-300 group-hover:text-violet-200 flex items-center gap-1.5">
                     <span>Ask CareerNova AI</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </span>
-                  <span className="text-[10px] text-slate-400">Instant AI reply</span>
+                  <span className="text-[10px] text-slate-500">Instant AI reply</span>
                 </div>
               </div>
             </motion.div>
@@ -906,14 +906,14 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({ onNavigate
 
         {/* The Main Stylized Animated Robot Trigger Button */}
         <div className="relative group robot-hover-trigger">
-          {/* Futuristic Glowing Neon Cyan / Blue Aura Ring */}
-          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-cyan-400/30 via-blue-500/30 to-indigo-500/30 blur-md animate-cyber-aura pointer-events-none" />
+          {/* Futuristic Glowing Indigo / Violet Aura Ring */}
+          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-indigo-400/30 via-violet-500/30 to-purple-500/30 blur-md animate-cyber-aura pointer-events-none" />
 
           <button
             onClick={handleOpenToggle}
             id="careernova-ai-chatbot-trigger"
             aria-label="Open CareerNova Robo AI Assistant"
-            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white shadow-xl shadow-cyan-950/40 hover:shadow-2xl hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer border-2 border-white/80 ring-4 ring-cyan-500/20"
+            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 text-white shadow-xl shadow-indigo-950/50 hover:shadow-2xl hover:shadow-violet-500/40 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer border-2 border-white/10 ring-4 ring-indigo-500/20"
           >
             {isOpen ? (
               <ChevronDown className="w-6 h-6 text-white" />
