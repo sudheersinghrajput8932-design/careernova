@@ -30,6 +30,74 @@ const smoothTransition = {
   ease: [0.16, 1, 0.3, 1] as const,
 };
 
+// Distinct visual theme per category so cards read differently at a glance
+const CATEGORY_THEME: Record<
+  string,
+  {
+    accentBar: string;
+    border: string;
+    glow: string;
+    badge: string;
+    title: string;
+    tag: string;
+    dot: string;
+    cta: string;
+    ctaBadge: string;
+    arrow: string;
+  }
+> = {
+  Career: {
+    accentBar: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+    border: 'hover:border-blue-300',
+    glow: 'hover:shadow-[0_22px_55px_-25px_rgba(37,99,235,0.45)]',
+    badge: 'bg-blue-50 text-blue-700 border-blue-200',
+    title: 'text-blue-700 group-hover:text-blue-900',
+    tag: 'text-blue-700 bg-blue-50 border-blue-100',
+    dot: 'bg-blue-500',
+    cta: 'bg-blue-50 border-blue-100',
+    ctaBadge: 'text-blue-700',
+    arrow: 'text-blue-600 group-hover:text-blue-800'
+  },
+  Business: {
+    accentBar: 'bg-gradient-to-r from-purple-500 to-fuchsia-500',
+    border: 'hover:border-purple-300',
+    glow: 'hover:shadow-[0_22px_55px_-25px_rgba(147,51,234,0.45)]',
+    badge: 'bg-purple-50 text-purple-700 border-purple-200',
+    title: 'text-purple-700 group-hover:text-purple-900',
+    tag: 'text-purple-700 bg-purple-50 border-purple-100',
+    dot: 'bg-purple-500',
+    cta: 'bg-purple-50 border-purple-100',
+    ctaBadge: 'text-purple-700',
+    arrow: 'text-purple-600 group-hover:text-purple-800'
+  },
+  Marketing: {
+    accentBar: 'bg-gradient-to-r from-orange-500 to-pink-500',
+    border: 'hover:border-orange-300',
+    glow: 'hover:shadow-[0_22px_55px_-25px_rgba(249,115,22,0.45)]',
+    badge: 'bg-orange-50 text-orange-700 border-orange-200',
+    title: 'text-orange-700 group-hover:text-orange-900',
+    tag: 'text-orange-700 bg-orange-50 border-orange-100',
+    dot: 'bg-orange-500',
+    cta: 'bg-orange-50 border-orange-100',
+    ctaBadge: 'text-orange-700',
+    arrow: 'text-orange-600 group-hover:text-orange-800'
+  },
+  AI: {
+    accentBar: 'bg-gradient-to-r from-emerald-500 to-teal-500',
+    border: 'hover:border-emerald-300',
+    glow: 'hover:shadow-[0_22px_55px_-25px_rgba(16,185,129,0.45)]',
+    badge: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    title: 'text-emerald-700 group-hover:text-emerald-900',
+    tag: 'text-emerald-700 bg-emerald-50 border-emerald-100',
+    dot: 'bg-emerald-500',
+    cta: 'bg-emerald-50 border-emerald-100',
+    ctaBadge: 'text-emerald-700',
+    arrow: 'text-emerald-600 group-hover:text-emerald-800'
+  }
+};
+
+const DEFAULT_THEME = CATEGORY_THEME.Career;
+
 export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNavigate }) => {
   const notifyFn = (type: 'success' | 'error' | 'info', title: string, description?: string) => {
     if (onNotify) onNotify(type, title, description);
@@ -63,24 +131,19 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
   return (
     <div className="space-y-10 sm:space-y-12">
-      {/* 1. Header with Scroll Reveal */}
+      {/* 1. Hero Banner — image carries its own title/copy, no overlaid text */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="text-center max-w-3xl mx-auto space-y-3"
+        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
       >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold shadow-xs">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-          <span>Knowledge &amp; Strategy Vault</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-          CareerNova <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Blog &amp; Playbooks</span>
-        </h1>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
-          Actionable recruitment hacks, VC pitch models, SEO growth checklists, and AI productivity guides tested by industry practitioners.
-        </p>
+        <img
+          src="/assets/blog-hero-banner.png"
+          alt="CareerNova Blog — Insights. Guidance. Opportunities."
+          className="w-full h-auto object-cover block"
+        />
       </motion.div>
 
       {/* 2. Filter & Search Bar with Scroll Reveal */}
@@ -121,7 +184,9 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
       {/* 3. Blog Cards Grid with Staggered Scroll Reveal */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        {filteredPosts.map((post, idx) => (
+        {filteredPosts.map((post, idx) => {
+          const theme = CATEGORY_THEME[post.category] || DEFAULT_THEME;
+          return (
           <motion.article
             key={post.id}
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
@@ -129,8 +194,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             viewport={{ once: true, amount: 0.15 }}
             transition={{ ...smoothTransition, delay: (idx % 4) * 0.08 }}
             onClick={() => setActivePost(post)}
-            className="group relative rounded-3xl bg-white border border-slate-200 hover:border-indigo-300 transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl shadow-xs overflow-hidden"
+            className={`group relative rounded-3xl bg-white border border-slate-200 transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1 shadow-xs overflow-hidden ${theme.border} ${theme.glow}`}
           >
+            {/* Per-category color strip */}
+            <div className={`h-1.5 w-full ${theme.accentBar}`} />
+
             {/* Top Cover Image */}
             <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-slate-100">
               <img
@@ -144,7 +212,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
               {/* Floating Category Badge & Read Time */}
               <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-white/95 text-indigo-700 border border-slate-200 backdrop-blur-md shadow-xs">
+                <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold border backdrop-blur-md shadow-xs ${theme.badge}`}>
                   {post.category}
                 </span>
                 <span className="flex items-center gap-1.5 text-[11px] font-semibold text-white bg-black/60 px-2.5 py-1 rounded-full border border-white/20 backdrop-blur-md">
@@ -157,7 +225,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             {/* Card Body */}
             <div className="p-6 space-y-3.5 flex-1 flex flex-col justify-between">
               <div className="space-y-2.5">
-                <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
+                <h2 className={`text-base sm:text-lg font-black leading-snug transition-colors ${theme.title}`}>
                   {post.title}
                 </h2>
 
@@ -170,7 +238,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                   {post.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 font-medium"
+                      className={`text-[10px] px-2.5 py-1 rounded-lg border font-medium ${theme.tag}`}
                     >
                       #{tag}
                     </span>
@@ -181,14 +249,14 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
               {/* Service CTA Preview & Read Link */}
               <div className="pt-4 border-t border-slate-100 space-y-3 mt-4">
                 {post.cta && (
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-indigo-50 border border-indigo-100 text-xs">
+                  <div className={`flex items-center justify-between p-2.5 rounded-xl border text-xs ${theme.cta}`}>
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
+                      <span className={`w-2 h-2 rounded-full shrink-0 animate-pulse ${theme.dot}`} />
                       <span className="text-[11px] text-slate-800 truncate font-semibold">
                         Specialist Service Available ({post.cta.price})
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider shrink-0 ml-2">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider shrink-0 ml-2 ${theme.ctaBadge}`}>
                       {post.cta.badge || 'Service'}
                     </span>
                   </div>
@@ -199,7 +267,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                     <User className="w-3.5 h-3.5 text-slate-400" />
                     {post.author}
                   </span>
-                  <span className="text-indigo-600 group-hover:text-indigo-800 font-bold flex items-center gap-1">
+                  <span className={`font-bold flex items-center gap-1 transition-colors ${theme.arrow}`}>
                     <span>Read Full Article</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
@@ -207,7 +275,8 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
               </div>
             </div>
           </motion.article>
-        ))}
+          );
+        })}
       </div>
 
       {/* Reader Modal */}
