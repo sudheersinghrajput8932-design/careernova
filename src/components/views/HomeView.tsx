@@ -34,7 +34,6 @@ import {
   Bot,
   Workflow,
   PieChart,
-  PenTool,
 } from 'lucide-react';
 type HomeViewProps = {
   onNavigate: (tab: any) => void;
@@ -362,53 +361,6 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
    CORE EXPERTISE — PREMIUM LANDING SECTION
 ========================================================= */
 
-const ExpertisePillarArt = ({ type }: { type: 'chart' | 'code' | 'career' }) => {
-  if (type === 'chart') {
-    return (
-      <div className="cnx-art-chart">
-        <span style={{ height: '35%' }} />
-        <span style={{ height: '55%' }} />
-        <span style={{ height: '42%' }} />
-        <span style={{ height: '78%' }} />
-        <span style={{ height: '96%' }} />
-        <div className="cnx-art-chart-badge">
-          <TrendingUp />
-          Bigger Growth
-        </div>
-      </div>
-    );
-  }
-
-  if (type === 'code') {
-    return (
-      <div className="cnx-art-code">
-        <div className="cnx-art-code-icon">
-          <Code2 />
-        </div>
-        <div className="cnx-art-code-dot d1">
-          <PenTool />
-        </div>
-        <div className="cnx-art-code-dot d2">
-          <BarChart3 />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="cnx-art-career">
-      <div className="cnx-art-career-cap">
-        <GraduationCap />
-      </div>
-      <div className="cnx-art-career-books">
-        <span />
-        <span />
-        <span />
-      </div>
-    </div>
-  );
-};
-
 const OfferingsSection = ({
   onNavigate,
 }: {
@@ -422,6 +374,7 @@ const OfferingsSection = ({
       text: 'Transform data into actionable insights and strategies that drive smarter business decisions.',
       accent: 'pillar-blue',
       art: 'chart' as const,
+      image: '/assets/pillar-business-analytics.png',
       tags: [
         { label: 'Business Analytics', icon: BarChart3, sub: 'business' },
         { label: 'Data Science & AI', icon: Bot, sub: 'business-intelligence' },
@@ -435,6 +388,7 @@ const OfferingsSection = ({
       text: 'Build modern digital solutions, create impactful campaigns and automate for greater efficiency.',
       accent: 'pillar-violet',
       art: 'code' as const,
+      image: '/assets/pillar-digital-technology.png',
       tags: [
         { label: 'Web Development', icon: Code2, sub: 'full-stack-web-dev' },
         { label: 'Digital Marketing', icon: Megaphone, sub: 'strategy' },
@@ -448,6 +402,7 @@ const OfferingsSection = ({
       text: 'Gain in-demand skills, master financial modeling and get career guidance for long-term success.',
       accent: 'pillar-green',
       art: 'career' as const,
+      image: '/assets/pillar-career-finance.png',
       tags: [
         { label: 'Financial Modeling', icon: Calculator, sub: 'break-even' },
         { label: 'Career Growth', icon: GraduationCap, sub: 'roadmap-guide' },
@@ -455,6 +410,45 @@ const OfferingsSection = ({
       ],
     },
   ];
+
+  // ---- flip-card state: each card auto-flips every 3s until the user taps it ----
+  const [pillarFlipped, setPillarFlipped] = useState<boolean[]>(() =>
+    expertisePillars.map(() => false)
+  );
+  const [pillarAutoRotate, setPillarAutoRotate] = useState<boolean[]>(() =>
+    expertisePillars.map(() => true)
+  );
+
+  useEffect(() => {
+    const timers = expertisePillars.map((_, index) =>
+      setInterval(() => {
+        setPillarAutoRotate((current) => {
+          if (!current[index]) return current;
+          setPillarFlipped((prevFlipped) => {
+            const next = [...prevFlipped];
+            next[index] = !next[index];
+            return next;
+          });
+          return current;
+        });
+      }, 3000)
+    );
+    return () => timers.forEach((timer) => clearInterval(timer));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handlePillarCardClick = (index: number) => {
+    setPillarAutoRotate((prev) => {
+      const next = [...prev];
+      next[index] = false;
+      return next;
+    });
+    setPillarFlipped((prev) => {
+      const next = [...prev];
+      next[index] = !next[index];
+      return next;
+    });
+  };
 
   const specialists = [
     {
@@ -692,18 +686,48 @@ const OfferingsSection = ({
 
         .cnx-pillar-card {
           position: relative;
+          min-height: 400px;
+          cursor: pointer;
+          perspective: 1600px;
+          transition: transform .3s ease;
+        }
+
+        .cnx-pillar-card:hover {
+          transform: translateY(-6px);
+        }
+
+        .cnx-pillar-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: 400px;
+          transition: transform .7s cubic-bezier(.4,.2,.2,1);
+          transform-style: preserve-3d;
+        }
+
+        .cnx-pillar-card.is-flipped .cnx-pillar-inner {
+          transform: rotateY(180deg);
+        }
+
+        .cnx-pillar-face {
+          position: absolute;
+          inset: 0;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           padding: 28px 24px 24px;
-          border: 1px solid rgba(79,70,229,.08);
           border-radius: 24px;
-          background: #fff;
-          box-shadow: 0 22px 48px -28px rgba(30,27,75,.25);
-          transition: transform .3s ease, box-shadow .3s ease;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
         }
 
-        .cnx-pillar-card::before {
+        .cnx-pillar-front {
+          border: 1px solid rgba(79,70,229,.08);
+          background: #fff;
+          box-shadow: 0 22px 48px -28px rgba(30,27,75,.25);
+        }
+
+        .cnx-pillar-front::before {
           content: '';
           position: absolute;
           top: 0;
@@ -712,13 +736,77 @@ const OfferingsSection = ({
           height: 4px;
         }
 
-        .pillar-blue.cnx-pillar-card::before { background: linear-gradient(90deg,#4f46e5,#818cf8); }
-        .pillar-violet.cnx-pillar-card::before { background: linear-gradient(90deg,#7c3aed,#a78bfa); }
-        .pillar-green.cnx-pillar-card::before { background: linear-gradient(90deg,#059669,#34d399); }
+        .pillar-blue .cnx-pillar-front::before { background: linear-gradient(90deg,#4f46e5,#818cf8); }
+        .pillar-violet .cnx-pillar-front::before { background: linear-gradient(90deg,#7c3aed,#a78bfa); }
+        .pillar-green .cnx-pillar-front::before { background: linear-gradient(90deg,#059669,#34d399); }
 
-        .cnx-pillar-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 30px 60px -26px rgba(30,27,75,.3);
+        .cnx-pillar-back {
+          transform: rotateY(180deg);
+          color: #fff;
+          justify-content: space-between;
+          box-shadow: 0 22px 48px -28px rgba(20,15,50,.5);
+        }
+
+        .pillar-blue .cnx-pillar-back { background: linear-gradient(150deg,#1e1b4b,#4338ca); }
+        .pillar-violet .cnx-pillar-back { background: linear-gradient(150deg,#2e1065,#6d28d9); }
+        .pillar-green .cnx-pillar-back { background: linear-gradient(150deg,#022c22,#047857); }
+
+        .cnx-pillar-tap-hint {
+          margin-top: auto;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          font-weight: 800;
+        }
+
+        .cnx-pillar-tap-hint svg { width: 13px; height: 13px; }
+
+        .pillar-blue .cnx-pillar-tap-hint { color: #4f46e5; }
+        .pillar-violet .cnx-pillar-tap-hint { color: #7c3aed; }
+        .pillar-green .cnx-pillar-tap-hint { color: #059669; }
+
+        .cnx-pillar-back-tagline {
+          font-size: 10.5px;
+          font-weight: 900;
+          letter-spacing: 1.3px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,.7);
+          margin-bottom: 6px;
+        }
+
+        .cnx-pillar-back-title {
+          margin: 0 0 10px;
+          font-size: 22px;
+          font-weight: 900;
+          line-height: 1.15;
+          color: #fff;
+        }
+
+        .cnx-pillar-back-text {
+          margin: 0 0 18px;
+          font-size: 13.5px;
+          line-height: 1.65;
+          color: rgba(255,255,255,.85);
+        }
+
+        .cnx-pillar-back .cnx-pillar-tags {
+          margin-bottom: 0;
+        }
+
+        .cnx-pillar-back .cnx-pillar-tag {
+          background: rgba(255,255,255,.1);
+          color: #fff;
+          border: 1px solid rgba(255,255,255,.18);
+        }
+
+        .cnx-pillar-back .cnx-pillar-tag:hover {
+          border-color: rgba(255,255,255,.45);
+          background: rgba(255,255,255,.16);
+        }
+
+        .cnx-pillar-back .cnx-pillar-cta {
+          color: #fff;
         }
 
         .cnx-pillar-number {
@@ -754,7 +842,7 @@ const OfferingsSection = ({
 
         .cnx-pillar-title {
           margin: 0 0 10px;
-          max-width: 62%;
+          max-width: 54%;
           font-size: 21px;
           font-weight: 900;
           line-height: 1.15;
@@ -771,8 +859,25 @@ const OfferingsSection = ({
         .cnx-pillar-art {
           position: relative;
           flex-shrink: 0;
-          width: 108px;
-          height: 92px;
+          width: 148px;
+          height: 128px;
+          border-radius: 16px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .pillar-blue .cnx-pillar-art { background: linear-gradient(160deg,#eef2ff,#e0e7ff); }
+        .pillar-violet .cnx-pillar-art { background: linear-gradient(160deg,#f5f3ff,#ede9fe); }
+        .pillar-green .cnx-pillar-art { background: linear-gradient(160deg,#ecfdf5,#d1fae5); }
+
+        .cnx-pillar-art-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 6px;
+          display: block;
         }
 
         .cnx-pillar-tags {
@@ -1949,7 +2054,12 @@ const OfferingsSection = ({
           .cnx-pillar-art {
             margin-top: 14px;
             width: 100%;
-            height: 84px;
+            height: 150px;
+          }
+
+          .cnx-pillar-card,
+          .cnx-pillar-inner {
+            min-height: 460px;
           }
 
 
@@ -2015,7 +2125,7 @@ const OfferingsSection = ({
           {expertisePillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
-              className={`cnx-pillar-card ${pillar.accent}`}
+              className={`cnx-pillar-card ${pillar.accent} ${pillarFlipped[index] ? 'is-flipped' : ''}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.18 }}
@@ -2024,46 +2134,77 @@ const OfferingsSection = ({
                 delay: index * 0.08,
                 ease: 'easeOut',
               }}
+              onClick={() => handlePillarCardClick(index)}
             >
-              <div className="cnx-pillar-number">{pillar.number}</div>
-              <div className="cnx-pillar-tagline">{pillar.eyebrow}</div>
+              <div className="cnx-pillar-inner">
+                {/* ---- FRONT ---- */}
+                <div className="cnx-pillar-face cnx-pillar-front">
+                  <div className="cnx-pillar-number">{pillar.number}</div>
+                  <div className="cnx-pillar-tagline">{pillar.eyebrow}</div>
 
-              <div className="cnx-pillar-body">
-                <h3 className="cnx-pillar-title">{pillar.title}</h3>
-                <div className="cnx-pillar-art">
-                  <ExpertisePillarArt type={pillar.art} />
+                  <div className="cnx-pillar-body">
+                    <h3 className="cnx-pillar-title">{pillar.title}</h3>
+                    <div className="cnx-pillar-art">
+                      <img
+                        src={pillar.image}
+                        alt={pillar.title}
+                        className="cnx-pillar-art-img"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  <p className="cnx-pillar-text">{pillar.text}</p>
+
+                  <div className="cnx-pillar-tap-hint">
+                    <Sparkles size={13} />
+                    Tap to see details
+                  </div>
+                </div>
+
+                {/* ---- BACK ---- */}
+                <div className="cnx-pillar-face cnx-pillar-back">
+                  <div>
+                    <div className="cnx-pillar-back-tagline">{pillar.eyebrow}</div>
+                    <h3 className="cnx-pillar-back-title">{pillar.title}</h3>
+                    <p className="cnx-pillar-back-text">{pillar.text}</p>
+
+                    <div className="cnx-pillar-tags">
+                      {pillar.tags.map((tag) => {
+                        const TagIcon = tag.icon;
+                        return (
+                          <button
+                            key={tag.label}
+                            type="button"
+                            className="cnx-pillar-tag"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              onNavigate('expertise', tag.sub);
+                            }}
+                          >
+                            <TagIcon />
+                            {tag.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="cnx-pillar-cta"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onNavigate('expertise', pillar.tags[0].sub);
+                    }}
+                  >
+                    <span className="cnx-pillar-cta-arrow">
+                      <ArrowRight size={15} />
+                    </span>
+                    Explore Expertise
+                  </button>
                 </div>
               </div>
-
-              <p className="cnx-pillar-text">{pillar.text}</p>
-
-              <div className="cnx-pillar-tags">
-                {pillar.tags.map((tag) => {
-                  const TagIcon = tag.icon;
-                  return (
-                    <button
-                      key={tag.label}
-                      type="button"
-                      className="cnx-pillar-tag"
-                      onClick={() => onNavigate('expertise', tag.sub)}
-                    >
-                      <TagIcon />
-                      {tag.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <button
-                type="button"
-                className="cnx-pillar-cta"
-                onClick={() => onNavigate('expertise', pillar.tags[0].sub)}
-              >
-                <span className="cnx-pillar-cta-arrow">
-                  <ArrowRight size={15} />
-                </span>
-                Explore Expertise
-              </button>
             </motion.div>
           ))}
         </div>
