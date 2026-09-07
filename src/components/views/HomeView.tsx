@@ -362,67 +362,97 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
    CORE EXPERTISE — PREMIUM LANDING SECTION
 ========================================================= */
 
+const ExpertisePillarArt = ({ type }: { type: 'chart' | 'code' | 'career' }) => {
+  if (type === 'chart') {
+    return (
+      <div className="cnx-art-chart">
+        <span style={{ height: '35%' }} />
+        <span style={{ height: '55%' }} />
+        <span style={{ height: '42%' }} />
+        <span style={{ height: '78%' }} />
+        <span style={{ height: '96%' }} />
+        <div className="cnx-art-chart-badge">
+          <TrendingUp />
+          Bigger Growth
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'code') {
+    return (
+      <div className="cnx-art-code">
+        <div className="cnx-art-code-icon">
+          <Code2 />
+        </div>
+        <div className="cnx-art-code-dot d1">
+          <PenTool />
+        </div>
+        <div className="cnx-art-code-dot d2">
+          <BarChart3 />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="cnx-art-career">
+      <div className="cnx-art-career-cap">
+        <GraduationCap />
+      </div>
+      <div className="cnx-art-career-books">
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+  );
+};
+
 const OfferingsSection = ({
   onNavigate,
 }: {
   onNavigate: (tab: TabId, subTool?: string) => void;
 }) => {
-  const expertise = [
+  const expertisePillars = [
     {
-      title: 'Business Analytics',
-      text: 'Transform business data into actionable insights and smarter strategic decisions.',
-      icon: BarChart3,
-      className: 'cnx-purple',
-      sub: 'business',
+      number: '01',
+      eyebrow: 'Data Driven Growth',
+      title: 'Business & Analytics',
+      text: 'Transform data into actionable insights and strategies that drive smarter business decisions.',
+      accent: 'pillar-blue',
+      art: 'chart' as const,
+      tags: [
+        { label: 'Business Analytics', icon: BarChart3, sub: 'business' },
+        { label: 'Data Science & AI', icon: Bot, sub: 'business-intelligence' },
+        { label: 'Strategy & Consulting', icon: Target, sub: 'strategy' },
+      ],
     },
     {
-      title: 'Digital Marketing',
-      text: 'Build data-driven campaigns, stronger positioning and measurable digital growth.',
-      icon: Megaphone,
-      className: 'cnx-blue',
-      sub: 'strategy',
+      number: '02',
+      eyebrow: 'Build Digital Solutions',
+      title: 'Digital & Technology',
+      text: 'Build modern digital solutions, create impactful campaigns and automate for greater efficiency.',
+      accent: 'pillar-violet',
+      art: 'code' as const,
+      tags: [
+        { label: 'Web Development', icon: Code2, sub: 'full-stack-web-dev' },
+        { label: 'Digital Marketing', icon: Megaphone, sub: 'strategy' },
+        { label: 'Automation & Tools', icon: Zap, sub: 'tools' },
+      ],
     },
     {
-      title: 'Financial Modeling',
-      text: 'Build practical financial models for planning, forecasting and decision support.',
-      icon: Calculator,
-      className: 'cnx-green',
-      sub: 'break-even',
-    },
-    {
-      title: 'Web Development',
-      text: 'Modern, responsive websites and applications built with scalable technologies.',
-      icon: Code2,
-      className: 'cnx-orange',
-      sub: 'full-stack-web-dev',
-    },
-    {
-      title: 'Data Science & AI',
-      text: 'Use intelligent analysis and AI-assisted workflows to solve practical problems.',
-      icon: Bot,
-      className: 'cnx-pink',
-      sub: 'business-intelligence',
-    },
-    {
-      title: 'Automation & Tools',
-      text: 'Automate repetitive workflows and create smarter productivity systems.',
-      icon: Zap,
-      className: 'cnx-violet',
-      sub: 'tools',
-    },
-    {
-      title: 'Career & Student Growth',
-      text: 'Turn learning into practical skills, stronger profiles and better opportunities.',
-      icon: GraduationCap,
-      className: 'cnx-cyan',
-      sub: 'roadmap-guide',
-    },
-    {
-      title: 'Strategy & Growth',
-      text: 'Connect strategy, positioning and execution into a clear growth framework.',
-      icon: Target,
-      className: 'cnx-red',
-      sub: 'strategy',
+      number: '03',
+      eyebrow: 'Invest In A Brighter You',
+      title: 'Career & Finance',
+      text: 'Gain in-demand skills, master financial modeling and get career guidance for long-term success.',
+      accent: 'pillar-green',
+      art: 'career' as const,
+      tags: [
+        { label: 'Financial Modeling', icon: Calculator, sub: 'break-even' },
+        { label: 'Career Growth', icon: GraduationCap, sub: 'roadmap-guide' },
+        { label: 'Student Development', icon: Users, sub: 'roadmap-guide' },
+      ],
     },
   ];
 
@@ -560,257 +590,432 @@ const OfferingsSection = ({
           font: inherit;
         }
 
-        .cnx-dark-expertise {
+        .cnx-pillar-section {
           position: relative;
           overflow: hidden;
           padding: 76px 42px 64px;
           background:
-            radial-gradient(
-              circle at 8% 20%,
-              rgba(108, 66, 255, 0.28),
-              transparent 27%
-            ),
-            radial-gradient(
-              circle at 92% 75%,
-              rgba(16, 155, 255, 0.18),
-              transparent 25%
-            ),
-            linear-gradient(145deg, #090d2c 0%, #0b1036 52%, #080c29 100%);
+            radial-gradient(circle at 10% 15%, rgba(99,102,241,0.09), transparent 32%),
+            radial-gradient(circle at 90% 80%, rgba(124,58,237,0.08), transparent 30%),
+            #fbfbff;
         }
 
-        .cn-dark-expertise::before {
-          content: '';
+        .cnx-pillar-note {
           position: absolute;
-          width: 420px;
-          height: 420px;
-          right: -190px;
-          top: -190px;
-          border-radius: 50%;
-          border: 1px solid rgba(180, 125, 255, 0.16);
-          box-shadow:
-            0 0 0 70px rgba(180, 125, 255, 0.025),
-            0 0 0 140px rgba(180, 125, 255, 0.02);
+          z-index: 1;
+          max-width: 150px;
+          font-family: 'Segoe Script', 'Brush Script MT', cursive;
+          font-size: 15px;
+          line-height: 1.4;
+          color: #4338ca;
+          opacity: .5;
           pointer-events: none;
         }
 
-        .cn-dark-heading {
+        .cnx-pillar-note.is-left {
+          left: 30px;
+          top: 24px;
+          text-align: left;
+          transform: rotate(-6deg);
+        }
+
+        .cnx-pillar-note.is-right {
+          right: 30px;
+          top: 24px;
+          text-align: right;
+          transform: rotate(6deg);
+        }
+
+        .cnx-pillar-note span {
+          display: block;
+        }
+
+        .cnx-pillar-heading {
           position: relative;
           z-index: 2;
           max-width: 850px;
-          margin: 0 auto 38px;
+          margin: 0 auto 44px;
           text-align: center;
         }
 
-        .cn-dark-heading .cnx-eyebrow {
+        .cnx-pillar-heading .cnx-eyebrow {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           margin-bottom: 10px;
-          color: #b56dff;
+          color: #7c3aed;
           font-size: 12px;
           font-weight: 900;
           letter-spacing: 1.4px;
           text-transform: uppercase;
         }
 
-        .cn-dark-heading .cnx-eyebrow::before,
-        .cn-dark-heading .cnx-eyebrow::after {
+        .cnx-pillar-heading .cnx-eyebrow::before,
+        .cnx-pillar-heading .cnx-eyebrow::after {
           content: '✦';
           font-size: 12px;
         }
 
-        .cn-dark-heading h2 {
+        .cnx-pillar-heading h2 {
           margin: 0;
-         color: #3426a8;
-          font-size: clamp(34px, 4vw, 54px);
-          line-height: 1.05;
+          color: #0f172a;
+          font-size: clamp(30px, 3.6vw, 46px);
+          line-height: 1.14;
           font-weight: 900;
-          letter-spacing: -1.8px;
+          letter-spacing: -1.4px;
         }
 
-        .cn-dark-heading p {
-          max-width: 700px;
+        .cnx-pillar-heading h2 span {
+          color: transparent;
+          background: linear-gradient(90deg,#4f46e5,#7c3aed);
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
+
+        .cnx-pillar-heading p {
+          max-width: 680px;
           margin: 14px auto 0;
-          color: #53627a;
+          color: #55607a;
           font-size: 15px;
           line-height: 1.7;
         }
 
-        .cnx-expertise-grid {
+        .cnx-pillar-grid {
           position: relative;
           z-index: 2;
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 14px;
-          max-width: 1450px;
+          grid-template-columns: repeat(3, minmax(0,1fr));
+          gap: 22px;
+          max-width: 1350px;
           margin: 0 auto;
         }
 
-        .cnx-expertise-card {
+        .cnx-pillar-card {
           position: relative;
-          min-height: 150px;
-          padding: 20px 19px;
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,.18);
-          border-radius: 15px;
-          color: #fff;
-          text-align: left;
-          cursor: pointer;
-          box-shadow: 0 18px 45px rgba(0,0,0,.20);
-          transition:
-            transform .28s ease,
-            box-shadow .28s ease,
-            border-color .28s ease;
-        }
-
-        .cnx-expertise-card::before {
-          content: '';
-          position: absolute;
-          width: 150px;
-          height: 150px;
-          right: -35px;
-          bottom: -65px;
-          border-radius: 50%;
-          background: rgba(255,255,255,.13);
-          filter: blur(2px);
-        }
-
-        .cnx-expertise-card::after {
-          content: '';
-          position: absolute;
-          left: -40px;
-          top: -55px;
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
-          background: rgba(255,255,255,.09);
-          filter: blur(8px);
-        }
-
-        .cnx-expertise-card:hover {
-          transform: translateY(-7px);
-          box-shadow: 0 28px 55px rgba(0,0,0,.30);
-          border-color: rgba(255,255,255,.45);
-        }
-
-        .cnx-expertise-card h3 {
-          position: relative;
-          z-index: 2;
-          max-width: 72%;
-          margin: 0 0 8px;
-          font-size: 17px;
-          line-height: 1.2;
-          font-weight: 900;
-        }
-
-        .cnx-expertise-card p {
-          position: relative;
-          z-index: 2;
-          max-width: 75%;
-          margin: 0;
-          color: rgba(255,255,255,.88);
-          font-size: 11.5px;
-          line-height: 1.55;
-        }
-
-        .cnx-expertise-icon {
-          position: absolute;
-          z-index: 2;
-          right: 18px;
-          bottom: 18px;
-          display: grid;
-          width: 54px;
-          height: 54px;
-          place-items: center;
-          border-radius: 15px;
-          background: rgba(255,255,255,.18);
-          border: 1px solid rgba(255,255,255,.28);
-          backdrop-filter: blur(8px);
-        }
-
-        .cnx-expertise-icon svg {
-          width: 31px;
-          height: 31px;
-        }
-
-        .cnx-expertise-arrow {
-          position: absolute;
-          z-index: 3;
-          left: 18px;
-          bottom: 18px;
-          display: grid;
-          width: 29px;
-          height: 29px;
-          place-items: center;
-          border-radius: 50%;
-          background: #fff;
-          color: #4220a8;
-          transition: transform .25s ease;
-        }
-
-        .cnx-expertise-card:hover .cnx-expertise-arrow {
-          transform: translateX(4px);
-        }
-
-        .cnx-purple {
-          background: linear-gradient(135deg,#4a17b8,#7137e9);
-        }
-
-        .cnx-blue {
-          background: linear-gradient(135deg,#0751bd,#0b7ee9);
-        }
-
-        .cnx-green {
-          background: linear-gradient(135deg,#008d62,#10b981);
-        }
-
-        .cnx-orange {
-          background: linear-gradient(135deg,#e97605,#ffb31b);
-        }
-
-        .cnx-pink {
-          background: linear-gradient(135deg,#c31372,#ec4899);
-        }
-
-        .cnx-violet {
-          background: linear-gradient(135deg,#6e20d2,#9333ea);
-        }
-
-        .cnx-cyan {
-          background: linear-gradient(135deg,#009bbd,#12b9d4);
-        }
-
-        .cnx-red {
-          background: linear-gradient(135deg,#d62f35,#f05b44);
-        }
-
-        .cnx-expertise-cta {
-          position: relative;
-          z-index: 2;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 18px;
+          flex-direction: column;
+          padding: 28px 24px 24px;
+          border: 1px solid rgba(79,70,229,.08);
+          border-radius: 24px;
+          background: #fff;
+          box-shadow: 0 22px 48px -28px rgba(30,27,75,.25);
+          transition: transform .3s ease, box-shadow .3s ease;
         }
 
-        .cnx-expertise-cta button {
+        .cnx-pillar-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+        }
+
+        .pillar-blue.cnx-pillar-card::before { background: linear-gradient(90deg,#4f46e5,#818cf8); }
+        .pillar-violet.cnx-pillar-card::before { background: linear-gradient(90deg,#7c3aed,#a78bfa); }
+        .pillar-green.cnx-pillar-card::before { background: linear-gradient(90deg,#059669,#34d399); }
+
+        .cnx-pillar-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 30px 60px -26px rgba(30,27,75,.3);
+        }
+
+        .cnx-pillar-number {
+          font-size: 42px;
+          font-weight: 900;
+          letter-spacing: -2px;
+          line-height: 1;
+          margin-bottom: 4px;
+        }
+
+        .pillar-blue .cnx-pillar-number { color: #c7d2fe; }
+        .pillar-violet .cnx-pillar-number { color: #ddd6fe; }
+        .pillar-green .cnx-pillar-number { color: #a7f3d0; }
+
+        .cnx-pillar-tagline {
+          font-size: 10.5px;
+          font-weight: 900;
+          letter-spacing: 1.3px;
+          text-transform: uppercase;
+          margin-bottom: 8px;
+        }
+
+        .pillar-blue .cnx-pillar-tagline { color: #4f46e5; }
+        .pillar-violet .cnx-pillar-tagline { color: #7c3aed; }
+        .pillar-green .cnx-pillar-tagline { color: #059669; }
+
+        .cnx-pillar-body {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .cnx-pillar-title {
+          margin: 0 0 10px;
+          max-width: 62%;
+          font-size: 21px;
+          font-weight: 900;
+          line-height: 1.15;
+          color: #0f172a;
+        }
+
+        .cnx-pillar-text {
+          margin: 0 0 18px;
+          font-size: 13px;
+          line-height: 1.6;
+          color: #5b647c;
+        }
+
+        .cnx-pillar-art {
+          position: relative;
+          flex-shrink: 0;
+          width: 108px;
+          height: 92px;
+        }
+
+        .cnx-pillar-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 22px;
+        }
+
+        .cnx-pillar-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 12px;
+          border-radius: 999px;
+          border: 1px solid transparent;
+          font-size: 11.5px;
+          font-weight: 800;
+          cursor: pointer;
+          transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .cnx-pillar-tag:hover {
+          transform: translateY(-2px);
+        }
+
+        .cnx-pillar-tag svg { width: 13px; height: 13px; }
+
+        .pillar-blue .cnx-pillar-tag { background: #eef2ff; color: #4338ca; }
+        .pillar-blue .cnx-pillar-tag:hover { border-color: #a5b4fc; }
+        .pillar-violet .cnx-pillar-tag { background: #f5f3ff; color: #6d28d9; }
+        .pillar-violet .cnx-pillar-tag:hover { border-color: #c4b5fd; }
+        .pillar-green .cnx-pillar-tag { background: #ecfdf5; color: #047857; }
+        .pillar-green .cnx-pillar-tag:hover { border-color: #6ee7b7; }
+
+        .cnx-pillar-cta {
+          margin-top: auto;
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          padding: 11px 20px;
-          border: 1px solid rgba(190,128,255,.8);
-          border-radius: 12px;
-          background: rgba(255,255,255,.035);
-          color: #c981ff;
-          font-size: 12px;
-          font-weight: 900;
+          border: none;
+          background: none;
+          padding: 0;
           cursor: pointer;
-          backdrop-filter: blur(10px);
-          transition: .25s ease;
+          font-size: 13px;
+          font-weight: 900;
         }
 
-        .cnx-expertise-cta button:hover {
-          background: rgba(168,85,247,.13);
+        .cnx-pillar-cta-arrow {
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          color: #fff;
+          transition: transform .25s ease;
+        }
+
+        .cnx-pillar-cta:hover .cnx-pillar-cta-arrow {
+          transform: translateX(4px);
+        }
+
+        .pillar-blue .cnx-pillar-cta { color: #4f46e5; }
+        .pillar-blue .cnx-pillar-cta-arrow { background: #4f46e5; }
+        .pillar-violet .cnx-pillar-cta { color: #7c3aed; }
+        .pillar-violet .cnx-pillar-cta-arrow { background: #7c3aed; }
+        .pillar-green .cnx-pillar-cta { color: #059669; }
+        .pillar-green .cnx-pillar-cta-arrow { background: #059669; }
+
+        /* ---- illustrations ---- */
+        .cnx-art-chart {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: flex-end;
+          gap: 6px;
+          padding: 10px;
+          border-radius: 16px;
+          background: linear-gradient(160deg,#eef2ff,#e0e7ff);
+        }
+
+        .cnx-art-chart span {
+          flex: 1;
+          border-radius: 6px 6px 2px 2px;
+          background: linear-gradient(180deg,#818cf8,#4f46e5);
+        }
+
+        .cnx-art-chart-badge {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: #fff;
+          box-shadow: 0 8px 18px rgba(79,70,229,.25);
+          font-size: 9px;
+          font-weight: 900;
+          color: #4f46e5;
+          white-space: nowrap;
+        }
+
+        .cnx-art-chart-badge svg { width: 11px; height: 11px; }
+
+        .cnx-art-code {
+          position: absolute;
+          inset: 0;
+          border-radius: 16px;
+          background: linear-gradient(160deg,#f5f3ff,#ede9fe);
+          display: grid;
+          place-items: center;
+        }
+
+        .cnx-art-code-icon {
+          display: grid;
+          place-items: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 13px;
+          background: linear-gradient(145deg,#8b5cf6,#6d28d9);
+          color: #fff;
+          box-shadow: 0 10px 22px rgba(124,58,237,.35);
+        }
+
+        .cnx-art-code-icon svg { width: 22px; height: 22px; }
+
+        .cnx-art-code-dot {
+          position: absolute;
+          width: 26px;
+          height: 26px;
+          border-radius: 9px;
+          display: grid;
+          place-items: center;
+          background: #fff;
+          box-shadow: 0 6px 14px rgba(0,0,0,.12);
+        }
+
+        .cnx-art-code-dot svg { width: 13px; height: 13px; }
+        .cnx-art-code-dot.d1 { top: 2px; left: 4px; color: #f97316; }
+        .cnx-art-code-dot.d2 { bottom: 2px; right: 2px; color: #059669; }
+
+        .cnx-art-career {
+          position: absolute;
+          inset: 0;
+          border-radius: 16px;
+          background: linear-gradient(160deg,#ecfdf5,#d1fae5);
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: center;
+          padding-bottom: 10px;
+        }
+
+        .cnx-art-career-books span {
+          display: block;
+          height: 11px;
+          border-radius: 3px;
+          margin-bottom: 3px;
+        }
+
+        .cnx-art-career-books span:nth-child(1) { width: 74px; background: #059669; }
+        .cnx-art-career-books span:nth-child(2) { width: 62px; background: #34d399; }
+        .cnx-art-career-books span:nth-child(3) { width: 82px; background: #10b981; }
+
+        .cnx-art-career-cap {
+          position: absolute;
+          top: -6px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 10px;
+          background: #fff;
+          color: #059669;
+          box-shadow: 0 8px 18px rgba(5,150,105,.3);
+        }
+
+        .cnx-art-career-cap svg { width: 17px; height: 17px; }
+
+        .cnx-pillar-cta-row {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 28px;
+          max-width: 1350px;
+          margin: 40px auto 0;
+        }
+
+        .cnx-pillar-stat {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .cnx-pillar-stat-icon {
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 11px;
+          background: #eef2ff;
+          color: #4f46e5;
+        }
+
+        .cnx-pillar-stat-icon svg { width: 16px; height: 16px; }
+
+        .cnx-pillar-stat strong {
+          display: block;
+          font-size: 16px;
+          font-weight: 900;
+          color: #0f172a;
+          line-height: 1.1;
+        }
+
+        .cnx-pillar-stat span {
+          font-size: 11px;
+          color: #6b7280;
+        }
+
+        .cnx-pillar-capabilities-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 15px 28px;
+          border: none;
+          border-radius: 999px;
+          background: linear-gradient(90deg,#111827,#1f2937);
+          color: #fff;
+          font-size: 13px;
+          font-weight: 900;
+          cursor: pointer;
+          box-shadow: 0 16px 34px -14px rgba(17,24,39,.55);
+          transition: transform .25s ease;
+        }
+
+        .cnx-pillar-capabilities-btn:hover {
           transform: translateY(-2px);
         }
 
@@ -1668,8 +1873,9 @@ const OfferingsSection = ({
         ================================================= */
 
         @media (max-width: 1100px) {
-          .cnx-expertise-grid {
-            grid-template-columns: repeat(2,minmax(0,1fr));
+          .cnx-pillar-grid {
+            grid-template-columns: 1fr;
+            max-width: 560px;
           }
 
           .cnx-trust-grid {
@@ -1715,7 +1921,7 @@ const OfferingsSection = ({
         }
 
         @media (max-width: 640px) {
-          .cn-dark-expertise,
+          .cnx-pillar-section,
           .cnx-specialists,
           .cnx-trust-section,
           .cnx-capabilities {
@@ -1723,18 +1929,29 @@ const OfferingsSection = ({
             padding-right: 17px;
           }
 
-          .cn-dark-expertise {
+          .cnx-pillar-section {
             padding-top: 52px;
             padding-bottom: 48px;
           }
 
-          .cnx-expertise-grid {
-            grid-template-columns: 1fr;
+          .cnx-pillar-note {
+            display: none;
           }
 
-          .cnx-expertise-card {
-            min-height: 138px;
+          .cnx-pillar-body {
+            flex-direction: column;
           }
+
+          .cnx-pillar-title {
+            max-width: 100%;
+          }
+
+          .cnx-pillar-art {
+            margin-top: 14px;
+            width: 100%;
+            height: 84px;
+          }
+
 
           .cnx-specialist-top {
             align-items: center;
@@ -1766,66 +1983,140 @@ const OfferingsSection = ({
       `}</style>
 
       {/* =================================================
-          TOP — COLORFUL CORE EXPERTISE
+          TOP — CORE EXPERTISE PILLARS
       ================================================= */}
 
-      <div className="cn-dark-expertise">
-        <div className="cn-dark-heading">
+      <div className="cnx-pillar-section">
+        <span className="cnx-pillar-note is-left">
+          <span>Skills Today</span>
+          <span>Opportunities</span>
+          Tomorrow
+        </span>
+        <span className="cnx-pillar-note is-right">
+          <span>Learn Build</span>
+          <span>Grow</span>
+          Succeed
+        </span>
+
+        <div className="cnx-pillar-heading">
           <span className="cnx-eyebrow">Our Core Strength</span>
 
-          <h2>Core Expertise</h2>
+          <h2>
+            Where Expertise <span>Meets Execution</span>
+          </h2>
 
           <p>
-            End-to-end capabilities that combine business thinking,
-            technology, analytics and growth to turn ideas into measurable
-            outcomes.
+            From business intelligence to digital execution, we turn ideas
+            into measurable outcomes.
           </p>
         </div>
 
-        <div className="cnx-expertise-grid">
-          {expertise.map((item, index) => {
-            const Icon = item.icon;
+        <div className="cnx-pillar-grid">
+          {expertisePillars.map((pillar, index) => (
+            <motion.div
+              key={pillar.title}
+              className={`cnx-pillar-card ${pillar.accent}`}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.08,
+                ease: 'easeOut',
+              }}
+            >
+              <div className="cnx-pillar-number">{pillar.number}</div>
+              <div className="cnx-pillar-tagline">{pillar.eyebrow}</div>
 
-            return (
-              <motion.button
-                key={item.title}
-                type="button"
-                className={`cnx-expertise-card ${item.className}`}
-                onClick={() => onNavigate('expertise', item.sub)}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.18 }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.045,
-                  ease: 'easeOut',
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <h3>{item.title}</h3>
-
-                <p>{item.text}</p>
-
-                <div className="cnx-expertise-icon">
-                  <Icon />
+              <div className="cnx-pillar-body">
+                <h3 className="cnx-pillar-title">{pillar.title}</h3>
+                <div className="cnx-pillar-art">
+                  <ExpertisePillarArt type={pillar.art} />
                 </div>
+              </div>
 
-                <span className="cnx-expertise-arrow">
-                  <ArrowRight size={16} />
+              <p className="cnx-pillar-text">{pillar.text}</p>
+
+              <div className="cnx-pillar-tags">
+                {pillar.tags.map((tag) => {
+                  const TagIcon = tag.icon;
+                  return (
+                    <button
+                      key={tag.label}
+                      type="button"
+                      className="cnx-pillar-tag"
+                      onClick={() => onNavigate('expertise', tag.sub)}
+                    >
+                      <TagIcon />
+                      {tag.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                className="cnx-pillar-cta"
+                onClick={() => onNavigate('expertise', pillar.tags[0].sub)}
+              >
+                <span className="cnx-pillar-cta-arrow">
+                  <ArrowRight size={15} />
                 </span>
-              </motion.button>
-            );
-          })}
+                Explore Expertise
+              </button>
+            </motion.div>
+          ))}
         </div>
 
-        <div className="cnx-expertise-cta">
+        <div className="cnx-pillar-cta-row">
+          <div className="cnx-pillar-stat">
+            <span className="cnx-pillar-stat-icon">
+              <Users />
+            </span>
+            <div>
+              <strong>500+</strong>
+              <span>Happy Clients</span>
+            </div>
+          </div>
+
+          <div className="cnx-pillar-stat">
+            <span className="cnx-pillar-stat-icon">
+              <Rocket />
+            </span>
+            <div>
+              <strong>50+</strong>
+              <span>Solutions Delivered</span>
+            </div>
+          </div>
+
           <button
             type="button"
+            className="cnx-pillar-capabilities-btn"
             onClick={() => onNavigate('expertise')}
           >
-            Explore All Expertise
-            <ArrowRight size={17} />
+            View Our Capabilities
+            <ArrowRight size={16} />
           </button>
+
+          <div className="cnx-pillar-stat">
+            <span className="cnx-pillar-stat-icon">
+              <TrendingUp />
+            </span>
+            <div>
+              <strong>98%</strong>
+              <span>Client Satisfaction</span>
+            </div>
+          </div>
+
+          <div className="cnx-pillar-stat">
+            <span className="cnx-pillar-stat-icon">
+              <Star />
+            </span>
+            <div>
+              <strong>4.9/5</strong>
+              <span>Client Rating</span>
+            </div>
+          </div>
         </div>
       </div>
 
