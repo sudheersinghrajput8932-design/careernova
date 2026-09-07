@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Briefcase,
@@ -37,6 +37,37 @@ interface ServiceItem {
   features: string[];
   whatsappMessage: string;
 }
+
+const HERO_SLIDER_ITEMS = [
+  {
+    id: 'verified-specialists',
+    image: '/assets/hero-slide-verified-specialists.png',
+    title: 'Verified Specialists You Can Trust',
+    description:
+      'Learn from experienced, background-verified industry experts who bring real-world guidance to every service we offer.',
+  },
+  {
+    id: 'satisfaction-guaranteed',
+    image: '/assets/hero-slide-satisfaction-guaranteed.png',
+    title: '100% Satisfaction Guaranteed',
+    description:
+      'Expert guidance, high-quality delivery, on-time results and dedicated support — every time, with no compromises.',
+  },
+  {
+    id: 'our-services',
+    image: '/assets/hero-slide-our-services.png',
+    title: 'Expert Services for a Brighter Tomorrow',
+    description:
+      'Business Analytics, Digital & Technology, Career & Finance, Marketing & Growth and Compliance & Advisory — all under one roof.',
+  },
+  {
+    id: 'goals-services',
+    image: '/assets/hero-slide-goals-services.png',
+    title: 'Your Goals. Our Services. A Brighter Tomorrow.',
+    description:
+      'Build your skills, gain new opportunities and grow professionally with services designed around your next step.',
+  },
+];
 
 const SERVICES_DATA: ServiceItem[] = [
   // Category 1: Career Services
@@ -273,6 +304,16 @@ const CATEGORY_STYLES: Record<
 
 export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const [isHeroSliderPaused, setIsHeroSliderPaused] = useState(false);
+
+  useEffect(() => {
+    if (isHeroSliderPaused) return;
+    const timer = setInterval(() => {
+      setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDER_ITEMS.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [isHeroSliderPaused]);
 
   const categories = [
     { id: 'all', label: 'All Services (8)', icon: null },
@@ -293,6 +334,65 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="space-y-12 sm:space-y-16">
+      {/* 0. HERO AUTO-SLIDER — right-to-left rotating banners, pauses on touch/hover */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="relative max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden"
+        onMouseEnter={() => setIsHeroSliderPaused(true)}
+        onMouseLeave={() => setIsHeroSliderPaused(false)}
+        onTouchStart={() => setIsHeroSliderPaused(true)}
+        onTouchEnd={() => setIsHeroSliderPaused(false)}
+      >
+        <div className="relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={HERO_SLIDER_ITEMS[activeHeroSlide].id}
+              initial={{ opacity: 0, x: 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -80 }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              className="p-3 sm:p-5"
+            >
+              <img
+                src={HERO_SLIDER_ITEMS[activeHeroSlide].image}
+                alt={HERO_SLIDER_ITEMS[activeHeroSlide].title}
+                className="w-full h-auto rounded-2xl object-cover select-none pointer-events-none"
+                loading="eager"
+              />
+
+              <div className="text-center mt-4 space-y-1.5 px-2 sm:px-8 pb-1">
+                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
+                  {HERO_SLIDER_ITEMS[activeHeroSlide].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+                  {HERO_SLIDER_ITEMS[activeHeroSlide].description}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Dots — tap a dot to jump to that slide (also pauses auto-rotation) */}
+        <div className="flex items-center justify-center gap-1.5 pb-4">
+          {HERO_SLIDER_ITEMS.map((item, idx) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setIsHeroSliderPaused(true);
+                setActiveHeroSlide(idx);
+              }}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === activeHeroSlide ? 'w-6 bg-indigo-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+              }`}
+            />
+          ))}
+        </div>
+      </motion.div>
+
       {/* 1. HERO HEADER — real live text (not baked into an image) with the two character illustrations flanking it on larger screens */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
