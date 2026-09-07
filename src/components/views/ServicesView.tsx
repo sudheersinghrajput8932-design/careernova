@@ -8,10 +8,8 @@ import {
   ArrowRight,
   Sparkles,
   CheckCircle2,
-  ShieldCheck,
   Clock,
   MessageCircle,
-  Award,
   PhoneCall,
   Check,
   Star
@@ -242,6 +240,7 @@ const CATEGORY_STYLES: Record<
     hoverBorder: string;
     ribbon: string;
     priceChip: string;
+    title: string;
   }
 > = {
   career: {
@@ -257,6 +256,7 @@ const CATEGORY_STYLES: Record<
     hoverBorder: 'hover:border-sky-400/80',
     ribbon: 'from-sky-600 to-blue-600 shadow-sky-600/30',
     priceChip: 'bg-sky-50 border-sky-200 text-sky-700',
+    title: 'text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-600',
   },
   business: {
     icon: TrendingUp,
@@ -271,6 +271,7 @@ const CATEGORY_STYLES: Record<
     hoverBorder: 'hover:border-violet-400/80',
     ribbon: 'from-violet-600 to-purple-600 shadow-violet-600/30',
     priceChip: 'bg-violet-50 border-violet-200 text-violet-700',
+    title: 'text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600',
   },
   marketing: {
     icon: Share2,
@@ -285,6 +286,7 @@ const CATEGORY_STYLES: Record<
     hoverBorder: 'hover:border-pink-400/80',
     ribbon: 'from-pink-600 to-rose-600 shadow-pink-600/30',
     priceChip: 'bg-pink-50 border-pink-200 text-pink-700',
+    title: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600',
   },
   ai: {
     icon: Bot,
@@ -299,6 +301,7 @@ const CATEGORY_STYLES: Record<
     hoverBorder: 'hover:border-amber-400/80',
     ribbon: 'from-amber-500 to-orange-600 shadow-amber-600/30',
     priceChip: 'bg-amber-50 border-amber-200 text-amber-700',
+    title: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600',
   },
 };
 
@@ -334,131 +337,79 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="space-y-12 sm:space-y-16">
-      {/* 0. HERO AUTO-SLIDER — right-to-left rotating banners, pauses on touch/hover */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="relative max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden"
-        onMouseEnter={() => setIsHeroSliderPaused(true)}
-        onMouseLeave={() => setIsHeroSliderPaused(false)}
-        onTouchStart={() => setIsHeroSliderPaused(true)}
-        onTouchEnd={() => setIsHeroSliderPaused(false)}
-      >
-        <div className="relative overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={HERO_SLIDER_ITEMS[activeHeroSlide].id}
-              initial={{ opacity: 0, x: 80 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -80 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="p-3 sm:p-5"
-            >
-              <img
+      {/* HERO — compact title on top, full-bleed auto-slider directly underneath, no side gutters */}
+      <div className="space-y-4 sm:space-y-5">
+        {/* 1. HERO TITLE — just the headline, tightened up, no illustrations or extra copy eating up height */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="text-center max-w-3xl mx-auto px-4 space-y-2"
+        >
+          <motion.div
+            animate={{ y: [-3, 0, -3] }}
+            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 text-xs font-bold shadow-md max-w-full"
+          >
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-normal sm:whitespace-nowrap">CAREER & BUSINESS SERVICES MARKETPLACE</span>
+          </motion.div>
+
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Professional Growth Services at{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
+              Honest Pricing
+            </span>
+          </h1>
+        </motion.div>
+
+        {/* 2. HERO AUTO-SLIDER — full width, edge-to-edge, sits right below the title, true left-to-right slide transition */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ ...smoothTransition, delay: 0.1 }}
+          className="relative w-full rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden"
+          onMouseEnter={() => setIsHeroSliderPaused(true)}
+          onMouseLeave={() => setIsHeroSliderPaused(false)}
+          onTouchStart={() => setIsHeroSliderPaused(true)}
+          onTouchEnd={() => setIsHeroSliderPaused(false)}
+        >
+          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.img
+                key={HERO_SLIDER_ITEMS[activeHeroSlide].id}
                 src={HERO_SLIDER_ITEMS[activeHeroSlide].image}
                 alt={HERO_SLIDER_ITEMS[activeHeroSlide].title}
-                className="w-full h-auto rounded-2xl object-cover select-none pointer-events-none"
+                initial={{ opacity: 0, x: '6%' }}
+                animate={{ opacity: 1, x: '0%' }}
+                exit={{ opacity: 0, x: '-6%' }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
                 loading="eager"
               />
-
-              <div className="text-center mt-4 space-y-1.5 px-2 sm:px-8 pb-1">
-                <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
-                  {HERO_SLIDER_ITEMS[activeHeroSlide].title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-                  {HERO_SLIDER_ITEMS[activeHeroSlide].description}
-                </p>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Dots — tap a dot to jump to that slide (also pauses auto-rotation) */}
-        <div className="flex items-center justify-center gap-1.5 pb-4">
-          {HERO_SLIDER_ITEMS.map((item, idx) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setIsHeroSliderPaused(true);
-                setActiveHeroSlide(idx);
-              }}
-              aria-label={`Go to slide ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                idx === activeHeroSlide ? 'w-6 bg-indigo-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'
-              }`}
-            />
-          ))}
-        </div>
-      </motion.div>
-
-      {/* 1. HERO HEADER — real live text (not baked into an image) with the two character illustrations flanking it on larger screens */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="relative max-w-6xl mx-auto rounded-3xl border border-slate-200 bg-gradient-to-b from-indigo-50/50 via-white to-white overflow-hidden"
-      >
-        <div className="flex items-end justify-center gap-2 lg:gap-4 px-4 sm:px-6 py-8 sm:py-10">
-          {/* Left illustration — hidden on mobile so there's no wasted gap on small screens */}
-          <img
-            src="/assets/hero-illustration-left.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
-          />
-
-          {/* CENTER: real headline content */}
-          <div className="text-center max-w-2xl mx-auto space-y-3 sm:space-y-4 py-2">
-            {/* Floating Top Badge */}
-            <motion.div
-              animate={{ y: [-4, 0, -4] }}
-              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 text-xs font-bold shadow-md max-w-full"
-            >
-              <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span className="whitespace-normal sm:whitespace-nowrap">CAREER & BUSINESS SERVICES MARKETPLACE</span>
-            </motion.div>
-
-            {/* Shimmering Hero Headline */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              Professional Growth Services at{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
-                Honest Pricing
-              </span>
-            </h1>
-            <p className="text-xs sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
-              Accelerate your career, legal compliance, digital marketing, and AI workflow. Verified specialists, transparent INR pricing, and dedicated human support.
-            </p>
-
-            {/* Trust Guarantee Badges */}
-            <div className="pt-1 sm:pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs text-slate-600">
-              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">100% Satisfaction Guaranteed</span>
-              </div>
-              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-                <Clock className="w-4 h-4 text-indigo-600 shrink-0" />
-                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">Fast 24-48h Delivery</span>
-              </div>
-              <div className="feature-badge-glow flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs cursor-default">
-                <Award className="w-4 h-4 text-amber-600 shrink-0" />
-                <span className="font-bold text-slate-900 whitespace-nowrap text-[11px] sm:text-xs">Verified Specialists</span>
-              </div>
-            </div>
+            </AnimatePresence>
           </div>
 
-          {/* Right illustration — hidden on mobile so there's no wasted gap on small screens */}
-          <img
-            src="/assets/hero-illustration-right.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block w-40 xl:w-48 h-auto shrink-0 select-none pointer-events-none"
-          />
-        </div>
-      </motion.div>
+          {/* Dots — tap a dot to jump to that slide (also pauses auto-rotation) */}
+          <div className="flex items-center justify-center gap-1.5 py-3">
+            {HERO_SLIDER_ITEMS.map((item, idx) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setIsHeroSliderPaused(true);
+                  setActiveHeroSlide(idx);
+                }}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  idx === activeHeroSlide ? 'w-6 bg-indigo-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+                }`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
 
       {/* 2. CATEGORY SELECTOR PILLS WITH SLIDING TAB INDICATOR */}
       <motion.div
@@ -567,7 +518,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight leading-snug">
+                <h3 className={`text-lg sm:text-xl font-black tracking-tight leading-snug ${theme.title}`}>
                   {service.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed font-normal">
