@@ -4,15 +4,12 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   ArrowRight,
-  ShieldCheck,
-  Award,
   Linkedin,
   Twitter,
   Instagram,
   Github,
-  MessageSquare,
+  Youtube,
   Send
 } from 'lucide-react';
 import { TabId } from '../../types';
@@ -24,50 +21,34 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () => {} }) => {
   return (
-    <footer id="corporate-footer" className="w-full bg-slate-50 text-slate-600 border-t border-slate-200">
-      {/* Top Value Banner */}
-      <div className="border-b border-slate-200 bg-white py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 text-slate-600">
-            <span className="flex items-center gap-2 text-slate-800 font-medium">
-              <ShieldCheck className="w-4 h-4 text-indigo-600" />
-              <span>100% Privacy Focused &amp; Safe</span>
-            </span>
-            <span className="flex items-center gap-2 text-slate-800 font-medium">
-              <Award className="w-4 h-4 text-emerald-600" />
-              <span>Google XYZ &amp; VC-Standard Quality</span>
-            </span>
-            <span className="flex items-center gap-2 text-slate-800 font-medium">
-              <Clock className="w-4 h-4 text-blue-600" />
-              <span>24-Hour Express Delivery on Services</span>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20know%20more%20about%20your%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-all hover:scale-[1.02]"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>WhatsApp Support: +91 7007260391</span>
-            </a>
-          </div>
-        </div>
+    <footer
+      id="corporate-footer"
+      className="relative w-full overflow-hidden bg-white text-slate-600 border-t border-slate-200"
+    >
+      {/* Full-bleed background: wave pattern + blobs + guy watching city skyline */}
+      {/* Drop the exported PNG at this path, e.g. /assets/footer-background.png */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/assets/footer-background.png"
+          alt=""
+          className="w-full h-full object-cover object-right-bottom"
+        />
       </div>
 
-      {/* Main 4-Column Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Column 1: Brand & Bio (Spans 2 cols on lg) */}
-          <div className="lg:col-span-2 space-y-5">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 lg:pt-16">
+        {/* Top badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-indigo-100 text-[10px] font-bold tracking-widest text-indigo-600 mb-6">
+          LEARN <span className="text-slate-300">•</span> GROW <span className="text-slate-300">•</span> BUILD <span className="text-slate-300">•</span> SUCCEED
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+          {/* Column 1: Brand & Bio */}
+          <div className="space-y-5 lg:pr-6">
             <div
               onClick={() => onNavigate('home')}
               className="flex items-center gap-3 cursor-pointer group w-fit"
             >
-              {/* Circular Logo Badge */}
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 p-0.5 shadow-md shadow-indigo-600/20 group-hover:scale-105 transition-all">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 p-0.5 shadow-md shadow-indigo-600/20 group-hover:scale-105 transition-all">
                 <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-indigo-600 font-black">
                   <Sparkles className="w-5 h-5 text-indigo-600" />
                 </div>
@@ -87,16 +68,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://wa.me/917007260391"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="w-9 h-9 rounded-xl bg-white hover:bg-emerald-600 text-slate-500 hover:text-white border border-slate-200 hover:border-emerald-500 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xs"
-              >
-                <MessageSquare className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-3 pt-1">
               <a
                 href="https://linkedin.com"
                 target="_blank"
@@ -105,15 +77,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 className="w-9 h-9 rounded-xl bg-white hover:bg-indigo-600 text-slate-500 hover:text-white border border-slate-200 hover:border-indigo-500 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xs"
               >
                 <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter / X"
-                className="w-9 h-9 rounded-xl bg-white hover:bg-sky-500 text-slate-500 hover:text-white border border-slate-200 hover:border-sky-400 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xs"
-              >
-                <Twitter className="w-4 h-4" />
               </a>
               <a
                 href="https://instagram.com"
@@ -125,6 +88,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 <Instagram className="w-4 h-4" />
               </a>
               <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-9 h-9 rounded-xl bg-white hover:bg-red-600 text-slate-500 hover:text-white border border-slate-200 hover:border-red-500 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xs"
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X"
+                className="w-9 h-9 rounded-xl bg-white hover:bg-slate-900 text-slate-500 hover:text-white border border-slate-200 hover:border-slate-800 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-xs"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -134,64 +115,63 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 <Github className="w-4 h-4" />
               </a>
             </div>
+
+            {/* Quote */}
+            <div className="relative inline-block mt-2 px-4 py-3 rounded-2xl bg-white/70 border border-slate-200 shadow-xs">
+              <span className="absolute -top-2 left-3 text-2xl text-indigo-300 font-serif">&ldquo;</span>
+              <p
+                className="text-sm text-slate-700 -rotate-1"
+                style={{ fontFamily: "'Brush Script MT', cursive" }}
+              >
+                Better People<br />Brighter Tomorrows
+              </p>
+            </div>
           </div>
 
           {/* Column 2: Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gradient-to-r after:from-indigo-600 after:to-violet-600">
               Quick Links
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-600">
+            <ul className="space-y-2.5 text-xs text-slate-600 pt-1">
               <li>
-                <button
-                  onClick={() => onNavigate('home')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('home')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Home</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('about')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>About Us</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('services')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Services Marketplace</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('tools')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400" />
+                  <span>Core Expertise</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Interactive Tools</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('blog')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('blog')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Blog &amp; Guides</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('contact')}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Contact Us</span>
                 </button>
@@ -199,80 +179,56 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </ul>
           </div>
 
-          {/* Column 3: Growth Services */}
+          {/* Column 3: Expertise */}
           <div className="space-y-4">
-            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
-              Growth Services
+            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gradient-to-r after:from-indigo-600 after:to-violet-600">
+              Expertise
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-600">
+            <ul className="space-y-2.5 text-xs text-slate-600 pt-1">
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'business')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'business')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Business Analytics</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'strategy')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'strategy')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Digital Marketing</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'break-even')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'break-even')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Financial Modeling</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'full-stack-web-dev')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'full-stack-web-dev')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Web Development</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'business-intelligence')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'business-intelligence')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Data Science &amp; AI</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'tools')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'tools')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Automation &amp; Tools</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'roadmap-guide')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'roadmap-guide')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Career &amp; Student Growth</span>
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate('expertise', 'strategy')}
-                  className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer"
-                >
+                <button onClick={() => onNavigate('expertise', 'strategy')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Strategy &amp; Growth</span>
                 </button>
@@ -282,13 +238,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
 
           {/* Column 4: Let's Connect */}
           <div className="space-y-4">
-            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+            <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gradient-to-r after:from-indigo-600 after:to-violet-600">
               Let's Connect
             </h4>
-            <div className="space-y-3 text-xs text-slate-600">
+            <div className="space-y-3 text-xs text-slate-600 pt-1">
               <a
                 href="tel:+917007260391"
-                className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-white/80 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
               >
                 <Phone className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
                 <div>
@@ -301,7 +257,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
 
               <a
                 href="mailto:sudheersinghrajput8932@gmail.com"
-                className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-white/80 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
               >
                 <Mail className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
                 <div>
@@ -314,7 +270,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 </div>
               </a>
 
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
+              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white/80 border border-indigo-100">
                 <MapPin className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
                 <div>
                   <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wide">
@@ -326,49 +282,59 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 </div>
               </div>
 
-              <div className="pt-1">
-                <a
-                  href="https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20start%20a%20conversation."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Start a Conversation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-                <p className="text-[10px] text-slate-400 text-center mt-2">
-                  We usually reply within 24 hours.
-                </p>
-              </div>
-
-              <button
-                onClick={onOpenCreator}
-                className="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
+              <a
+                href="https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20start%20a%20conversation."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20"
               >
-                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Core Team Profile</span>
-              </button>
+                <Send className="w-3.5 h-3.5" />
+                <span>Start a Conversation</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+              <p className="text-[10px] text-slate-400 text-center -mt-1">
+                We usually reply within 24 hours.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Attribution */}
-        <div className="pt-10 mt-10 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p className="text-center sm:text-left">
-            © 2026 <strong className="text-slate-700">CareerNova</strong>. All rights reserved. Built for Indian Students &amp; Businesses.
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p className="text-center lg:text-left">
+            © 2026 <strong className="text-slate-700">CareerNova</strong>. All rights reserved.
+            <br className="lg:hidden" /> Built for Indian students, professionals &amp; businesses.
           </p>
 
-          <p className="text-center sm:text-right">
-            Led by{' '}
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-500">
+            <button onClick={() => onNavigate('privacy' as TabId)} className="hover:text-indigo-600 cursor-pointer">Privacy Policy</button>
+            <span className="text-slate-300">|</span>
+            <button onClick={() => onNavigate('terms' as TabId)} className="hover:text-indigo-600 cursor-pointer">Terms of Service</button>
+            <span className="text-slate-300">|</span>
+            <button onClick={() => onNavigate('disclaimer' as TabId)} className="hover:text-indigo-600 cursor-pointer">Disclaimer</button>
+            <span className="text-slate-300">|</span>
+            <button onClick={() => onNavigate('refund' as TabId)} className="hover:text-indigo-600 cursor-pointer">Refund &amp; Cancellation</button>
+            <span className="text-slate-300">|</span>
+            <button onClick={() => onNavigate('cookies' as TabId)} className="hover:text-indigo-600 cursor-pointer">Cookie Policy</button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 text-slate-600">
+              <span className="text-base leading-none">🇮🇳</span>
+              <div className="leading-tight">
+                <div className="font-bold text-slate-800 text-[11px]">India</div>
+                <div className="text-[10px] text-slate-400">Turning Ideas Into Opportunities</div>
+              </div>
+            </div>
             <button
               onClick={onOpenCreator}
-              className="text-indigo-600 hover:text-indigo-800 font-semibold underline cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-indigo-200 text-indigo-700 text-xs font-bold hover:bg-indigo-50 transition-all cursor-pointer"
             >
-              Sudhir Singh
-            </button>{' '}
-            &amp; Principal Engineering Team
-          </p>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Keep Growing</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
