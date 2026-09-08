@@ -4634,7 +4634,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-social-rail {
           position: fixed;
-          right: 16px;
+          left: 16px;
           top: 50%;
           transform: translateY(-50%);
           z-index: 50;
@@ -4663,7 +4663,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-social-link:hover {
-          transform: translateX(-4px) scale(1.06);
+          transform: translateX(4px) scale(1.06);
           filter: brightness(1.05);
         }
 
@@ -4728,7 +4728,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         @media (max-width: 780px) {
           .cn-social-rail {
-            right: 8px;
+            left: 8px;
             padding: 6px;
             gap: 6px;
             border-radius: 15px;
