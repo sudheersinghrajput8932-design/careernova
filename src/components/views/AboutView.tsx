@@ -98,25 +98,33 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
       step: '1. Autonomous Velocity',
       title: 'Automation First',
       desc: 'Designing systems that speed up workflows and minimize manual execution loops across tech infrastructure.',
-      badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+      badgeColor: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+      cardBg: 'bg-gradient-to-br from-indigo-50 via-white to-indigo-50/40 border-indigo-200 hover:border-indigo-400',
+      iconChip: 'bg-indigo-100 text-indigo-600',
     },
     {
       step: '2. Resilient Architecture',
       title: 'Scalable Foundations',
       desc: 'Building robust microservices and cloud deployments designed to scale as traffic and complexity grow.',
-      badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+      badgeColor: 'bg-purple-100 text-purple-700 border-purple-200',
+      cardBg: 'bg-gradient-to-br from-purple-50 via-white to-purple-50/40 border-purple-200 hover:border-purple-400',
+      iconChip: 'bg-purple-100 text-purple-600',
     },
     {
       step: '3. Hyper-Democratization',
       title: 'Accessible Tech',
       desc: 'Providing world-class tools at minimal or no cost to ensure equal opportunity for every user.',
-      badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+      badgeColor: 'bg-sky-100 text-sky-700 border-sky-200',
+      cardBg: 'bg-gradient-to-br from-sky-50 via-white to-sky-50/40 border-sky-200 hover:border-sky-400',
+      iconChip: 'bg-sky-100 text-sky-600',
     },
     {
       step: '4. UI/UX Quality Rigor',
       title: 'Polished Experience',
       desc: 'Meticulous pixel-level UI design to guarantee elite enterprise-grade application presentation.',
-      badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+      badgeColor: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+      cardBg: 'bg-gradient-to-br from-emerald-50 via-white to-emerald-50/40 border-emerald-200 hover:border-emerald-400',
+      iconChip: 'bg-emerald-100 text-emerald-600',
     },
   ];
 
@@ -221,13 +229,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ ...smoothTransition, delay: 0.05 }}
-          className="bg-slate-900 p-7 sm:p-8 rounded-3xl border border-slate-800 shadow-sm space-y-4 hover:shadow-lg hover:shadow-indigo-950/40 hover:border-indigo-500/40 transition-all duration-300"
+          className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 p-7 sm:p-8 rounded-3xl border border-indigo-200 shadow-sm space-y-4 hover:shadow-md hover:border-indigo-400 transition-all duration-300"
         >
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold">
+          <div className="w-12 h-12 rounded-2xl bg-white text-indigo-600 border border-indigo-200 shadow-sm flex items-center justify-center font-bold">
             <Eye className="w-6 h-6" />
           </div>
-          <h2 className="text-xl font-bold text-white">Our Vision</h2>
-          <p className="text-slate-400 text-sm leading-relaxed font-normal">
+          <h2 className="text-xl font-bold text-slate-900">Our Vision</h2>
+          <p className="text-slate-600 text-sm leading-relaxed font-normal">
             To eliminate information asymmetry in career paths and startup ecosystems. We believe that every student should have equal access to resources, career tools, and financial wisdom.
           </p>
         </motion.div>
@@ -238,13 +246,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ ...smoothTransition, delay: 0.1 }}
-          className="bg-slate-900 p-7 sm:p-8 rounded-3xl border border-slate-800 shadow-sm space-y-4 hover:shadow-lg hover:shadow-purple-950/40 hover:border-purple-500/40 transition-all duration-300"
+          className="bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 p-7 sm:p-8 rounded-3xl border border-fuchsia-200 shadow-sm space-y-4 hover:shadow-md hover:border-fuchsia-400 transition-all duration-300"
         >
-          <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center font-bold">
+          <div className="w-12 h-12 rounded-2xl bg-white text-fuchsia-600 border border-fuchsia-200 shadow-sm flex items-center justify-center font-bold">
             <Heart className="w-6 h-6" />
           </div>
-          <h2 className="text-xl font-bold text-white">Why We Created This Platform</h2>
-          <p className="text-slate-400 text-sm leading-relaxed font-normal">
+          <h2 className="text-xl font-bold text-slate-900">Why We Created This Platform</h2>
+          <p className="text-slate-600 text-sm leading-relaxed font-normal">
             Too many ambitious students get filtered out due to outdated ATS scanners and the many gateways to success. CareerNova fills this void with accessible AI-driven tools, financial intelligence, and action roadmaps.
           </p>
         </motion.div>
@@ -270,13 +278,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ ...smoothTransition, delay: idx * 0.08 }}
-              className="bg-slate-900 p-6 sm:p-7 rounded-2xl border border-slate-800 shadow-xs space-y-2.5 hover:shadow-lg hover:shadow-indigo-950/40 hover:border-indigo-500/40 transition-all duration-300"
+              className={`p-6 sm:p-7 rounded-2xl border shadow-xs space-y-2.5 hover:shadow-md transition-all duration-300 ${pillar.cardBg}`}
             >
               <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg inline-block border ${pillar.badgeColor}`}>
                 {pillar.step}
               </span>
-              <h3 className="font-bold text-base text-white">{pillar.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+              <h3 className="font-bold text-base text-slate-900">{pillar.title}</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                 {pillar.desc}
               </p>
             </motion.div>
@@ -286,63 +294,63 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
       <div className="space-y-6">
   {/* Sudhir Singh Card */}
-  <div className="bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-xl p-6 shadow-sm border border-indigo-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
     <div className="flex items-center gap-4">
       <img src="/Sudhir.png" alt="Sudhir Singh" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
       <div>
-        <h3 className="text-lg font-bold text-white">Sudhir Singh</h3>
-        <p className="text-sm font-medium text-indigo-400">Master Architect & Chief Strategy Officer</p>
+        <h3 className="text-lg font-bold text-slate-900">Sudhir Singh</h3>
+        <p className="text-sm font-medium text-indigo-600">Master Architect & Chief Strategy Officer</p>
       </div>
     </div>
-    <span className="px-3 py-1 bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-xs font-semibold rounded-full">Overall Management & Growth</span>
+    <span className="px-3 py-1 bg-white text-indigo-700 border border-indigo-200 text-xs font-semibold rounded-full">Overall Management & Growth</span>
   </div>
-  <p className="text-slate-400 text-sm pl-2">
+  <p className="text-slate-600 text-sm pl-2">
     Driving high-impact business positioning, multi-channel customer acquisition funnel design, and strategic corporate roadmap execution to scale operations globally.
   </p>
   <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Growth Strategy</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Market Positioning</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Corporate Scaling</span>
+    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Growth Strategy</span>
+    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Market Positioning</span>
+    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Corporate Scaling</span>
   </div>
 
   {/* Ashwani Kumar Card */}
-  <div className="bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
+  <div className="bg-gradient-to-br from-purple-50 via-white to-fuchsia-50 rounded-xl p-6 shadow-sm border border-purple-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
     <div className="flex items-center gap-4">
-      <img src="/Ashwani.png" alt="Ashwani Kumar" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
+      <img src="/Ashwani.png" alt="Ashwani Kumar" className="w-14 h-14 rounded-full object-cover border-2 border-purple-500 shadow-md" />
       <div>
-        <h3 className="text-lg font-bold text-white">Ashwani Kumar</h3>
-        <p className="text-sm font-medium text-purple-400">Principal Full-Stack & Cloud Specialist</p>
+        <h3 className="text-lg font-bold text-slate-900">Ashwani Kumar</h3>
+        <p className="text-sm font-medium text-purple-600">Principal Full-Stack & Cloud Specialist</p>
       </div>
     </div>
-    <span className="px-3 py-1 bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs font-semibold rounded-full">Full-Stack Architecture</span>
+    <span className="px-3 py-1 bg-white text-purple-700 border border-purple-200 text-xs font-semibold rounded-full">Full-Stack Architecture</span>
   </div>
-  <p className="text-slate-400 text-sm pl-2">
+  <p className="text-slate-600 text-sm pl-2">
     Architecting high-performance, resilient end-to-end web applications with modern frameworks, containerized cloud infrastructure, and low-latency microservices.
   </p>
   <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Full-Stack Engineering</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Cloud & DevOps</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Scalable Backends</span>
+    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Full-Stack Engineering</span>
+    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Cloud & DevOps</span>
+    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Scalable Backends</span>
   </div>
 
   {/* Ritesh Chaurasiya Card */}
-  <div className="bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
+  <div className="bg-gradient-to-br from-emerald-50 via-white to-teal-50 rounded-xl p-6 shadow-sm border border-emerald-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
     <div className="flex items-center gap-4">
-      <img src="/Ritesh.png" alt="Ritesh Chaurasiya" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
+      <img src="/Ritesh.png" alt="Ritesh Chaurasiya" className="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 shadow-md" />
       <div>
-        <h3 className="text-lg font-bold text-white">Ritesh Chaurasiya</h3>
-        <p className="text-sm font-medium text-emerald-400">Senior iOS & Mobile App Developer</p>
+        <h3 className="text-lg font-bold text-slate-900">Ritesh Chaurasiya</h3>
+        <p className="text-sm font-medium text-emerald-600">Senior iOS & Mobile App Developer</p>
       </div>
     </div>
-    <span className="px-3 py-1 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-semibold rounded-full">Native iOS Developer</span>
+    <span className="px-3 py-1 bg-white text-emerald-700 border border-emerald-200 text-xs font-semibold rounded-full">Native iOS Developer</span>
   </div>
-  <p className="text-slate-400 text-sm pl-2">
+  <p className="text-slate-600 text-sm pl-2">
     Crafting fluid, high-performance native iOS experiences with Swift, seamless human-interface guidelines compliance, and complex device-level API integrations.
   </p>
   <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Swift & SwiftUI</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">Native iOS APIs</span>
-    <span className="text-xs bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-md">App Performance</span>
+    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">Swift & SwiftUI</span>
+    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">Native iOS APIs</span>
+    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">App Performance</span>
   </div>
 </div>
 
