@@ -12,7 +12,8 @@ import {
   Twitter,
   Instagram,
   Github,
-  MessageSquare
+  MessageSquare,
+  Send
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -279,49 +280,75 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </ul>
           </div>
 
-          {/* Column 4: Contact Info */}
+          {/* Column 4: Let's Connect */}
           <div className="space-y-4">
             <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
-              Contact Info
+              Let's Connect
             </h4>
             <div className="space-y-3 text-xs text-slate-600">
               <a
                 href="tel:+917007260391"
-                className="flex items-start gap-2.5 hover:text-slate-900 transition-colors group"
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
               >
-                <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all shrink-0">
-                  <Phone className="w-3.5 h-3.5" />
-                </div>
+                <Phone className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
                 <div>
-                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Direct Hotline</div>
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wide">
+                    Phone / WhatsApp
+                  </div>
                   <div className="font-bold text-slate-800 group-hover:text-indigo-600">+91 7007260391</div>
                 </div>
               </a>
 
               <a
                 href="mailto:sudheersinghrajput8932@gmail.com"
-                className="flex items-start gap-2.5 hover:text-slate-900 transition-colors group"
+                className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100 hover:bg-indigo-50 transition-colors group"
               >
-                <div className="p-2 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all shrink-0">
-                  <Mail className="w-3.5 h-3.5" />
-                </div>
+                <Mail className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
                 <div>
-                  <div className="text-[10px] text-slate-500 uppercase font-semibold">Official Email</div>
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wide">
+                    Official Email
+                  </div>
                   <div className="font-bold text-slate-800 group-hover:text-indigo-600 break-all">
                     sudheersinghrajput8932@gmail.com
                   </div>
                 </div>
               </a>
 
-              <div className="pt-2">
-                <button
-                  onClick={onOpenCreator}
-                  className="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                  <span>Core Team Profile</span>
-                </button>
+              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
+                <MapPin className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[10px] text-slate-500 uppercase font-semibold tracking-wide">
+                    Address
+                  </div>
+                  <div className="font-bold text-slate-800">
+                    298B, Almari Gali, New Ashok Nagar, Delhi
+                  </div>
+                </div>
               </div>
+
+              <div className="pt-1">
+                <a
+                  href="https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20start%20a%20conversation."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Start a Conversation</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <p className="text-[10px] text-slate-400 text-center mt-2">
+                  We usually reply within 24 hours.
+                </p>
+              </div>
+
+              <button
+                onClick={onOpenCreator}
+                className="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-bold transition-all hover:scale-[1.02] text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Core Team Profile</span>
+              </button>
             </div>
           </div>
         </div>
