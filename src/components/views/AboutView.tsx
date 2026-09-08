@@ -1,717 +1,506 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import {
-  Star,
-  Eye,
-  Heart,
-  Zap,
-  Headphones,
-  Users,
+  Sparkles,
   ArrowRight,
-  ShieldCheck,
+  BarChart3,
   Code2,
-  Terminal,
-  Cpu,
-  Smartphone,
-  ExternalLink,
-  MessageSquare,
-  Mail,
-  User,
-  Send,
-  Phone,
-  List,
-  Lock,
-  Check,
-  MessageCircle,
   Briefcase,
-  Handshake,
-  GraduationCap,
-  Laptop,
-  Coffee,
-  Leaf,
-  Target,
-  Lightbulb,
+  Wallet,
+  Building2,
+  BookOpen,
+  Hammer,
   TrendingUp,
+  Lightbulb,
+  Users,
+  RefreshCw,
+  Target,
+  GraduationCap,
+  Rocket,
+  CheckCircle2,
+  MessageCircle,
 } from 'lucide-react';
 import { TabId } from '../../types';
 
 interface AboutViewProps {
-  onNavigate: (tab: TabId) => void;
+  onNavigate: (tab: TabId, subTool?: string) => void;
 }
 
 const smoothTransition = {
-  duration: 0.5,
+  duration: 0.6,
   ease: [0.16, 1, 0.3, 1] as const,
 };
 
+// Who We Are — five practice areas CareerNova is built around
+const PRACTICE_AREAS = [
+  { icon: Briefcase, label: 'Career Development' },
+  { icon: Building2, label: 'Business Solutions' },
+  { icon: Code2, label: 'Digital Transformation' },
+  { icon: BarChart3, label: 'Analytics & AI' },
+  { icon: Wallet, label: 'Financial Expertise' },
+];
+
+// Our Mission — the three-word brand language: Learn, Build, Grow
+const MISSION_PILLARS = [
+  {
+    icon: BookOpen,
+    title: 'Learn',
+    description: 'Gain practical knowledge that applies directly to what you\u2019re working on.',
+  },
+  {
+    icon: Hammer,
+    title: 'Build',
+    description: 'Turn that knowledge into a real, usable capability.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Grow',
+    description: 'Create progress you can actually measure.',
+  },
+];
+
+// What We Believe — four principles, kept monotone (not a rainbow of colours)
+const BELIEFS = [
+  {
+    icon: Lightbulb,
+    title: 'Practicality Over Complexity',
+    description: 'Solutions should be simple, useful and something you can act on the same day you receive them.',
+  },
+  {
+    icon: Users,
+    title: 'People + Technology',
+    description: 'We use AI and technology to strengthen human judgement, not replace it.',
+  },
+  {
+    icon: RefreshCw,
+    title: 'Continuous Learning',
+    description: 'Markets and technology keep changing, so the way we work has to keep changing with them.',
+  },
+  {
+    icon: Target,
+    title: 'Results Matter',
+    description: 'A good idea only becomes valuable once it changes something in the real world.',
+  },
+];
+
+// Our Expertise — a flow, not a repeat of the homepage / services list
+const EXPERTISE_FLOWS = [
+  {
+    icon: BarChart3,
+    title: 'Business & Analytics',
+    steps: ['Data', 'Insights', 'Decisions'],
+    accent: 'text-violet-600',
+    chip: 'bg-violet-100 text-violet-600',
+  },
+  {
+    icon: Code2,
+    title: 'Digital & Technology',
+    steps: ['Ideas', 'Solutions', 'Digital Growth'],
+    accent: 'text-sky-600',
+    chip: 'bg-sky-100 text-sky-600',
+  },
+  {
+    icon: Briefcase,
+    title: 'Career & Finance',
+    steps: ['Skills', 'Confidence', 'Opportunities'],
+    accent: 'text-amber-600',
+    chip: 'bg-amber-100 text-amber-600',
+  },
+];
+
+// Who We Help — four audiences
+const AUDIENCES = [
+  {
+    icon: GraduationCap,
+    title: 'Students',
+    description: 'Build skills and career confidence before you graduate.',
+    chip: 'bg-sky-100 text-sky-600',
+  },
+  {
+    icon: Briefcase,
+    title: 'Professionals',
+    description: 'Upgrade your skills and accelerate the next move.',
+    chip: 'bg-indigo-100 text-indigo-600',
+  },
+  {
+    icon: Building2,
+    title: 'Businesses',
+    description: 'Make smarter decisions and build better digital systems.',
+    chip: 'bg-violet-100 text-violet-600',
+  },
+  {
+    icon: Rocket,
+    title: 'Entrepreneurs',
+    description: 'Turn an idea into something that can actually scale.',
+    chip: 'bg-amber-100 text-amber-600',
+  },
+];
+
+const WHY_POINTS = [
+  'Practical approach',
+  'Modern technology',
+  'Personalized solutions',
+  'Long-term growth mindset',
+];
+
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
-  const [agree, setAgree] = useState(true);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-
-  useEffect(() => {
-    const target = sessionStorage.getItem('cn_scrollTo');
-    if (target) {
-      sessionStorage.removeItem('cn_scrollTo');
-      const timer = setTimeout(() => {
-        const el = document.getElementById(target);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!agree) {
-      setStatus('error');
-      return;
-    }
-    setStatus('sending');
-    try {
-      const res = await fetch('https://formspree.io/f/moeqdlpw', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(e.currentTarget),
-      });
-      if (res.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-      } else {
-        setStatus('error');
-      }
-    } catch {
-      setStatus('error');
-    }
-  };
-
-  const engineeringPillars = [
-    {
-      step: '1. Autonomous Velocity',
-      title: 'Automation First',
-      desc: 'Designing systems that speed up workflows and minimize manual execution loops across tech infrastructure.',
-      badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
-    },
-    {
-      step: '2. Resilient Architecture',
-      title: 'Scalable Foundations',
-      desc: 'Building robust microservices and cloud deployments designed to scale as traffic and complexity grow.',
-      badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    },
-    {
-      step: '3. Hyper-Democratization',
-      title: 'Accessible Tech',
-      desc: 'Providing world-class tools at minimal or no cost to ensure equal opportunity for every user.',
-      badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-    },
-    {
-      step: '4. UI/UX Quality Rigor',
-      title: 'Polished Experience',
-      desc: 'Meticulous pixel-level UI design to guarantee elite enterprise-grade application presentation.',
-      badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-    },
-  ];
-
-  const specialists = [
-    {
-      initials: 'SS',
-      name: 'Sudhir Singh',
-      role: 'Master Architect and Founder/Developer',
-      badge: 'Overall Management',
-      avatarBg: 'bg-gradient-to-tr from-purple-600 via-indigo-600 to-indigo-700',
-      badgeStyle: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
-      bio: 'Driving product growth, roadmap generation strategy, and trusted positioning with robust core-level execution and sustainable technology.',
-      tags: ['System Architecture', 'Core Lead', 'Strategic Vision'],
-    },
-    {
-      initials: 'AK',
-      name: 'Ashwani Kumar',
-      role: 'Principal Full-Stack & Cloud Specialist',
-      badge: 'Cloud Architecture',
-      avatarBg: 'bg-gradient-to-tr from-pink-600 via-purple-600 to-indigo-600',
-      badgeStyle: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-      bio: 'Expert in Full-Stack engineering, managing containerized cloud deployments, serverless functions, resilient architectures, and scaling systems.',
-      tags: ['Full-Stack Stack', 'Cloud & DevOps', 'Backend'],
-    },
-    {
-      initials: 'RC',
-      name: 'Ritesh Chaurasiya',
-      role: 'Mobile Application & R&D Developer',
-      badge: 'R&D Developer',
-      avatarBg: 'bg-gradient-to-tr from-emerald-600 via-teal-600 to-emerald-700',
-      badgeStyle: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-      bio: 'Specialized in Flutter, App performance frameworks, intuitive user experiences, native APIs integration, and advanced R&D product ideas.',
-      tags: ['R&D Ecosystem', 'Mobile', 'Architecture R&D'],
-    },
-  ];
-
   return (
-    <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+    <div className="space-y-12 sm:space-y-16">
+      {/* 1. ABOUT HERO */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="space-y-8"
+        className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center max-w-6xl mx-auto px-4"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* LEFT: Text content */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-md">
-              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              <span>About CareerNova</span>
-            </div>
+        {/* Left: eyebrow, heading, subheading */}
+        <div className="space-y-4 text-center lg:text-left">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 text-xs font-bold">
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            ABOUT CAREERNOVA
+          </span>
 
-            <div className="mt-4 text-[11px] sm:text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">
-              People &nbsp;|&nbsp; Skills &nbsp;|&nbsp; Opportunities
-            </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Building Better Futures Through{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
+              Expertise &amp; Innovation
+            </span>
+          </h1>
 
-            <h1 className="mt-3 text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              <span className="text-slate-900">Democratizing Career &amp; </span>
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Business Intelligence
-              </span>
-            </h1>
-
-            <p className="mt-4 text-slate-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              We build next-generation AI and growth-proven frameworks to make high-growth tools accessible to every student, job seeker, and entrepreneur.
-            </p>
-
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto lg:mx-0">
-              <div className="flex items-center gap-2.5 text-left">
-                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
-                  <Users className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-900 leading-tight">People First</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Driven by real needs</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5 text-left">
-                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center">
-                  <Target className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-900 leading-tight">Skills Growth</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Tools that empower</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5 text-left">
-                <div className="w-9 h-9 flex-shrink-0 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
-                  <TrendingUp className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-900 leading-tight">Real Opportunities</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">Measurable impact</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: Illustration */}
-          <div className="relative">
-            <img
-              src="/assets/about-hero.png"
-              alt="CareerNova - people, skills and opportunities"
-              className="w-full h-auto"
-              loading="eager"
-            />
-          </div>
-        </div>
-
-        {/* Mission Banner */}
-        <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
-            <div className="w-11 h-11 flex-shrink-0 rounded-full bg-white/15 border border-white/25 flex items-center justify-center">
-              <Target className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-200 block mb-2">
-                Our Guiding Mission
-              </span>
-              <p className="text-lg sm:text-2xl font-bold italic leading-snug max-w-3xl">
-                "Our mission is to make career development, business planning and digital tools simple and accessible for everyone."
-              </p>
-            </div>
-            <button
-              onClick={() => onNavigate('contact')}
-              className="self-start sm:self-center flex-shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-colors cursor-pointer"
-            >
-              <span>Learn More</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          <div className="mt-6 flex items-center gap-2 bg-black/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/20 w-fit">
-            <Headphones className="w-3.5 h-3.5 text-indigo-200" />
-            <span>Direct Support &amp; Active Advisory</span>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 2. Vision & Platform Purpose Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Vision Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ ...smoothTransition, delay: 0.05 }}
-          className="bg-white p-7 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:shadow-md hover:border-indigo-500/50 transition-all duration-300"
-        >
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-bold">
-            <Eye className="w-6 h-6" />
-          </div>
-          <h2 className="text-xl font-bold text-slate-900">Our Vision</h2>
-          <p className="text-slate-600 text-sm leading-relaxed font-normal">
-            To eliminate information asymmetry in career paths and startup ecosystems. We believe that every student should have equal access to resources, career tools, and financial wisdom.
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+            CareerNova brings together career intelligence, business expertise, technology and practical
+            solutions to help individuals and organizations move forward with confidence.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Why We Created This Platform */}
+        {/* Right: one restrained abstract visual — a growth panel, not a wall of cards */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ ...smoothTransition, delay: 0.1 }}
-          className="bg-white p-7 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:shadow-md hover:border-purple-500/50 transition-all duration-300"
+          className="relative aspect-[4/3] rounded-3xl border border-slate-200 bg-gradient-to-br from-indigo-50 via-white to-violet-50 overflow-hidden"
         >
-          <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center font-bold">
-            <Heart className="w-6 h-6" />
+          {/* Subtle grid backdrop */}
+          <div
+            className="absolute inset-0 opacity-[0.35]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(99,102,241,0.12) 1px, transparent 1px)',
+              backgroundSize: '28px 28px',
+            }}
+          />
+
+          {/* Rising growth bars */}
+          <div className="absolute bottom-8 left-8 right-8 flex items-end gap-3 h-32">
+            {[40, 65, 50, 85, 70].map((h, i) => (
+              <motion.div
+                key={i}
+                initial={{ height: 0 }}
+                whileInView={{ height: `${h}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="flex-1 rounded-t-lg bg-gradient-to-t from-indigo-600 to-violet-500"
+              />
+            ))}
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Why We Created This Platform</h2>
-          <p className="text-slate-600 text-sm leading-relaxed font-normal">
-            Too many ambitious students get filtered out due to outdated ATS scanners and the many gateways to success. CareerNova fills this void with accessible AI-driven tools, financial intelligence, and action roadmaps.
-          </p>
+
+          {/* Floating badge */}
+          <motion.div
+            animate={{ y: [-4, 0, -4] }}
+            transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
+            className="absolute top-6 right-6 flex items-center gap-2 px-3 py-2 rounded-2xl bg-white border border-slate-200 shadow-md"
+          >
+            <TrendingUp className="w-4 h-4 text-emerald-600" />
+            <span className="text-xs font-bold text-slate-900 whitespace-nowrap">Real Progress</span>
+          </motion.div>
         </motion.div>
-      </section>
+      </motion.div>
 
-      {/* 3. Engineering Principles */}
-      <section className="space-y-6">
-        <div className="text-center space-y-1.5">
-          <div className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
-            <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-            <span>Our Core Pillars</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            The Principles That Guide Our Engineering
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {engineeringPillars.map((pillar, idx) => (
-            <motion.div
-              key={pillar.step}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ ...smoothTransition, delay: idx * 0.08 }}
-              className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-xs space-y-2.5 hover:shadow-md hover:border-indigo-500/50 transition-all duration-300"
-            >
-              <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg inline-block border ${pillar.badgeColor}`}>
-                {pillar.step}
-              </span>
-              <h3 className="font-bold text-base text-slate-900">{pillar.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                {pillar.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <div className="space-y-6">
-  {/* Sudhir Singh Card */}
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-    <div className="flex items-center gap-4">
-      <img src="/Sudhir.png" alt="Sudhir Singh" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-gray-900">Sudhir Singh</h3>
-        <p className="text-sm font-medium text-indigo-600">Master Architect & Chief Strategy Officer</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full">Overall Management & Growth</span>
-  </div>
-  <p className="text-gray-600 text-sm pl-2">
-    Driving high-impact business positioning, multi-channel customer acquisition funnel design, and strategic corporate roadmap execution to scale operations globally.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Growth Strategy</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Market Positioning</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Corporate Scaling</span>
-  </div>
-
-  {/* Ashwani Kumar Card */}
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
-    <div className="flex items-center gap-4">
-      <img src="/Ashwani.png" alt="Ashwani Kumar" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-gray-900">Ashwani Kumar</h3>
-        <p className="text-sm font-medium text-purple-600">Principal Full-Stack & Cloud Specialist</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Full-Stack Architecture</span>
-  </div>
-  <p className="text-gray-600 text-sm pl-2">
-    Architecting high-performance, resilient end-to-end web applications with modern frameworks, containerized cloud infrastructure, and low-latency microservices.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Full-Stack Engineering</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Cloud & DevOps</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Scalable Backends</span>
-  </div>
-
-  {/* Ritesh Chaurasiya Card */}
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
-    <div className="flex items-center gap-4">
-      <img src="/Ritesh.png" alt="Ritesh Chaurasiya" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-gray-900">Ritesh Chaurasiya</h3>
-        <p className="text-sm font-medium text-emerald-600">Senior iOS & Mobile App Developer</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">Native iOS Developer</span>
-  </div>
-  <p className="text-gray-600 text-sm pl-2">
-    Crafting fluid, high-performance native iOS experiences with Swift, seamless human-interface guidelines compliance, and complex device-level API integrations.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Swift & SwiftUI</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">Native iOS APIs</span>
-    <span className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-md">App Performance</span>
-  </div>
-</div>
-
-      {/* 5. Let's Connect - Hero + Contact Form */}
-      <motion.section
-        id="contact-form-section"
+      {/* 2. WHO WE ARE */}
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="space-y-10"
+        className="max-w-4xl mx-auto px-4 text-center space-y-5"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          {/* LEFT: Hero content */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-bold px-3.5 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-              <span className="uppercase tracking-wider">Let's Connect</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Let's Build Something Great{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">
-                Together.
-              </span>
-            </h2>
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-md">
-              Have a project in mind, a question, or just want to explore opportunities? We're always excited to connect and create something meaningful.
-            </p>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">Quick Response</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">We usually reply within 24 hours.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">100% Confidential</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Your information is always safe with us.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">Expert Guidance</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Get the right advice for your goals.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative illustration panel — swap this block for your own workspace photo if you have one */}
-            <div className="relative rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-fuchsia-50 border border-indigo-100 p-6 sm:p-7 overflow-hidden">
-              <Send className="w-5 h-5 text-fuchsia-400 absolute top-5 right-6 -rotate-12" />
-              <div className="flex items-center gap-3.5">
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-indigo-600">
-                  <Laptop className="w-6 h-6" />
-                </div>
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-amber-600">
-                  <Coffee className="w-6 h-6" />
-                </div>
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-emerald-600">
-                  <Leaf className="w-6 h-6" />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-5">
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
-                  New Projects
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Handshake className="w-3.5 h-3.5 text-blue-600" />
-                  Partnerships
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
-                  Career Support
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Mail className="w-3.5 h-3.5 text-orange-600" />
-                  General Enquiries
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: Contact Form Card */}
-          <div className="bg-white p-6 sm:p-9 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="text-left space-y-1.5 mb-6">
-              <div className="inline-flex items-center gap-1 text-[11px] uppercase font-bold tracking-wider text-indigo-700">
-                <span>Send Us A Message</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-                We're Here to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">Help</span>
-              </h2>
-              <p className="text-slate-600 text-sm">
-                Fill out the form below and our team will get back to you soon.
-              </p>
-            </div>
-
-            <form onSubmit={handleFormSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleFormChange}
-                      placeholder="Enter your full name"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleFormChange}
-                      placeholder="Enter your email"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleFormChange}
-                      placeholder="Enter your phone number"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Subject <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <List className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    <select
-                      id="subject"
-                      name="subject"
-                      required
-                      value={formData.subject}
-                      onChange={handleFormChange}
-                      className={`w-full pl-9 pr-8 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent appearance-none cursor-pointer ${
-                        formData.subject === '' ? 'text-slate-400' : 'text-slate-800'
-                      }`}
-                    >
-                      <option value="" disabled>Select a subject</option>
-                      <option value="New Projects">New Projects</option>
-                      <option value="Partnerships">Partnerships</option>
-                      <option value="Career Support">Career Support</option>
-                      <option value="General Enquiries">General Enquiries</option>
-                    </select>
-                    <svg className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                  Your Message <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <MessageSquare className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleFormChange}
-                    placeholder="Tell us about your requirement..."
-                    className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-                  />
-                </div>
-              </div>
-
-              <label htmlFor="agree" className="flex items-start gap-2.5 cursor-pointer select-none">
-                <span className="relative flex-shrink-0 mt-0.5">
-                  <input
-                    id="agree"
-                    type="checkbox"
-                    checked={agree}
-                    onChange={(e) => setAgree(e.target.checked)}
-                    className="peer sr-only"
-                  />
-                  <span className="flex items-center justify-center w-4.5 h-4.5 rounded-md border-2 border-slate-300 bg-white peer-checked:bg-gradient-to-r peer-checked:from-indigo-600 peer-checked:to-fuchsia-600 peer-checked:border-transparent transition-all">
-                    {agree && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
-                  </span>
-                </span>
-                <span className="text-xs text-slate-600">
-                  I agree to be contacted by CareerNova regarding my inquiry.
-                </span>
-              </label>
-
-              <button
-                type="submit"
-                disabled={status === 'sending'}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 disabled:opacity-60 text-white text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-md shadow-indigo-600/25 cursor-pointer"
-              >
-                {status === 'sending' ? (
-                  <span>Sending...</span>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Send Message</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
-              <p className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
-                <Lock className="w-3 h-3" />
-                <span>Your information is safe with us. We never share your data.</span>
-              </p>
-
-              {status === 'success' && (
-                <p className="text-center text-sm font-semibold text-emerald-600">
-                  Thanks! Your message has been sent — we'll get back to you soon.
-                </p>
-              )}
-              {status === 'error' && !agree && (
-                <p className="text-center text-sm font-semibold text-red-600">
-                  Please agree to be contacted before sending your message.
-                </p>
-              )}
-              {status === 'error' && agree && (
-                <p className="text-center text-sm font-semibold text-red-600">
-                  Something went wrong. Please try again or email us directly.
-                </p>
-              )}
-            </form>
-          </div>
-        </div>
-
-        {/* Bottom Feature Strip */}
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3">
-                <Target className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Turn Ideas Into Reality</h4>
-              <p className="text-xs text-slate-500 mt-1">Let's discuss how we can help you grow.</p>
-              <div className="w-8 h-0.5 bg-indigo-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-                <Lightbulb className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Innovative Solutions</h4>
-              <p className="text-xs text-slate-500 mt-1">Tailored to your unique needs.</p>
-              <div className="w-8 h-0.5 bg-blue-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
-                <Users className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">A Reliable Partner</h4>
-              <p className="text-xs text-slate-500 mt-1">Committed to your success.</p>
-              <div className="w-8 h-0.5 bg-emerald-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-3">
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Long-Term Growth</h4>
-              <p className="text-xs text-slate-500 mt-1">More than a service, a partnership.</p>
-              <div className="w-8 h-0.5 bg-orange-500 rounded-full mt-3" />
-            </div>
-          </div>
-        </div>
-
-        {/* Tagline */}
-        <p className="text-center text-lg sm:text-xl italic font-serif text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">
-          Your Next Opportunity Starts Here
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          More Than a Service Platform
+        </h2>
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          CareerNova is built around a simple idea \u2014 the right knowledge, the right tools and the right
+          guidance can turn potential into progress. We don\u2019t think of ourselves as a list of services.
+          We\u2019re a working system that connects career development, business solutions, digital
+          transformation, analytics and financial expertise, because real progress rarely comes from a
+          single skill on its own.
         </p>
-      </motion.section>
+
+        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+          {PRACTICE_AREAS.map((area) => (
+            <div
+              key={area.label}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-50 border border-slate-200 text-slate-700"
+            >
+              <area.icon className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+              <span className="text-xs font-bold whitespace-nowrap">{area.label}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* 3. OUR MISSION & VISION */}
+      <div className="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-5">
+        {/* Mission — light panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 space-y-5"
+        >
+          <div className="space-y-2">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Our Mission</h2>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              To make professional growth and practical expertise more accessible, useful and impactful.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {MISSION_PILLARS.map((pillar) => (
+              <div key={pillar.title} className="space-y-2 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                  <pillar.icon className="w-4 h-4" />
+                </div>
+                <div className="text-sm font-black text-slate-900">{pillar.title}</div>
+                <p className="text-[11px] text-slate-600 leading-snug">{pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Vision — dark, futuristic panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ ...smoothTransition, delay: 0.1 }}
+          className="relative rounded-3xl border border-slate-800 bg-slate-950 p-6 sm:p-8 flex flex-col justify-center space-y-3 overflow-hidden min-h-[220px]"
+        >
+          <div
+            className="absolute inset-0 opacity-[0.25]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, rgba(129,140,248,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(129,140,248,0.35) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+          <div className="relative z-10 space-y-3">
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Our Vision</h2>
+            <p className="text-sm text-slate-300 leading-relaxed max-w-md">
+              To create a future where every learner, professional and business has access to the expertise
+              and technology needed to move forward.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* 4. WHAT WE BELIEVE */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="max-w-6xl mx-auto px-4 space-y-8"
+      >
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">What We Believe</h2>
+          <p className="text-sm text-slate-600">A few ideas guide every decision we make.</p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          {BELIEFS.map((belief) => (
+            <div
+              key={belief.title}
+              className="flex gap-4 p-5 rounded-2xl border border-slate-200 bg-white"
+            >
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                <belief.icon className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-black text-slate-900">{belief.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{belief.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* 5. OUR EXPERTISE — a flow / ecosystem, not a repeat of the services grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="max-w-6xl mx-auto px-4 space-y-8"
+      >
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Our Expertise</h2>
+          <p className="text-sm text-slate-600">Three areas of practice, each built to move you from a starting point to an outcome.</p>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-4">
+          {EXPERTISE_FLOWS.map((flow) => (
+            <div key={flow.title} className="p-5 rounded-2xl border border-slate-200 bg-white space-y-4">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${flow.chip}`}>
+                <flow.icon className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-black text-slate-900">{flow.title}</h3>
+              <div className="flex items-center flex-wrap gap-1.5">
+                {flow.steps.map((step, i) => (
+                  <React.Fragment key={step}>
+                    <span className={`text-xs font-bold ${flow.accent}`}>{step}</span>
+                    {i < flow.steps.length - 1 && <ArrowRight className="w-3 h-3 text-slate-300 shrink-0" />}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            onClick={() => onNavigate('services')}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer"
+          >
+            <span>Explore Our Services</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </motion.div>
+
+      {/* 6. MEET THE FOUNDER */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="max-w-4xl mx-auto px-4"
+      >
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 flex flex-col sm:flex-row items-center gap-6 sm:gap-8 text-center sm:text-left">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white flex items-center justify-center text-3xl font-black shrink-0">
+            SS
+          </div>
+
+          <div className="space-y-3">
+            <span className="text-xs uppercase font-bold text-indigo-600 tracking-wider">
+              The Mind Behind CareerNova
+            </span>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900">Sudhir Singh</h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-bold">Founder, CareerNova</p>
+            </div>
+            <p className="text-sm text-slate-600 leading-relaxed max-w-xl">
+              Building CareerNova with a focus on practical technology, analytics, career development and
+              digital solutions \u2014 with the goal of making expert-level guidance accessible without the
+              usual complexity or cost.
+            </p>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
+              {['Analytics', 'Technology', 'Career', 'Digital Solutions'].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[11px] font-bold"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* 7. WHO WE HELP */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="max-w-6xl mx-auto px-4 space-y-8"
+      >
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Built For People Who Want to Move Forward
+          </h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {AUDIENCES.map((aud) => (
+            <div
+              key={aud.title}
+              className="p-5 rounded-2xl border border-slate-200 bg-white space-y-3 text-center sm:text-left"
+            >
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mx-auto sm:mx-0 ${aud.chip}`}>
+                <aud.icon className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-black text-slate-900">{aud.title}</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">{aud.description}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* 8. FINAL CTA — with the "Why CareerNova" trust points folded in */}
+      <motion.div
+        initial={{ opacity: 0, y: 40, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ ...smoothTransition, delay: 0.1 }}
+        className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white shadow-xl shadow-indigo-600/20 space-y-6 text-center relative overflow-hidden"
+      >
+        <div className="max-w-2xl mx-auto space-y-2 relative z-10">
+          <span className="text-xs uppercase font-bold text-indigo-200 tracking-wider">
+            One platform. Multiple areas of expertise. One goal \u2014 your growth.
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white">Your Next Chapter Starts Here</h2>
+          <p className="text-xs sm:text-sm text-indigo-100 leading-relaxed font-normal">
+            Whether you\u2019re learning a new skill, building a business or planning your next career move,
+            we\u2019re ready to help you take the next step.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 relative z-10">
+          {WHY_POINTS.map((point) => (
+            <div
+              key={point}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white"
+            >
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+              <span className="text-[11px] font-bold whitespace-nowrap">{point}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2 relative z-10">
+          <button
+            onClick={() => onNavigate('services')}
+            className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-indigo-700 font-bold text-xs sm:text-sm transition-all shadow-lg hover:scale-[1.02] cursor-pointer"
+          >
+            <span>Explore Services</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+
+          <a
+            href="https://wa.me/917007260391?text=Hi%20CareerNova%2C%20I%27d%20like%20to%20know%20more%20about%20your%20team%20and%20services."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-all border border-white/20 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>Talk to CareerNova</span>
+          </a>
+        </div>
+      </motion.div>
     </div>
   );
 };
