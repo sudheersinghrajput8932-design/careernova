@@ -100,80 +100,25 @@ const POWER_VERBS = [
 
 export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ onNotify, onSaveItem }) => {
   const [personalInfo, setPersonalInfo] = useState({
-    fullName: 'Sudhir Singh',
-    roleTitle: 'Full-Stack Software Engineer',
-    email: 'sudheersinghrajput8932@gmail.com',
-    phone: '+91 7007260391',
-    location: 'Bangalore, India',
-    linkedin: 'linkedin.com/in/sudhir-singh-dev',
-    github: 'github.com/sudhirsingh',
-    summary:
-      'High-velocity Full-Stack Engineer with 3+ years of experience architecting distributed TypeScript, React 19, and Node.js microservices. Proven track record in optimizing web performance by 45% and leading cross-functional agile delivery teams.',
+    fullName: '',
+    roleTitle: '',
+    email: '',
+    phone: '',
+    location: '',
+    linkedin: '',
+    github: '',
+    summary: '',
   });
 
-  const [experiences, setExperiences] = useState<Experience[]>([
-    {
-      id: 'exp-1',
-      role: 'Senior Frontend Engineer',
-      company: 'TechNova Solutions',
-      period: '2023 - Present',
-      location: 'Remote / Bangalore',
-      bullets: [
-        'Architected modern React 19 single-page dashboard serving 250k+ active users, cutting initial bundle size by 38%.',
-        'Spearheaded automated CI/CD deployment pipelines using GitHub Actions and Docker, reducing release cycle time from 3 days to 4 hours.',
-        'Mentored 4 junior developers in TypeScript best practices and state management architecture.'
-      ],
-    },
-    {
-      id: 'exp-2',
-      role: 'Full Stack Developer',
-      company: 'Nexus Digital Systems',
-      period: '2021 - 2023',
-      location: 'New Delhi, India',
-      bullets: [
-        'Engineered high-throughput REST APIs and Redis caching layer handling 15k requests/min with 99.9% uptime.',
-        'Collaborated with Product and Design teams to deliver 8 high-impact core user features on schedule.'
-      ],
-    },
-  ]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
 
-  const [education, setEducation] = useState<EducationItem[]>([
-    {
-      id: 'edu-1',
-      degree: 'B.Tech in Computer Science & Engineering',
-      institution: 'National Institute of Technology',
-      year: '2017 - 2021',
-      grade: '8.8 / 10 CGPA',
-    },
-  ]);
+  const [education, setEducation] = useState<EducationItem[]>([]);
 
-  const [certifications, setCertifications] = useState<Certification[]>([
-    { id: 'cert-1', name: 'AWS Certified Solutions Architect', issuer: 'Amazon Web Services', year: '2024' }
-  ]);
+  const [certifications, setCertifications] = useState<Certification[]>([]);
 
-  const [projects, setProjects] = useState<ProjectItem[]>([
-    {
-      id: 'proj-1',
-      name: 'DevFlow — CI/CD Analytics Dashboard',
-      description: 'Real-time pipeline monitoring tool visualizing build health across 40+ microservices.',
-      tech: 'React, Node.js, WebSockets, PostgreSQL'
-    }
-  ]);
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
 
-  const [skills, setSkills] = useState([
-    'React 19',
-    'Next.js',
-    'TypeScript',
-    'Node.js',
-    'Express',
-    'PostgreSQL',
-    'Docker',
-    'Tailwind CSS',
-    'AWS / Cloud',
-    'REST APIs',
-    'System Design',
-    'Git / GitHub'
-  ]);
+  const [skills, setSkills] = useState<string[]>([]);
 
   const [newSkill, setNewSkill] = useState('');
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
@@ -350,8 +295,32 @@ ${skills.join(', ')}
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
+      {/* Print isolation: when printing, hide EVERYTHING on the page (including the
+          app shell / tools sidebar outside this component) except the resume itself. */}
+      <style>{`
+        @media print {
+          body * {
+            visibility: hidden !important;
+          }
+          #resume-print-area,
+          #resume-print-area * {
+            visibility: visible !important;
+          }
+          #resume-print-area {
+            display: block !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 24px !important;
+            box-shadow: none !important;
+          }
+        }
+      `}</style>
+
       {/* Premium Action Header */}
-      <div className={`relative overflow-hidden rounded-2xl border ${tpl.border} bg-white shadow-sm`}>
+      <div className={`relative overflow-hidden rounded-2xl border ${tpl.border} bg-white shadow-sm print:hidden`}>
         <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${tpl.from} ${tpl.to}`} />
         <div className="flex items-center justify-between flex-wrap gap-4 p-4 pt-5">
           <div className="flex items-center gap-4">
@@ -453,7 +422,7 @@ ${skills.join(', ')}
         </div>
       </div>
 
-      {activeTab === 'edit' ? (
+      <div className={`${activeTab === 'edit' ? '' : 'hidden'} print:hidden`}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Form: Personal, Skills, Certifications */}
           <div className="lg:col-span-6 space-y-5">
@@ -470,6 +439,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.fullName}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, fullName: e.target.value })}
+                    placeholder="e.g. Priya Sharma"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -479,6 +449,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.roleTitle}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, roleTitle: e.target.value })}
+                    placeholder="e.g. Full-Stack Software Engineer"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -491,6 +462,7 @@ ${skills.join(', ')}
                     type="email"
                     value={personalInfo.email}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                    placeholder="you@example.com"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -500,6 +472,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.phone}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
+                    placeholder="+91 98765 43210"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -512,6 +485,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.location}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, location: e.target.value })}
+                    placeholder="City, Country"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -521,6 +495,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.linkedin}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, linkedin: e.target.value })}
+                    placeholder="linkedin.com/in/yourname"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -530,6 +505,7 @@ ${skills.join(', ')}
                     type="text"
                     value={personalInfo.github}
                     onChange={(e) => setPersonalInfo({ ...personalInfo, github: e.target.value })}
+                    placeholder="github.com/yourname"
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white"
                   />
                 </div>
@@ -541,6 +517,7 @@ ${skills.join(', ')}
                   rows={3}
                   value={personalInfo.summary}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, summary: e.target.value })}
+                  placeholder="2-3 lines summarizing your experience, key skills, and biggest impact."
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white resize-none leading-relaxed"
                 />
               </div>
@@ -551,6 +528,9 @@ ${skills.join(', ')}
               <h4 className="text-xs uppercase font-bold text-slate-500 tracking-wider">
                 Technical &amp; Domain Skills ({skills.length})
               </h4>
+              {skills.length === 0 && (
+                <p className="text-[11px] text-slate-400">No skills added yet — add a few below.</p>
+              )}
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill) => (
                   <span
@@ -673,6 +653,10 @@ ${skills.join(', ')}
                   <span>Add Role</span>
                 </button>
               </div>
+
+              {experiences.length === 0 && (
+                <p className="text-[11px] text-slate-400">No work experience added yet — click "Add Role" to get started.</p>
+              )}
 
               {experiences.map((exp, expIdx) => (
                 <div key={exp.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
@@ -862,6 +846,10 @@ ${skills.join(', ')}
                 </button>
               </div>
 
+              {education.length === 0 && (
+                <p className="text-[11px] text-slate-400">No education added yet — click "Add" to get started.</p>
+              )}
+
               {education.map((edu, idx) => (
                 <div key={edu.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                   <div className="flex items-start justify-between gap-2">
@@ -920,8 +908,12 @@ ${skills.join(', ')}
             </div>
           </div>
         </div>
-      ) : (
-        /* Live Resume Preview */
+      </div>
+
+      {/* Live Resume Preview — always mounted so it's available to print regardless
+          of which tab is active on screen; visibility on-screen is controlled by
+          activeTab, visibility when printing is forced by the #resume-print-area rule above. */}
+      <div id="resume-print-area" className={activeTab === 'preview' ? '' : 'hidden'}>
         <div className="max-w-3xl mx-auto p-8 rounded-2xl bg-white text-slate-900 shadow-2xl font-sans space-y-6 relative overflow-hidden">
           <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${tpl.from} ${tpl.to}`} />
 
@@ -1050,7 +1042,7 @@ ${skills.join(', ')}
             </p>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
