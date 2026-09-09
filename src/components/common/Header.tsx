@@ -73,8 +73,8 @@ export const Header: React.FC<HeaderProps> = ({
       id="main-header"
       className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/98 backdrop-blur-xl border-slate-200 shadow-sm'
-          : 'bg-white/95 backdrop-blur-xl border-slate-200 shadow-xs'
+          ? 'bg-white/98 backdrop-blur-md border-slate-200 shadow-sm'
+          : 'bg-white/95 backdrop-blur-md border-slate-200 shadow-xs'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -170,12 +170,14 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className="ambient-glow-cta group relative flex items-center gap-1.5 px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold transition-all duration-300 shadow-md shadow-indigo-600/25 hover:shadow-lg hover:shadow-indigo-600/35 hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer overflow-hidden"
               >
-                {/* Periodic shimmer sweep */}
-                <motion.span
+                {/* Shimmer sweep — CSS-only, plays on hover instead of looping forever.
+                    An always-on Framer Motion animate loop kept running on this button
+                    even while it's display:none on mobile (Tailwind's `hidden` doesn't
+                    pause JS-driven animation), burning main-thread cycles that showed up
+                    as jank when opening the mobile menu. This has zero cost until hovered. */}
+                <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
-                  animate={{ x: ['-120%', '260%'] }}
-                  transition={{ repeat: Infinity, repeatDelay: 2, duration: 1.3, ease: 'easeInOut' }}
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg] transition-transform duration-700 ease-out -translate-x-[120%] group-hover:translate-x-[420%]"
                 />
                 <span className="relative">Contact Us</span>
                 <ArrowRight className="relative w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -220,15 +222,27 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown Menu.
+          Two changes from before, both aimed at the "lag" when opening this panel:
+          1. Animating `height` forces the browser to recalculate layout on every
+             single animation frame (it's a layout property, not a compositor one).
+             With ~6 nav items plus the two footer rows, that's a real reflow cost on
+             a mid-range phone. Swapped to animating opacity + a small y offset instead,
+             which the browser can run entirely on the compositor thread (GPU), so it
+             stays smooth regardless of how much content is inside.
+          2. Dropped `backdrop-blur-xl` here — this panel sits directly under the
+             header, which is already blurred, so a second heavy blur layer was
+             compositing on top of the first every frame of the open/close animation.
+             Solid white looks effectively identical this close under the header,
+             at a fraction of the GPU cost. */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-slate-200 bg-white/98 backdrop-blur-xl overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden border-t border-slate-200 bg-white overflow-hidden shadow-lg"
           >
             <div className="px-4 pt-3 pb-5 space-y-2">
               {navItems.map((item, idx) => {
