@@ -139,8 +139,8 @@ export default function App() {
         onOpenCreator={() => setCreatorModalOpen(true)}
       />
 
-      {/* Main Content View */}
-      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      {/* Main Content View with Semantic ID for Crawlers */}
+      <main id="main-content" className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {renderCurrentView()}
       </main>
 
