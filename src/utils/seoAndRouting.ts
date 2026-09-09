@@ -15,11 +15,11 @@ export interface RouteMeta {
 
 export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
   home: {
-    title: 'CareerNova - AI-Powered Career Hub, Engineering & Growth Solutions',
-    description: 'Discover professional AI tools, full-stack web engineering, native iOS Swift development, and strategic lead generation services tailored for your growth.',
-    keywords: 'CareerNova, AI tools, ATS resume optimizer, mock interview simulator, full-stack engineering, iOS app development, startup strategy, financial modeling',
-    ogTitle: 'CareerNova - AI-Powered Career Hub & Growth Solutions',
-    ogDescription: 'Scale your business and career with expert full-stack development, iOS apps, AI integrations, and targeted growth strategies.',
+    title: 'CareerNova | Web Development, Custom Software & Business Growth Solutions',
+    description: 'CareerNova delivers high-impact web development, custom software engineering, native mobile apps, AI copilots, and digital growth strategies across India.',
+    keywords: 'CareerNova, Web Development Agency, Custom Software Development, Software Engineering, Native iOS Apps, Digital Marketing, AI Tools, ATS Resume Optimizer',
+    ogTitle: 'CareerNova | Web Development & Digital Growth Agency',
+    ogDescription: 'Transform your business with modern web architecture, AI tools, custom apps, and growth advisory.',
     canonicalPath: '/',
     ogImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630&q=80',
     ogImageType: 'image/jpeg',
@@ -27,11 +27,11 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
     ogImageHeight: 630,
   },
   expertise: {
-    title: 'Core Engineering & Technical Expertise (10 Disciplines) | CareerNova',
+    title: 'Core Engineering & Technical Expertise | CareerNova',
     description: 'Explore 10 consolidated professional disciplines: Financial Modeling, BI Data Analytics, CRM & ERP, Agile Management, Full-Stack Web, Custom WordPress, Native iOS Swift, Cloud APIs, App Store Deployment, and SEO Growth Strategy.',
     keywords: 'Core Expertise, 10 Technical Disciplines, Financial Modeling, BI Data Analytics, CRM ERP, Agile Project Management, Full-Stack Web Development, Custom WordPress, Native iOS Swift, Cloud APIs, App Store Deployment, SEO Growth Strategy',
-    ogTitle: 'Core Engineering & Technical Expertise (10 Disciplines) - CareerNova',
-    ogDescription: 'Explore 10 consolidated professional disciplines: Financial Modeling, BI Data Analytics, CRM & ERP, Agile Management, Full-Stack Web, Custom WordPress, Native iOS Swift, Cloud APIs, App Store Deployment, and SEO Growth Strategy.',
+    ogTitle: 'Core Engineering & Technical Expertise - CareerNova',
+    ogDescription: 'Explore 10 consolidated technical disciplines built to scale ambitious projects.',
     canonicalPath: '/expertise',
     ogImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80',
     ogImageType: 'image/jpeg',
@@ -39,11 +39,11 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
     ogImageHeight: 630,
   },
   services: {
-    title: 'Professional Engineering & Growth Services | CareerNova',
+    title: 'Professional Web Engineering & Software Development Services | CareerNova',
     description: 'High-impact technical services including Full-Stack Web Architecture, Native iOS Development, AI Automation Workflows, and Custom Enterprise Solutions.',
-    keywords: 'CareerNova Services, Software Engineering, Mobile App Development, iOS Swift, React Web Apps, AI Workflows, Cloud Infrastructure',
-    ogTitle: 'Professional Engineering & Growth Services - CareerNova',
-    ogDescription: 'High-impact technical services including Full-Stack Web Architecture, Native iOS Development, AI Automation Workflows, and Custom Enterprise Solutions.',
+    keywords: 'CareerNova Services, Software Engineering, Mobile App Development, iOS Swift, React Web Apps, AI Workflows, Cloud Infrastructure, Web Development',
+    ogTitle: 'Professional Web & Software Services - CareerNova',
+    ogDescription: 'High-impact technical services including Full-Stack Web Architecture, Native iOS Development, and AI Automation.',
     canonicalPath: '/services',
     ogImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&h=630&q=80',
     ogImageType: 'image/jpeg',
@@ -123,11 +123,11 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
     ogImageHeight: 630,
   },
   about: {
-    title: 'About CareerNova | Mission, Values & Founder Story',
+    title: 'About CareerNova | Mission, Values & Software Advisory',
     description: 'Learn about CareerNova’s mission to democratize elite career intelligence and modern business acceleration.',
     keywords: 'About CareerNova, Sudhir Singh Founder, Mission, Values, Engineering Team, Tech Mentorship',
     ogTitle: 'About CareerNova - Democratizing Growth Intelligence',
-    ogDescription: 'Built with passion by Sudhir Singh to empower students and founders globally.',
+    ogDescription: 'Built to empower students, professionals and founders globally.',
     canonicalPath: '/about',
     ogImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&h=630&q=80',
     ogImageType: 'image/jpeg',
@@ -148,8 +148,8 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
   },
   contact: {
     title: 'Contact & Direct Advisory Connect | CareerNova',
-    description: 'Get in touch with the CareerNova team for custom software engineering, iOS development, mentorship, and enterprise inquiries.',
-    keywords: 'Contact CareerNova, Hire Engineers, WhatsApp Advisory, Sudhir Singh Contact, Support',
+    description: 'Get in touch with the CareerNova team for custom software engineering, web development, mentorship, and enterprise inquiries.',
+    keywords: 'Contact CareerNova, Hire Engineers, WhatsApp Advisory, Support',
     ogTitle: 'Contact CareerNova - Direct Advisory Connect',
     ogDescription: 'Reach out via WhatsApp, phone hotline, or direct email for support and advisory.',
     canonicalPath: '/contact',
@@ -190,7 +190,6 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     return { tab: 'home' };
   }
 
-  // Common direct route aliases
   if (cleanPath === '/expertise' || cleanPath === '/specialists' || cleanPath === '/disciplines') {
     return { tab: 'expertise' };
   }
@@ -231,7 +230,6 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     return { tab: rootSegment, subTool };
   }
 
-  // Any non-empty unmatched URL resolves to 404 page
   return { tab: '404' };
 }
 
@@ -253,13 +251,13 @@ export function getRouteUrl(tab: TabId, subTool?: string): string {
 
 /**
  * Dynamically updates document.title, Open Graph tags, Twitter Card tags,
- * and tracks the pageview in Google Analytics without a page reload.
+ * injects LocalBusiness JSON-LD Schema, and tracks pageviews in GA4.
  */
 export function updateDocumentMetadata(tab: TabId, subTool?: string) {
   if (typeof document === 'undefined') return;
 
   const meta = ROUTE_METADATA[tab] || ROUTE_METADATA.home;
-  const baseUrl = 'https://careernova-mu.vercel.app';
+  const baseUrl = 'https://careernova-official.vercel.app';
   const currentPath = getRouteUrl(tab, subTool);
   const fullUrl = `${baseUrl}${currentPath === '/' ? '/' : currentPath}`;
 
@@ -306,7 +304,7 @@ export function updateDocumentMetadata(tab: TabId, subTool?: string) {
   setMetaTag('meta[name="twitter:url"]', 'name', 'twitter:url', fullUrl);
   setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
 
-  // 5. Update Canonical link if present or create it
+  // 5. Update Canonical link
   let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!canonical) {
     canonical = document.createElement('link');
@@ -315,7 +313,39 @@ export function updateDocumentMetadata(tab: TabId, subTool?: string) {
   }
   canonical.setAttribute('href', fullUrl);
 
-  // 6. Notify Google Analytics (GA4)
+  // 6. LocalBusiness & Organization JSON-LD Structured Data Schema Injection
+  let schemaScript = document.querySelector('script[id="json-ld-schema"]') as HTMLScriptElement | null;
+  if (!schemaScript) {
+    schemaScript = document.createElement('script');
+    schemaScript.setAttribute('id', 'json-ld-schema');
+    schemaScript.setAttribute('type', 'application/ld+json');
+    document.head.appendChild(schemaScript);
+  }
+
+  const jsonLdData = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    'name': 'CareerNova',
+    'url': baseUrl,
+    'logo': `${baseUrl}/logo.png`,
+    'image': ogImage,
+    'telephone': '+917007260391',
+    'priceRange': '₹₹',
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': '298B Almari gali, New Ashok Nagar',
+      'addressLocality': 'Delhi',
+      'postalCode': '110096',
+      'addressCountry': 'IN',
+    },
+    'sameAs': [
+      baseUrl,
+    ]
+  };
+
+  schemaScript.textContent = JSON.stringify(jsonLdData);
+
+  // 7. Notify Google Analytics (GA4)
   if (typeof (window as any).gtag === 'function') {
     try {
       (window as any).gtag('event', 'page_view', {
