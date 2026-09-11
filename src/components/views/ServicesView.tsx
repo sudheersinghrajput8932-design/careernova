@@ -8,11 +8,13 @@ import {
   ArrowRight,
   Sparkles,
   CheckCircle2,
-  Clock,
-  MessageCircle,
-  PhoneCall,
-  Check,
-  Star
+  Smartphone,
+  ShoppingBag,
+  Palette,
+  ArrowUpRight,
+  Workflow,
+  Target,
+  Zap
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -22,200 +24,146 @@ interface ServicesViewProps {
   onNotify?: (type: 'success' | 'error' | 'info', title: string, description?: string) => void;
 }
 
+
 interface ServiceItem {
   id: string;
-  category: 'career' | 'business' | 'marketing' | 'ai';
+  category: 'web' | 'ios' | 'ecommerce' | 'ai' | 'design' | 'marketing' | 'growth' | 'support';
   title: string;
-  price: string;
-  billingType?: string;
-  popular?: boolean;
-  badge?: string;
+  eyebrow: string;
   tagline: string;
-  deliveryTime: string;
+  outcome: string;
   features: string[];
   whatsappMessage: string;
 }
 
-const HERO_SLIDER_ITEMS = [
-  {
-    id: 'verified-specialists',
-    image: '/assets/hero-slide-verified-specialists.png',
-    title: 'Verified Specialists You Can Trust',
-    description:
-      'Learn from experienced, background-verified industry experts who bring real-world guidance to every service we offer.',
-  },
-  {
-    id: 'satisfaction-guaranteed',
-    image: '/assets/hero-slide-satisfaction-guaranteed.png',
-    title: '100% Satisfaction Guaranteed',
-    description:
-      'Expert guidance, high-quality delivery, on-time results and dedicated support — every time, with no compromises.',
-  },
-  {
-    id: 'our-services',
-    image: '/assets/hero-slide-our-services.png',
-    title: 'Expert Services for a Brighter Tomorrow',
-    description:
-      'Business Analytics, Digital & Technology, Career & Finance, Marketing & Growth and Compliance & Advisory — all under one roof.',
-  },
-  {
-    id: 'goals-services',
-    image: '/assets/hero-slide-goals-services.png',
-    title: 'Your Goals. Our Services. A Brighter Tomorrow.',
-    description:
-      'Build your skills, gain new opportunities and grow professionally with services designed around your next step.',
-  },
-];
-
 const SERVICES_DATA: ServiceItem[] = [
-  // Category 1: Career Services
   {
-    id: 'ats-resume',
-    category: 'career',
-    title: 'ATS Resume & Cover Letter',
-    price: '₹299',
-    popular: true,
-    badge: 'Best Seller for Job Seekers',
-    tagline: 'Beat automated ATS filters with quantified Google XYZ metric formulas.',
-    deliveryTime: '24 Hours Delivery',
+    id: 'web-development',
+    category: 'web',
+    title: 'Web Development',
+    eyebrow: 'DIGITAL PRESENCE',
+    tagline: 'Professional websites and web applications designed around your business goals.',
+    outcome: 'A fast, credible and conversion-focused digital experience.',
     features: [
-      'ATS-Optimized Single-Column Format (Tested)',
-      'Keyword Targeted to Your Job Description',
-      'PDF + Word Fully Editable Source Files',
-      'Matching Professional Cover Letter Included',
-      '24-Hour Express Delivery Guarantee'
+      'Business Websites',
+      'Landing Pages',
+      'Web Applications',
+      'Business Dashboards',
+      'Custom Digital Platforms',
     ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the ATS Resume & Cover Letter service for ₹299.',
+    whatsappMessage: 'Hi CareerNova team, I want to discuss Web Development services.',
   },
   {
-    id: 'linkedin-opt',
-    category: 'career',
-    title: 'LinkedIn Profile Optimization',
-    price: '₹499',
-    badge: 'Recruiter Inbound Magnet',
-    tagline: 'Transform your profile into an inbound recruiter magnet with custom banner and SEO keywords.',
-    deliveryTime: '24-48 Hours Delivery',
+    id: 'ios-development',
+    category: 'ios',
+    title: 'iOS App Development',
+    eyebrow: 'MOBILE PRODUCTS',
+    tagline: 'Turn your product idea into a polished and reliable iPhone or iPad experience.',
+    outcome: 'A user-friendly mobile product built around your users and business goals.',
     features: [
-      'High-Impact Headline & Keyword-Rich Bio',
-      'Strategic Skill Endorsement & Recommendations Plan',
-      'Custom Brand Header Banner Design',
-      'SEO & Recruiter Inbound Search Visibility Boost',
-      'Direct Connection Outreach Templates'
+      'iPhone & iPad Applications',
+      'Custom App Interfaces',
+      'API & Backend Integration',
+      'App Feature Development',
+      'App Launch Support',
     ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the LinkedIn Profile Optimization service for ₹499.',
-  },
-
-  // Category 2: Business & Legal Services
-  {
-    id: 'msme-udyam',
-    category: 'business',
-    title: 'MSME / Udyam Registration Support',
-    price: '₹599',
-    badge: 'Govt Certified',
-    tagline: 'Official government certificate assistance to unlock business loans, subsidies, and tax rebates.',
-    deliveryTime: '1-Day Processing',
-    features: [
-      'Official Government Certificate Filing Support',
-      'MSME Subsidies & Tax Benefit Guidance',
-      'Fast 1-Day Processing & Document Review',
-      'Bank Account & Priority Lending Advisory',
-      '100% Error-Free Application Guarantee'
-    ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the MSME / Udyam Registration Support service for ₹599.',
+    whatsappMessage: 'Hi CareerNova team, I want to discuss iOS App Development services.',
   },
   {
-    id: 'pitch-deck',
-    category: 'business',
-    title: 'Business Pitch Deck & Presentation',
-    price: '₹1,499',
-    popular: true,
-    badge: 'VC & Investor Ready',
-    tagline: 'High-converting investor decks, executive summaries, and board presentation slides.',
-    deliveryTime: '48 Hours Delivery',
+    id: 'ecommerce',
+    category: 'ecommerce',
+    title: 'E-commerce Development',
+    eyebrow: 'ONLINE COMMERCE',
+    tagline: 'Build an online store that makes browsing, buying and managing products simpler.',
+    outcome: 'A smoother buying journey with a stronger digital sales foundation.',
     features: [
-      '8-10 High-Impact Custom Canva / PPT Slides',
-      'Custom Typography, Color Palette & Brand Styling',
-      'Investor-Ready Financial & Market Layout',
-      'Editable Presentation Source Files Included',
-      '2 Free Revision Rounds'
+      'Online Store Development',
+      'Product & Catalog Setup',
+      'Payment Integration',
+      'Checkout Experience',
+      'Store Analytics Setup',
     ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the Business Pitch Deck & Presentation Design service for ₹1,499.',
-  },
-
-  // Category 3: Digital Marketing Services
-  {
-    id: 'gmb-seo',
-    category: 'marketing',
-    title: 'Google My Business & Local SEO',
-    price: '₹999',
-    badge: 'Local Customer Traffic',
-    tagline: 'Rank #1 on Google Maps and drive direct calls and foot traffic from nearby customers.',
-    deliveryTime: '2-3 Days Setup',
-    features: [
-      'Google Maps Verification & Profile Setup',
-      'Category & High-Intent Keyword Optimization',
-      'Automated 5-Star Review Growth Strategy',
-      'Geo-Tagged Business Photos Upload',
-      'Local Citation & Search Discovery Setup'
-    ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the Google My Business (GMB) Setup & Local SEO service for ₹999.',
+    whatsappMessage: 'Hi CareerNova team, I want to discuss E-commerce Development services.',
   },
   {
-    id: 'social-bundle',
-    category: 'marketing',
-    title: 'Monthly Social Media Post Bundle',
-    price: '₹1,999',
-    billingType: '/ month',
-    popular: true,
-    badge: 'Complete Growth Plan',
-    tagline: 'Consistent, premium branding across Instagram, LinkedIn, and Facebook to build brand authority.',
-    deliveryTime: 'Monthly Delivery',
-    features: [
-      '12 High-Quality Festive & Promotional Graphics',
-      'Custom Logo, Palette & Contact Watermarks',
-      'Copywriting: Viral Captions & Hashtags Included',
-      'Instagram Story & Feed Formats (1080x1080 & 1080x1920)',
-      'Monthly Content Publishing Calendar'
-    ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the Monthly Social Media Post Design Bundle for ₹1,999/month.',
-  },
-
-  // Category 4: AI-Powered Services
-  {
-    id: 'ai-article',
+    id: 'ai-automation',
     category: 'ai',
-    title: 'AI Content & Article Writing',
-    price: '₹399',
-    badge: 'SEO Optimized',
-    tagline: 'High-ranking blogs, landing page copy, and authority technical articles written with precision.',
-    deliveryTime: 'Same Day Delivery',
+    title: 'AI & Automation',
+    eyebrow: 'SMARTER WORKFLOWS',
+    tagline: 'Use intelligent digital workflows to reduce repetitive work and improve operations.',
+    outcome: 'Less manual work and more efficient business processes.',
     features: [
-      '100% SEO-Optimized Articles / Blogs (1,200+ Words)',
-      'Plagiarism-Free with Human Fact-Checking',
-      'Native AI Semantic Structuring & H2/H3 Tags',
-      'Meta Description & Social Excerpt Included',
-      'Direct Markdown or Google Docs Delivery'
+      'AI-Powered Features',
+      'Business Workflow Automation',
+      'AI Assistants',
+      'Process Automation',
+      'Third-Party Integrations',
     ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the AI Content & Article Writing service for ₹399.',
+    whatsappMessage: 'Hi CareerNova team, I want to discuss AI & Automation services.',
   },
   {
-    id: 'ai-photo-enhance',
-    category: 'ai',
-    title: 'AI Product Photo Enhancement',
-    price: '₹699',
-    billingType: '(Pack of 10)',
-    popular: true,
-    badge: 'E-commerce Conversion',
-    tagline: 'Studio-grade e-commerce product photos that boost click-through rates and buyer conversion.',
-    deliveryTime: '24 Hours Delivery',
+    id: 'ui-ux-product-design',
+    category: 'design',
+    title: 'UI/UX & Product Design',
+    eyebrow: 'PRODUCT EXPERIENCE',
+    tagline: 'Create digital experiences that are clear, intuitive and easier for people to use.',
+    outcome: 'A cleaner product experience that helps users understand and take action.',
     features: [
-      'Pack of 10 High-Resolution Product Images',
-      'Studio Quality Background Removal & Placement',
-      'Natural Lighting, Realistic Shadow & HD Polish',
-      'Amazon, Flipkart & Shopify Compliance',
-      'Fast 24-Hour Turnaround'
+      'Website UI Design',
+      'Mobile App UI',
+      'User Experience Design',
+      'Product Interfaces',
+      'Design Systems',
     ],
-    whatsappMessage: 'Hi CareerNova team, I want to order the AI Product Photo Enhancement Pack (10 Images) for ₹699.',
+    whatsappMessage: 'Hi CareerNova team, I want to discuss UI/UX & Product Design services.',
+  },
+  {
+    id: 'digital-marketing-seo',
+    category: 'marketing',
+    title: 'Digital Marketing & SEO',
+    eyebrow: 'VISIBILITY & DEMAND',
+    tagline: 'Turn online visibility into relevant traffic, stronger positioning and business opportunities.',
+    outcome: 'Better visibility with measurable digital growth.',
+    features: [
+      'Search Engine Optimization',
+      'Search Visibility',
+      'Social Media Strategy',
+      'Content Strategy',
+      'Analytics & Reporting',
+    ],
+    whatsappMessage: 'Hi CareerNova team, I want to discuss Digital Marketing & SEO services.',
+  },
+  {
+    id: 'business-growth',
+    category: 'growth',
+    title: 'Business Growth',
+    eyebrow: 'STRATEGY & GROWTH',
+    tagline: 'Connect your digital presence with a clearer strategy for acquiring and converting customers.',
+    outcome: 'Better decisions and a more focused path toward sustainable growth.',
+    features: [
+      'Growth Strategy',
+      'Customer Acquisition',
+      'Conversion Optimization',
+      'Digital Positioning',
+      'Growth Roadmaps',
+    ],
+    whatsappMessage: 'Hi CareerNova team, I want to discuss Business Growth services.',
+  },
+  {
+    id: 'maintenance-support',
+    category: 'support',
+    title: 'Maintenance & Support',
+    eyebrow: 'ONGOING IMPROVEMENT',
+    tagline: 'Keep your digital products stable, updated and ready for continuous improvement.',
+    outcome: 'Reliable digital systems that stay healthy after launch.',
+    features: [
+      'Website Updates',
+      'Bug Fixes',
+      'Performance Improvements',
+      'Technical Support',
+      'Ongoing Enhancements',
+    ],
+    whatsappMessage: 'Hi CareerNova team, I want to discuss Maintenance & Support services.',
   },
 ];
 
@@ -224,87 +172,82 @@ const smoothTransition = {
   ease: [0.16, 1, 0.3, 1] as const,
 };
 
-// Per-category color tokens so every service card reads as clearly, distinctly colorful
 const CATEGORY_STYLES: Record<
   ServiceItem['category'],
   {
     icon: typeof Briefcase;
-    accentBar: string;
-    iconChip: string;
-    badgeBg: string;
-    badgeText: string;
-    badgeBorder: string;
-    check: string;
-    ring: string;
+    accent: string;
+    soft: string;
+    text: string;
     border: string;
     hoverBorder: string;
-    ribbon: string;
-    priceChip: string;
-    title: string;
   }
 > = {
-  career: {
+  web: {
     icon: Briefcase,
-    accentBar: 'from-sky-500 to-blue-600',
-    iconChip: 'bg-sky-100 text-sky-600',
-    badgeBg: 'bg-sky-50',
-    badgeText: 'text-sky-700',
-    badgeBorder: 'border-sky-200',
-    check: 'text-sky-600',
-    ring: 'ring-sky-500/20',
-    border: 'border-sky-500',
-    hoverBorder: 'hover:border-sky-400/80',
-    ribbon: 'from-sky-600 to-blue-600 shadow-sky-600/30',
-    priceChip: 'bg-sky-50 border-sky-200 text-sky-700',
-    title: 'text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-600',
+    accent: 'from-indigo-600 to-blue-600',
+    soft: 'bg-indigo-50',
+    text: 'text-indigo-700',
+    border: 'border-indigo-200',
+    hoverBorder: 'hover:border-indigo-300',
   },
-  business: {
-    icon: TrendingUp,
-    accentBar: 'from-violet-500 to-purple-600',
-    iconChip: 'bg-violet-100 text-violet-600',
-    badgeBg: 'bg-violet-50',
-    badgeText: 'text-violet-700',
-    badgeBorder: 'border-violet-200',
-    check: 'text-violet-600',
-    ring: 'ring-violet-500/20',
-    border: 'border-violet-500',
-    hoverBorder: 'hover:border-violet-400/80',
-    ribbon: 'from-violet-600 to-purple-600 shadow-violet-600/30',
-    priceChip: 'bg-violet-50 border-violet-200 text-violet-700',
-    title: 'text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600',
+  ios: {
+    icon: Smartphone,
+    accent: 'from-violet-600 to-purple-600',
+    soft: 'bg-violet-50',
+    text: 'text-violet-700',
+    border: 'border-violet-200',
+    hoverBorder: 'hover:border-violet-300',
   },
-  marketing: {
-    icon: Share2,
-    accentBar: 'from-pink-500 to-rose-600',
-    iconChip: 'bg-pink-100 text-pink-600',
-    badgeBg: 'bg-pink-50',
-    badgeText: 'text-pink-700',
-    badgeBorder: 'border-pink-200',
-    check: 'text-pink-600',
-    ring: 'ring-pink-500/20',
-    border: 'border-pink-500',
-    hoverBorder: 'hover:border-pink-400/80',
-    ribbon: 'from-pink-600 to-rose-600 shadow-pink-600/30',
-    priceChip: 'bg-pink-50 border-pink-200 text-pink-700',
-    title: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600',
+  ecommerce: {
+    icon: ShoppingBag,
+    accent: 'from-cyan-600 to-blue-600',
+    soft: 'bg-cyan-50',
+    text: 'text-cyan-700',
+    border: 'border-cyan-200',
+    hoverBorder: 'hover:border-cyan-300',
   },
   ai: {
     icon: Bot,
-    accentBar: 'from-amber-500 to-orange-600',
-    iconChip: 'bg-amber-100 text-amber-600',
-    badgeBg: 'bg-amber-50',
-    badgeText: 'text-amber-700',
-    badgeBorder: 'border-amber-200',
-    check: 'text-amber-600',
-    ring: 'ring-amber-500/20',
-    border: 'border-amber-500',
-    hoverBorder: 'hover:border-amber-400/80',
-    ribbon: 'from-amber-500 to-orange-600 shadow-amber-600/30',
-    priceChip: 'bg-amber-50 border-amber-200 text-amber-700',
-    title: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600',
+    accent: 'from-amber-500 to-orange-600',
+    soft: 'bg-amber-50',
+    text: 'text-amber-700',
+    border: 'border-amber-200',
+    hoverBorder: 'hover:border-amber-300',
+  },
+  design: {
+    icon: Palette,
+    accent: 'from-fuchsia-600 to-rose-500',
+    soft: 'bg-fuchsia-50',
+    text: 'text-fuchsia-700',
+    border: 'border-fuchsia-200',
+    hoverBorder: 'hover:border-fuchsia-300',
+  },
+  marketing: {
+    icon: Share2,
+    accent: 'from-pink-600 to-rose-600',
+    soft: 'bg-pink-50',
+    text: 'text-pink-700',
+    border: 'border-pink-200',
+    hoverBorder: 'hover:border-pink-300',
+  },
+  growth: {
+    icon: TrendingUp,
+    accent: 'from-emerald-600 to-teal-500',
+    soft: 'bg-emerald-50',
+    text: 'text-emerald-700',
+    border: 'border-emerald-200',
+    hoverBorder: 'hover:border-emerald-300',
+  },
+  support: {
+    icon: CheckCircle2,
+    accent: 'from-slate-600 to-slate-900',
+    soft: 'bg-slate-100',
+    text: 'text-slate-700',
+    border: 'border-slate-200',
+    hoverBorder: 'hover:border-slate-300',
   },
 };
-
 export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
@@ -316,6 +259,29 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
       setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDER_ITEMS.length);
     }, 2000);
     return () => clearInterval(timer);
+  }, [isHeroSliderPaused]);
+
+  const categories = [
+    { id: 'all', label: 'All Services', icon: null },
+    { id: 'web', label: 'Web', icon: Briefcase },
+    { id: 'ios', label: 'iOS', icon: Smartphone },
+    { id: 'ecommerce', label: 'E-commerce', icon: ShoppingBag },
+    { id: 'ai', label: 'AI & Automation', icon: Bot },
+    { id: 'design', label: 'UI/UX & Design', icon: Palette },
+    { id: 'marketing', label: 'Marketing & SEO', icon: Share2 },
+    { id: 'growth', label: 'Business Growth', icon: TrendingUp },
+    { id: 'support', label: 'Support', icon: CheckCircle2 },
+  ];
+
+  const filteredServices =
+    selectedCategory === 'all'
+      ? SERVICES_DATA
+      : SERVICES_DATA.filter((service) => service.category === selectedCategory);
+
+  const getWhatsAppLink = (message: string) =>
+    `https://wa.me/917007260391?text=${encodeURIComponent(message)}`;
+
+  return () => clearInterval(timer);
   }, [isHeroSliderPaused]);
 
   const categories = [
@@ -411,224 +377,325 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         </motion.div>
       </div>
 
-      {/* 2. CATEGORY SELECTOR PILLS WITH SLIDING TAB INDICATOR */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      {/* SERVICES INTRO */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ ...smoothTransition, delay: 0.1 }}
-        className="flex items-center justify-center p-1.5 rounded-2xl bg-white border border-slate-200 shadow-xs gap-1.5 overflow-x-auto max-w-fit mx-auto custom-scrollbar"
+        transition={smoothTransition}
+        className="max-w-3xl mx-auto text-center px-4"
       >
-        {categories.map((cat) => {
-          const Icon = cat.icon;
-          const isSelected = selectedCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`relative flex items-center gap-1.5 px-4.5 py-2.5 rounded-xl text-xs font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap z-10 ${
-                isSelected
-                  ? 'text-white'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-            >
-              {isSelected && (
-                <motion.div
-                  layoutId="servicesActiveTab"
-                  className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl shadow-md shadow-indigo-600/30 -z-10"
-                  transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                />
-              )}
-              {Icon && <Icon className="w-3.5 h-3.5" />}
-              <span>{cat.label}</span>
-            </button>
-          );
-        })}
+        <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+          <Sparkles className="w-3.5 h-3.5" />
+          What we can help you build
+        </span>
+        <h2 className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
+          Practical digital services for real business goals.
+        </h2>
+        <p className="mt-3 text-sm leading-6 text-slate-500">
+          Choose the area you need help with. Each service is focused on a clear business
+          need — without turning this page into a list of technologies.
+        </p>
+      </motion.section>
+
+      {/* SERVICE FILTER */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="flex justify-center"
+      >
+        <div className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm custom-scrollbar">
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            const isSelected = selectedCategory === cat.id;
+
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`relative flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-[11px] font-bold transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/20'
+                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                }`}
+              >
+                {Icon && <Icon className="w-3.5 h-3.5" />}
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
       </motion.div>
 
-      {/* 3. SERVICE CARDS MARKETPLACE GRID WITH STAGGERED CASCADE ENTRANCE */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        {filteredServices.map((service, index) => {
-          const isCareer = service.category === 'career';
-          const isBusiness = service.category === 'business';
-          const isMarketing = service.category === 'marketing';
-          const theme = CATEGORY_STYLES[service.category];
-          const CategoryIcon = theme.icon;
+      {/* SERVICES GRID */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.08 }}
+        transition={smoothTransition}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
+          {filteredServices.map((service, index) => {
+            const theme = CATEGORY_STYLES[service.category];
+            const Icon = theme.icon;
 
-          return (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 40, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ ...smoothTransition, delay: (index % 4) * 0.08 }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--service-spotlight-x', `${x}px`);
-                e.currentTarget.style.setProperty('--service-spotlight-y', `${y}px`);
-                e.currentTarget.style.setProperty('--service-spotlight-opacity', '1');
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.setProperty('--service-spotlight-opacity', '0');
-              }}
-              className={`relative p-4 sm:p-5 pt-6 rounded-3xl bg-white border transition-all duration-300 flex flex-col justify-between gap-4 hover:shadow-xl hover:-translate-y-1.5 ${
-                service.popular
-                  ? `${theme.border} shadow-md ring-1 ${theme.ring}`
-                  : `border-slate-200 shadow-xs ${theme.hoverBorder}`
-              }`}
-            >
-              {/* Clipped inner layer: colored top accent bar + movable spotlight aura (kept off the card edge so ribbons never get cut) */}
-              <div className="pointer-events-none absolute inset-0 rounded-3xl overflow-hidden">
-                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accentBar}`} />
-                <div
-                  className="absolute inset-0 opacity-0 transition-opacity duration-300"
-                  style={{
-                    opacity: 'var(--service-spotlight-opacity, 0)',
-                    background:
-                      'radial-gradient(380px circle at var(--service-spotlight-x, 0px) var(--service-spotlight-y, 0px), rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.05), transparent 70%)',
-                  }}
-                />
-              </div>
+            return (
+              <motion.article
+                key={service.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
+                transition={{ ...smoothTransition, delay: (index % 4) * 0.06 }}
+                className={`group relative flex min-h-[430px] flex-col overflow-hidden rounded-2xl border bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${theme.border} ${theme.hoverBorder}`}
+              >
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${theme.accent}`} />
 
-              {/* Highlight Ribbon for Popular Services — sits outside the clipped layer so it's never cut off */}
-              {service.popular && (
-                <div className={`absolute top-0 right-6 -translate-y-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r ${theme.ribbon} text-white text-[11px] font-bold shadow-md flex items-center gap-1 z-10`}>
-                  <Star className="w-3 h-3 fill-white shrink-0" />
-                  <span className="whitespace-nowrap">Popular</span>
-                </div>
-              )}
-
-              {/* Top Details */}
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${theme.iconChip}`}>
-                    <CategoryIcon className="w-3.5 h-3.5" />
-                  </span>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 flex-1 min-w-0">
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeBorder} break-words`}>
-                      {service.badge}
-                    </span>
-                    <span className="text-[11px] text-slate-500 flex items-center gap-1 font-medium shrink-0">
-                      <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span className="whitespace-nowrap">{service.deliveryTime}</span>
-                    </span>
+                <div className="flex items-start justify-between gap-3">
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${theme.soft} ${theme.text}`}>
+                    <Icon className="h-5 w-5" />
                   </div>
-                </div>
-
-                {/* Title & Tagline */}
-                <h3 className={`text-lg sm:text-xl font-black tracking-tight leading-snug ${theme.title}`}>
-                  {service.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed font-normal">
-                  {service.tagline}
-                </p>
-
-                {/* Price Display */}
-                <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                    {service.price}
-                  </span>
-                  {service.billingType && (
-                    <span className="text-xs text-slate-500 font-semibold whitespace-nowrap">
-                      {service.billingType}
-                    </span>
-                  )}
-                  <span className={`text-[11px] ml-auto font-bold flex items-center gap-1 border px-2 py-0.5 rounded-md whitespace-nowrap ${theme.priceChip}`}>
-                    <Check className="w-3.5 h-3.5 shrink-0" /> All Inclusive
+                  <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-slate-400">
+                    0{index + 1}
                   </span>
                 </div>
 
-                {/* Feature Checklist */}
-                <div className="mt-3.5 space-y-1.5">
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 block">
-                    What's Included:
-                  </span>
-                  <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700">
-                    {service.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${theme.check}`} />
-                        <span className="leading-snug">{feat}</span>
+                <div className="mt-5">
+                  <p className={`text-[9px] font-black uppercase tracking-[0.16em] ${theme.text}`}>
+                    {service.eyebrow}
+                  </p>
+                  <h3 className="mt-1.5 text-base font-black leading-tight text-slate-900">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-5 text-slate-500">
+                    {service.tagline}
+                  </p>
+                </div>
+
+                <div className="mt-5">
+                  <p className="mb-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
+                    What we deliver
+                  </p>
+                  <ul className="space-y-2">
+                    {service.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-[11px] leading-4 text-slate-600">
+                        <CheckCircle2 className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${theme.text}`} />
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </div>
 
-              {/* Action Buttons: Direct WhatsApp Order + Free Self-Serve Option */}
-              <div className="relative z-10 space-y-2 pt-3 border-t border-slate-100">
-                <a
-                  href={getWhatsAppLink(service.whatsappMessage)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20 hover:scale-[1.01] active:scale-95 cursor-pointer"
-                >
-                  <MessageCircle className="w-4 h-4 fill-white shrink-0" />
-                  <span className="whitespace-nowrap">Order via WhatsApp ({service.price})</span>
-                  <ArrowRight className="w-4 h-4 shrink-0" />
-                </a>
+                <div className="mt-auto pt-5">
+                  <div className={`rounded-xl border ${theme.border} ${theme.soft} p-3`}>
+                    <p className="text-[9px] font-black uppercase tracking-wider text-slate-400">
+                      Outcome
+                    </p>
+                    <p className="mt-1 text-[11px] font-semibold leading-4 text-slate-700">
+                      {service.outcome}
+                    </p>
+                  </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-slate-500 px-1">
-                  <span className="whitespace-nowrap">Fast reply within ~15 mins</span>
-                  <button
-                    onClick={() => {
-                      if (isCareer) onNavigate('career');
-                      else if (isBusiness) onNavigate('business');
-                      else if (isMarketing) onNavigate('tools', 'marketing-tools');
-                      else onNavigate('ai-hub');
-                    }}
-                    className={`font-bold cursor-pointer hover:underline whitespace-nowrap ${theme.check}`}
+                  <a
+                    href={getWhatsAppLink(service.whatsappMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/cta mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-2.5 text-[11px] font-bold text-white transition-all hover:bg-indigo-600"
                   >
-                    Try Free Self-Serve Tool →
-                  </button>
+                    Discuss this service
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-0.5" />
+                  </a>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      </motion.section>
 
-      {/* 4. CUSTOM ENTERPRISE OR BUNDLE INQUIRY BANNER WITH SCROLL REVEAL */}
-      <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ ...smoothTransition, delay: 0.2 }}
-        className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white shadow-xl shadow-indigo-600/20 space-y-5 text-center relative overflow-hidden"
+      {/* WHICH SERVICE DO I NEED? */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+        className="rounded-3xl border border-slate-200 bg-slate-50/80 p-5 sm:p-8"
       >
-        <div className="max-w-2xl mx-auto space-y-2 relative z-10">
-          <span className="text-xs uppercase font-bold text-indigo-200 tracking-wider">
-            Need a custom package or bulk corporate training?
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+            Not sure where to start?
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white">
-            Talk Directly to Our Strategy & Tech Leads
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
+            Tell us the goal. We’ll help identify the right service.
           </h2>
-          <p className="text-xs sm:text-sm text-indigo-100 leading-relaxed font-normal">
-            We customize end-to-end solutions for colleges, recruitment agencies, and early-stage startup batches across India.
+          <p className="mt-2 text-xs leading-5 text-slate-500">
+            You do not need to know the technical solution before reaching out.
+            Start with the business problem and we’ll take it from there.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2 relative z-10">
-          <a
-            href="https://wa.me/917007260391?text=Hi%20CareerNova%2C%20I%20have%20a%20custom%20service%20or%20bulk%20requirement."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition-all shadow-lg hover:scale-[1.02] cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4 fill-slate-950" />
-            <span>Chat on WhatsApp (+91 7007260391)</span>
-          </a>
-
-          <button
-            onClick={() => onNavigate('contact')}
-            className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm transition-all border border-white/20 cursor-pointer"
-          >
-            <PhoneCall className="w-4 h-4" />
-            <span>Open Contact Desk</span>
-          </button>
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Need a professional website', 'Web Development', Briefcase],
+            ['Have an app idea', 'iOS App Development', Smartphone],
+            ['Want more online customers', 'Digital Marketing & SEO', Share2],
+            ['Too much manual work', 'AI & Automation', Bot],
+          ].map(([problem, solution, Icon]) => {
+            const ProblemIcon = Icon as typeof Briefcase;
+            return (
+              <button
+                key={problem as string}
+                type="button"
+                onClick={() => {
+                  const match = SERVICES_DATA.find((service) => service.title === solution);
+                  if (match) setSelectedCategory(match.category);
+                }}
+                className="group rounded-2xl border border-white bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                    <ProblemIcon className="h-4 w-4" />
+                  </span>
+                  <ArrowRight className="ml-auto h-3.5 w-3.5 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-indigo-500" />
+                </div>
+                <p className="mt-4 text-[11px] font-semibold leading-4 text-slate-500">
+                  {problem as string}
+                </p>
+                <p className="mt-1 text-xs font-black text-slate-900">
+                  {solution as string}
+                </p>
+              </button>
+            );
+          })}
         </div>
-      </motion.div>
+      </motion.section>
+
+      {/* HOW WE WORK */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+      >
+        <div className="mb-6 text-center">
+          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+            How we work
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
+            From idea to outcome.
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-xs leading-5 text-slate-500">
+            A simple process designed to keep projects clear, practical and moving forward.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {[
+            ['01', 'Understand', 'We understand your goals, audience and current situation.', Target],
+            ['02', 'Plan', 'We define the right scope, priorities and next steps.', Workflow],
+            ['03', 'Design', 'We shape the experience and direction before execution.', Sparkles],
+            ['04', 'Build', 'We develop and deliver the agreed solution.', Zap],
+            ['05', 'Improve', 'We support, optimize and help you move forward.', TrendingUp],
+          ].map(([number, title, description, Icon]) => {
+            const StepIcon = Icon as typeof Sparkles;
+            return (
+              <div key={number as string} className="relative rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black tracking-widest text-indigo-500">{number as string}</span>
+                  <StepIcon className="h-4 w-4 text-slate-300" />
+                </div>
+                <h3 className="mt-4 text-sm font-black text-slate-900">{title as string}</h3>
+                <p className="mt-1.5 text-[11px] leading-5 text-slate-500">{description as string}</p>
+              </div>
+            );
+          })}
+        </div>
+      </motion.section>
+
+      {/* WHY CAREERNOVA */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+        className="rounded-3xl bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 p-6 text-white shadow-xl shadow-indigo-900/10 sm:p-9"
+      >
+        <div className="grid grid-cols-1 gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-200">
+              Why CareerNova
+            </span>
+            <h2 className="mt-2 text-2xl font-black leading-tight sm:text-3xl">
+              Practical solutions, without unnecessary complexity.
+            </h2>
+            <p className="mt-3 text-xs leading-6 text-indigo-100/75">
+              We start with what you are trying to achieve and then shape the right digital
+              solution around it.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {[
+              ['Business First', 'We begin with the objective, not the technology.', Target],
+              ['Clear Scope', 'You know what is being delivered before work begins.', CheckCircle2],
+              ['Connected Approach', 'Design, development and growth can work together.', Workflow],
+              ['Built to Improve', 'Solutions can evolve as your business grows.', TrendingUp],
+            ].map(([title, description, Icon]) => {
+              const BenefitIcon = Icon as typeof Target;
+              return (
+                <div key={title as string} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <BenefitIcon className="h-4 w-4 text-cyan-300" />
+                  <h3 className="mt-3 text-xs font-black text-white">{title as string}</h3>
+                  <p className="mt-1 text-[10px] leading-5 text-indigo-100/65">{description as string}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* FINAL CTA */}
+      <motion.section
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-6 text-center sm:p-9"
+      >
+        <div className="mx-auto max-w-2xl">
+          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+            Ready when you are
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+            Have something you want to build, improve or grow?
+          </h2>
+          <p className="mt-2 text-xs leading-5 text-slate-500">
+            Tell us what you are trying to achieve and we’ll help you choose the right next step.
+          </p>
+
+          <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
+            <a
+              href={getWhatsAppLink('Hi CareerNova, I want to discuss a project or service requirement.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-xs font-bold text-white shadow-md shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700"
+            >
+              Start a Conversation
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+            <button
+              type="button"
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 transition-all hover:border-indigo-200 hover:text-indigo-600"
+            >
+              Open Contact Desk
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+      </motion.section>
+
     </div>
   );
 };
