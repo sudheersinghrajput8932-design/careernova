@@ -32,6 +32,10 @@ import {
   Target,
   Lightbulb,
   TrendingUp,
+  Bot,
+  Layers3,
+  UsersRound,
+  Sparkles,
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -163,62 +167,20 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section — image-led */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="text-center space-y-4"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.75)]"
       >
-        <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-md">
-          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-          <span>About CareerNova</span>
-        </div>
-
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Democratizing Career &amp;{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600">
-            Business Intelligence
-          </span>
-        </h1>
-
-        {/* Hero visual — sits right under the title */}
-        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm max-w-4xl mx-auto">
-          <img
-            src="/assets/about-hero-visual.png"
-            alt="CareerNova — people, ideas, skills and impact working together"
-            className="w-full h-auto aspect-[2059/764] object-cover"
-            loading="eager"
-          />
-        </div>
-
-        <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          We build next-generation AI and growth-proven frameworks to make high-growth tools accessible to every student, job seeker, and entrepreneur.
-        </p>
-
-        {/* Mission Banner */}
-        <div className="mt-8 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden text-left">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-          <span className="text-[11px] uppercase tracking-wider font-bold text-indigo-200 block mb-2">
-            Our Guiding Mission
-          </span>
-          <p className="text-lg sm:text-2xl font-bold italic leading-snug max-w-3xl">
-            "Our mission is to make career development, business planning and digital tools simple and accessible for everyone."
-          </p>
-          <div className="mt-6 sm:mt-8 flex items-center justify-between">
-            <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/20">
-              <Headphones className="w-3.5 h-3.5 text-indigo-200" />
-              <span>Direct Support &amp; Active Advisory</span>
-            </div>
-            <button
-              onClick={() => onNavigate('contact')}
-              className="text-xs font-bold text-white hover:text-indigo-200 flex items-center gap-1 transition-colors cursor-pointer"
-            >
-              <span>Learn More</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
+        <img
+          src="/assets/about-careernova-hero.png"
+          alt="CareerNova — Democratizing Career & Business Intelligence"
+          className="block h-auto w-full select-none"
+          loading="eager"
+          draggable={false}
+        />
       </motion.section>
 
       {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
@@ -296,24 +258,72 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {engineeringPillars.map((pillar, idx) => (
-            <motion.div
-              key={pillar.step}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ ...smoothTransition, delay: idx * 0.08 }}
-              className={`p-6 sm:p-7 rounded-2xl border shadow-xs space-y-2.5 hover:shadow-md transition-all duration-300 ${pillar.cardBg}`}
-            >
-              <span className={`text-xs font-semibold px-2.5 py-1 rounded-lg inline-block border ${pillar.badgeColor}`}>
-                {pillar.step}
-              </span>
-              <h3 className="font-bold text-base text-slate-900">{pillar.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                {pillar.desc}
-              </p>
-            </motion.div>
-          ))}
+          {engineeringPillars.map((pillar, idx) => {
+            const pillarIcons = [Bot, Layers3, UsersRound, Sparkles];
+            const PillarIcon = pillarIcons[idx];
+
+            const pillarTitleGradient = [
+              'from-cyan-500 via-indigo-600 to-violet-600',
+              'from-violet-500 via-fuchsia-600 to-purple-600',
+              'from-sky-500 via-cyan-600 to-emerald-500',
+              'from-emerald-500 via-teal-600 to-blue-600',
+            ][idx];
+
+            const pillarAvatarGradient = [
+              'from-cyan-500 to-indigo-600',
+              'from-fuchsia-500 to-violet-600',
+              'from-sky-500 to-emerald-500',
+              'from-emerald-500 to-blue-600',
+            ][idx];
+
+            return (
+              <motion.div
+                key={pillar.step}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ ...smoothTransition, delay: idx * 0.08 }}
+                className={`group relative overflow-hidden p-6 sm:p-7 rounded-2xl border shadow-xs space-y-3 hover:shadow-lg transition-all duration-300 ${pillar.cardBg}`}
+              >
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/70 to-transparent opacity-70" />
+
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${pillarAvatarGradient} text-white shadow-lg ring-4 ring-white/70 transition-transform duration-300 group-hover:scale-105`}>
+                      <PillarIcon className="h-6 w-6" strokeWidth={2.2} />
+                    </div>
+
+                    <div className="relative overflow-hidden">
+                      <h3 className={`relative inline-block bg-gradient-to-r ${pillarTitleGradient} bg-clip-text text-base sm:text-lg font-black text-transparent`}>
+                        {pillar.title}
+                      </h3>
+                      <motion.span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/90 to-transparent"
+                        initial={{ x: '-180%' }}
+                        whileInView={{ x: '520%' }}
+                        viewport={{ once: false, amount: 0.4 }}
+                        transition={{
+                          duration: 1.8,
+                          ease: 'easeInOut',
+                          repeat: Infinity,
+                          repeatDelay: 2.4,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg inline-block border ${pillar.badgeColor}`}>
+                    {pillar.step}
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-0.5">
+                  {pillar.desc}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
@@ -655,41 +665,57 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Bottom Feature Strip */}
-        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3">
-                <Target className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Turn Ideas Into Reality</h4>
-              <p className="text-xs text-slate-500 mt-1">Let's discuss how we can help you grow.</p>
-              <div className="w-8 h-0.5 bg-indigo-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-                <Lightbulb className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Innovative Solutions</h4>
-              <p className="text-xs text-slate-500 mt-1">Tailored to your unique needs.</p>
-              <div className="w-8 h-0.5 bg-blue-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
-                <Users className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">A Reliable Partner</h4>
-              <p className="text-xs text-slate-500 mt-1">Committed to your success.</p>
-              <div className="w-8 h-0.5 bg-emerald-500 rounded-full mt-3" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-3">
-                <TrendingUp className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Long-Term Growth</h4>
-              <p className="text-xs text-slate-500 mt-1">More than a service, a partnership.</p>
-              <div className="w-8 h-0.5 bg-orange-500 rounded-full mt-3" />
-            </div>
+        {/* Bottom Feature Strip — horizontal colorful cards */}
+        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/60 p-4 sm:p-5 shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+            {[
+              {
+                title: 'Turn Ideas Into Reality',
+                desc: "Let's discuss how we can help you grow.",
+                Icon: Target,
+                box: 'from-indigo-500 to-violet-600',
+                glow: 'shadow-indigo-500/20',
+              },
+              {
+                title: 'Innovative Solutions',
+                desc: 'Tailored to your unique needs.',
+                Icon: Lightbulb,
+                box: 'from-cyan-500 to-blue-600',
+                glow: 'shadow-cyan-500/20',
+              },
+              {
+                title: 'A Reliable Partner',
+                desc: 'Committed to your success.',
+                Icon: Users,
+                box: 'from-emerald-500 to-teal-600',
+                glow: 'shadow-emerald-500/20',
+              },
+              {
+                title: 'Long-Term Growth',
+                desc: 'More than a service, a partnership.',
+                Icon: TrendingUp,
+                box: 'from-orange-500 to-fuchsia-600',
+                glow: 'shadow-orange-500/20',
+              },
+            ].map(({ title, desc, Icon, box, glow }) => (
+              <motion.div
+                key={title}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2 }}
+                className={`group relative min-h-[132px] overflow-hidden rounded-2xl border border-white/80 bg-white p-4 shadow-md ${glow}`}
+              >
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${box}`} />
+                <div className="flex items-center gap-3">
+                  <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${box} text-white shadow-lg transition-transform duration-300 group-hover:scale-105`}>
+                    <Icon className="h-5 w-5" strokeWidth={2.3} />
+                  </div>
+                  <h4 className="text-sm font-black bg-gradient-to-r from-slate-900 via-indigo-700 to-fuchsia-600 bg-clip-text text-transparent">
+                    {title}
+                  </h4>
+                </div>
+                <p className="mt-3 text-xs leading-relaxed text-slate-500">{desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
 
