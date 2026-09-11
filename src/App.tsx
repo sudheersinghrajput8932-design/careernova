@@ -17,7 +17,6 @@ import {
 // Dedicated Views
 import HomeView from './components/views/HomeView';
 import { ServicesView } from './components/views/ServicesView';
-import { SpecialistsExpertiseView } from './components/views/SpecialistsExpertiseView';
 import { ToolsView } from './components/views/ToolsView';
 import { CareerView } from './components/views/CareerView';
 import { BusinessView } from './components/views/BusinessView';
@@ -92,8 +91,6 @@ export default function App() {
         return <HomeView onNavigate={handleNavigate} onOpenAuth={() => handleOpenAuth('signin')} />;
       case 'services':
         return <ServicesView onNavigate={handleNavigate} addToast={addToast} />;
-      case 'expertise':
-        return <SpecialistsExpertiseView onNavigate={handleNavigate} addToast={addToast} />;
       case 'tools':
         return <ToolsView addToast={addToast} />;
       case 'career':
