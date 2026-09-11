@@ -525,20 +525,19 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                         </span>
                       </div>
 
-                      {/* PNG PLACEHOLDER — replace this area with /assets/services/{service.id}.png later */}
+                      {/* SERVICE PNG — full artwork is preserved with object-contain; never crop the asset */}
                       <div
-                        className="relative mt-3 flex h-[142px] items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-inner backdrop-blur-[2px] sm:h-[150px]"
+                        className="relative mt-3 flex h-[142px] items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-black/10 shadow-inner sm:h-[150px]"
                         data-service-png={service.id}
                       >
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.24),transparent_55%)]" />
-                        <div className="relative flex flex-col items-center gap-2 text-center">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/15 shadow-lg backdrop-blur-sm">
-                            <Icon className="h-6 w-6" />
-                          </div>
-                          <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/70">
-                            Service Visual
-                          </span>
-                        </div>
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.18),transparent_60%)]" />
+                        <img
+                          src={`/assets/services/${service.id}.png`}
+                          alt={`${service.title} service visual`}
+                          className="relative z-10 block h-full w-full object-contain select-none"
+                          loading="lazy"
+                          draggable={false}
+                        />
                       </div>
 
                       <div className="relative mt-3">
