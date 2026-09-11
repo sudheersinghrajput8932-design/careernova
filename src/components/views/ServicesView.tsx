@@ -735,15 +735,15 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               <motion.div
                 key={number as string}
                 whileHover={{ y: -5, rotateX: 2 }}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-xl hover:shadow-indigo-900/5"
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-indigo-50/40 to-violet-50/60 p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-900/10"
               >
-                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${index % 2 === 0 ? 'from-indigo-500 to-violet-500' : 'from-cyan-500 to-blue-500'}`} />
+                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${index % 3 === 0 ? 'from-indigo-500 via-violet-500 to-fuchsia-500' : index % 3 === 1 ? 'from-cyan-400 via-blue-500 to-indigo-500' : 'from-violet-500 via-fuchsia-500 to-pink-500'}`} />
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black tracking-[0.18em] text-indigo-500">
                     {number as string}
                   </span>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-all group-hover:bg-indigo-50 group-hover:text-indigo-600">
-                    <StepIcon className="h-4 w-4" />
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${index % 3 === 0 ? 'from-indigo-100 to-violet-100 text-indigo-600' : index % 3 === 1 ? 'from-cyan-100 to-blue-100 text-blue-600' : 'from-fuchsia-100 to-pink-100 text-fuchsia-600'} shadow-sm ring-1 ring-white transition-all group-hover:scale-110 group-hover:shadow-md`}>
+                    <StepIcon className="h-6 w-6" />
                   </span>
                 </div>
                 <h3 className="mt-5 text-sm font-black text-slate-900">{title as string}</h3>
@@ -819,7 +819,14 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
             Ready when you are
           </span>
           <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-            Have something you want to build, improve or grow?
+            <motion.span
+              animate={{ backgroundPosition: ['0% 50%', '200% 50%'] }}
+              transition={{ duration: 3.2, repeat: Infinity, repeatDelay: 1.4, ease: 'linear' }}
+              className="bg-[linear-gradient(110deg,#4f46e5_0%,#7c3aed_28%,#06b6d4_48%,#ffffff_52%,#7c3aed_70%,#4f46e5_100%)] bg-[length:220%_100%] bg-clip-text text-transparent"
+            >
+              Have something
+            </motion.span>{' '}
+            you want to build, improve or grow?
           </h2>
           <p className="mt-2 text-xs leading-5 text-slate-500">
             Tell us what you are trying to achieve and we’ll help you choose the right next step.
