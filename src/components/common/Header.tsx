@@ -10,7 +10,6 @@ import {
   Info,
   Briefcase,
   Wrench,
-  GraduationCap,
   BookOpen
 } from 'lucide-react';
 import { TabId, UserProfile } from '../../types';
@@ -53,13 +52,12 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Navigation items with "Tools" added right between Services and Core Expertise
+  // Main navigation items
   const navItems: { id: TabId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About Us', icon: Info },
     { id: 'services', label: 'Services', icon: Briefcase },
     { id: 'tools', label: 'Tools', icon: Wrench },
-    { id: 'expertise', label: 'Core Expertise', icon: GraduationCap },
     { id: 'blog', label: 'Blog', icon: BookOpen },
   ];
 
