@@ -399,90 +399,15 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         className="space-y-10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          {/* LEFT: Hero content */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-bold px-3.5 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-              <span className="uppercase tracking-wider">Let's Connect</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-              Let's Build Something Great{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">
-                Together.
-              </span>
-            </h2>
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-md">
-              Have a project in mind, a question, or just want to explore opportunities? We're always excited to connect and create something meaningful.
-            </p>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">Quick Response</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">We usually reply within 24 hours.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">100% Confidential</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Your information is always safe with us.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-slate-900">Expert Guidance</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Get the right advice for your goals.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative illustration panel — swap this block for your own workspace photo if you have one */}
-            <div className="relative rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-fuchsia-50 border border-indigo-100 p-6 sm:p-7 overflow-hidden">
-              <Send className="w-5 h-5 text-fuchsia-400 absolute top-5 right-6 -rotate-12" />
-              <div className="flex items-center gap-3.5">
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-indigo-600">
-                  <Laptop className="w-6 h-6" />
-                </div>
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-amber-600">
-                  <Coffee className="w-6 h-6" />
-                </div>
-                <div className="w-13 h-13 rounded-2xl bg-white shadow-md flex items-center justify-center text-emerald-600">
-                  <Leaf className="w-6 h-6" />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-5">
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
-                  New Projects
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Handshake className="w-3.5 h-3.5 text-blue-600" />
-                  Partnerships
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
-                  Career Support
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white shadow-xs border border-slate-100 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full">
-                  <Mail className="w-3.5 h-3.5 text-orange-600" />
-                  General Enquiries
-                </span>
-              </div>
-            </div>
+          {/* LEFT: Image replaces the previous contact content; form remains untouched */}
+          <div className="relative h-full overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-fuchsia-50/50 shadow-sm">
+            <img
+              src="/assets/contact-us-left.png"
+              alt="Let's Connect — CareerNova contact support"
+              className="block h-full min-h-[620px] w-full object-cover select-none"
+              loading="lazy"
+              draggable={false}
+            />
           </div>
 
           {/* RIGHT: Contact Form Card */}
