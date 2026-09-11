@@ -112,6 +112,38 @@ const stackGroups = [
   },
 ];
 
+const technologyColors: Record<string, string> = {
+  'Next.js': 'text-slate-900',
+  'React': 'text-cyan-600',
+  'TypeScript': 'text-blue-600',
+  'JavaScript': 'text-amber-600',
+  'Node.js': 'text-emerald-600',
+  'Tailwind CSS': 'text-sky-600',
+  'Swift': 'text-orange-600',
+  'SwiftUI': 'text-violet-600',
+  'UIKit': 'text-indigo-600',
+  'Xcode': 'text-blue-600',
+  'App Store Connect': 'text-fuchsia-600',
+  'Firebase': 'text-amber-600',
+  'Supabase': 'text-emerald-600',
+  'PostgreSQL': 'text-blue-700',
+  'REST APIs': 'text-cyan-600',
+  'AWS': 'text-orange-600',
+  'Figma': 'text-fuchsia-600',
+  'Adobe Creative Cloud': 'text-rose-600',
+  'Design Systems': 'text-violet-600',
+  'Responsive UI': 'text-indigo-600',
+  'Google Analytics': 'text-orange-600',
+  'Search Console': 'text-blue-600',
+  'Google Tag Manager': 'text-indigo-600',
+  'Looker Studio': 'text-cyan-600',
+  'SEO': 'text-emerald-600',
+  'OpenAI APIs': 'text-emerald-700',
+  'AI Workflows': 'text-violet-600',
+  'Automation': 'text-amber-600',
+  'API Integrations': 'text-cyan-600',
+};
+
 const principles = [
   { icon: Target, title: 'Business-first', description: 'Technology is selected around the outcome, not just the trend.' },
   { icon: ShieldCheck, title: 'Built to scale', description: 'Clean foundations make it easier to improve, maintain and grow.' },
@@ -123,45 +155,16 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
     <div className="space-y-8 sm:space-y-10">
       <motion.section
-        initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={smoothTransition}
-        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-950 px-6 py-10 sm:px-10 sm:py-14 shadow-xl shadow-indigo-950/10"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={smoothTransition}
+        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-xl shadow-indigo-950/10"
       >
-        <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-violet-500/15 blur-3xl" />
-        <div className="relative max-w-4xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-100 backdrop-blur-sm">
-            <Layers3 className="h-3.5 w-3.5" /> Technology &amp; Growth Stack
-          </div>
-          <h1 className="max-w-3xl text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl">
-            The technology behind{' '}
-            <span className="bg-gradient-to-r from-cyan-300 via-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">better digital outcomes.</span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-            A focused stack of development, design, analytics and growth technologies we use to build digital products and help businesses move forward.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {['Build', 'Launch', 'Measure', 'Grow'].map((item, index) => (
-              <div key={item} className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-200">
-                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white/10 text-[9px] font-black text-white">0{index + 1}</span>
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="relative mt-10 grid grid-cols-2 gap-3 sm:absolute sm:bottom-10 sm:right-10 sm:mt-0 sm:w-64">
-          {[
-            [Code2, 'Web', 'Digital products', 'text-cyan-300'],
-            [Smartphone, 'iOS', 'Native experiences', 'text-violet-300'],
-            [TrendingUp, 'Growth', 'Business outcomes', 'text-emerald-300'],
-            [Sparkles, 'AI', 'Smarter workflows', 'text-amber-300'],
-          ].map(([Icon, title, detail, iconClass]) => (
-            <div key={title as string} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-              {React.createElement(Icon as React.ElementType, { className: `h-5 w-5 ${iconClass}` })}
-              <p className="mt-2 text-lg font-black text-white">{title as string}</p>
-              <p className="text-[10px] text-slate-400">{detail as string}</p>
-            </div>
-          ))}
-        </div>
+        <img
+          src="/assets/technology-growth-stack-hero.png"
+          alt="Technology and Growth Stack"
+          className="block h-auto w-full select-none"
+        />
       </motion.section>
 
       <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition}>
@@ -178,13 +181,32 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-50 opacity-60 blur-2xl transition-transform duration-500 group-hover:scale-150" />
                 <div className="relative">
                   <div className="flex items-start justify-between">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-md`}><Icon className="h-5 w-5" /></div>
+                    <div className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-indigo-600/10 transition-transform duration-300 group-hover:scale-105`}>
+                        <Icon className="h-8 w-8" />
+                      </div>
                     <span className="text-[10px] font-black tracking-widest text-slate-300">{item.number}</span>
                   </div>
-                  <h3 className="mt-5 text-base font-black text-slate-900">{item.title}</h3>
+                  <h3 className={`mt-5 inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-lg font-black text-transparent`}>
+                      {item.title}
+                    </h3>
                   <p className="mt-2 text-xs leading-6 text-slate-500">{item.description}</p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
-                    {item.tags.map((tag) => <span key={tag} className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-[9px] font-bold text-slate-600">{tag}</span>)}
+                    {item.tags.map((tag, tagIndex) => {
+                      const tagColors = [
+                        'border-cyan-200 bg-cyan-50 text-cyan-700',
+                        'border-violet-200 bg-violet-50 text-violet-700',
+                        'border-blue-200 bg-blue-50 text-blue-700',
+                        'border-emerald-200 bg-emerald-50 text-emerald-700',
+                      ];
+                      return (
+                        <span
+                          key={tag}
+                          className={`rounded-lg border px-2 py-1 text-[9px] font-bold ${tagColors[tagIndex % tagColors.length]}`}
+                        >
+                          {tag}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
               </motion.div>
@@ -210,7 +232,19 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                   <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${group.gradient} text-white shadow-sm`}><Icon className="h-5 w-5" /></div>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2"><span className="text-[9px] font-black tracking-[0.16em] text-indigo-500">{group.eyebrow}</span><span className="h-1 w-1 rounded-full bg-slate-300" /><span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span></div>
-                    <h3 className="mt-1 text-base font-black text-slate-900">{group.title}</h3>
+                    <div className="relative mt-1 inline-block overflow-hidden">
+                      <h3 className={`bg-gradient-to-r ${group.gradient} bg-clip-text text-base font-black text-transparent`}>
+                        {group.title}
+                      </h3>
+                      <motion.span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                        initial={{ x: '220%' }}
+                        whileInView={{ x: '-320%' }}
+                        viewport={{ once: false, amount: 0.5 }}
+                        transition={{ duration: 1.8, ease: 'easeInOut', repeat: Infinity, repeatDelay: 2.2 }}
+                      />
+                    </div>
                     <p className="mt-1 text-xs leading-5 text-slate-500">{group.description}</p>
                   </div>
                 </div>
@@ -218,7 +252,10 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {group.technologies.map(([name, detail]) => (
                       <div key={name} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 transition-colors group-hover:border-slate-200">
-                        <div className="flex min-w-0 items-center gap-2"><span className={`h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} /><span className="truncate text-[11px] font-bold text-slate-800">{name}</span></div>
+                        <div className="flex min-w-0 items-center gap-2">
+                          <span className={`h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} />
+                          <span className={`truncate text-[11px] font-bold ${technologyColors[name] ?? 'text-slate-800'}`}>{name}</span>
+                        </div>
                         <span className="shrink-0 text-[9px] font-medium text-slate-400">{detail}</span>
                       </div>
                     ))}
