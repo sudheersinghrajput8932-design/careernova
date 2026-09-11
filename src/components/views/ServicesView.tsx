@@ -190,6 +190,17 @@ const SERVICES_DATA: ServiceItem[] = [
   },
 ];
 
+const SERVICE_IMAGES: Record<ServiceItem['id'], string> = {
+  'web-development': '/assets/web-development.png',
+  'ios-development': '/assets/ios-development.png',
+  'ecommerce': '/assets/ecommerce-development.png',
+  'ai-automation': '/assets/ai-automation.png',
+  'ui-ux-product-design': '/assets/ui-ux-product-design.png',
+  'digital-marketing-seo': '/assets/digital-marketing-seo.png',
+  'business-growth': '/assets/business-growth.png',
+  'maintenance-support': '/assets/maintenance-support.png',
+};
+
 const smoothTransition = {
   duration: 0.6,
   ease: [0.16, 1, 0.3, 1] as const,
@@ -532,7 +543,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                       >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.18),transparent_60%)]" />
                         <img
-                          src={`/assets/${service.id}.png`}
+                          src={SERVICE_IMAGES[service.id]}
                           alt={`${service.title} service visual`}
                           className="relative z-10 block h-full w-full object-contain select-none"
                           loading="lazy"
