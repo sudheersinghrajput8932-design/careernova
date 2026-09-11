@@ -769,55 +769,21 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         </div>
       </motion.section>
 
-      {/* WHY CAREERNOVA */}
+      {/* WHY CAREERNOVA — image replaces the entire original text/cards */}
       <motion.section
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-950 via-slate-950 to-violet-950 p-6 text-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.8)] sm:p-9"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.8)]"
       >
-        <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 left-1/4 h-48 w-48 rounded-full bg-violet-500/10 blur-3xl" />
-
-        <div className="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div>
-            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-200">
-              Why CareerNova
-            </span>
-            <h2 className="mt-3 text-2xl font-black leading-tight sm:text-3xl">
-              Premium execution.
-              <span className="block text-indigo-300">Practical thinking.</span>
-            </h2>
-            <p className="mt-3 max-w-md text-xs leading-6 text-indigo-100/65">
-              Every engagement starts with the outcome you want and stays focused on making that outcome easier to reach.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              ['Business First', 'We begin with the objective, not the technology.', Target],
-              ['Clear Scope', 'You know what is being delivered before work begins.', CheckCircle2],
-              ['Connected Approach', 'Design, development and growth can work together.', Workflow],
-              ['Built to Improve', 'Solutions can evolve as your business grows.', TrendingUp],
-            ].map(([title, description, Icon]) => {
-              const BenefitIcon = Icon as typeof Target;
-              return (
-                <motion.div
-                  key={title as string}
-                  whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.055] p-4 backdrop-blur-sm transition-all hover:border-indigo-300/25 hover:bg-white/[0.085]"
-                >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
-                    <BenefitIcon className="h-4 w-4" />
-                  </div>
-                  <h3 className="mt-3 text-[11px] font-black text-white">{title as string}</h3>
-                  <p className="mt-1.5 text-[9px] leading-4 text-indigo-100/55">{description as string}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
+        <img
+          src="/assets/why-careernova.png"
+          alt="Why CareerNova — Premium execution. Practical thinking."
+          className="block h-auto w-full select-none"
+          loading="lazy"
+          draggable={false}
+        />
       </motion.section>
 
       {/* FINAL CTA */}
