@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import {
-  ArrowRight,
   ArrowUpRight,
   BarChart3,
   Brain,
@@ -267,20 +266,52 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
       </motion.section>
 
-      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition} className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr]">
-          <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 p-7 sm:p-9">
-            <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-violet-500/20 blur-3xl" />
-            <div className="relative">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-cyan-300"><Rocket className="h-5 w-5" /></div>
-              <p className="mt-6 text-[10px] font-black uppercase tracking-[0.18em] text-indigo-200">More than a list of tools</p>
-              <h2 className="mt-2 text-2xl font-black leading-tight text-white">We choose technology around the problem.</h2>
-              <p className="mt-3 max-w-md text-xs leading-6 text-indigo-100/75">The right stack should make a product easier to use, easier to maintain and easier to grow — not simply make the technology section look bigger.</p>
-              <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-white">Build with purpose <ArrowRight className="h-3.5 w-3.5" /></div>
-            </div>
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+        className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr]">
+          <div className="relative min-h-[300px] overflow-hidden bg-slate-950">
+            <img
+              src="/assets/more-than-tools-avatar.png"
+              alt="CareerNova technology and growth approach"
+              className="block h-full w-full object-cover object-center"
+            />
           </div>
+
           <div className="grid grid-cols-1 gap-px bg-slate-200 sm:grid-cols-2">
-            {principles.map((item) => { const Icon = item.icon; return <div key={item.title} className="bg-white p-6"><Icon className="h-5 w-5 text-indigo-600" /><h3 className="mt-4 text-sm font-black text-slate-900">{item.title}</h3><p className="mt-1.5 text-xs leading-5 text-slate-500">{item.description}</p></div>; })}
+            {principles.map((item, index) => {
+              const Icon = item.icon;
+              const accent = [
+                'from-cyan-500 to-blue-600',
+                'from-violet-500 to-fuchsia-600',
+                'from-emerald-500 to-teal-600',
+                'from-amber-400 to-orange-600',
+              ][index % 4];
+
+              return (
+                <motion.div
+                  key={item.title}
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.25 }}
+                  className="group relative overflow-hidden bg-white p-6 transition-shadow duration-300 hover:shadow-lg"
+                >
+                  <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br ${accent} opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-150`} />
+                  <div className="relative">
+                    <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-lg transition-transform duration-300 group-hover:scale-110`}>
+                      <Icon className="h-7 w-7" />
+                    </div>
+                    <h3 className={`mt-4 bg-gradient-to-r ${accent} bg-clip-text text-base font-black text-transparent`}>
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs leading-5 text-slate-500">{item.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </motion.section>
