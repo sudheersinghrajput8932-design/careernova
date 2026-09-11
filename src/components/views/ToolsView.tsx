@@ -1,141 +1,26 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import {
-  Wrench,
-  Search,
-  FileText,
-  Lightbulb,
-  PieChart,
-  Compass,
-  Swords,
-  Target,
-  Share2,
-  Calculator,
-  DollarSign,
-  TrendingUp,
-  Mic,
-  Mail,
   ArrowRight,
-  ArrowLeft,
-  MapPin,
-  Presentation,
-  Bot,
+  ArrowUpRight,
+  BarChart3,
   Brain,
-  Zap,
   CheckCircle2,
-  Lock,
-  Download,
-  AlertTriangle,
-  RotateCw,
-  X,
-  SearchX
+  Code2,
+  Globe2,
+  Layers3,
+  Palette,
+  Rocket,
+  Search,
+  Server,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Workflow,
+  Zap,
 } from 'lucide-react';
-
-// Code-split every tool: each one only downloads when the user actually
-// opens it, keeping the directory itself fast and light.
-const ResumeBuilder = React.lazy(() =>
-  import('../career/ResumeBuilder').then((m) => ({ default: m.ResumeBuilder }))
-);
-const AiResumeAssistant = React.lazy(() =>
-  import('../ai/AiResumeAssistant').then((m) => ({ default: m.AiResumeAssistant }))
-);
-const AiInterviewCoach = React.lazy(() =>
-  import('../ai/AiInterviewCoach').then((m) => ({ default: m.AiInterviewCoach }))
-);
-const AiEmailWriter = React.lazy(() =>
-  import('../ai/AiEmailWriter').then((m) => ({ default: m.AiEmailWriter }))
-);
-const BusinessIdeaGenerator = React.lazy(() =>
-  import('../tools/BusinessIdeaGenerator').then((m) => ({ default: m.BusinessIdeaGenerator }))
-);
-const BusinessPlanGenerator = React.lazy(() =>
-  import('../tools/BusinessPlanGenerator').then((m) => ({ default: m.BusinessPlanGenerator }))
-);
-const SwotAnalysis = React.lazy(() =>
-  import('../tools/SwotAnalysis').then((m) => ({ default: m.SwotAnalysis }))
-);
-const CompetitorAnalysis = React.lazy(() =>
-  import('../tools/CompetitorAnalysis').then((m) => ({ default: m.CompetitorAnalysis }))
-);
-const MarketingStrategyGenerator = React.lazy(() =>
-  import('../tools/MarketingStrategyGenerator').then((m) => ({ default: m.MarketingStrategyGenerator }))
-);
-const MarketingToolsDirectory = React.lazy(() =>
-  import('../tools/MarketingToolsDirectory').then((m) => ({ default: m.MarketingToolsDirectory }))
-);
-const SocialMediaContentIdeas = React.lazy(() =>
-  import('../tools/SocialMediaContentIdeas').then((m) => ({ default: m.SocialMediaContentIdeas }))
-);
-const CalculatorsHub = React.lazy(() =>
-  import('../calculators/CalculatorsHub').then((m) => ({ default: m.CalculatorsHub }))
-);
-
-/**
- * Catches any runtime crash inside a single tool so it can never take down
- * the rest of the page. Shows a calm, branded recovery card instead of a
- * white screen or a raw stack trace.
- */
-class ToolErrorBoundary extends React.Component<
-  { children: React.ReactNode; toolName?: string; onRetry: () => void },
-  { hasError: boolean }
-> {
-  constructor(props: { children: React.ReactNode; toolName?: string; onRetry: () => void }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: unknown, info: React.ErrorInfo) {
-    // Logged for diagnostics only — never surfaced raw to the user.
-    console.error(`[ToolsView] "${this.props.toolName ?? 'Unknown tool'}" crashed:`, error, info);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex flex-col items-center justify-center text-center gap-3 py-14 px-6 rounded-2xl bg-rose-50 border border-rose-200">
-          <div className="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
-            <AlertTriangle className="w-5 h-5" />
-          </div>
-          <h4 className="text-sm font-bold text-slate-900">This tool hit a snag</h4>
-          <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
-            {this.props.toolName || 'This tool'} ran into an unexpected error. Your other tools and data are safe — just retry, or head back to the directory.
-          </p>
-          <button
-            onClick={() => {
-              this.setState({ hasError: false });
-              this.props.onRetry();
-            }}
-            className="mt-1 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-colors cursor-pointer"
-          >
-            <RotateCw className="w-3.5 h-3.5" />
-            Retry Tool
-          </button>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
-
-/** Branded shimmer placeholder shown while a tool's code chunk downloads. */
-const ToolLoadingSkeleton = () => (
-  <div className="space-y-4 py-2" aria-busy="true" aria-label="Loading tool">
-    <div className="flex items-center gap-2 text-xs font-semibold text-indigo-600">
-      <span className="w-3.5 h-3.5 rounded-full border-2 border-indigo-200 border-t-indigo-600 animate-spin" />
-      Loading tool…
-    </div>
-    <div className="h-6 w-52 rounded-lg bg-slate-200 animate-pulse" />
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="h-28 rounded-2xl bg-slate-200 animate-pulse" />
-      <div className="h-28 rounded-2xl bg-slate-200 animate-pulse" />
-    </div>
-    <div className="h-36 rounded-2xl bg-slate-100 animate-pulse" />
-  </div>
-);
 
 interface ToolsViewProps {
   onNotify?: (type: 'success' | 'error' | 'info', title: string, description?: string) => void;
@@ -149,570 +34,229 @@ const smoothTransition = {
   ease: [0.16, 1, 0.3, 1] as const,
 };
 
-export const ToolsView: React.FC<ToolsViewProps> = ({ onNotify, addToast, onSaveItem, initialTool }) => {
-  const notifyFn = (type: 'success' | 'error' | 'info', title: string, description?: string) => {
-    if (onNotify) onNotify(type, title, description);
-    else if (addToast) addToast(title, description, type);
-  };
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
-  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
-  const [heroImageFailed, setHeroImageFailed] = useState(false);
-  const [activeRunningTool, setActiveRunningTool] = useState<string | null>(() => {
-    if (typeof window !== 'undefined' && window.location.hash.startsWith('#tool-')) {
-      return window.location.hash.replace('#tool-', '');
-    }
-    return initialTool || null;
-  });
+const expertise = [
+  {
+    number: '01', title: 'Web Development',
+    description: 'Fast, responsive and scalable websites and web applications designed around real business goals.',
+    icon: Globe2, gradient: 'from-indigo-600 to-blue-600',
+    tags: ['Next.js', 'React', 'TypeScript', 'Node.js'],
+  },
+  {
+    number: '02', title: 'iOS Development',
+    description: 'Thoughtful iOS experiences built with modern Apple technologies, clean interfaces and performance in mind.',
+    icon: Smartphone, gradient: 'from-violet-600 to-fuchsia-600',
+    tags: ['Swift', 'SwiftUI', 'UIKit', 'Xcode'],
+  },
+  {
+    number: '03', title: 'Business Growth',
+    description: 'Digital systems and growth strategies that help businesses attract customers, improve conversion and scale.',
+    icon: TrendingUp, gradient: 'from-cyan-600 to-emerald-500',
+    tags: ['SEO', 'Analytics', 'Strategy', 'Automation'],
+  },
+];
 
-  // Debounce the search query so filtering never fights with fast typing —
-  // input stays instantly responsive even as the catalog grows.
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedQuery(searchQuery), 150);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
+const stackGroups = [
+  {
+    title: 'Web Development', eyebrow: 'BUILD',
+    description: 'Modern technologies for websites, web apps and digital products.', icon: Code2,
+    gradient: 'from-indigo-600 to-blue-600',
+    technologies: [
+      ['Next.js', 'Web framework'], ['React', 'UI development'], ['TypeScript', 'Typed JavaScript'],
+      ['JavaScript', 'Web applications'], ['Node.js', 'Backend runtime'], ['Tailwind CSS', 'Interface styling'],
+    ],
+  },
+  {
+    title: 'iOS Development', eyebrow: 'CREATE',
+    description: 'Apple-focused tools for polished, native mobile experiences.', icon: Smartphone,
+    gradient: 'from-violet-600 to-purple-600',
+    technologies: [
+      ['Swift', 'Native language'], ['SwiftUI', 'Modern UI framework'], ['UIKit', 'Apple UI framework'],
+      ['Xcode', 'Build & test'], ['App Store Connect', 'Release management'],
+    ],
+  },
+  {
+    title: 'Backend & Cloud', eyebrow: 'POWER',
+    description: 'Reliable data, APIs and cloud infrastructure behind digital products.', icon: Server,
+    gradient: 'from-cyan-600 to-blue-600',
+    technologies: [
+      ['Firebase', 'App backend'], ['Supabase', 'Database & auth'], ['PostgreSQL', 'Relational database'],
+      ['REST APIs', 'System integration'], ['AWS', 'Cloud infrastructure'],
+    ],
+  },
+  {
+    title: 'Design & Product', eyebrow: 'DESIGN',
+    description: 'Design systems that keep products clear, consistent and user-focused.', icon: Palette,
+    gradient: 'from-fuchsia-600 to-rose-500',
+    technologies: [
+      ['Figma', 'UI/UX design'], ['Adobe Creative Cloud', 'Creative production'],
+      ['Design Systems', 'Visual consistency'], ['Responsive UI', 'Multi-device design'],
+    ],
+  },
+  {
+    title: 'Analytics & Growth', eyebrow: 'MEASURE',
+    description: 'Measurement and optimization tools for understanding what drives growth.', icon: BarChart3,
+    gradient: 'from-emerald-600 to-teal-500',
+    technologies: [
+      ['Google Analytics', 'Performance insights'], ['Search Console', 'Search visibility'],
+      ['Google Tag Manager', 'Tracking setup'], ['Looker Studio', 'Reporting'], ['SEO', 'Organic growth'],
+    ],
+  },
+  {
+    title: 'AI & Automation', eyebrow: 'ACCELERATE',
+    description: 'AI-powered workflows and integrations that reduce repetitive work.', icon: Brain,
+    gradient: 'from-amber-500 to-orange-600',
+    technologies: [
+      ['OpenAI APIs', 'AI integrations'], ['AI Workflows', 'Intelligent processes'],
+      ['Automation', 'Workflow efficiency'], ['API Integrations', 'Connected systems'],
+    ],
+  },
+];
 
-  // Open tool with history pushState
-  const handleOpenTool = useCallback((toolId: string) => {
-    setActiveRunningTool(toolId);
-    try {
-      if (window.location.hash !== `#tool-${toolId}`) {
-        window.history.pushState({ type: 'tool', toolId }, '', `#tool-${toolId}`);
-      }
-    } catch (e) {
-      console.debug('History pushState error:', e);
-    }
-    window.scrollTo({ top: 180, behavior: 'smooth' });
-  }, []);
+const principles = [
+  { icon: Target, title: 'Business-first', description: 'Technology is selected around the outcome, not just the trend.' },
+  { icon: ShieldCheck, title: 'Built to scale', description: 'Clean foundations make it easier to improve, maintain and grow.' },
+  { icon: Zap, title: 'Performance focused', description: 'Fast, responsive experiences are treated as a core requirement.' },
+  { icon: Workflow, title: 'Connected systems', description: 'Web, mobile, analytics and automation work better together.' },
+];
 
-  // Close tool and return to directory with clean history
-  const handleCloseTool = useCallback(() => {
-    setActiveRunningTool(null);
-    try {
-      if (window.location.hash.startsWith('#tool-')) {
-        const cleanUrl = window.location.pathname + window.location.search;
-        window.history.replaceState(null, '', cleanUrl);
-      }
-    } catch (e) {
-      console.debug('History replaceState error:', e);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // Listen for browser Back/Forward buttons and Hash changes
-  useEffect(() => {
-    const handleHashSync = () => {
-      const hash = window.location.hash;
-      if (hash.startsWith('#tool-')) {
-        const toolId = hash.replace('#tool-', '');
-        setActiveRunningTool(toolId);
-      } else if (!hash || hash === '#') {
-        setActiveRunningTool(null);
-      }
-    };
-
-    window.addEventListener('popstate', handleHashSync);
-    window.addEventListener('hashchange', handleHashSync);
-    return () => {
-      window.removeEventListener('popstate', handleHashSync);
-      window.removeEventListener('hashchange', handleHashSync);
-    };
-  }, []);
-
-  // Update initial tool if prop changes
-  useEffect(() => {
-    if (initialTool) {
-      handleOpenTool(initialTool);
-    }
-  }, [initialTool, handleOpenTool]);
-
-  // Escape closes the active tool — small touch, feels like a native app
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && activeRunningTool) {
-        handleCloseTool();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeRunningTool, handleCloseTool]);
-
-  const toolsCatalog = [
-    {
-      id: 'resume-builder',
-      name: 'Interactive ATS Resume Builder',
-      category: 'Career Tools',
-      icon: FileText,
-      badge: '98% ATS Pass',
-      gradient: 'from-indigo-600 to-violet-600',
-      description: 'Single-column ATS-tested resume editor with live preview, section reordering, and PDF export.'
-    },
-    {
-      id: 'ai-resume',
-      name: 'AI Resume Assistant & Bullet Polisher',
-      category: 'Career Tools',
-      icon: Brain,
-      badge: 'AI Gemini',
-      gradient: 'from-indigo-500 to-blue-600',
-      description: 'Quantify weak drafts into high-impact Google XYZ metric bullet points with instant ATS score audits.'
-    },
-    {
-      id: 'ai-interview',
-      name: 'AI Interview Coach & Simulator',
-      category: 'Career Tools',
-      icon: Mic,
-      badge: 'AI Coach',
-      gradient: 'from-violet-600 to-purple-600',
-      description: 'Role-specific behavioral & technical questions with real-time rubric answer evaluation & tips.'
-    },
-    {
-      id: 'salary-calculator',
-      name: 'Salary In-Hand (CTC) Calculator',
-      category: 'Finance Tools',
-      icon: DollarSign,
-      badge: 'New Regime 2026',
-      gradient: 'from-emerald-500 to-teal-600',
-      description: 'Calculate monthly take-home net pay with PF, Basic, HRA, and tax deductions under New Tax Regime.'
-    },
-    {
-      id: 'emi-calculator',
-      name: 'Loan EMI & Amortization Calculator',
-      category: 'Finance Tools',
-      icon: Calculator,
-      badge: 'Instant Math',
-      gradient: 'from-emerald-600 to-green-600',
-      description: 'Calculate monthly EMIs, total interest, and complete month-by-month repayment schedules for loans.'
-    },
-    {
-      id: 'breakeven-calculator',
-      name: 'Break-Even & ROI Unit Calculator',
-      category: 'Finance Tools',
-      icon: TrendingUp,
-      badge: 'Founder Metric',
-      gradient: 'from-teal-500 to-emerald-600',
-      description: 'Find required monthly sales volume, unit margin contribution, and revenue to achieve profitability.'
-    },
-    {
-      id: 'business-idea',
-      name: 'AI Business Idea Generator',
-      category: 'Business Tools',
-      icon: Lightbulb,
-      badge: 'AI Gemini',
-      gradient: 'from-amber-500 to-orange-600',
-      description: 'Generate validated startup niches, market opportunity sizes, execution roadmaps, and revenue streams.'
-    },
-    {
-      id: 'business-plan',
-      name: 'Business Plan & Pitch Deck Generator',
-      category: 'Business Tools',
-      icon: Presentation,
-      badge: 'VC Ready',
-      gradient: 'from-indigo-600 to-blue-600',
-      description: 'Create comprehensive executive summaries, 10-slide pitch decks, market sizes, and financial forecasts.'
-    },
-    {
-      id: 'swot-analysis',
-      name: 'SWOT Analysis Studio',
-      category: 'Business Tools',
-      icon: Compass,
-      badge: 'Strategic Matrix',
-      gradient: 'from-purple-500 to-indigo-600',
-      description: '4-quadrant interactive matrix evaluating internal strengths, weaknesses, opportunities, and threats.'
-    },
-    {
-      id: 'competitor-analysis',
-      name: 'Competitor Analysis Matrix',
-      category: 'Business Tools',
-      icon: Swords,
-      badge: 'Market Intel',
-      gradient: 'from-violet-500 to-indigo-600',
-      description: 'Editable matrix benchmarking pricing, key features, positioning, market share, and USPs.'
-    },
-    {
-      id: 'marketing-strategy',
-      name: '90-Day Marketing Strategy Generator',
-      category: 'Marketing Tools',
-      icon: Target,
-      badge: 'Growth Funnel',
-      gradient: 'from-emerald-500 to-indigo-600',
-      description: 'Channel budget allocation, customer acquisition funnels, and weekly growth milestones.'
-    },
-    {
-      id: 'social-content',
-      name: 'Social Media Content Engine',
-      category: 'Marketing Tools',
-      icon: Share2,
-      badge: 'AI Viral Hooks',
-      gradient: 'from-rose-500 to-violet-600',
-      description: '7-day viral post schedules, engagement hooks, and hashtags for LinkedIn, Instagram & X.'
-    },
-    {
-      id: 'email-writer',
-      name: 'AI Cold Email & Pitch Writer',
-      category: 'Marketing Tools',
-      icon: Mail,
-      badge: 'AI Gemini',
-      gradient: 'from-rose-500 to-indigo-600',
-      description: 'Craft 3 distinct high-converting cold email angles for hiring leads, angel investors, or client outreach.'
-    },
-    {
-      id: 'marketing-tools-dir',
-      name: 'GMB & Marketing Tools Directory',
-      category: 'Marketing Tools',
-      icon: MapPin,
-      badge: '25+ Tools & SEO',
-      gradient: 'from-indigo-600 to-cyan-600',
-      description: 'Searchable directory of top SEO, Google My Business, Analytics, Content, and Social Media software.'
-    },
-  ];
-
-  const categories = ['All', 'Career Tools', 'Business Tools', 'Marketing Tools', 'Finance Tools', 'AI Tools'];
-
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    categories.forEach((cat) => {
-      counts[cat] =
-        cat === 'All'
-          ? toolsCatalog.length
-          : cat === 'AI Tools'
-          ? toolsCatalog.filter((t) => t.badge.includes('AI') || t.name.includes('AI')).length
-          : toolsCatalog.filter((t) => t.category === cat).length;
-    });
-    return counts;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filteredTools = useMemo(() => {
-    const q = debouncedQuery.trim().toLowerCase();
-    return toolsCatalog.filter((tool) => {
-      const matchesCategory =
-        selectedCategory === 'All'
-          ? true
-          : selectedCategory === 'AI Tools'
-          ? tool.badge.includes('AI') || tool.name.includes('AI')
-          : tool.category === selectedCategory;
-
-      const matchesSearch =
-        !q ||
-        tool.name.toLowerCase().includes(q) ||
-        tool.description.toLowerCase().includes(q) ||
-        tool.category.toLowerCase().includes(q);
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [selectedCategory, debouncedQuery]);
-
-  const activeToolMetadata = toolsCatalog.find((t) => t.id === activeRunningTool);
-
+export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
     <div className="space-y-8 sm:space-y-10">
-      {/* 1. Hero Banner — banner image carries its own title/copy, no overlaid text */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
+      <motion.section
+        initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={smoothTransition}
+        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-950 px-6 py-10 sm:px-10 sm:py-14 shadow-xl shadow-indigo-950/10"
       >
-        {/* Shimmer placeholder while the banner loads, so there's never a blank flash */}
-        {!heroImageLoaded && !heroImageFailed && (
-          <div className="w-full aspect-[21/9] bg-gradient-to-br from-indigo-100 via-violet-100 to-fuchsia-100 animate-pulse" />
-        )}
-
-        {/* Graceful fallback if the banner asset ever fails to load — no broken-image icon */}
-        {heroImageFailed && (
-          <div className="w-full aspect-[21/9] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-indigo-600 to-violet-600 text-white text-center px-6">
-            <Wrench className="w-7 h-7" />
-            <h2 className="text-lg font-black">Tools &amp; Generative Utilities Hub</h2>
-            <p className="text-xs text-indigo-100 max-w-md">
-              A growing suite of career, business, marketing and finance tools — built to move ideas into real outcomes.
-            </p>
+        <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-violet-500/15 blur-3xl" />
+        <div className="relative max-w-4xl">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-100 backdrop-blur-sm">
+            <Layers3 className="h-3.5 w-3.5" /> Technology &amp; Growth Stack
           </div>
-        )}
-
-        {/* Illustration banner (already contains title, description & badges) */}
-        <img
-          src="/assets/tools-hero-banner.png"
-          alt="Tools & Generative Utilities Hub"
-          onLoad={() => setHeroImageLoaded(true)}
-          onError={() => setHeroImageFailed(true)}
-          className={`w-full h-auto object-cover block transition-opacity duration-500 ${
-            heroImageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'
-          }`}
-        />
-
-        {/* Active Tool Back Button (if currently open) */}
-        {activeRunningTool && (
-          <div className="absolute inset-0 flex items-end justify-center pb-5 sm:pb-6">
-            <button
-              onClick={handleCloseTool}
-              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 backdrop-blur-xs text-white border border-indigo-500/30 text-xs font-bold transition-all hover:scale-[1.02] cursor-pointer shadow-md shadow-indigo-600/30"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Tools Directory</span>
-            </button>
-          </div>
-        )}
-      </motion.div>
-
-      {/* 2. If a tool is currently open in active execution mode */}
-      <AnimatePresence mode="wait">
-        {activeRunningTool && (
-          <motion.div
-            key={activeRunningTool}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={smoothTransition}
-            className="space-y-6 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-md shadow-indigo-600/5"
-          >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleCloseTool}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-bold transition-all hover:text-indigo-600 cursor-pointer shadow-xs"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>← Back to Directory</span>
-              </button>
-              <div className="flex items-center gap-2.5">
-                {activeToolMetadata && (
-                  <div className={`p-2 rounded-xl bg-gradient-to-br ${activeToolMetadata.gradient} text-white shadow-xs shrink-0`}>
-                    <activeToolMetadata.icon className="w-4 h-4" />
-                  </div>
-                )}
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold text-slate-900">
-                      {activeToolMetadata?.name || 'Active Tool Session'}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-slate-500">
-                    {activeToolMetadata?.category} • Client-Side Execution
-                  </span>
-                </div>
+          <h1 className="max-w-3xl text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl">
+            The technology behind{' '}
+            <span className="bg-gradient-to-r from-cyan-300 via-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">better digital outcomes.</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
+            A focused stack of development, design, analytics and growth technologies we use to build digital products and help businesses move forward.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-2">
+            {['Build', 'Launch', 'Measure', 'Grow'].map((item, index) => (
+              <div key={item} className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-200">
+                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white/10 text-[9px] font-black text-white">0{index + 1}</span>
+                {item}
               </div>
+            ))}
+          </div>
+        </div>
+        <div className="relative mt-10 grid grid-cols-2 gap-3 sm:absolute sm:bottom-10 sm:right-10 sm:mt-0 sm:w-64">
+          {[
+            [Code2, 'Web', 'Digital products', 'text-cyan-300'],
+            [Smartphone, 'iOS', 'Native experiences', 'text-violet-300'],
+            [TrendingUp, 'Growth', 'Business outcomes', 'text-emerald-300'],
+            [Sparkles, 'AI', 'Smarter workflows', 'text-amber-300'],
+          ].map(([Icon, title, detail, iconClass]) => (
+            <div key={title as string} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+              {React.createElement(Icon as React.ElementType, { className: `h-5 w-5 ${iconClass}` })}
+              <p className="mt-2 text-lg font-black text-white">{title as string}</p>
+              <p className="text-[10px] text-slate-400">{detail as string}</p>
             </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                100% Free Engine
-              </span>
-              <button
-                onClick={handleCloseTool}
-                className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"
-              >
-                Close View
-              </button>
-            </div>
-          </div>
-
-          <div className="pt-2">
-            <ToolErrorBoundary
-              toolName={activeToolMetadata?.name}
-              onRetry={() => activeRunningTool && handleOpenTool(activeRunningTool)}
-            >
-              <React.Suspense fallback={<ToolLoadingSkeleton />}>
-                {activeRunningTool === 'resume-builder' && <ResumeBuilder onNotify={onNotify} onSaveItem={onSaveItem} />}
-                {activeRunningTool === 'ai-resume' && <AiResumeAssistant onNotify={onNotify} onSaveItem={onSaveItem} />}
-                {activeRunningTool === 'ai-interview' && <AiInterviewCoach onNotify={onNotify} />}
-                {activeRunningTool === 'salary-calculator' && <CalculatorsHub onNotify={onNotify} defaultTab="salary" />}
-                {activeRunningTool === 'emi-calculator' && <CalculatorsHub onNotify={onNotify} defaultTab="emi" />}
-                {activeRunningTool === 'breakeven-calculator' && <CalculatorsHub onNotify={onNotify} defaultTab="breakeven" />}
-                {activeRunningTool === 'business-idea' && <BusinessIdeaGenerator onNotify={onNotify} />}
-                {activeRunningTool === 'business-plan' && <BusinessPlanGenerator onNotify={onNotify} />}
-                {activeRunningTool === 'swot-analysis' && <SwotAnalysis onNotify={onNotify} />}
-                {activeRunningTool === 'competitor-analysis' && <CompetitorAnalysis onNotify={onNotify} />}
-                {activeRunningTool === 'marketing-strategy' && <MarketingStrategyGenerator onNotify={onNotify} />}
-                {activeRunningTool === 'social-content' && <SocialMediaContentIdeas onNotify={onNotify} />}
-                {activeRunningTool === 'email-writer' && <AiEmailWriter onNotify={onNotify} onSaveItem={onSaveItem} />}
-                {activeRunningTool === 'marketing-tools-dir' && <MarketingToolsDirectory onNotify={onNotify} />}
-              </React.Suspense>
-            </ToolErrorBoundary>
-          </div>
-
-          {/* Bottom Back Button for long tool pages */}
-          <div className="pt-6 border-t border-slate-100 flex justify-center">
-            <button
-              onClick={handleCloseTool}
-              className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 hover:border-indigo-500/50 text-xs font-bold transition-all cursor-pointer shadow-xs hover:scale-[1.02]"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Tools Directory</span>
-            </button>
-          </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 3. Directory Search & Filter Controls with Scroll Reveal */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 via-violet-50 to-fuchsia-50 border border-indigo-200/70 shadow-sm shadow-indigo-600/5"
-      >
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 custom-scrollbar">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
-                selectedCategory === cat
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'text-indigo-900/70 hover:text-indigo-900 hover:bg-white/70'
-              }`}
-            >
-              <span>{cat}</span>
-              <span
-                className={`text-[9px] font-black px-1.5 py-0.5 rounded-full ${
-                  selectedCategory === cat ? 'bg-white/25 text-white' : 'bg-indigo-100 text-indigo-600'
-                }`}
-              >
-                {categoryCounts[cat]}
-              </span>
-            </button>
           ))}
         </div>
+      </motion.section>
 
-        <div className="relative w-full sm:w-80 lg:w-96">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-indigo-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by tool name, role, or keyword (e.g. ATS, CGPA, Legal)..."
-            className="w-full pl-9 pr-8 py-2 rounded-xl bg-white/80 border border-indigo-200 text-xs text-slate-900 placeholder-indigo-400/70 focus:outline-none focus:border-indigo-500 focus:bg-white transition-colors"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              aria-label="Clear search"
-              className="absolute right-2.5 top-2 w-4 h-4 rounded-full bg-indigo-100 hover:bg-indigo-200 text-indigo-600 flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-2.5 h-2.5" />
-            </button>
-          )}
+      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition}>
+        <div className="mb-5">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">Core expertise</p>
+          <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900">Three areas. One connected approach.</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Our technology choices support the three areas CareerNova is built around: development, iOS products and business growth.</p>
         </div>
-      </motion.div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {expertise.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div key={item.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ ...smoothTransition, delay: index * 0.07 }} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
+                <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-50 opacity-60 blur-2xl transition-transform duration-500 group-hover:scale-150" />
+                <div className="relative">
+                  <div className="flex items-start justify-between">
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-md`}><Icon className="h-5 w-5" /></div>
+                    <span className="text-[10px] font-black tracking-widest text-slate-300">{item.number}</span>
+                  </div>
+                  <h3 className="mt-5 text-base font-black text-slate-900">{item.title}</h3>
+                  <p className="mt-2 text-xs leading-6 text-slate-500">{item.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {item.tags.map((tag) => <span key={tag} className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-[9px] font-bold text-slate-600">{tag}</span>)}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </motion.section>
 
-      {/* Result count — quiet confirmation that filtering is live and working */}
-      <p className="text-[11px] font-semibold text-slate-400 -mt-2">
-        Showing {filteredTools.length} of {toolsCatalog.length} tools
-        {debouncedQuery && <> for &ldquo;{debouncedQuery}&rdquo;</>}
-      </p>
-
-      {/* 4. Grid of Tools with Staggered Scroll Reveal */}
-      {filteredTools.length === 0 ? (
-        <div className="flex flex-col items-center justify-center text-center gap-3 py-16 px-6 rounded-2xl bg-slate-50 border border-dashed border-slate-300">
-          <div className="w-12 h-12 rounded-full bg-white text-slate-400 border border-slate-200 flex items-center justify-center">
-            <SearchX className="w-5 h-5" />
+      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={smoothTransition}>
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">Our stack</p>
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900">Technologies we work with</h2>
           </div>
-          <h4 className="text-sm font-bold text-slate-800">No tools match that search</h4>
-          <p className="text-xs text-slate-500 max-w-sm">
-            Try a different keyword, or clear filters to see the full directory.
-          </p>
-          <button
-            onClick={() => {
-              setSearchQuery('');
-              setSelectedCategory('All');
-            }}
-            className="mt-1 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-colors cursor-pointer"
-          >
-            Clear Filters
-          </button>
+          <p className="max-w-md text-xs leading-5 text-slate-500 sm:text-right">The stack is intentionally focused — enough to build strong products without turning the page into a generic software catalogue.</p>
         </div>
-      ) : (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filteredTools.map((tool, idx) => {
-          const Icon = tool.icon;
-          const isSelected = activeRunningTool === tool.id;
-          return (
-            <motion.div
-              key={tool.id}
-              layout
-              initial={{ opacity: 0, y: 35, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ ...smoothTransition, delay: (idx % 6) * 0.06 }}
-              onClick={() => handleOpenTool(tool.id)}
-              onMouseMove={(e: React.MouseEvent<HTMLDivElement>) => {
-                // DOM-level tracking (no setState) keeps the hover spotlight
-                // perfectly smooth — zero re-renders while the mouse moves.
-                const card = e.currentTarget as HTMLDivElement;
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
-                card.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
-              }}
-              className={`group p-5 rounded-2xl bg-white border transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5 shadow-xs relative overflow-hidden ${
-                isSelected
-                  ? 'border-indigo-500 ring-2 ring-indigo-500/30 shadow-md shadow-indigo-600/10'
-                  : 'border-slate-200 hover:border-indigo-300 hover:shadow-md'
-              }`}
-            >
-              {/* Mouse-tracking spotlight — premium glass feel, GPU-cheap */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background:
-                    'radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(99,102,241,0.10), transparent 70%)',
-                }}
-              />
-
-              {/* Subtle top gradient accent on hover */}
-              <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${tool.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-
-              <div className="space-y-3.5">
-                {/* Category Pill & Top Badge */}
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-slate-100 text-slate-600 border border-slate-200">
-                    {tool.category}
-                  </span>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full bg-gradient-to-r ${tool.gradient} text-white shadow-2xs`}>
-                    {tool.badge}
-                  </span>
-                </div>
-
-                {/* Tool Icon + Title Inline Layout */}
-                <div className="flex items-start gap-3">
-                  <div
-                    className={`p-2.5 rounded-xl bg-gradient-to-br ${tool.gradient} text-white shadow-sm shadow-indigo-600/20 shrink-0 mt-0.5 group-hover:scale-105 transition-all duration-300`}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {stackGroups.map((group, index) => {
+            const Icon = group.icon;
+            return (
+              <motion.article key={group.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
+                <div className="flex items-start gap-4 p-5 pb-4">
+                  <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${group.gradient} text-white shadow-sm`}><Icon className="h-5 w-5" /></div>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug">
-                      {tool.name}
-                    </h3>
-                    <p className="text-xs text-slate-600 mt-1 leading-relaxed line-clamp-2 font-normal">
-                      {tool.description}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2"><span className="text-[9px] font-black tracking-[0.16em] text-indigo-500">{group.eyebrow}</span><span className="h-1 w-1 rounded-full bg-slate-300" /><span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span></div>
+                    <h3 className="mt-1 text-base font-black text-slate-900">{group.title}</h3>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">{group.description}</p>
                   </div>
                 </div>
-              </div>
-
-              {/* Bottom Action Footer */}
-              <div className="pt-3.5 mt-3 flex items-center justify-between text-xs font-bold text-indigo-600 border-t border-slate-100 group-hover:text-indigo-700">
-                <span className="flex items-center gap-1.5">
-                  {isSelected ? (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  ) : (
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 group-hover:animate-ping" />
-                  )}
-                  <span>{isSelected ? 'Currently Open' : 'Launch Tool'}</span>
-                </span>
-                <div className="p-1 rounded-lg bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200">
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                <div className="border-t border-slate-100 bg-slate-50/70 p-4">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {group.technologies.map(([name, detail]) => (
+                      <div key={name} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 transition-colors group-hover:border-slate-200">
+                        <div className="flex min-w-0 items-center gap-2"><span className={`h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} /><span className="truncate text-[11px] font-bold text-slate-800">{name}</span></div>
+                        <span className="shrink-0 text-[9px] font-medium text-slate-400">{detail}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-      )}
+              </motion.article>
+            );
+          })}
+        </div>
+      </motion.section>
+
+      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition} className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr]">
+          <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 p-7 sm:p-9">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-violet-500/20 blur-3xl" />
+            <div className="relative">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-cyan-300"><Rocket className="h-5 w-5" /></div>
+              <p className="mt-6 text-[10px] font-black uppercase tracking-[0.18em] text-indigo-200">More than a list of tools</p>
+              <h2 className="mt-2 text-2xl font-black leading-tight text-white">We choose technology around the problem.</h2>
+              <p className="mt-3 max-w-md text-xs leading-6 text-indigo-100/75">The right stack should make a product easier to use, easier to maintain and easier to grow — not simply make the technology section look bigger.</p>
+              <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-white">Build with purpose <ArrowRight className="h-3.5 w-3.5" /></div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-px bg-slate-200 sm:grid-cols-2">
+            {principles.map((item) => { const Icon = item.icon; return <div key={item.title} className="bg-white p-6"><Icon className="h-5 w-5 text-indigo-600" /><h3 className="mt-4 text-sm font-black text-slate-900">{item.title}</h3><p className="mt-1.5 text-xs leading-5 text-slate-500">{item.description}</p></div>; })}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={smoothTransition} className="flex flex-col gap-5 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex items-start gap-3">
+          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm"><Search className="h-4 w-4" /></div>
+          <div><h3 className="text-sm font-black text-slate-900">Looking for the right digital solution?</h3><p className="mt-1 text-xs leading-5 text-slate-500">Tell us what you are trying to build or grow, and we can map the right approach.</p></div>
+        </div>
+        <button type="button" className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700">Start a conversation <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></button>
+      </motion.section>
+
+      <div className="flex items-center justify-center gap-2 pb-2 text-[10px] font-semibold text-slate-400"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Focused stack • Practical technology choices • Built for real outcomes</div>
     </div>
   );
 };
