@@ -221,40 +221,65 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </motion.section>
 
-      {/* 2. Vision & Platform Purpose Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Vision Card */}
+      {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
+          image shown in full (object-contain, no crop) beside its text. */}
+      <section className="space-y-6">
+        {/* Vision Card — image left, text right */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ ...smoothTransition, delay: 0.05 }}
-          className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 p-7 sm:p-8 rounded-3xl border border-indigo-200 shadow-sm space-y-4 hover:shadow-md hover:border-indigo-400 transition-all duration-300"
+          className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-3xl border border-indigo-200 shadow-sm hover:shadow-md hover:border-indigo-400 transition-all duration-300 overflow-hidden"
         >
-          <div className="w-12 h-12 rounded-2xl bg-white text-indigo-600 border border-indigo-200 shadow-sm flex items-center justify-center font-bold">
-            <Eye className="w-6 h-6" />
+          <div className="flex flex-col md:flex-row items-center gap-0">
+            <div className="w-full md:w-[42%] aspect-[6/5] bg-gradient-to-br from-indigo-100 via-white to-blue-100 flex items-center justify-center p-4 sm:p-6">
+              <img
+                src="/assets/about-vision-vr.png"
+                alt="Student wearing a VR headset next to a laptop showing the CareerNova logo, representing CareerNova's vision for immersive, technology-driven career guidance"
+                loading="lazy"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="w-full md:w-[58%] p-7 sm:p-8 space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-white text-indigo-600 border border-indigo-200 shadow-sm flex items-center justify-center font-bold">
+                <Eye className="w-6 h-6" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">Our Vision</h2>
+              <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                To eliminate information asymmetry in career paths and startup ecosystems. We believe that every student should have equal access to resources, career tools, and financial wisdom.
+              </p>
+            </div>
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Our Vision</h2>
-          <p className="text-slate-600 text-sm leading-relaxed font-normal">
-            To eliminate information asymmetry in career paths and startup ecosystems. We believe that every student should have equal access to resources, career tools, and financial wisdom.
-          </p>
         </motion.div>
 
-        {/* Why We Created This Platform */}
+        {/* Why We Created This Platform — text left, image right (mirrored for a zig-zag rhythm) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ ...smoothTransition, delay: 0.1 }}
-          className="bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 p-7 sm:p-8 rounded-3xl border border-fuchsia-200 shadow-sm space-y-4 hover:shadow-md hover:border-fuchsia-400 transition-all duration-300"
+          className="bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 rounded-3xl border border-fuchsia-200 shadow-sm hover:shadow-md hover:border-fuchsia-400 transition-all duration-300 overflow-hidden"
         >
-          <div className="w-12 h-12 rounded-2xl bg-white text-fuchsia-600 border border-fuchsia-200 shadow-sm flex items-center justify-center font-bold">
-            <Heart className="w-6 h-6" />
+          <div className="flex flex-col md:flex-row-reverse items-center gap-0">
+            <div className="w-full md:w-[42%] aspect-[3/2] bg-gradient-to-br from-fuchsia-100 via-white to-purple-100 flex items-center justify-center p-4 sm:p-6">
+              <img
+                src="/assets/about-why-created-roadmap.png"
+                alt="A student surrounded by confusing career advice and question marks, looking toward a CareerNova signpost pointing to better resources, AI-powered tools, financial intelligence, and real opportunities"
+                loading="lazy"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="w-full md:w-[58%] p-7 sm:p-8 space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-white text-fuchsia-600 border border-fuchsia-200 shadow-sm flex items-center justify-center font-bold">
+                <Heart className="w-6 h-6" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">Why We Created This Platform</h2>
+              <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                Too many ambitious students get filtered out due to outdated ATS scanners and the many gateways to success. CareerNova fills this void with accessible AI-driven tools, financial intelligence, and action roadmaps.
+              </p>
+            </div>
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Why We Created This Platform</h2>
-          <p className="text-slate-600 text-sm leading-relaxed font-normal">
-            Too many ambitious students get filtered out due to outdated ATS scanners and the many gateways to success. CareerNova fills this void with accessible AI-driven tools, financial intelligence, and action roadmaps.
-          </p>
         </motion.div>
       </section>
 
