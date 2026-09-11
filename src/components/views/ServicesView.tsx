@@ -36,6 +36,29 @@ interface ServiceItem {
   whatsappMessage: string;
 }
 
+const HERO_SLIDER_ITEMS = [
+  {
+    id: 'verified-specialists',
+    title: 'Verified Specialists You Can Trust',
+    image: '/assets/hero-slide-verified-specialists.png',
+  },
+  {
+    id: 'satisfaction-guaranteed',
+    title: '100% Satisfaction Guaranteed',
+    image: '/assets/hero-slide-satisfaction-guaranteed.png',
+  },
+  {
+    id: 'our-services',
+    title: 'Expert Services for a Brighter Tomorrow',
+    image: '/assets/hero-slide-our-services.png',
+  },
+  {
+    id: 'goals-services',
+    title: 'Your Goals. Our Services. A Brighter Tomorrow.',
+    image: '/assets/hero-slide-goals-services.png',
+  },
+];
+
 const SERVICES_DATA: ServiceItem[] = [
   {
     id: 'web-development',
@@ -280,26 +303,6 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
   const getWhatsAppLink = (message: string) =>
     `https://wa.me/917007260391?text=${encodeURIComponent(message)}`;
-
-  return () => clearInterval(timer);
-  }, [isHeroSliderPaused]);
-
-  const categories = [
-    { id: 'all', label: 'All Services (8)', icon: null },
-    { id: 'career', label: 'Career (₹299+)', icon: Briefcase },
-    { id: 'business', label: 'Business & Legal (₹599+)', icon: TrendingUp },
-    { id: 'marketing', label: 'Digital Marketing (₹999+)', icon: Share2 },
-    { id: 'ai', label: 'AI-Powered (₹399+)', icon: Bot },
-  ];
-
-  const filteredServices =
-    selectedCategory === 'all'
-      ? SERVICES_DATA
-      : SERVICES_DATA.filter((s) => s.category === selectedCategory);
-
-  const getWhatsAppLink = (message: string) => {
-    return `https://wa.me/917007260391?text=${encodeURIComponent(message)}`;
-  };
 
   return (
     <div className="space-y-12 sm:space-y-16">
