@@ -532,7 +532,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                       >
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.18),transparent_60%)]" />
                         <img
-                          src={`/assets/services/${service.id}.png`}
+                          src={`/assets/${service.id}.png`}
                           alt={`${service.title} service visual`}
                           className="relative z-10 block h-full w-full object-contain select-none"
                           loading="lazy"
