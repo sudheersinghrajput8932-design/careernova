@@ -398,7 +398,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-5 py-8 shadow-[0_20px_70px_-35px_rgba(79,70,229,0.35)] sm:px-8 sm:py-10"
+        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-5 py-5 shadow-[0_20px_70px_-35px_rgba(79,70,229,0.35)] sm:px-8 sm:py-6"
       >
         <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-indigo-100/70 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-28 -left-20 h-52 w-52 rounded-full bg-violet-100/70 blur-3xl" />
@@ -408,14 +408,29 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
             <Sparkles className="h-3.5 w-3.5" />
             Services built around outcomes
           </span>
-          <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl lg:text-4xl">
-            One goal. The right digital service.
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+          <div className="relative mx-auto mt-3 max-w-4xl overflow-hidden rounded-xl px-1 py-0.5">
+            <h2 className="relative z-10 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl lg:text-4xl">
+              <motion.span
+                animate={{ backgroundPosition: ['0% 50%', '220% 50%'] }}
+                transition={{ duration: 3.6, repeat: Infinity, repeatDelay: 1.1, ease: 'linear' }}
+                className="bg-[linear-gradient(105deg,#4f46e5_0%,#7c3aed_25%,#06b6d4_43%,#ffffff_50%,#7c3aed_62%,#4f46e5_82%,#06b6d4_100%)] bg-[length:240%_100%] bg-clip-text text-transparent"
+              >
+                One goal.
+              </motion.span>{' '}
+              The right digital service.
+            </h2>
+            <motion.span
+              aria-hidden="true"
+              animate={{ x: ['-130%', '430%'] }}
+              transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 1.6, ease: 'easeInOut' }}
+              className="pointer-events-none absolute inset-y-0 z-20 w-16 -skew-x-12 bg-gradient-to-r from-transparent via-white/75 to-transparent blur-[1px]"
+            />
+          </div>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
             Explore each service, flip the card for the full scope, and start a conversation when
             you are ready.
           </p>
-          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-3 py-1.5 text-[10px] font-bold text-white shadow-lg shadow-slate-950/10">
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-slate-950 px-3 py-1.5 text-[10px] font-bold text-white shadow-lg shadow-slate-950/10">
             <ArrowUpRight className="h-3.5 w-3.5" />
             Tap or hover a card to explore
           </div>
