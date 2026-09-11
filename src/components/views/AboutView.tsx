@@ -398,13 +398,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="space-y-10"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
           {/* LEFT: Image replaces the previous contact content; form remains untouched */}
           <div className="relative h-full overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-fuchsia-50/50 shadow-sm">
             <img
               src="/assets/contact-us-left.png"
               alt="Let's Connect — CareerNova contact support"
-              className="block h-full min-h-[620px] w-full object-cover select-none"
+              className="block h-full min-h-[620px] w-full object-contain object-center select-none"
               loading="lazy"
               draggable={false}
             />
