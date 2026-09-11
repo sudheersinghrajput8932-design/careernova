@@ -275,6 +275,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isHeroSliderPaused, setIsHeroSliderPaused] = useState(false);
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (isHeroSliderPaused) return;
@@ -382,235 +383,362 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
       {/* SERVICES INTRO */}
       <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="max-w-3xl mx-auto text-center px-4"
-      >
-        <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
-          <Sparkles className="w-3.5 h-3.5" />
-          What we can help you build
-        </span>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-          Practical digital services for real business goals.
-        </h2>
-        <p className="mt-3 text-sm leading-6 text-slate-500">
-          Choose the area you need help with. Each service is focused on a clear business
-          need — without turning this page into a list of technologies.
-        </p>
-      </motion.section>
-
-      {/* SERVICE FILTER */}
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="flex justify-center"
-      >
-        <div className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm custom-scrollbar">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            const isSelected = selectedCategory === cat.id;
-
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`relative flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-[11px] font-bold transition-all cursor-pointer ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/20'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                }`}
-              >
-                {Icon && <Icon className="w-3.5 h-3.5" />}
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-      </motion.div>
-
-      {/* SERVICES GRID */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.08 }}
-        transition={smoothTransition}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
-          {filteredServices.map((service, index) => {
-            const theme = CATEGORY_STYLES[service.category];
-            const Icon = theme.icon;
-
-            return (
-              <motion.article
-                key={service.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.12 }}
-                transition={{ ...smoothTransition, delay: (index % 4) * 0.06 }}
-                className={`group relative flex min-h-[430px] flex-col overflow-hidden rounded-2xl border bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${theme.border} ${theme.hoverBorder}`}
-              >
-                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${theme.accent}`} />
-
-                <div className="flex items-start justify-between gap-3">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${theme.soft} ${theme.text}`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-slate-400">
-                    0{index + 1}
-                  </span>
-                </div>
-
-                <div className="mt-5">
-                  <p className={`text-[9px] font-black uppercase tracking-[0.16em] ${theme.text}`}>
-                    {service.eyebrow}
-                  </p>
-                  <h3 className="mt-1.5 text-base font-black leading-tight text-slate-900">
-                    {service.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-5 text-slate-500">
-                    {service.tagline}
-                  </p>
-                </div>
-
-                <div className="mt-5">
-                  <p className="mb-2 text-[9px] font-black uppercase tracking-wider text-slate-400">
-                    What we deliver
-                  </p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-[11px] leading-4 text-slate-600">
-                        <CheckCircle2 className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${theme.text}`} />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-auto pt-5">
-                  <div className={`rounded-xl border ${theme.border} ${theme.soft} p-3`}>
-                    <p className="text-[9px] font-black uppercase tracking-wider text-slate-400">
-                      Outcome
-                    </p>
-                    <p className="mt-1 text-[11px] font-semibold leading-4 text-slate-700">
-                      {service.outcome}
-                    </p>
-                  </div>
-
-                  <a
-                    href={getWhatsAppLink(service.whatsappMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/cta mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-2.5 text-[11px] font-bold text-white transition-all hover:bg-indigo-600"
-                  >
-                    Discuss this service
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/cta:translate-x-0.5" />
-                  </a>
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
-      </motion.section>
-
-      {/* WHICH SERVICE DO I NEED? */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={smoothTransition}
-        className="rounded-3xl border border-slate-200 bg-slate-50/80 p-5 sm:p-8"
+        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-5 py-8 shadow-[0_20px_70px_-35px_rgba(79,70,229,0.35)] sm:px-8 sm:py-10"
       >
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
-            Not sure where to start?
+        <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-indigo-100/70 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 -left-20 h-52 w-52 rounded-full bg-violet-100/70 blur-3xl" />
+
+        <div className="relative mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-indigo-700">
+            <Sparkles className="h-3.5 w-3.5" />
+            Services built around outcomes
           </span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
-            Tell us the goal. We’ll help identify the right service.
+          <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl lg:text-4xl">
+            One goal. The right digital service.
           </h2>
-          <p className="mt-2 text-xs leading-5 text-slate-500">
-            You do not need to know the technical solution before reaching out.
-            Start with the business problem and we’ll take it from there.
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-500">
+            Explore each service, flip the card for the full scope, and start a conversation when
+            you are ready.
           </p>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-3 py-1.5 text-[10px] font-bold text-white shadow-lg shadow-slate-950/10">
+            <ArrowUpRight className="h-3.5 w-3.5" />
+            Tap or hover a card to explore
+          </div>
+        </div>
+      </motion.section>
+
+      {/* SERVICE FILTER */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+      >
+        <div className="mb-4 flex items-end justify-between gap-4 px-1">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+              Explore services
+            </p>
+            <h2 className="mt-1 text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
+              What do you need built?
+            </h2>
+          </div>
+          <span className="hidden rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-bold text-slate-400 sm:inline-flex">
+            {filteredServices.length} of {SERVICES_DATA.length}
+          </span>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ['Need a professional website', 'Web Development', Briefcase],
-            ['Have an app idea', 'iOS App Development', Smartphone],
-            ['Want more online customers', 'Digital Marketing & SEO', Share2],
-            ['Too much manual work', 'AI & Automation', Bot],
-          ].map(([problem, solution, Icon]) => {
-            const ProblemIcon = Icon as typeof Briefcase;
+        <div className="flex max-w-full gap-2 overflow-x-auto pb-1 custom-scrollbar">
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            const isSelected = selectedCategory === cat.id;
             return (
-              <button
-                key={problem as string}
+              <motion.button
+                key={cat.id}
                 type="button"
-                onClick={() => {
-                  const match = SERVICES_DATA.find((service) => service.title === solution);
-                  if (match) setSelectedCategory(match.category);
-                }}
-                className="group rounded-2xl border border-white bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-[10px] font-black transition-all ${
+                  isSelected
+                    ? 'border-indigo-600 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700'
+                }`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-                    <ProblemIcon className="h-4 w-4" />
-                  </span>
-                  <ArrowRight className="ml-auto h-3.5 w-3.5 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-indigo-500" />
-                </div>
-                <p className="mt-4 text-[11px] font-semibold leading-4 text-slate-500">
-                  {problem as string}
-                </p>
-                <p className="mt-1 text-xs font-black text-slate-900">
-                  {solution as string}
-                </p>
-              </button>
+                {Icon && <Icon className="h-3.5 w-3.5" />}
+                {cat.label}
+              </motion.button>
             );
           })}
+        </div>
+      </motion.section>
+
+      {/* FLIP SERVICE CARDS */}
+      <motion.section
+        id="services-grid"
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.06 }}
+        transition={smoothTransition}
+      >
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredServices.map((service, index) => {
+            const theme = CATEGORY_STYLES[service.category];
+            const Icon = theme.icon;
+            const isFlipped = Boolean(flippedCards[service.id]);
+
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ ...smoothTransition, delay: (index % 4) * 0.055 }}
+                whileHover={{ y: -6, rotateX: 1.5, rotateY: -1.5 }}
+                className="group [perspective:1200px]"
+              >
+                <div
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${isFlipped ? 'Show front of' : 'Show details for'} ${service.title}`}
+                  aria-pressed={isFlipped}
+                  onClick={() =>
+                    setFlippedCards((prev) => ({
+                      ...prev,
+                      [service.id]: !prev[service.id],
+                    }))
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setFlippedCards((prev) => ({
+                        ...prev,
+                        [service.id]: !prev[service.id],
+                      }));
+                    }
+                  }}
+                  className="block w-full cursor-pointer text-left outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-4"
+                >
+                  <motion.div
+                    animate={{ rotateY: isFlipped ? 180 : 0 }}
+                    transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative h-[330px] w-full sm:h-[350px]"
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    {/* FRONT */}
+                    <div
+                      className={`absolute inset-0 overflow-hidden rounded-[1.35rem] border bg-gradient-to-br ${theme.accent} p-3.5 text-white shadow-lg transition-shadow duration-300 group-hover:shadow-2xl sm:p-4`}
+                      style={{ backfaceVisibility: 'hidden' }}
+                    >
+                      <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-white/15 blur-2xl" />
+                      <div className="pointer-events-none absolute -bottom-16 -left-10 h-36 w-36 rounded-full bg-black/15 blur-2xl" />
+
+                      <div className="relative flex items-center justify-between">
+                        <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[8px] font-black uppercase tracking-[0.14em] backdrop-blur-sm">
+                          0{index + 1}
+                        </span>
+                        <span className="rounded-full border border-white/20 bg-black/10 px-2.5 py-1 text-[8px] font-black uppercase tracking-[0.12em] backdrop-blur-sm">
+                          {service.eyebrow}
+                        </span>
+                      </div>
+
+                      {/* PNG PLACEHOLDER — replace this area with /assets/services/{service.id}.png later */}
+                      <div
+                        className="relative mt-3 flex h-[142px] items-center justify-center overflow-hidden rounded-2xl border border-white/20 bg-white/10 shadow-inner backdrop-blur-[2px] sm:h-[150px]"
+                        data-service-png={service.id}
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.24),transparent_55%)]" />
+                        <div className="relative flex flex-col items-center gap-2 text-center">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/25 bg-white/15 shadow-lg backdrop-blur-sm">
+                            <Icon className="h-6 w-6" />
+                          </div>
+                          <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/70">
+                            Service Visual
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="relative mt-3">
+                        <h3 className="text-[15px] font-black leading-tight tracking-tight sm:text-lg">
+                          {service.title}
+                        </h3>
+                        <p className="mt-1.5 line-clamp-2 text-[10px] leading-4 text-white/75 sm:text-[11px]">
+                          {service.tagline}
+                        </p>
+                      </div>
+
+                      <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between sm:bottom-4 sm:left-4 sm:right-4">
+                        <span className="text-[8px] font-bold uppercase tracking-[0.16em] text-white/60">
+                          Tap to flip
+                        </span>
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/15 backdrop-blur-sm">
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* BACK */}
+                    <div
+                      className="absolute inset-0 overflow-hidden rounded-[1.35rem] border border-slate-800 bg-slate-950 p-4 text-white shadow-2xl sm:p-4.5"
+                      style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                    >
+                      <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${theme.accent}`} />
+                      <div className="pointer-events-none absolute -right-14 -top-14 h-32 w-32 rounded-full bg-indigo-500/15 blur-3xl" />
+
+                      <div className="relative flex items-center justify-between gap-2">
+                        <div>
+                          <p className="text-[8px] font-black uppercase tracking-[0.16em] text-slate-500">
+                            What we deliver
+                          </p>
+                          <h3 className="mt-1 text-sm font-black leading-tight sm:text-base">
+                            {service.title}
+                          </h3>
+                        </div>
+                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${theme.soft} ${theme.text}`}>
+                          <Icon className="h-4 w-4" />
+                        </span>
+                      </div>
+
+                      <ul className="relative mt-4 space-y-2">
+                        {service.features.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2 text-[9px] leading-3.5 text-slate-300 sm:text-[10px]">
+                            <CheckCircle2 className={`mt-0.5 h-3 w-3 shrink-0 ${theme.text}`} />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="relative mt-3 rounded-xl border border-white/10 bg-white/[0.045] p-2.5">
+                        <p className={`text-[8px] font-black uppercase tracking-[0.14em] ${theme.text}`}>
+                          Outcome
+                        </p>
+                        <p className="mt-1 text-[9px] leading-3.5 text-slate-300">
+                          {service.outcome}
+                        </p>
+                      </div>
+
+                      <div className="relative mt-3 flex gap-2">
+                        <a
+                          href={getWhatsAppLink(service.whatsappMessage)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                          className="flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl bg-white px-2.5 py-2.5 text-[9px] font-black text-slate-950 transition-all hover:bg-indigo-50"
+                        >
+                          Discuss service
+                          <ArrowRight className="h-3 w-3" />
+                        </a>
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400">
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </span>
+                      </div>
+
+                      <p className="relative mt-2 text-center text-[7px] font-bold uppercase tracking-[0.16em] text-slate-600">
+                        Tap to return
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </motion.section>
+
+      {/* SERVICE MATCHMAKER */}
+      <motion.section
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={smoothTransition}
+        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_25px_80px_-35px_rgba(15,23,42,0.55)] sm:p-8"
+      >
+        <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 -left-20 h-60 w-60 rounded-full bg-violet-600/15 blur-3xl" />
+
+        <div className="relative grid gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-200">
+              Not sure where to start?
+            </span>
+            <h2 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">
+              Start with the problem.
+              <span className="block text-indigo-300">We’ll find the service.</span>
+            </h2>
+            <p className="mt-3 max-w-md text-xs leading-5 text-slate-400">
+              Pick the situation closest to yours and we’ll take you to the most relevant service.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+            {[
+              ['Need a website', 'Web Development', Briefcase],
+              ['Have an app idea', 'iOS App Development', Smartphone],
+              ['Need more customers', 'Digital Marketing & SEO', Share2],
+              ['Too much manual work', 'AI & Automation', Bot],
+            ].map(([problem, solution, Icon]) => {
+              const ProblemIcon = Icon as typeof Briefcase;
+              return (
+                <motion.button
+                  key={problem as string}
+                  type="button"
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => {
+                    const match = SERVICES_DATA.find((service) => service.title === solution);
+                    if (match) {
+                      setSelectedCategory(match.category);
+                      document.getElementById('services-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.055] p-3 text-left backdrop-blur-sm transition-all hover:border-indigo-400/40 hover:bg-white/[0.09]"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
+                    <ProblemIcon className="h-4 w-4" />
+                  </span>
+                  <p className="mt-3 text-[9px] font-semibold leading-3.5 text-slate-400">
+                    {problem as string}
+                  </p>
+                  <p className="mt-1 text-[10px] font-black leading-3.5 text-white">
+                    {solution as string}
+                  </p>
+                  <ArrowRight className="mt-3 h-3.5 w-3.5 text-slate-600 transition-all group-hover:translate-x-1 group-hover:text-indigo-300" />
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
       </motion.section>
 
       {/* HOW WE WORK */}
       <motion.section
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
       >
         <div className="mb-6 text-center">
-          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+          <span className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-700">
             How we work
           </span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
-            From idea to outcome.
+          <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+            From first conversation to continuous improvement.
           </h2>
           <p className="mx-auto mt-2 max-w-2xl text-xs leading-5 text-slate-500">
-            A simple process designed to keep projects clear, practical and moving forward.
+            A simple, visible process keeps the project focused without making the experience feel rigid.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            ['01', 'Understand', 'We understand your goals, audience and current situation.', Target],
-            ['02', 'Plan', 'We define the right scope, priorities and next steps.', Workflow],
-            ['03', 'Design', 'We shape the experience and direction before execution.', Sparkles],
-            ['04', 'Build', 'We develop and deliver the agreed solution.', Zap],
-            ['05', 'Improve', 'We support, optimize and help you move forward.', TrendingUp],
-          ].map(([number, title, description, Icon]) => {
+            ['01', 'Understand', 'Goals, audience and current situation.', Target],
+            ['02', 'Plan', 'Scope, priorities and a clear route forward.', Workflow],
+            ['03', 'Design', 'Shape the experience before execution.', Sparkles],
+            ['04', 'Build', 'Develop and deliver the agreed solution.', Zap],
+            ['05', 'Improve', 'Support, optimize and keep moving.', TrendingUp],
+          ].map(([number, title, description, Icon], index) => {
             const StepIcon = Icon as typeof Sparkles;
             return (
-              <div key={number as string} className="relative rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <motion.div
+                key={number as string}
+                whileHover={{ y: -5, rotateX: 2 }}
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-xl hover:shadow-indigo-900/5"
+              >
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${index % 2 === 0 ? 'from-indigo-500 to-violet-500' : 'from-cyan-500 to-blue-500'}`} />
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black tracking-widest text-indigo-500">{number as string}</span>
-                  <StepIcon className="h-4 w-4 text-slate-300" />
+                  <span className="text-[10px] font-black tracking-[0.18em] text-indigo-500">
+                    {number as string}
+                  </span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-50 text-slate-400 transition-all group-hover:bg-indigo-50 group-hover:text-indigo-600">
+                    <StepIcon className="h-4 w-4" />
+                  </span>
                 </div>
-                <h3 className="mt-4 text-sm font-black text-slate-900">{title as string}</h3>
-                <p className="mt-1.5 text-[11px] leading-5 text-slate-500">{description as string}</p>
-              </div>
+                <h3 className="mt-5 text-sm font-black text-slate-900">{title as string}</h3>
+                <p className="mt-1.5 text-[10px] leading-4.5 text-slate-500">{description as string}</p>
+              </motion.div>
             );
           })}
         </div>
@@ -618,27 +746,30 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
       {/* WHY CAREERNOVA */}
       <motion.section
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="rounded-3xl bg-gradient-to-br from-indigo-950 via-indigo-900 to-violet-900 p-6 text-white shadow-xl shadow-indigo-900/10 sm:p-9"
+        className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-950 via-slate-950 to-violet-950 p-6 text-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.8)] sm:p-9"
       >
-        <div className="grid grid-cols-1 gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 h-48 w-48 rounded-full bg-violet-500/10 blur-3xl" />
+
+        <div className="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-200">
+            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-200">
               Why CareerNova
             </span>
-            <h2 className="mt-2 text-2xl font-black leading-tight sm:text-3xl">
-              Practical solutions, without unnecessary complexity.
+            <h2 className="mt-3 text-2xl font-black leading-tight sm:text-3xl">
+              Premium execution.
+              <span className="block text-indigo-300">Practical thinking.</span>
             </h2>
-            <p className="mt-3 text-xs leading-6 text-indigo-100/75">
-              We start with what you are trying to achieve and then shape the right digital
-              solution around it.
+            <p className="mt-3 max-w-md text-xs leading-6 text-indigo-100/65">
+              Every engagement starts with the outcome you want and stays focused on making that outcome easier to reach.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3">
             {[
               ['Business First', 'We begin with the objective, not the technology.', Target],
               ['Clear Scope', 'You know what is being delivered before work begins.', CheckCircle2],
@@ -647,11 +778,17 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
             ].map(([title, description, Icon]) => {
               const BenefitIcon = Icon as typeof Target;
               return (
-                <div key={title as string} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-                  <BenefitIcon className="h-4 w-4 text-cyan-300" />
-                  <h3 className="mt-3 text-xs font-black text-white">{title as string}</h3>
-                  <p className="mt-1 text-[10px] leading-5 text-indigo-100/65">{description as string}</p>
-                </div>
+                <motion.div
+                  key={title as string}
+                  whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.055] p-4 backdrop-blur-sm transition-all hover:border-indigo-300/25 hover:bg-white/[0.085]"
+                >
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
+                    <BenefitIcon className="h-4 w-4" />
+                  </div>
+                  <h3 className="mt-3 text-[11px] font-black text-white">{title as string}</h3>
+                  <p className="mt-1.5 text-[9px] leading-4 text-indigo-100/55">{description as string}</p>
+                </motion.div>
               );
             })}
           </div>
@@ -660,17 +797,18 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
       {/* FINAL CTA */}
       <motion.section
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-6 text-center sm:p-9"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-violet-50 p-6 text-center shadow-[0_25px_70px_-45px_rgba(79,70,229,0.4)] sm:p-9"
       >
-        <div className="mx-auto max-w-2xl">
-          <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-32 w-72 -translate-x-1/2 rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="relative mx-auto max-w-2xl">
+          <span className="inline-flex rounded-full border border-indigo-200 bg-white/80 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-700">
             Ready when you are
           </span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+          <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
             Have something you want to build, improve or grow?
           </h2>
           <p className="mt-2 text-xs leading-5 text-slate-500">
@@ -682,7 +820,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               href={getWhatsAppLink('Hi CareerNova, I want to discuss a project or service requirement.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-xs font-bold text-white shadow-md shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-slate-950/15 transition-all hover:-translate-y-0.5 hover:bg-indigo-600"
             >
               Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
@@ -690,7 +828,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={() => onNavigate('contact')}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 transition-all hover:border-indigo-200 hover:text-indigo-600"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600"
             >
               Open Contact Desk
               <ArrowUpRight className="h-3.5 w-3.5" />
