@@ -10,7 +10,11 @@ export type TabId =
   | 'about'
   | 'contact'
   | 'pricing'
-  | 'expertise'
+  | 'privacy'
+  | 'terms'
+  | 'disclaimer'
+  | 'refund'
+  | 'cookies'
   | '404';
 
 export type SubToolId =
