@@ -153,12 +153,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400" />
-                  <span>Core Expertise</span>
-                </button>
-              </li>
-              <li>
                 <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400" />
                   <span>Interactive Tools</span>
@@ -186,49 +180,43 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-600 pt-1">
               <li>
-                <button onClick={() => onNavigate('expertise', 'business')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Business Analytics</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'strategy')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Digital Marketing</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'break-even')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Financial Modeling</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'full-stack-web-dev')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Web Development</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'business-intelligence')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Data Science &amp; AI</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'tools')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Automation &amp; Tools</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('expertise', 'roadmap-guide')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Career &amp; Student Growth</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('expertise', 'strategy')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Strategy &amp; Growth</span>
                 </button>
