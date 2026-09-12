@@ -64,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             </div>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
-              CareerNova delivers end-to-end Core Expertise — Business Analytics, Digital Marketing, Financial Modeling, Web Development, Data Science &amp; AI, and Career &amp; Student Growth tools — built to turn ideas into measurable, real-world outcomes for students, professionals and founders across India.
+              CareerNova builds digital products, software solutions, automation systems and growth strategies for businesses, brands and founders — from web and mobile development to AI, design, marketing, and ongoing technical support.
             </p>
 
             {/* Social Icons */}
@@ -182,43 +182,55 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Business Analytics</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Digital Marketing</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Financial Modeling</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>Web Development</span>
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Data Science &amp; AI</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
-                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Automation &amp; Tools</span>
+                  <span>iOS App Development</span>
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
                   <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Strategy &amp; Growth</span>
+                  <span>E-commerce Development</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>AI &amp; Automation</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>UI/UX &amp; Product Design</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Digital Marketing &amp; SEO</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Business Growth</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('services')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Maintenance &amp; Support</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 transition-colors text-left flex items-center gap-1.5 cursor-pointer">
+                  <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Technology &amp; Growth Stack</span>
                 </button>
               </li>
             </ul>
@@ -291,7 +303,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         <div className="pt-6 border-t border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p className="text-center lg:text-left">
             © 2026 <strong className="text-slate-700">CareerNova</strong>. All rights reserved.
-            <br className="lg:hidden" /> Built for Indian students, professionals &amp; businesses.
+            <br className="lg:hidden" /> Built for businesses, brands &amp; digital growth.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-500">
