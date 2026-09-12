@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                   Career<span className="text-indigo-600">Nova</span>
                 </span>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">
-                  Growth &amp; Career Engine
+                  Software Solution &amp; Business Growth
                 </span>
               </div>
             </div>
