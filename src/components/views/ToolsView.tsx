@@ -157,13 +157,39 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 shadow-xl shadow-indigo-950/10"
+        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-950/10"
       >
-        <img
-          src="/assets/technology-growth-stack-hero.png"
-          alt="Technology and Growth Stack"
-          className="block h-auto w-full select-none"
-        />
+        <div className="relative px-5 pt-6 sm:px-8 sm:pt-8">
+          <div className="relative inline-block overflow-hidden">
+            <h1
+              className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-3xl font-black leading-tight tracking-tight text-transparent sm:text-4xl lg:text-5xl"
+            >
+              The Technology Behind Better Digital Outcomes
+            </h1>
+            <motion.span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 z-20 w-1/5 -skew-x-12 bg-gradient-to-r from-transparent via-white/90 to-transparent"
+              initial={{ x: '-120%' }}
+              animate={{ x: '620%' }}
+              transition={{ duration: 2.2, ease: 'linear', repeat: Infinity, repeatDelay: 0.7 }}
+            />
+            <motion.span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500 opacity-80"
+              initial={{ scaleX: 0, transformOrigin: 'left' }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.1, ease: 'easeOut' }}
+            />
+          </div>
+        </div>
+
+        <div className="px-3 pb-3 pt-4 sm:px-5 sm:pb-5 sm:pt-5">
+          <img
+            src="/assets/technology-growth-stack-banner.png"
+            alt="Technology and Growth Stack"
+            className="block h-auto w-full select-none rounded-2xl"
+          />
+        </div>
       </motion.section>
 
       <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition}>
@@ -316,12 +342,44 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
       </motion.section>
 
-      <motion.section initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={smoothTransition} className="flex flex-col gap-5 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm"><Search className="h-4 w-4" /></div>
-          <div><h3 className="text-sm font-black text-slate-900">Looking for the right digital solution?</h3><p className="mt-1 text-xs leading-5 text-slate-500">Tell us what you are trying to build or grow, and we can map the right approach.</p></div>
+      <motion.section
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={smoothTransition}
+        className="relative overflow-hidden rounded-2xl border border-indigo-200 bg-gradient-to-r from-cyan-50 via-indigo-50 to-fuchsia-50 p-[1px] shadow-lg shadow-indigo-500/10"
+      >
+        <div className="relative flex flex-col gap-5 overflow-hidden rounded-[15px] bg-gradient-to-r from-white/95 via-indigo-50/80 to-white/95 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+            initial={{ x: '-120%' }}
+            animate={{ x: '620%' }}
+            transition={{ duration: 2.6, ease: 'linear', repeat: Infinity, repeatDelay: 1.2 }}
+          />
+
+          <div className="relative z-10 flex items-start gap-3">
+            <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 via-indigo-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-500/20">
+              <Search className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="bg-gradient-to-r from-indigo-700 via-violet-600 to-fuchsia-600 bg-clip-text text-sm font-black text-transparent sm:text-base">
+                Looking for the right digital solution?
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-slate-600">
+                Tell us what you are trying to build or grow, and we can map the right approach.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="group relative z-10 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-500/20"
+          >
+            Start a conversation
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </button>
         </div>
-        <button type="button" className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700">Start a conversation <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></button>
       </motion.section>
 
       <div className="flex items-center justify-center gap-2 pb-2 text-[10px] font-semibold text-slate-400"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Focused stack • Practical technology choices • Built for real outcomes</div>
