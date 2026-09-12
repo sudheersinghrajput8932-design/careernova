@@ -26,18 +26,71 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
     ogImageWidth: 1200,
     ogImageHeight: 630,
   },
-  expertise: {
-    title: 'Core Engineering & Technical Expertise | CareerNova',
-    description: 'Explore 10 consolidated professional disciplines: Financial Modeling, BI Data Analytics, CRM & ERP, Agile Management, Full-Stack Web, Custom WordPress, Native iOS Swift, Cloud APIs, App Store Deployment, and SEO Growth Strategy.',
-    keywords: 'Core Expertise, 10 Technical Disciplines, Financial Modeling, BI Data Analytics, CRM ERP, Agile Project Management, Full-Stack Web Development, Custom WordPress, Native iOS Swift, Cloud APIs, App Store Deployment, SEO Growth Strategy',
-    ogTitle: 'Core Engineering & Technical Expertise - CareerNova',
-    ogDescription: 'Explore 10 consolidated technical disciplines built to scale ambitious projects.',
-    canonicalPath: '/expertise',
-    ogImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80',
+  privacy: {
+    title: 'Privacy Policy | CareerNova',
+    description: 'Read CareerNova’s Privacy Policy to understand what information we collect, why we use it, how we protect it, and the choices available to you.',
+    keywords: 'CareerNova Privacy Policy, data privacy, personal information, website privacy',
+    ogTitle: 'Privacy Policy - CareerNova',
+    ogDescription: 'How CareerNova collects, uses, protects, and handles personal information.',
+    canonicalPath: '/privacy-policy',
+    ogImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&h=630&q=80',
     ogImageType: 'image/jpeg',
     ogImageWidth: 1200,
     ogImageHeight: 630,
   },
+
+  terms: {
+    title: 'Terms of Service | CareerNova',
+    description: 'Review the Terms of Service governing access to the CareerNova website, digital services, enquiries, projects, payments, intellectual property, and acceptable use.',
+    keywords: 'CareerNova Terms of Service, service terms, website terms, software services',
+    ogTitle: 'Terms of Service - CareerNova',
+    ogDescription: 'The terms governing use of CareerNova and its digital services.',
+    canonicalPath: '/terms-of-service',
+    ogImage: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&h=630&q=80',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
+
+  disclaimer: {
+    title: 'Disclaimer | CareerNova',
+    description: 'Read CareerNova’s Disclaimer covering website information, business and growth guidance, technology and AI outputs, third-party services, and expected results.',
+    keywords: 'CareerNova Disclaimer, AI disclaimer, business advice disclaimer, website disclaimer',
+    ogTitle: 'Disclaimer - CareerNova',
+    ogDescription: 'Important limitations and disclosures for CareerNova’s website, guidance, tools, and services.',
+    canonicalPath: '/disclaimer',
+    ogImage: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&h=630&q=80',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
+
+  refund: {
+    title: 'Refund & Cancellation Policy | CareerNova',
+    description: 'Review CareerNova’s Refund & Cancellation Policy for service enquiries, project cancellations, eligible refunds, work already started, revisions, and refund processing.',
+    keywords: 'CareerNova Refund Policy, cancellation policy, service refund, project cancellation',
+    ogTitle: 'Refund & Cancellation Policy - CareerNova',
+    ogDescription: 'Clear guidelines for cancellations, eligible refunds, and service-related payments.',
+    canonicalPath: '/refund-cancellation',
+    ogImage: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1200&h=630&q=80',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
+
+  cookies: {
+    title: 'Cookie Policy | CareerNova',
+    description: 'Learn how CareerNova uses cookies and similar technologies for essential functionality, preferences, analytics, performance, and website improvement.',
+    keywords: 'CareerNova Cookie Policy, cookies, analytics cookies, website cookies',
+    ogTitle: 'Cookie Policy - CareerNova',
+    ogDescription: 'How CareerNova uses cookies and similar technologies on its website.',
+    canonicalPath: '/cookie-policy',
+    ogImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&h=630&q=80',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
+
   services: {
     title: 'Professional Web Engineering & Software Development Services | CareerNova',
     description: 'High-impact technical services including Full-Stack Web Architecture, Native iOS Development, AI Automation Workflows, and Custom Enterprise Solutions.',
@@ -203,6 +256,26 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     return { tab: 'resources' };
   }
 
+  if (cleanPath === '/privacy-policy' || cleanPath === '/privacy') {
+    return { tab: 'privacy' };
+  }
+
+  if (cleanPath === '/terms-of-service' || cleanPath === '/terms') {
+    return { tab: 'terms' };
+  }
+
+  if (cleanPath === '/disclaimer') {
+    return { tab: 'disclaimer' };
+  }
+
+  if (cleanPath === '/refund-cancellation' || cleanPath === '/refund') {
+    return { tab: 'refund' };
+  }
+
+  if (cleanPath === '/cookie-policy' || cleanPath === '/cookies') {
+    return { tab: 'cookies' };
+  }
+
   const segments = cleanPath.split('/').filter(Boolean);
   const rootSegment = segments[0] as TabId;
 
@@ -222,7 +295,11 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     'about',
     'contact',
     'pricing',
-    'expertise',
+    'privacy',
+    'terms',
+    'disclaimer',
+    'refund',
+    'cookies',
   ];
 
   if (validTabs.includes(rootSegment)) {
