@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   BookOpen,
   Clock,
-  User,
   ArrowRight,
   Search,
   Sparkles,
@@ -15,8 +14,7 @@ import {
   Tag
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BLOG_POSTS } from '../../data/blogData';
-import { BlogPost, TabId } from '../../types';
+import { TabId } from '../../types';
 import { copyToClipboard } from '../../utils/exportUtils';
 
 interface BlogViewProps {
@@ -98,6 +96,377 @@ const CATEGORY_THEME: Record<
 
 const DEFAULT_THEME = CATEGORY_THEME.Career;
 
+type ServiceBlogPost = {
+  id: string;
+  slug: string;
+  category: 'Business' | 'Marketing' | 'AI' | 'Career';
+  title: string;
+  excerpt: string;
+  coverImage: string;
+  author: string;
+  avatar: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  cta: {
+    title: string;
+    price: string;
+    badge: string;
+    buttonText: string;
+    whatsappMessage: string;
+  };
+  content: {
+    intro: string;
+    sections: {
+      heading: string;
+      body: string[];
+      keyTakeaways?: string[];
+      actionStep?: string;
+    }[];
+    conclusion: string;
+  };
+};
+
+const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
+  {
+    id: 'service-web-development',
+    slug: 'business-website-that-builds-trust',
+    category: 'Business',
+    title: 'How a Business Website Turns Attention Into Real Enquiries',
+    excerpt: 'A practical look at the pages, messaging and conversion details that make a business website work harder.',
+    coverImage: '/assets/web-development.png',
+    author: 'CareerNova Web Team',
+    avatar: 'CW',
+    date: '12 Sep 2026',
+    readTime: '6 min read',
+    tags: ['Web Development', 'Business Website', 'Conversion'],
+    cta: {
+      title: 'Build a conversion-focused business website',
+      price: 'Custom Quote',
+      badge: 'Web Development',
+      buttonText: 'Discuss My Website',
+      whatsappMessage: 'Hi CareerNova Team, I want to discuss a business website.'
+    },
+    content: {
+      intro: 'A website should do more than look professional. It should explain the offer quickly, build confidence and guide the right visitor toward an enquiry or purchase.',
+      sections: [
+        {
+          heading: 'Start with the customer journey',
+          body: [
+            'A strong website makes the next step obvious. The homepage introduces the value proposition, service pages answer buying questions and focused calls to action reduce friction.',
+            'Responsive layouts are equally important because visitors may arrive from mobile search, social media or a shared link.'
+          ],
+          keyTakeaways: ['Clear positioning', 'Fast, responsive experience', 'Focused conversion paths']
+        },
+        {
+          heading: 'Design for trust and action',
+          body: [
+            'Proof points, useful service details, strong visuals and consistent brand presentation help visitors understand why they should choose the business.',
+            'The final structure should be shaped around the business goal rather than a generic template.'
+          ],
+          actionStep: 'List your top three customer questions and make sure the website answers each one clearly.'
+        }
+      ],
+      conclusion: 'The best business website is a working growth asset: clear enough to understand, credible enough to trust and structured enough to convert.'
+    }
+  },
+  {
+    id: 'service-ios-development',
+    slug: 'building-an-ios-product-people-want-to-use',
+    category: 'Career',
+    title: 'From App Idea to a Useful iPhone Product: What to Plan First',
+    excerpt: 'The product decisions that matter before an iOS app moves into interface design and development.',
+    coverImage: '/assets/ios-development.png',
+    author: 'CareerNova App Team',
+    avatar: 'CA',
+    date: '12 Sep 2026',
+    readTime: '7 min read',
+    tags: ['iOS Development', 'Product Design', 'Mobile App'],
+    cta: {
+      title: 'Turn your app idea into an iOS product',
+      price: 'Custom Quote',
+      badge: 'iOS Development',
+      buttonText: 'Plan My App',
+      whatsappMessage: 'Hi CareerNova Team, I want to plan an iOS application.'
+    },
+    content: {
+      intro: 'A polished app starts with a focused product problem. Before adding features, decide who the app serves, what the core action is and what success should look like.',
+      sections: [
+        {
+          heading: 'Define the core experience',
+          body: [
+            'Keep the first version centred on the most important user outcome. A smaller, coherent flow is easier to test and improve than a crowded first release.',
+            'The interface should make primary actions discoverable and comfortable across iPhone and iPad form factors where relevant.'
+          ],
+          keyTakeaways: ['One core user outcome', 'Simple navigation', 'Responsive mobile experience']
+        },
+        {
+          heading: 'Connect the product properly',
+          body: [
+            'API and backend integration should be considered early so authentication, data, notifications and other dependencies do not become last-minute blockers.',
+            'Launch preparation also needs a clear checklist for testing, store assets and release readiness.'
+          ],
+          actionStep: 'Write the single sentence that explains what your app helps a user accomplish.'
+        }
+      ],
+      conclusion: 'A useful iOS product combines a focused problem, intuitive interaction and dependable technical foundations from the beginning.'
+    }
+  },
+  {
+    id: 'service-ecommerce',
+    slug: 'ecommerce-checkout-that-reduces-friction',
+    category: 'Business',
+    title: 'E-commerce That Converts: The Small Checkout Details That Matter',
+    excerpt: 'How product discovery, trust signals and a smoother checkout can create a stronger digital sales foundation.',
+    coverImage: '/assets/ecommerce-development.png',
+    author: 'CareerNova Commerce Team',
+    avatar: 'CC',
+    date: '12 Sep 2026',
+    readTime: '6 min read',
+    tags: ['E-commerce', 'Checkout', 'Digital Sales'],
+    cta: {
+      title: 'Create a smoother online buying journey',
+      price: 'Custom Quote',
+      badge: 'E-commerce',
+      buttonText: 'Improve My Store',
+      whatsappMessage: 'Hi CareerNova Team, I want to improve my e-commerce store.'
+    },
+    content: {
+      intro: 'Online shoppers need confidence at every step: finding the right product, understanding the offer, paying securely and knowing what happens next.',
+      sections: [
+        {
+          heading: 'Make product discovery effortless',
+          body: [
+            'Useful categories, strong product presentation and clear calls to action reduce the effort required to compare and decide.',
+            'Catalog structure should reflect how customers actually shop rather than how the internal business team stores information.'
+          ],
+          keyTakeaways: ['Clear catalog structure', 'Useful product information', 'Visible buying actions']
+        },
+        {
+          heading: 'Remove checkout friction',
+          body: [
+            'A focused checkout should minimise unnecessary fields, explain payment and delivery expectations and give customers confidence before they confirm the order.',
+            'Analytics setup helps the business understand where customers drop off and where improvements can have the greatest impact.'
+          ],
+          actionStep: 'Walk through your store as a first-time buyer and note every moment where you hesitate.'
+        }
+      ],
+      conclusion: 'E-commerce growth comes from making the complete buying journey easier, clearer and more trustworthy—not simply adding more products.'
+    }
+  },
+  {
+    id: 'service-ai-automation',
+    slug: 'where-ai-automation-actually-helps-businesses',
+    category: 'AI',
+    title: 'AI & Automation: Where Businesses Should Automate First',
+    excerpt: 'A practical framework for finding repetitive workflows where AI and automation can create useful efficiency.',
+    coverImage: '/assets/ai-automation.png',
+    author: 'CareerNova AI Team',
+    avatar: 'AI',
+    date: '12 Sep 2026',
+    readTime: '7 min read',
+    tags: ['AI Automation', 'Workflows', 'Productivity'],
+    cta: {
+      title: 'Automate a repetitive business workflow',
+      price: 'Custom Quote',
+      badge: 'AI & Automation',
+      buttonText: 'Explore Automation',
+      whatsappMessage: 'Hi CareerNova Team, I want to automate a business workflow.'
+    },
+    content: {
+      intro: 'Good automation is not about adding AI everywhere. It is about removing repetitive work while keeping the important human decisions visible and controlled.',
+      sections: [
+        {
+          heading: 'Find repeatable work first',
+          body: [
+            'Start with tasks that happen frequently, follow predictable rules and consume meaningful staff time. Examples can include lead handling, internal updates, document flows and routine data movement.',
+            'A clear process map makes it easier to decide which steps should be automated and which should stay human-led.'
+          ],
+          keyTakeaways: ['High-frequency task', 'Repeatable process', 'Clear success measure']
+        },
+        {
+          heading: 'Build for reliability',
+          body: [
+            'Integrations should handle permissions, errors and fallback paths. AI-assisted steps should also have clear review points when the output affects customers or important business decisions.',
+            'The objective is dependable workflow improvement, not automation for its own sake.'
+          ],
+          actionStep: 'Choose one repetitive workflow and measure how much time it currently takes each week.'
+        }
+      ],
+      conclusion: 'The strongest AI workflows combine useful automation with practical controls, measurable outcomes and a clear role for people.'
+    }
+  },
+  {
+    id: 'service-uiux',
+    slug: 'ui-ux-design-that-makes-products-easier',
+    category: 'Marketing',
+    title: 'UI/UX Design: Why Clarity Beats Complexity in Digital Products',
+    excerpt: 'The design principles that help websites and apps feel easier to understand, navigate and use.',
+    coverImage: '/assets/ui-ux-product-design.png',
+    author: 'CareerNova Design Team',
+    avatar: 'CD',
+    date: '12 Sep 2026',
+    readTime: '5 min read',
+    tags: ['UI/UX', 'Product Design', 'Design Systems'],
+    cta: {
+      title: 'Design a clearer digital product experience',
+      price: 'Custom Quote',
+      badge: 'UI/UX Design',
+      buttonText: 'Discuss Product Design',
+      whatsappMessage: 'Hi CareerNova Team, I want to discuss UI/UX and product design.'
+    },
+    content: {
+      intro: 'Good interface design helps users understand what matters, what they can do next and how the product behaves without making them think unnecessarily.',
+      sections: [
+        {
+          heading: 'Design around user intent',
+          body: [
+            'Start with the tasks users actually need to complete. Navigation, hierarchy, spacing and interaction states should make those tasks feel natural.',
+            'A consistent visual language also reduces cognitive load across screens and devices.'
+          ],
+          keyTakeaways: ['User-first hierarchy', 'Consistent components', 'Clear interactions']
+        },
+        {
+          heading: 'Use a design system to scale',
+          body: [
+            'Reusable components and defined visual rules help teams maintain consistency while products evolve.',
+            'Responsive behaviour should be designed as part of the experience rather than added after desktop screens are finished.'
+          ],
+          actionStep: 'Pick your most-used product screen and remove anything that does not support its primary user task.'
+        }
+      ],
+      conclusion: 'The goal of UI/UX is not decoration. It is a clearer path from user intent to successful action.'
+    }
+  },
+  {
+    id: 'service-digital-marketing-seo',
+    slug: 'seo-and-digital-marketing-that-builds-compounding-visibility',
+    category: 'Marketing',
+    title: 'SEO + Digital Marketing: Build Visibility That Compounds',
+    excerpt: 'How search visibility, content and measurement can work together instead of operating as disconnected activities.',
+    coverImage: '/assets/digital-marketing-seo.png',
+    author: 'CareerNova Growth Team',
+    avatar: 'CG',
+    date: '12 Sep 2026',
+    readTime: '7 min read',
+    tags: ['SEO', 'Digital Marketing', 'Analytics'],
+    cta: {
+      title: 'Build a measurable digital growth system',
+      price: 'Custom Quote',
+      badge: 'Marketing & SEO',
+      buttonText: 'Plan My Growth',
+      whatsappMessage: 'Hi CareerNova Team, I want to plan digital marketing and SEO.'
+    },
+    content: {
+      intro: 'Digital marketing becomes more useful when visibility, content, conversion and measurement are connected to one clear business objective.',
+      sections: [
+        {
+          heading: 'Own the right search opportunities',
+          body: [
+            'SEO should focus on topics and searches that connect with the services, products or questions your audience actually cares about.',
+            'Useful content earns attention by answering real questions rather than simply repeating keywords.'
+          ],
+          keyTakeaways: ['Relevant search intent', 'Useful content', 'Consistent optimisation']
+        },
+        {
+          heading: 'Measure what moves the business',
+          body: [
+            'Analytics and reporting should connect traffic and engagement with meaningful outcomes such as enquiries, purchases or qualified leads.',
+            'This creates a feedback loop for deciding what content and campaigns deserve more attention.'
+          ],
+          actionStep: 'Define one primary conversion and make sure your analytics can measure it reliably.'
+        }
+      ],
+      conclusion: 'Sustainable digital visibility comes from connecting search, content, conversion and measurement into one growth loop.'
+    }
+  },
+  {
+    id: 'service-business-growth',
+    slug: 'business-growth-strategy-from-idea-to-priority',
+    category: 'Business',
+    title: 'Business Growth Strategy: Stop Doing Everything at Once',
+    excerpt: 'A simple way to turn scattered growth ideas into focused priorities, experiments and measurable next steps.',
+    coverImage: '/assets/business-growth.png',
+    author: 'CareerNova Strategy Team',
+    avatar: 'CS',
+    date: '12 Sep 2026',
+    readTime: '6 min read',
+    tags: ['Business Growth', 'Strategy', 'Conversion'],
+    cta: {
+      title: 'Create a focused growth roadmap',
+      price: 'Custom Quote',
+      badge: 'Business Growth',
+      buttonText: 'Build My Roadmap',
+      whatsappMessage: 'Hi CareerNova Team, I want to create a business growth roadmap.'
+    },
+    content: {
+      intro: 'Growth gets harder when every idea looks equally important. A focused roadmap gives the business a sequence: understand the bottleneck, choose a priority, test it and learn.',
+      sections: [
+        {
+          heading: 'Find the real bottleneck',
+          body: [
+            'Look across acquisition, conversion, retention and operations to identify where the current system is losing the most potential.',
+            'The right priority is usually the constraint that limits several other growth efforts.'
+          ],
+          keyTakeaways: ['Identify the bottleneck', 'Prioritise impact', 'Create measurable targets']
+        },
+        {
+          heading: 'Turn strategy into action',
+          body: [
+            'A roadmap should define what happens first, what will be measured and when the team will review the result.',
+            'Small, measurable experiments make it easier to learn before committing large amounts of time or budget.'
+          ],
+          actionStep: 'Choose one growth metric and write the next three actions that could improve it.'
+        }
+      ],
+      conclusion: 'Focused growth is less about doing more and more about choosing the right next move with evidence behind it.'
+    }
+  },
+  {
+    id: 'service-maintenance',
+    slug: 'why-digital-products-need-post-launch-care',
+    category: 'AI',
+    title: 'Why Digital Products Need Support After Launch',
+    excerpt: 'Launch is the beginning of a product lifecycle. Here is why maintenance, performance and ongoing improvements matter.',
+    coverImage: '/assets/maintenance-support.png',
+    author: 'CareerNova Support Team',
+    avatar: 'CT',
+    date: '12 Sep 2026',
+    readTime: '5 min read',
+    tags: ['Maintenance', 'Performance', 'Support'],
+    cta: {
+      title: 'Keep your digital system reliable',
+      price: 'Custom Quote',
+      badge: 'Maintenance & Support',
+      buttonText: 'Get Support',
+      whatsappMessage: 'Hi CareerNova Team, I want ongoing website or product support.'
+    },
+    content: {
+      intro: 'Digital products live in changing environments. Updates, bugs, performance issues and new business requirements can appear after a successful launch.',
+      sections: [
+        {
+          heading: 'Protect reliability',
+          body: [
+            'Regular checks and timely fixes help prevent small technical problems from becoming larger customer-facing issues.',
+            'Performance improvements also protect the experience for users on different devices and network conditions.'
+          ],
+          keyTakeaways: ['Bug fixes', 'Performance checks', 'Ongoing technical support']
+        },
+        {
+          heading: 'Keep improving the product',
+          body: [
+            'Support should not only react to problems. Usage insights and business feedback can reveal useful enhancements for future releases.',
+            'A lightweight improvement cycle keeps the product aligned with changing customer needs.'
+          ],
+          actionStep: 'Create a monthly checklist covering updates, bugs, performance and the next product improvement.'
+        }
+      ],
+      conclusion: 'A well-supported digital product stays dependable while continuing to evolve with the people and business it serves.'
+    }
+  }
+];
+
+
 export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNavigate }) => {
   const notifyFn = (type: 'success' | 'error' | 'info', title: string, description?: string) => {
     if (onNotify) onNotify(type, title, description);
@@ -105,11 +474,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   };
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activePost, setActivePost] = useState<BlogPost | null>(null);
+  const [activePost, setActivePost] = useState<ServiceBlogPost | null>(null);
 
   const categories = ['All', 'Career', 'Business', 'Marketing', 'AI'];
 
-  const filteredPosts = BLOG_POSTS.filter((post) => {
+  const filteredPosts = SERVICE_BLOG_POSTS.filter((post) => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -183,7 +552,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
       </motion.div>
 
       {/* 3. Blog Cards Grid with Staggered Scroll Reveal */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-7 items-stretch">
         {filteredPosts.map((post, idx) => {
           const theme = CATEGORY_THEME[post.category] || DEFAULT_THEME;
           return (
@@ -194,13 +563,13 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             viewport={{ once: true, amount: 0.15 }}
             transition={{ ...smoothTransition, delay: (idx % 4) * 0.08 }}
             onClick={() => setActivePost(post)}
-            className={`group relative rounded-3xl bg-white border border-slate-200 transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1 shadow-xs overflow-hidden ${theme.border} ${theme.glow}`}
+            className={`group relative min-w-0 rounded-3xl bg-white border border-slate-200 transition-all duration-300 cursor-pointer flex h-full flex-col justify-between hover:-translate-y-1 shadow-xs overflow-hidden ${theme.border} ${theme.glow}`}
           >
             {/* Per-category color strip */}
             <div className={`h-1.5 w-full ${theme.accentBar}`} />
 
             {/* Top Cover Image */}
-            <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-slate-100">
+            <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] overflow-hidden bg-slate-100">
               <img
                 src={post.coverImage || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1000&q=80'}
                 alt={post.title}
@@ -208,7 +577,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+              <div className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-2 rounded-xl border border-white/25 bg-slate-950/45 px-2.5 py-1.5 text-[10px] font-bold text-white backdrop-blur-md">
+                <span className={`h-2 w-2 rounded-full ${theme.dot} shadow-[0_0_12px_currentColor]`} />
+                Service Insight
+              </div>
 
               {/* Floating Category Badge & Read Time */}
               <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
@@ -223,9 +596,9 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             </div>
 
             {/* Card Body */}
-            <div className="p-6 space-y-3.5 flex-1 flex flex-col justify-between">
+            <div className="p-4 sm:p-5 space-y-3.5 flex-1 flex flex-col justify-between min-w-0">
               <div className="space-y-2.5">
-                <h2 className={`text-base sm:text-lg font-black leading-snug transition-colors ${theme.title}`}>
+                <h2 className={`text-base sm:text-lg font-black leading-snug transition-colors line-clamp-2 ${theme.title}`}>
                   {post.title}
                 </h2>
 
@@ -263,9 +636,22 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                 )}
 
                 <div className="flex items-center justify-between text-xs pt-1">
-                  <span className="text-slate-500 text-[11px] flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-slate-400" />
-                    {post.author}
+                  <span className="text-slate-500 text-[11px] flex items-center gap-2 min-w-0">
+                    <span
+                      className={`w-7 h-7 shrink-0 rounded-full text-white flex items-center justify-center text-[9px] font-black shadow-sm ring-2 ring-white ${
+                        post.category === 'Business'
+                          ? 'bg-gradient-to-br from-purple-500 to-fuchsia-500'
+                          : post.category === 'Marketing'
+                          ? 'bg-gradient-to-br from-orange-500 to-pink-500'
+                          : post.category === 'AI'
+                          ? 'bg-gradient-to-br from-emerald-500 to-teal-500'
+                          : 'bg-gradient-to-br from-blue-500 to-cyan-500'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {post.avatar}
+                    </span>
+                    <span className="truncate">{post.author}</span>
                   </span>
                   <span className={`font-bold flex items-center gap-1 transition-colors ${theme.arrow}`}>
                     <span>Read Full Article</span>
