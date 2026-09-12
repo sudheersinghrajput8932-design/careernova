@@ -27,6 +27,7 @@ import { AboutView } from './components/views/AboutView';
 import { ContactView } from './components/views/ContactView';
 import { PricingView } from './components/views/PricingView';
 import { NotFoundView } from './components/views/NotFoundView';
+import LegalPoliciesView from './components/views/LegalPoliciesView';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<TabId>(() => {
@@ -109,6 +110,12 @@ export default function App() {
         return <ContactView onNotify={(type, title, desc) => addToast(title, desc, type)} />;
       case 'pricing':
         return <PricingView onNavigate={handleNavigate} onOpenAuth={() => handleOpenAuth('signup')} />;
+      case 'privacy':
+      case 'terms':
+      case 'disclaimer':
+      case 'refund':
+      case 'cookies':
+        return <LegalPoliciesView policy={currentTab} onNavigate={handleNavigate} />;
       case '404':
         return <NotFoundView onNavigate={handleNavigate} />;
       default:
