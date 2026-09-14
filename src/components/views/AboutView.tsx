@@ -200,14 +200,14 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </div>
 
           {/* SEO-friendly HTML hero copy */}
-          <div className="relative z-10 flex min-h-[270px] w-full flex-col justify-center px-6 pb-8 pt-7 sm:px-10 sm:pb-10 lg:min-h-0 lg:h-full lg:w-[53%] lg:px-12 xl:px-16 lg:py-10">
+          <div className="relative z-10 flex min-h-[270px] w-full flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:min-h-0 lg:h-full lg:w-[53%] lg:px-12 xl:px-16 lg:py-8">
             <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-600" />
               About CareerNova
             </div>
 
             <div className="mt-4 max-w-[700px]">
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.55rem] xl:text-[4rem] leading-[0.98] font-black tracking-tight text-slate-950">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.35rem] xl:text-[3.75rem] leading-[0.98] font-black tracking-tight text-slate-950">
                 Democratizing
                 <span className="relative mt-1 block overflow-hidden pb-1">
                   <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
@@ -228,22 +228,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 Smarter guidance. Better opportunities. A brighter tomorrow — for everyone.
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-2.5">
-                {[
-                  { icon: GraduationCap, title: 'Learn', text: 'New Skills', tone: 'from-cyan-500 to-blue-600' },
-                  { icon: Briefcase, title: 'Build', text: 'Your Career', tone: 'from-violet-500 to-fuchsia-600' },
-                  { icon: TrendingUp, title: 'Grow', text: 'Your Business', tone: 'from-emerald-500 to-teal-600' },
-                ].map(({ icon: Icon, title, text, tone }) => (
-                  <div key={title} className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
-                    <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${tone} text-white shadow-sm`}>
-                      <Icon className="h-4 w-4" strokeWidth={2.3} />
-                    </span>
-                    <span className="leading-tight">
-                      <span className="block text-xs font-black text-slate-900">{title}</span>
-                      <span className="block text-[10px] text-slate-500">{text}</span>
-                    </span>
-                  </div>
-                ))}
               </div>
 
               <button
