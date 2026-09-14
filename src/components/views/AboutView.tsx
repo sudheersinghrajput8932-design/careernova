@@ -166,80 +166,22 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="w-full max-w-[1800px] mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section — panoramic, SEO-friendly HTML title + right-side visual */}
+    <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
+      {/* 1. Hero Section — image-led */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative w-full overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.55)]"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.75)]"
       >
-        <div className="relative min-h-[520px] sm:min-h-[540px] lg:min-h-0 lg:aspect-[3.3/1]">
-          {/* Right-side visual: kept separate from the SEO text */}
-          <div className="absolute inset-y-0 right-0 hidden w-[52%] overflow-hidden lg:block">
-            <img
-              src="/assets/about-careernova-hero-right.png"
-              alt="CareerNova team collaborating in a modern business and technology workspace"
-              className="h-full w-full object-cover object-center select-none"
-              loading="eager"
-              draggable={false}
-            />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white via-white/55 to-transparent" />
-          </div>
-
-          {/* Mobile visual */}
-          <div className="relative h-[250px] w-full overflow-hidden lg:hidden">
-            <img
-              src="/assets/about-careernova-hero-right.png"
-              alt="CareerNova team collaborating in a modern business and technology workspace"
-              className="h-full w-full object-cover object-center select-none"
-              loading="eager"
-              draggable={false}
-            />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
-          </div>
-
-          {/* SEO-friendly HTML hero copy */}
-          <div className="relative z-10 flex min-h-[270px] w-full flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:min-h-0 lg:h-full lg:w-[53%] lg:px-12 xl:px-16 lg:py-8">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-600" />
-              About CareerNova
-            </div>
-
-            <div className="mt-4 max-w-[700px]">
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.55rem] leading-[0.98] font-black tracking-tight text-slate-950">
-                Democratizing
-                <span className="relative mt-1 block overflow-hidden pb-1">
-                  <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
-                    Career &amp; Business
-                  </span>
-                  <motion.span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-y-0 -left-[30%] z-20 w-[18%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent"
-                    initial={{ x: '-180%' }}
-                    animate={{ x: '650%' }}
-                    transition={{ duration: 2.2, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1.1 }}
-                  />
-                </span>
-                Intelligence
-              </h1>
-
-              <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-600">
-                Smarter guidance. Better opportunities. A brighter tomorrow — for everyone.
-              </p>
-
-              <button
-                type="button"
-                onClick={() => onNavigate('services')}
-                className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-600/25"
-              >
-                Explore Opportunities
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
+        <img
+          src="/assets/about-careernova-hero.png"
+          alt="CareerNova — Democratizing Career & Business Intelligence"
+          className="block h-auto w-full select-none"
+          loading="eager"
+          draggable={false}
+        />
+      </motion.section>
 
       {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
           image shown in full (object-contain, no crop) beside its text. */}
