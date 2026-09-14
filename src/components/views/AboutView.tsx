@@ -89,6 +89,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
     };
   }, []);
 
+  const scrollToContact = () => {
+    document.getElementById('contact-form-section')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -194,10 +201,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative mx-auto w-full max-w-[1780px] overflow-hidden rounded-[2rem] border border-indigo-200/70 bg-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.35)]"
+        className="relative mx-auto w-full max-w-[1780px] overflow-hidden rounded-[1.75rem] border border-indigo-200/70 bg-white shadow-[0_24px_70px_-42px_rgba(49,46,129,0.32)]"
       >
-        <div className="grid min-h-[390px] grid-cols-1 lg:min-h-[430px] lg:grid-cols-[52%_48%]">
-          <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 xl:px-16">
+        <div className="grid min-h-[285px] grid-cols-1 lg:min-h-[330px] lg:grid-cols-[52%_48%]">
+          <div className="relative z-10 flex flex-col justify-center px-5 py-7 sm:px-8 sm:py-8 lg:px-11 lg:py-8 xl:px-14">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500" />
               About CareerNova
@@ -220,12 +227,12 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               Intelligence
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
               CareerNova brings technology, design and growth strategy together to help turn ideas
               into digital products, intelligent systems and measurable business progress.
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-5 flex flex-wrap gap-3">
               <button
                 onClick={() => onNavigate('services')}
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:shadow-xl"
@@ -234,7 +241,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button
-                onClick={() => onNavigate('contact')}
+                onClick={scrollToContact}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-700"
               >
                 Start a Conversation
@@ -243,7 +250,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className="relative min-h-[270px] overflow-hidden bg-slate-50 lg:min-h-0">
+          <div className="relative min-h-[210px] overflow-hidden bg-slate-50 lg:min-h-0">
             <img
               src="/assets/about-careernova-hero-right.png"
               alt="CareerNova team collaborating around data, technology and business growth"
@@ -263,16 +270,26 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="mx-auto w-full max-w-[1500px]"
       >
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-9">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-indigo-700">
-              <UsersRound className="h-3.5 w-3.5" />
-              Who We Are
+        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-2">
+          <div className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-white via-indigo-50/70 to-cyan-50/70 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 sm:p-8">
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white shadow-lg">
+                <UsersRound className="h-5 w-5" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">About CareerNova</span>
+                <span className="ml-2 inline-block rounded-full border border-indigo-200 bg-white/80 px-2.5 py-1 text-[10px] font-bold text-indigo-700">Who We Are</span>
+              </div>
             </div>
-            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-              Technology built around real goals.
+
+            <h2 className="inline-flex w-fit rounded-2xl border border-indigo-200/80 bg-white/85 px-4 py-2 text-xl font-black tracking-tight text-slate-950 shadow-sm sm:text-2xl">
+              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
+                Technology built around real goals.
+              </span>
             </h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+
+            <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
               CareerNova is a technology and growth company focused on making digital solutions
               more practical, accessible and outcome-oriented. We bring product thinking,
               engineering, design, automation and growth strategy together instead of treating
@@ -285,19 +302,34 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-7 shadow-sm sm:p-9">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg">
-              <Target className="h-6 w-6" />
+          <div className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/10 sm:p-6">
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-violet-600" />
+            <div className="relative h-[155px] overflow-hidden rounded-2xl border border-white/90 bg-white/75 sm:h-[175px]">
+              <img
+                src="/assets/about-mission.jpg"
+                alt="Mission represented by a target and focused direction"
+                loading="lazy"
+                className="h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+              />
             </div>
-            <h2 className="mt-5 text-2xl font-black text-slate-950">Our Mission</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+            <div className="mt-4 flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white shadow-md">
+                <Target className="h-5 w-5" />
+              </div>
+              <h2 className="inline-flex rounded-xl border border-indigo-200 bg-white px-3 py-1.5 text-xl font-black text-transparent bg-gradient-to-r from-cyan-600 via-indigo-600 to-fuchsia-600 bg-clip-text sm:text-2xl">
+                Our Mission
+              </h2>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
               Help businesses and ambitious people turn ideas into products, systems and
               opportunities that create measurable progress.
             </p>
-            <div className="mt-6 h-px bg-gradient-to-r from-transparent via-indigo-300 to-transparent" />
-            <p className="mt-5 text-sm font-semibold leading-6 text-indigo-700">
-              Build smarter. Work better. Grow with purpose.
-            </p>
+            <div className="mt-auto pt-4">
+              <div className="h-px bg-gradient-to-r from-transparent via-indigo-300 to-transparent" />
+              <p className="mt-3 text-sm font-bold text-indigo-700">
+                Build smarter. Work better. Grow with purpose.
+              </p>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -389,28 +421,43 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ['Build', 'Digital products & software', Code2, 'from-indigo-500 to-blue-600'],
-            ['Automate', 'AI & business workflows', Bot, 'from-violet-500 to-fuchsia-600'],
-            ['Design', 'Product & user experiences', Layers3, 'from-cyan-500 to-indigo-600'],
-            ['Grow', 'Marketing, SEO & strategy', TrendingUp, 'from-emerald-500 to-teal-600'],
-          ].map(([title, desc, Icon, gradient]) => {
-            const CapabilityIcon = Icon as React.ComponentType<{ className?: string }>;
-            return (
-              <motion.div
-                key={title as string}
-                whileHover={{ y: -4 }}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg"
-              >
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md`}>
-                  <CapabilityIcon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
-                <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
-              </motion.div>
-            );
-          })}
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50/70 p-3 sm:p-4">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-slate-50/95 to-transparent sm:w-16" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-slate-50/95 to-transparent sm:w-16" />
+          <motion.div
+            className="flex w-max gap-4"
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
+            whileHover={{ animationPlayState: 'paused' }}
+          >
+            {[
+              ['Build', 'Digital products & software', Code2, 'from-indigo-500 to-blue-600', 'border-indigo-200 bg-indigo-50/70'],
+              ['Automate', 'AI & business workflows', Bot, 'from-violet-500 to-fuchsia-600', 'border-fuchsia-200 bg-fuchsia-50/70'],
+              ['Design', 'Product & user experiences', Layers3, 'from-cyan-500 to-indigo-600', 'border-cyan-200 bg-cyan-50/70'],
+              ['Grow', 'Marketing, SEO & strategy', TrendingUp, 'from-emerald-500 to-teal-600', 'border-emerald-200 bg-emerald-50/70'],
+              ['Build', 'Digital products & software', Code2, 'from-indigo-500 to-blue-600', 'border-indigo-200 bg-indigo-50/70'],
+              ['Automate', 'AI & business workflows', Bot, 'from-violet-500 to-fuchsia-600', 'border-fuchsia-200 bg-fuchsia-50/70'],
+              ['Design', 'Product & user experiences', Layers3, 'from-cyan-500 to-indigo-600', 'border-cyan-200 bg-cyan-50/70'],
+              ['Grow', 'Marketing, SEO & strategy', TrendingUp, 'from-emerald-500 to-teal-600', 'border-emerald-200 bg-emerald-50/70'],
+            ].map(([title, desc, Icon, gradient, cardBg], index) => {
+              const CapabilityIcon = Icon as React.ComponentType<{ className?: string }>;
+              return (
+                <motion.div
+                  key={`${title as string}-${index}`}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className={`flex min-h-[142px] w-[76vw] shrink-0 flex-col justify-between rounded-2xl border p-5 shadow-sm transition-shadow hover:shadow-lg sm:w-[42vw] lg:w-[calc((100vw-120px)/4)] lg:max-w-[360px] ${cardBg as string}`}
+                >
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md`}>
+                    <CapabilityIcon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
+                    <p className="mt-1.5 text-sm leading-6 text-slate-600">{desc as string}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
 
         <div className="text-center">
@@ -436,25 +483,30 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </h2>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ['01', 'Understand', 'We understand your business, users and goals.', Eye],
-              ['02', 'Plan', 'We define the right solution, scope and roadmap.', List],
-              ['03', 'Build', 'We design and develop with quality and scalability in mind.', Code2],
-              ['04', 'Grow & Support', 'We improve, measure and support the product beyond launch.', Headphones],
-            ].map(([num, title, desc, Icon]) => {
+              ['01', 'Understand', 'We understand your business, users and goals.', Eye, 'from-indigo-500 to-blue-600', 'border-indigo-200 bg-indigo-50/70'],
+              ['02', 'Plan', 'We define the right solution, scope and roadmap.', List, 'from-violet-500 to-fuchsia-600', 'border-violet-200 bg-violet-50/70'],
+              ['03', 'Build', 'We design and develop with quality and scalability in mind.', Code2, 'from-cyan-500 to-indigo-600', 'border-cyan-200 bg-cyan-50/70'],
+              ['04', 'Grow & Support', 'We improve, measure and support the product beyond launch.', Headphones, 'from-emerald-500 to-teal-600', 'border-emerald-200 bg-emerald-50/70'],
+            ].map(([num, title, desc, Icon, gradient, cardBg]) => {
               const WorkIcon = Icon as React.ComponentType<{ className?: string }>;
               return (
-                <div key={num as string} className="relative rounded-2xl border border-white bg-white p-5 shadow-sm">
+                <motion.div
+                  key={num as string}
+                  whileHover={{ y: -4 }}
+                  className={`group relative flex min-h-[190px] h-full flex-col overflow-hidden rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:shadow-lg ${cardBg as string}`}
+                >
+                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${gradient as string}`} />
                   <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white">
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md transition-transform duration-300 group-hover:scale-105`}>
                       <WorkIcon className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-black text-slate-300">{num as string}</span>
+                    <span className="rounded-lg bg-white/80 px-2.5 py-1 text-xs font-black text-slate-400">{num as string}</span>
                   </div>
-                  <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
-                  <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
-                </div>
+                  <h3 className="mt-5 text-base font-black text-slate-950">{title as string}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc as string}</p>
+                </motion.div>
               );
             })}
           </div>
