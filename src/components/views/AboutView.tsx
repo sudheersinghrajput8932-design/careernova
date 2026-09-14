@@ -166,50 +166,65 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section — SEO-friendly HTML title + panoramic visual */}
+    <div className="w-full max-w-[1800px] mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
+      {/* 1. Hero Section — panoramic, SEO-friendly HTML title + right-side visual */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.55)]"
+        className="relative w-full overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.55)]"
       >
-        <div className="relative min-h-[340px] sm:min-h-[370px] lg:min-h-[400px]">
-          <img
-            src="/assets/about-careernova-hero-wide.png"
-            alt="CareerNova team collaborating on career, business and technology ideas"
-            className="absolute inset-0 h-full w-full object-cover object-center select-none"
-            loading="eager"
-            draggable={false}
-          />
+        <div className="relative min-h-[520px] sm:min-h-[540px] lg:min-h-0 lg:aspect-[3.17/1]">
+          {/* Right-side visual: kept separate from the SEO text */}
+          <div className="absolute inset-y-0 right-0 hidden w-[52%] overflow-hidden lg:block">
+            <img
+              src="/assets/about-careernova-hero-right.png"
+              alt="CareerNova team collaborating in a modern business and technology workspace"
+              className="h-full w-full object-cover object-center select-none"
+              loading="eager"
+              draggable={false}
+            />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white via-white/55 to-transparent" />
+          </div>
 
-          <div className="absolute inset-y-0 left-0 z-10 w-full lg:w-[56%] bg-gradient-to-r from-white via-white/95 to-white/55 lg:to-transparent pointer-events-none" />
+          {/* Mobile visual */}
+          <div className="relative h-[250px] w-full overflow-hidden lg:hidden">
+            <img
+              src="/assets/about-careernova-hero-right.png"
+              alt="CareerNova team collaborating in a modern business and technology workspace"
+              className="h-full w-full object-cover object-center select-none"
+              loading="eager"
+              draggable={false}
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
+          </div>
 
-          <div className="relative z-20 flex min-h-[340px] sm:min-h-[370px] lg:min-h-[400px] w-full lg:w-[58%] flex-col justify-center px-7 py-9 sm:px-10 lg:px-12 lg:py-10">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/85 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm backdrop-blur-sm">
+          {/* SEO-friendly HTML hero copy */}
+          <div className="relative z-10 flex min-h-[270px] w-full flex-col justify-center px-6 pb-8 pt-7 sm:px-10 sm:pb-10 lg:min-h-0 lg:h-full lg:w-[53%] lg:px-12 xl:px-16 lg:py-10">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-600" />
               About CareerNova
             </div>
 
-            <div className="mt-4 max-w-2xl">
-              <h1 className="text-3xl sm:text-4xl xl:text-[3.35rem] leading-[1.02] font-black tracking-tight text-slate-950">
+            <div className="mt-4 max-w-[700px]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.55rem] xl:text-[4rem] leading-[0.98] font-black tracking-tight text-slate-950">
                 Democratizing
                 <span className="relative mt-1 block overflow-hidden pb-1">
-                  <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 via-55% to-fuchsia-600 bg-clip-text text-transparent">
+                  <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
                     Career &amp; Business
                   </span>
                   <motion.span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-y-0 -left-[35%] z-20 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent"
+                    className="pointer-events-none absolute inset-y-0 -left-[30%] z-20 w-[18%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent"
                     initial={{ x: '-180%' }}
-                    animate={{ x: '620%' }}
+                    animate={{ x: '650%' }}
                     transition={{ duration: 2.2, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1.1 }}
                   />
                 </span>
                 Intelligence
               </h1>
 
-              <p className="mt-4 max-w-lg text-sm sm:text-base leading-relaxed text-slate-600">
+              <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-600">
                 Smarter guidance. Better opportunities. A brighter tomorrow — for everyone.
               </p>
 
@@ -219,7 +234,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                   { icon: Briefcase, title: 'Build', text: 'Your Career', tone: 'from-violet-500 to-fuchsia-600' },
                   { icon: TrendingUp, title: 'Grow', text: 'Your Business', tone: 'from-emerald-500 to-teal-600' },
                 ].map(({ icon: Icon, title, text, tone }) => (
-                  <div key={title} className="flex items-center gap-2.5 rounded-xl border border-white/90 bg-white/85 px-3 py-2 shadow-sm backdrop-blur-sm">
+                  <div key={title} className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
                     <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${tone} text-white shadow-sm`}>
                       <Icon className="h-4 w-4" strokeWidth={2.3} />
                     </span>
@@ -243,7 +258,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </div>
         </div>
       </motion.section>
-
 
       {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
           image shown in full (object-contain, no crop) beside its text. */}
