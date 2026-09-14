@@ -54,6 +54,21 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   useEffect(() => {
+    const previousTitle = document.title;
+    const description =
+      document.querySelector('meta[name="description"]') ||
+      document.createElement('meta');
+
+    document.title = 'About CareerNova | Technology, Digital Products & Business Growth';
+
+    description.setAttribute('name', 'description');
+    description.setAttribute(
+      'content',
+      'Learn about CareerNova, a technology and growth company building digital products, automation systems, AI solutions, design experiences and practical growth strategies for businesses, brands and founders.'
+    );
+
+    if (!description.parentNode) document.head.appendChild(description);
+
     const target = sessionStorage.getItem('cn_scrollTo');
     if (target) {
       sessionStorage.removeItem('cn_scrollTo');
@@ -63,8 +78,15 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 200);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        document.title = previousTitle;
+      };
     }
+
+    return () => {
+      document.title = previousTitle;
+    };
   }, []);
 
   const handleFormChange = (
@@ -166,86 +188,280 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section — image-led */}
+    <div className="w-full space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
+      {/* 1. Hero — semantic HTML heading + separate visual */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.75)]"
+        className="relative mx-auto w-full max-w-[1780px] overflow-hidden rounded-[2rem] border border-indigo-200/70 bg-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.35)]"
       >
-        <img
-          src="/assets/about-careernova-hero.png"
-          alt="CareerNova — Democratizing Career & Business Intelligence"
-          className="block h-auto w-full select-none"
-          loading="eager"
-          draggable={false}
-        />
+        <div className="grid min-h-[390px] grid-cols-1 lg:min-h-[430px] lg:grid-cols-[52%_48%]">
+          <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 xl:px-16">
+            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500" />
+              About CareerNova
+            </div>
+
+            <h1 className="max-w-3xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.35rem] xl:text-[4rem]">
+              Democratizing{' '}
+              <span className="relative inline-block overflow-hidden align-bottom">
+                <span className="bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
+                  Career &amp; Business
+                </span>
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent"
+                  initial={{ x: '-180%' }}
+                  animate={{ x: '520%' }}
+                  transition={{ duration: 1.9, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1.8 }}
+                />
+              </span>{' '}
+              Intelligence
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              CareerNova brings technology, design and growth strategy together to help turn ideas
+              into digital products, intelligent systems and measurable business progress.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <button
+                onClick={() => onNavigate('services')}
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                Explore Services
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => onNavigate('contact')}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-700"
+              >
+                Start a Conversation
+                <MessageCircle className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="relative min-h-[270px] overflow-hidden bg-slate-50 lg:min-h-0">
+            <img
+              src="/assets/about-careernova-hero-right.png"
+              alt="CareerNova team collaborating around data, technology and business growth"
+              className="h-full w-full object-cover object-center"
+              loading="eager"
+              draggable={false}
+            />
+          </div>
+        </div>
       </motion.section>
 
-      {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
-          image shown in full (object-contain, no crop) beside its text. */}
-      <section className="space-y-6">
-        {/* Vision Card — image left, text right */}
+      {/* 2. Who We Are */}
+      <motion.section
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="mx-auto w-full max-w-[1500px]"
+      >
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-9">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-indigo-700">
+              <UsersRound className="h-3.5 w-3.5" />
+              Who We Are
+            </div>
+            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+              Technology built around real goals.
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+              CareerNova is a technology and growth company focused on making digital solutions
+              more practical, accessible and outcome-oriented. We bring product thinking,
+              engineering, design, automation and growth strategy together instead of treating
+              them as disconnected services.
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+              Our work spans digital products, web and mobile experiences, AI-powered workflows,
+              e-commerce, marketing, SEO and business growth. The goal is simple: create useful
+              systems that solve genuine problems and can keep improving as the business grows.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-7 shadow-sm sm:p-9">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg">
+              <Target className="h-6 w-6" />
+            </div>
+            <h2 className="mt-5 text-2xl font-black text-slate-950">Our Mission</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+              Help businesses and ambitious people turn ideas into products, systems and
+              opportunities that create measurable progress.
+            </p>
+            <div className="mt-6 h-px bg-gradient-to-r from-transparent via-indigo-300 to-transparent" />
+            <p className="mt-5 text-sm font-semibold leading-6 text-indigo-700">
+              Build smarter. Work better. Grow with purpose.
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 3. Existing Vision + Why CareerNova content, retained and repositioned */}
+      <section className="mx-auto w-full max-w-[1500px] space-y-6">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
+            What Drives Us
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+            Our Vision &amp; Purpose
+          </h2>
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ ...smoothTransition, delay: 0.05 }}
-          className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-3xl border border-indigo-200 shadow-sm hover:shadow-md hover:border-indigo-400 transition-all duration-300 overflow-hidden"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-blue-50 shadow-sm"
         >
-          <div className="flex flex-col md:flex-row items-center gap-0">
-            <div className="w-full md:w-[42%] aspect-[6/5] bg-gradient-to-br from-indigo-100 via-white to-blue-100 flex items-center justify-center p-4 sm:p-6">
+          <div className="flex flex-col md:flex-row md:items-stretch">
+            <div className="w-full bg-gradient-to-br from-indigo-100 via-white to-blue-100 md:w-[42%]">
               <img
                 src="/assets/about-vision-vr.png"
-                alt="Student wearing a VR headset next to a laptop showing the CareerNova logo, representing CareerNova's vision for immersive, technology-driven career guidance"
+                alt="CareerNova vision represented through an immersive technology experience"
                 loading="lazy"
-                className="w-full h-full object-contain"
+                className="h-full min-h-[250px] w-full object-contain p-5 sm:p-7"
               />
             </div>
-            <div className="w-full md:w-[58%] p-7 sm:p-8 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-white text-indigo-600 border border-indigo-200 shadow-sm flex items-center justify-center font-bold">
-                <Eye className="w-6 h-6" />
+            <div className="flex w-full flex-col justify-center p-7 sm:p-9 md:w-[58%]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-indigo-200 bg-white text-indigo-600 shadow-sm">
+                <Eye className="h-6 w-6" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900">Our Vision</h2>
-              <p className="text-slate-600 text-sm leading-relaxed font-normal">
-                To eliminate information asymmetry in career paths and startup ecosystems. We believe that every student should have equal access to resources, career tools, and financial wisdom.
+              <h2 className="mt-5 text-2xl font-black text-slate-950">Our Vision</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+                To eliminate information asymmetry in career paths and startup ecosystems. We
+                believe that people should have equal access to resources, practical tools and
+                financial wisdom.
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Why We Created This Platform — text left, image right (mirrored for a zig-zag rhythm) */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ ...smoothTransition, delay: 0.1 }}
-          className="bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 rounded-3xl border border-fuchsia-200 shadow-sm hover:shadow-md hover:border-fuchsia-400 transition-all duration-300 overflow-hidden"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ ...smoothTransition, delay: 0.05 }}
+          className="overflow-hidden rounded-3xl border border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 shadow-sm"
         >
-          <div className="flex flex-col md:flex-row-reverse items-center gap-0">
-            <div className="w-full md:w-[42%] aspect-[3/2] bg-gradient-to-br from-fuchsia-100 via-white to-purple-100 flex items-center justify-center p-4 sm:p-6">
+          <div className="flex flex-col md:flex-row-reverse md:items-stretch">
+            <div className="w-full bg-gradient-to-br from-fuchsia-100 via-white to-purple-100 md:w-[42%]">
               <img
                 src="/assets/about-why-created-roadmap.png"
-                alt="A student surrounded by confusing career advice and question marks, looking toward a CareerNova signpost pointing to better resources, AI-powered tools, financial intelligence, and real opportunities"
+                alt="CareerNova roadmap helping people move from confusing choices toward practical technology and growth resources"
                 loading="lazy"
-                className="w-full h-full object-contain"
+                className="h-full min-h-[250px] w-full object-contain p-5 sm:p-7"
               />
             </div>
-            <div className="w-full md:w-[58%] p-7 sm:p-8 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-white text-fuchsia-600 border border-fuchsia-200 shadow-sm flex items-center justify-center font-bold">
-                <Heart className="w-6 h-6" />
+            <div className="flex w-full flex-col justify-center p-7 sm:p-9 md:w-[58%]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-fuchsia-200 bg-white text-fuchsia-600 shadow-sm">
+                <Heart className="h-6 w-6" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900">Why We Created This Platform</h2>
-              <p className="text-slate-600 text-sm leading-relaxed font-normal">
-                Too many ambitious students get filtered out due to outdated ATS scanners and the many gateways to success. CareerNova fills this void with accessible AI-driven tools, financial intelligence, and action roadmaps.
+              <h2 className="mt-5 text-2xl font-black text-slate-950">Why We Created CareerNova</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+                Too many ambitious people face outdated information, fragmented tools and unclear
+                paths. CareerNova was created to bring useful technology, intelligent tools,
+                financial intelligence and action-oriented roadmaps into one connected experience.
               </p>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* 3. Engineering Principles */}
+      {/* 4. What We Do */}
+      <section className="mx-auto w-full max-w-[1500px] space-y-6">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-fuchsia-600">
+            What We Do
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+            One connected approach to digital growth.
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            Build the product, automate the work, improve the experience and create a clearer path
+            to growth.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Build', 'Digital products & software', Code2, 'from-indigo-500 to-blue-600'],
+            ['Automate', 'AI & business workflows', Bot, 'from-violet-500 to-fuchsia-600'],
+            ['Design', 'Product & user experiences', Layers3, 'from-cyan-500 to-indigo-600'],
+            ['Grow', 'Marketing, SEO & strategy', TrendingUp, 'from-emerald-500 to-teal-600'],
+          ].map(([title, desc, Icon, gradient]) => {
+            const CapabilityIcon = Icon as React.ComponentType<{ className?: string }>;
+            return (
+              <motion.div
+                key={title as string}
+                whileHover={{ y: -4 }}
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg"
+              >
+                <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md`}>
+                  <CapabilityIcon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
+                <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={() => onNavigate('services')}
+            className="inline-flex items-center gap-2 text-sm font-bold text-indigo-700 transition hover:text-fuchsia-600"
+          >
+            Explore our Services
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </section>
+
+      {/* 5. How We Work */}
+      <section className="mx-auto w-full max-w-[1500px]">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 p-6 sm:p-9">
+          <div className="text-center">
+            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
+              How We Work
+            </span>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+              From idea to ongoing improvement.
+            </h2>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['01', 'Understand', 'We understand your business, users and goals.', Eye],
+              ['02', 'Plan', 'We define the right solution, scope and roadmap.', List],
+              ['03', 'Build', 'We design and develop with quality and scalability in mind.', Code2],
+              ['04', 'Grow & Support', 'We improve, measure and support the product beyond launch.', Headphones],
+            ].map(([num, title, desc, Icon]) => {
+              const WorkIcon = Icon as React.ComponentType<{ className?: string }>;
+              return (
+                <div key={num as string} className="relative rounded-2xl border border-white bg-white p-5 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white">
+                      <WorkIcon className="h-5 w-5" />
+                    </div>
+                    <span className="text-xs font-black text-slate-300">{num as string}</span>
+                  </div>
+                  <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
+                  <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Principles Behind Our Work */}
       <section className="space-y-6">
         <div className="text-center space-y-1.5">
           <div className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
@@ -327,7 +543,61 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <div className="space-y-6">
+      {/* 7. Why CareerNova */}
+      <section className="mx-auto w-full max-w-[1500px] space-y-6">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
+            Why CareerNova
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+            Built to be a partner, not just a provider.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            ['Business-First Thinking', 'Solutions begin with the real business objective, not technology for its own sake.', Target, 'from-indigo-500 to-violet-600'],
+            ['Connected Expertise', 'Technology, design, automation and growth thinking work together in one approach.', Layers3, 'from-cyan-500 to-blue-600'],
+            ['Clear Communication', 'Straightforward scope, expectations and communication throughout the work.', MessageSquare, 'from-fuchsia-500 to-purple-600'],
+            ['Scalable Foundations', 'Systems are designed to evolve as traffic, users and business complexity grow.', ShieldCheck, 'from-emerald-500 to-teal-600'],
+            ['Practical Technology', 'We focus on technology that creates useful outcomes and reduces unnecessary complexity.', Zap, 'from-orange-500 to-fuchsia-600'],
+            ['Long-Term Support', 'The relationship can continue beyond launch through improvements and technical support.', Headphones, 'from-sky-500 to-indigo-600'],
+          ].map(([title, desc, Icon, gradient]) => {
+            const WhyIcon = Icon as React.ComponentType<{ className?: string }>;
+            return (
+              <motion.div
+                key={title as string}
+                whileHover={{ y: -3 }}
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg"
+              >
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md`}>
+                  <WhyIcon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
+                <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 8. The People Behind CareerNova */}
+      <section className="mx-auto w-full max-w-[1500px] space-y-6">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
+            The People Behind CareerNova
+          </span>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+            A team focused on building useful things well.
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            Meet the people currently driving architecture, engineering, mobile development,
+            strategy and growth across CareerNova.
+          </p>
+        </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[1500px] space-y-6">
   {/* Sudhir Singh Card */}
   <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-xl p-6 shadow-sm border border-indigo-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
     <div className="flex items-center gap-4">
@@ -389,7 +659,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   </div>
 </div>
 
-      {/* 5. Let's Connect - Hero + Contact Form */}
+      {/* 9. Let's Connect - Contact Form */}
       <motion.section
         id="contact-form-section"
         initial={{ opacity: 0, y: 30 }}
