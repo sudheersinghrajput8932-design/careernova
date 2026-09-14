@@ -195,7 +195,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="w-full space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
+    <div className="w-full space-y-7 sm:space-y-10 py-3 px-2 sm:px-4">
       {/* 1. Hero — semantic HTML heading + separate visual */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
@@ -203,9 +203,9 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="relative mx-auto w-full max-w-[1780px] overflow-hidden rounded-[1.75rem] border border-indigo-200/70 bg-white shadow-[0_24px_70px_-42px_rgba(49,46,129,0.32)]"
       >
-        <div className="grid min-h-[285px] grid-cols-1 lg:min-h-[330px] lg:grid-cols-[52%_48%]">
-          <div className="relative z-10 flex flex-col justify-center px-5 py-7 sm:px-8 sm:py-8 lg:px-11 lg:py-8 xl:px-14">
-            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
+        <div className="grid min-h-[235px] grid-cols-1 lg:min-h-[270px] lg:grid-cols-[52%_48%]">
+          <div className="relative z-10 flex flex-col justify-center px-5 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-6 xl:px-12">
+            <div className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500" />
               About CareerNova
             </div>
@@ -227,12 +227,12 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               Intelligence
             </h1>
 
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
               CareerNova brings technology, design and growth strategy together to help turn ideas
               into digital products, intelligent systems and measurable business progress.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-wrap gap-3">
               <button
                 onClick={() => onNavigate('services')}
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:shadow-xl"
@@ -250,7 +250,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className="relative min-h-[210px] overflow-hidden bg-slate-50 lg:min-h-0">
+          <div className="relative min-h-[170px] overflow-hidden bg-slate-50 lg:min-h-0">
             <img
               src="/assets/about-careernova-hero-right.png"
               alt="CareerNova team collaborating around data, technology and business growth"
@@ -270,66 +270,44 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="mx-auto w-full max-w-[1500px]"
       >
-        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-2">
-          <div className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-white via-indigo-50/70 to-cyan-50/70 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 sm:p-8">
+        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-[38%_62%]">
+          <div className="group relative min-h-[300px] overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 shadow-sm sm:min-h-[330px] lg:min-h-[360px]">
+            <div className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
+            <img
+              src="/assets/about-who-we-are.png"
+              alt="CareerNova technology and business team focused on practical digital solutions"
+              loading="lazy"
+              className="h-full min-h-[300px] w-full object-contain object-center p-3 transition-transform duration-500 group-hover:scale-[1.015] sm:min-h-[330px] lg:min-h-[360px]"
+              draggable={false}
+            />
+          </div>
+
+          <div className="group relative flex min-h-[300px] flex-col justify-center overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-white via-indigo-50/70 to-cyan-50/70 p-6 shadow-sm sm:min-h-[330px] sm:p-8 lg:min-h-[360px]">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white shadow-lg">
                 <UsersRound className="h-5 w-5" />
               </div>
-              <div>
-                <span className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">About CareerNova</span>
-                <span className="ml-2 inline-block rounded-full border border-indigo-200 bg-white/80 px-2.5 py-1 text-[10px] font-bold text-indigo-700">Who We Are</span>
-              </div>
+              <span className="rounded-full border border-indigo-200 bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-indigo-700 shadow-sm">
+                About CareerNova · Who We Are
+              </span>
             </div>
-
-            <h2 className="inline-flex w-fit rounded-2xl border border-indigo-200/80 bg-white/85 px-4 py-2 text-xl font-black tracking-tight text-slate-950 shadow-sm sm:text-2xl">
+            <h2 className="inline-flex w-fit max-w-full rounded-2xl border border-indigo-200/80 bg-white/90 px-4 py-2 text-xl font-black tracking-tight shadow-sm sm:text-2xl">
               <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
                 Technology built around real goals.
               </span>
             </h2>
-
-            <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+            <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
               CareerNova is a technology and growth company focused on making digital solutions
               more practical, accessible and outcome-oriented. We bring product thinking,
               engineering, design, automation and growth strategy together instead of treating
               them as disconnected services.
             </p>
-            <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+            <p className="mt-2 text-sm leading-7 text-slate-600 sm:text-base">
               Our work spans digital products, web and mobile experiences, AI-powered workflows,
-              e-commerce, marketing, SEO and business growth. The goal is simple: create useful
-              systems that solve genuine problems and can keep improving as the business grows.
+              e-commerce, marketing, SEO and business growth — creating useful systems that solve
+              genuine problems and keep improving as businesses grow.
             </p>
-          </div>
-
-          <div className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-3xl border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-indigo-50 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/10 sm:p-6">
-            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-violet-600" />
-            <div className="relative h-[155px] overflow-hidden rounded-2xl border border-white/90 bg-white/75 sm:h-[175px]">
-              <img
-                src="/assets/about-mission.jpg"
-                alt="Mission represented by a target and focused direction"
-                loading="lazy"
-                className="h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-            </div>
-            <div className="mt-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white shadow-md">
-                <Target className="h-5 w-5" />
-              </div>
-              <h2 className="inline-flex rounded-xl border border-indigo-200 bg-white px-3 py-1.5 text-xl font-black text-transparent bg-gradient-to-r from-cyan-600 via-indigo-600 to-fuchsia-600 bg-clip-text sm:text-2xl">
-                Our Mission
-              </h2>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
-              Help businesses and ambitious people turn ideas into products, systems and
-              opportunities that create measurable progress.
-            </p>
-            <div className="mt-auto pt-4">
-              <div className="h-px bg-gradient-to-r from-transparent via-indigo-300 to-transparent" />
-              <p className="mt-3 text-sm font-bold text-indigo-700">
-                Build smarter. Work better. Grow with purpose.
-              </p>
-            </div>
           </div>
         </div>
       </motion.section>
@@ -473,247 +451,112 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
       {/* 5. How We Work */}
       <section className="mx-auto w-full max-w-[1500px]">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 p-6 sm:p-9">
+        <div className="overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 p-4 shadow-sm sm:p-6">
           <div className="text-center">
-            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
-              How We Work
-            </span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-              From idea to ongoing improvement.
+            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">How We Work</span>
+            <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
             </h2>
           </div>
-
-          <div className="mt-8 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['01', 'Understand', 'We understand your business, users and goals.', Eye, 'from-indigo-500 to-blue-600', 'border-indigo-200 bg-indigo-50/70'],
-              ['02', 'Plan', 'We define the right solution, scope and roadmap.', List, 'from-violet-500 to-fuchsia-600', 'border-violet-200 bg-violet-50/70'],
-              ['03', 'Build', 'We design and develop with quality and scalability in mind.', Code2, 'from-cyan-500 to-indigo-600', 'border-cyan-200 bg-cyan-50/70'],
-              ['04', 'Grow & Support', 'We improve, measure and support the product beyond launch.', Headphones, 'from-emerald-500 to-teal-600', 'border-emerald-200 bg-emerald-50/70'],
-            ].map(([num, title, desc, Icon, gradient, cardBg]) => {
-              const WorkIcon = Icon as React.ComponentType<{ className?: string }>;
-              return (
-                <motion.div
-                  key={num as string}
-                  whileHover={{ y: -4 }}
-                  className={`group relative flex min-h-[190px] h-full flex-col overflow-hidden rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:shadow-lg ${cardBg as string}`}
-                >
-                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${gradient as string}`} />
-                  <div className="flex items-center justify-between">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md transition-transform duration-300 group-hover:scale-105`}>
-                      <WorkIcon className="h-5 w-5" />
-                    </div>
-                    <span className="rounded-lg bg-white/80 px-2.5 py-1 text-xs font-black text-slate-400">{num as string}</span>
-                  </div>
-                  <h3 className="mt-5 text-base font-black text-slate-950">{title as string}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc as string}</p>
-                </motion.div>
-              );
-            })}
+          <div className="mt-4 overflow-hidden rounded-2xl border border-white/80 bg-white/60 sm:mt-5">
+            <img
+              src="/assets/how-we-work.png"
+              alt="CareerNova process from understanding and planning to building, growth and support"
+              loading="lazy"
+              className="block h-auto max-h-[420px] w-full object-contain"
+              draggable={false}
+            />
           </div>
         </div>
       </section>
 
       {/* 6. Principles Behind Our Work */}
-      <section className="space-y-6">
-        <div className="text-center space-y-1.5">
-          <div className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
-            <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+      <section className="mx-auto w-full max-w-[1500px]">
+        <div className="text-center">
+          <div className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-700">
+            <Zap className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
             <span>Our Core Pillars</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            The Principles That Guide Our Engineering
+          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black text-slate-900 shadow-sm sm:text-3xl">
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">The Principles That Guide Our Engineering</span>
           </h2>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {engineeringPillars.map((pillar, idx) => {
-            const pillarIcons = [Bot, Layers3, UsersRound, Sparkles];
-            const PillarIcon = pillarIcons[idx];
-
-            const pillarTitleGradient = [
-              'from-cyan-500 via-indigo-600 to-violet-600',
-              'from-violet-500 via-fuchsia-600 to-purple-600',
-              'from-sky-500 via-cyan-600 to-emerald-500',
-              'from-emerald-500 via-teal-600 to-blue-600',
-            ][idx];
-
-            const pillarAvatarGradient = [
-              'from-cyan-500 to-indigo-600',
-              'from-fuchsia-500 to-violet-600',
-              'from-sky-500 to-emerald-500',
-              'from-emerald-500 to-blue-600',
-            ][idx];
-
-            return (
-              <motion.div
-                key={pillar.step}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ ...smoothTransition, delay: idx * 0.08 }}
-                className={`group relative overflow-hidden p-6 sm:p-7 rounded-2xl border shadow-xs space-y-3 hover:shadow-lg transition-all duration-300 ${pillar.cardBg}`}
-              >
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/70 to-transparent opacity-70" />
-
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${pillarAvatarGradient} text-white shadow-lg ring-4 ring-white/70 transition-transform duration-300 group-hover:scale-105`}>
-                      <PillarIcon className="h-6 w-6" strokeWidth={2.2} />
-                    </div>
-
-                    <div className="relative overflow-hidden">
-                      <h3 className={`relative inline-block bg-gradient-to-r ${pillarTitleGradient} bg-clip-text text-base sm:text-lg font-black text-transparent`}>
-                        {pillar.title}
-                      </h3>
-                      <motion.span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/90 to-transparent"
-                        initial={{ x: '-180%' }}
-                        whileInView={{ x: '520%' }}
-                        viewport={{ once: false, amount: 0.4 }}
-                        transition={{
-                          duration: 1.8,
-                          ease: 'easeInOut',
-                          repeat: Infinity,
-                          repeatDelay: 2.4,
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-lg inline-block border ${pillar.badgeColor}`}>
-                    {pillar.step}
-                  </span>
-                </div>
-
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pl-0.5">
-                  {pillar.desc}
-                </p>
-              </motion.div>
-            );
-          })}
+        <div className="mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+          <img
+            src="/assets/core-pillars.png"
+            alt="CareerNova core engineering pillars: automation first, scalable foundations, accessible technology and polished experience"
+            loading="lazy"
+            className="block h-auto max-h-[560px] w-full object-contain"
+            draggable={false}
+          />
         </div>
       </section>
 
       {/* 7. Why CareerNova */}
-      <section className="mx-auto w-full max-w-[1500px] space-y-6">
+      <section className="mx-auto w-full max-w-[1500px]">
         <div className="text-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
-            Why CareerNova
-          </span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-            Built to be a partner, not just a provider.
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">Why CareerNova</span>
+          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">Built to be a partner, not just a provider.</span>
           </h2>
         </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            ['Business-First Thinking', 'Solutions begin with the real business objective, not technology for its own sake.', Target, 'from-indigo-500 to-violet-600'],
-            ['Connected Expertise', 'Technology, design, automation and growth thinking work together in one approach.', Layers3, 'from-cyan-500 to-blue-600'],
-            ['Clear Communication', 'Straightforward scope, expectations and communication throughout the work.', MessageSquare, 'from-fuchsia-500 to-purple-600'],
-            ['Scalable Foundations', 'Systems are designed to evolve as traffic, users and business complexity grow.', ShieldCheck, 'from-emerald-500 to-teal-600'],
-            ['Practical Technology', 'We focus on technology that creates useful outcomes and reduces unnecessary complexity.', Zap, 'from-orange-500 to-fuchsia-600'],
-            ['Long-Term Support', 'The relationship can continue beyond launch through improvements and technical support.', Headphones, 'from-sky-500 to-indigo-600'],
-          ].map(([title, desc, Icon, gradient]) => {
-            const WhyIcon = Icon as React.ComponentType<{ className?: string }>;
-            return (
-              <motion.div
-                key={title as string}
-                whileHover={{ y: -3 }}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg"
-              >
-                <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${gradient as string} text-white shadow-md`}>
-                  <WhyIcon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-base font-black text-slate-950">{title as string}</h3>
-                <p className="mt-1.5 text-sm leading-6 text-slate-500">{desc as string}</p>
-              </motion.div>
-            );
-          })}
+        <div className="mt-4 overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-indigo-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+          <img
+            src="/assets/why-careernova.png"
+            alt="Why CareerNova: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
+            loading="lazy"
+            className="block h-auto max-h-[560px] w-full object-contain"
+            draggable={false}
+          />
         </div>
       </section>
 
       {/* 8. The People Behind CareerNova */}
-      <section className="mx-auto w-full max-w-[1500px] space-y-6">
-        <div className="text-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
-            The People Behind CareerNova
-          </span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-            A team focused on building useful things well.
+      <section className="mx-auto w-full max-w-[1500px]">
+        <div className="mb-4 text-center sm:mb-5">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">The People Behind CareerNova</span>
+          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">A team focused on building useful things well.</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-            Meet the people currently driving architecture, engineering, mobile development,
-            strategy and growth across CareerNova.
-          </p>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">Meet the people driving architecture, engineering, mobile development, strategy and growth across CareerNova.</p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {[
+            { name: 'Sudhir Singh', role: 'Master Architect & Chief Strategy Officer', badge: 'Overall Management & Growth', bio: 'Driving high-impact business positioning, multi-channel customer acquisition funnel design, and strategic corporate roadmap execution to scale operations globally.', tags: ['Growth Strategy', 'Market Positioning', 'Corporate Scaling'], img: '/Sudhir.png', border: 'border-indigo-200', bg: 'from-indigo-50 via-white to-blue-50', accent: 'from-indigo-500 to-violet-600', text: 'text-indigo-700' },
+            { name: 'Ashwani Kumar', role: 'Principal Full-Stack & Cloud Specialist', badge: 'Full-Stack Architecture', bio: 'Architecting high-performance, resilient end-to-end web applications with modern frameworks, containerized cloud infrastructure, and low-latency microservices.', tags: ['Full-Stack Engineering', 'Cloud & DevOps', 'Scalable Backends'], img: '/Ashwani.png', border: 'border-purple-200', bg: 'from-purple-50 via-white to-fuchsia-50', accent: 'from-purple-500 to-fuchsia-600', text: 'text-purple-700' },
+            { name: 'Ritesh Chaurasiya', role: 'Senior iOS & Mobile App Developer', badge: 'Native iOS Developer', bio: 'Crafting fluid, high-performance native iOS experiences with Swift, seamless human-interface guidelines compliance, and complex device-level API integrations.', tags: ['Swift & SwiftUI', 'Native iOS APIs', 'App Performance'], img: '/Ritesh.png', border: 'border-emerald-200', bg: 'from-emerald-50 via-white to-teal-50', accent: 'from-emerald-500 to-teal-600', text: 'text-emerald-700' },
+          ].map((person) => (
+            <motion.article
+              key={person.name}
+              whileHover={{ y: -4 }}
+              className={`group flex min-h-[310px] flex-col overflow-hidden rounded-3xl border bg-gradient-to-br ${person.bg} ${person.border} p-5 shadow-sm transition-all duration-300 hover:shadow-xl`}
+            >
+              <div className={`absolute hidden`} />
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <img src={person.img} alt={`${person.name} — CareerNova team member`} className={`h-14 w-14 shrink-0 rounded-2xl border-2 ${person.border} object-cover shadow-md transition-transform duration-300 group-hover:scale-105`} />
+                  <div>
+                    <h3 className="text-base font-black text-slate-950">{person.name}</h3>
+                    <p className={`mt-0.5 text-xs font-bold ${person.text}`}>{person.role}</p>
+                  </div>
+                </div>
+              </div>
+              <span className={`mt-4 w-fit rounded-full border ${person.border} bg-white/85 px-2.5 py-1 text-[10px] font-bold ${person.text}`}>{person.badge}</span>
+              <p className="mt-4 flex-1 text-sm leading-6 text-slate-600">{person.bio}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {person.tags.map((tag) => <span key={tag} className="rounded-lg border border-white/80 bg-white/80 px-2.5 py-1 text-[10px] font-semibold text-slate-600">{tag}</span>)}
+              </div>
+              <div className={`mt-4 h-1 w-full rounded-full bg-gradient-to-r ${person.accent} opacity-80`} />
+            </motion.article>
+          ))}
         </div>
       </section>
-
-      <div className="mx-auto w-full max-w-[1500px] space-y-6">
-  {/* Sudhir Singh Card */}
-  <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-xl p-6 shadow-sm border border-indigo-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-    <div className="flex items-center gap-4">
-      <img src="/Sudhir.png" alt="Sudhir Singh" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-slate-900">Sudhir Singh</h3>
-        <p className="text-sm font-medium text-indigo-600">Master Architect & Chief Strategy Officer</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-white text-indigo-700 border border-indigo-200 text-xs font-semibold rounded-full">Overall Management & Growth</span>
-  </div>
-  <p className="text-slate-600 text-sm pl-2">
-    Driving high-impact business positioning, multi-channel customer acquisition funnel design, and strategic corporate roadmap execution to scale operations globally.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Growth Strategy</span>
-    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Market Positioning</span>
-    <span className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-md">Corporate Scaling</span>
-  </div>
-
-  {/* Ashwani Kumar Card */}
-  <div className="bg-gradient-to-br from-purple-50 via-white to-fuchsia-50 rounded-xl p-6 shadow-sm border border-purple-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
-    <div className="flex items-center gap-4">
-      <img src="/Ashwani.png" alt="Ashwani Kumar" className="w-14 h-14 rounded-full object-cover border-2 border-purple-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-slate-900">Ashwani Kumar</h3>
-        <p className="text-sm font-medium text-purple-600">Principal Full-Stack & Cloud Specialist</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-white text-purple-700 border border-purple-200 text-xs font-semibold rounded-full">Full-Stack Architecture</span>
-  </div>
-  <p className="text-slate-600 text-sm pl-2">
-    Architecting high-performance, resilient end-to-end web applications with modern frameworks, containerized cloud infrastructure, and low-latency microservices.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Full-Stack Engineering</span>
-    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Cloud & DevOps</span>
-    <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-1 rounded-md">Scalable Backends</span>
-  </div>
-
-  {/* Ritesh Chaurasiya Card */}
-  <div className="bg-gradient-to-br from-emerald-50 via-white to-teal-50 rounded-xl p-6 shadow-sm border border-emerald-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mt-8">
-    <div className="flex items-center gap-4">
-      <img src="/Ritesh.png" alt="Ritesh Chaurasiya" className="w-14 h-14 rounded-full object-cover border-2 border-emerald-500 shadow-md" />
-      <div>
-        <h3 className="text-lg font-bold text-slate-900">Ritesh Chaurasiya</h3>
-        <p className="text-sm font-medium text-emerald-600">Senior iOS & Mobile App Developer</p>
-      </div>
-    </div>
-    <span className="px-3 py-1 bg-white text-emerald-700 border border-emerald-200 text-xs font-semibold rounded-full">Native iOS Developer</span>
-  </div>
-  <p className="text-slate-600 text-sm pl-2">
-    Crafting fluid, high-performance native iOS experiences with Swift, seamless human-interface guidelines compliance, and complex device-level API integrations.
-  </p>
-  <div className="flex flex-wrap gap-2 pl-2">
-    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">Swift & SwiftUI</span>
-    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">Native iOS APIs</span>
-    <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md">App Performance</span>
-  </div>
-</div>
 
       {/* 9. Let's Connect - Contact Form */}
       <motion.section
         id="contact-form-section"
+        style={{ scrollMarginTop: '24px' }}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
