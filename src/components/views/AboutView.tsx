@@ -174,7 +174,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="relative w-full overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-[0_30px_90px_-45px_rgba(49,46,129,0.55)]"
       >
-        <div className="relative min-h-[520px] sm:min-h-[540px] lg:min-h-0 lg:aspect-[3.17/1]">
+        <div className="relative min-h-[520px] sm:min-h-[540px] lg:min-h-0 lg:aspect-[3.3/1]">
           {/* Right-side visual: kept separate from the SEO text */}
           <div className="absolute inset-y-0 right-0 hidden w-[52%] overflow-hidden lg:block">
             <img
@@ -207,7 +207,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </div>
 
             <div className="mt-4 max-w-[700px]">
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.35rem] xl:text-[3.75rem] leading-[0.98] font-black tracking-tight text-slate-950">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.55rem] leading-[0.98] font-black tracking-tight text-slate-950">
                 Democratizing
                 <span className="relative mt-1 block overflow-hidden pb-1">
                   <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
@@ -228,8 +228,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 Smarter guidance. Better opportunities. A brighter tomorrow — for everyone.
               </p>
 
-              </div>
-
               <button
                 type="button"
                 onClick={() => onNavigate('services')}
@@ -241,7 +239,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </div>
           </div>
         </div>
-      </motion.section>
+
 
       {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
           image shown in full (object-contain, no crop) beside its text. */}
