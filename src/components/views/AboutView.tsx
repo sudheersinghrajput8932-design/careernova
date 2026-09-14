@@ -167,20 +167,85 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16 py-4 px-2 sm:px-4">
-      {/* 1. Hero Section — image-led */}
+      {/* 1. Hero Section — SEO-friendly text + visual */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.75)]"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-blue-50/60 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.45)]"
       >
-        <img
-          src="/assets/about-careernova-hero.png"
-          alt="CareerNova — Democratizing Career & Business Intelligence"
-          className="block h-auto w-full select-none"
-          loading="eager"
-          draggable={false}
-        />
+        <div className="grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] items-stretch min-h-[430px]">
+          {/* LEFT: real HTML text for SEO/accessibility */}
+          <div className="relative z-10 flex flex-col justify-center px-7 py-10 sm:px-10 lg:px-12 lg:py-12">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-indigo-700 shadow-sm backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-600" />
+              About CareerNova
+            </div>
+
+            <div className="mt-5 max-w-xl">
+              <h1 className="text-3xl sm:text-4xl xl:text-[3.15rem] leading-[1.02] font-black tracking-tight text-slate-950">
+                Democratizing
+                <span className="relative mt-1 block overflow-hidden pb-1">
+                  <span className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 via-55% to-fuchsia-600 bg-clip-text text-transparent">
+                    Career &amp; Business
+                  </span>
+                  <motion.span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 -left-[35%] z-20 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent mix-blend-screen"
+                    initial={{ x: '-180%' }}
+                    animate={{ x: '620%' }}
+                    transition={{ duration: 2.2, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1.1 }}
+                  />
+                </span>
+                Intelligence
+              </h1>
+
+              <p className="mt-5 max-w-lg text-sm sm:text-base leading-relaxed text-slate-600">
+                Smarter guidance. Better opportunities. A brighter tomorrow — for everyone.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {[
+                  { icon: GraduationCap, title: 'Learn', text: 'New Skills', tone: 'from-cyan-500 to-blue-600' },
+                  { icon: Briefcase, title: 'Build', text: 'Your Career', tone: 'from-violet-500 to-fuchsia-600' },
+                  { icon: TrendingUp, title: 'Grow', text: 'Your Business', tone: 'from-emerald-500 to-teal-600' },
+                ].map(({ icon: Icon, title, text, tone }) => (
+                  <div key={title} className="flex items-center gap-2.5 rounded-xl border border-white/90 bg-white/75 px-3 py-2 shadow-sm backdrop-blur-sm">
+                    <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${tone} text-white shadow-sm`}>
+                      <Icon className="h-4 w-4" strokeWidth={2.3} />
+                    </span>
+                    <span className="leading-tight">
+                      <span className="block text-xs font-black text-slate-900">{title}</span>
+                      <span className="block text-[10px] text-slate-500">{text}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => onNavigate('services')}
+                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-600/25"
+              >
+                Explore Opportunities
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT: visual only — title is intentionally not baked into the image */}
+          <div className="relative min-h-[300px] lg:min-h-full overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-950">
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/10 to-transparent z-10 pointer-events-none" />
+            <img
+              src="/assets/about-careernova-hero-visual.png"
+              alt="CareerNova team collaborating on career, business and technology ideas"
+              className="absolute inset-0 h-full w-full object-cover object-right select-none"
+              loading="eager"
+              draggable={false}
+            />
+            <div className="absolute inset-0 z-10 bg-gradient-to-t from-slate-950/15 via-transparent to-indigo-950/10 pointer-events-none" />
+          </div>
+        </div>
       </motion.section>
 
       {/* 2. Vision & Platform Purpose — zig-zag image + content rows, each
