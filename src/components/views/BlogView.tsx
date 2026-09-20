@@ -610,23 +610,33 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
           100% { background-position: -200% 0; }
         }
         .careernova-title-reflection {
+          /* Explicit colors are important here: using currentColor together with
+             transparent text makes the gradient inherit transparency and can
+             make the title appear only while text is selected. */
           background-image: linear-gradient(
             110deg,
-            currentColor 0%,
-            currentColor 42%,
-            rgba(255,255,255,0.98) 50%,
-            currentColor 58%,
-            currentColor 100%
+            #3730a3 0%,
+            #4f46e5 38%,
+            #ffffff 49%,
+            #ffffff 51%,
+            #4f46e5 62%,
+            #3730a3 100%
           );
-          background-size: 220% 100%;
+          background-size: 260% 100%;
           background-position: 200% 0;
           background-clip: text;
           -webkit-background-clip: text;
-          color: transparent;
-          animation: careernovaTitleReflection 4.5s linear infinite;
+          -webkit-text-fill-color: transparent;
+          color: #4338ca;
+          text-shadow: 0 2px 12px rgba(67, 56, 202, 0.10);
+          animation: careernovaTitleReflection 3.8s linear infinite;
+          will-change: background-position;
         }
         @media (prefers-reduced-motion: reduce) {
-          .careernova-title-reflection { animation: none; }
+          .careernova-title-reflection {
+            animation: none;
+            background-image: linear-gradient(110deg, #3730a3, #4f46e5);
+          }
         }
       `}</style>
 
@@ -643,7 +653,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             CareerNova Blog
           </span>
 
-          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-indigo-700">
+          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
             Career, Business, Technology & Digital Marketing Insights
           </h1>
 
