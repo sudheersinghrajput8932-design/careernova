@@ -226,6 +226,84 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
 };
 
 /**
+ * SEO-safe URL helpers.
+ *
+ * Notes:
+ * - Canonicals are always built from the configured production origin.
+ * - Query-string tool routes are kept in the URL, but metadata remains
+ *   controlled by the parent route unless a dedicated metadata entry exists.
+ */
+const SITE_URL = 'https://careernova-official.vercel.app';
+const SITE_NAME = 'CareerNova';
+const DEFAULT_OG_IMAGE =
+  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630&q=80';
+
+function normalizePath(path: string): string {
+  if (!path || path === '/') return '/';
+  return `/${path.replace(/^\/+|\/+$/g, '')}`;
+}
+
+function absoluteUrl(path: string): string {
+  const normalized = normalizePath(path);
+  return `${SITE_URL}${normalized === '/' ? '/' : normalized}`;
+}
+
+function setMetaTag(
+  selector: string,
+  attrName: 'name' | 'property',
+  attrValue: string,
+  contentValue: string,
+): void {
+  if (typeof document === 'undefined') return;
+
+  let el = document.querySelector(selector) as HTMLMetaElement | null;
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attrName, attrValue);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', contentValue);
+}
+
+function setLinkTag(
+  selector: string,
+  rel: string,
+  href: string,
+): void {
+  if (typeof document === 'undefined') return;
+
+  let el = document.querySelector(selector) as HTMLLinkElement | null;
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', rel);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', href);
+}
+
+function setJsonLd(id: string, data: unknown): void {
+  if (typeof document === 'undefined') return;
+
+  let script = document.querySelector(
+    `script#${id}`,
+  ) as HTMLScriptElement | null;
+
+  if (!script) {
+    script = document.createElement('script');
+    script.id = id;
+    script.type = 'application/ld+json';
+    document.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(data);
+}
+
+function removeJsonLd(id: string): void {
+  if (typeof document === 'undefined') return;
+  document.querySelector(`script#${id}`)?.remove();
+}
+
+/**
  * Extracts the TabId and optional sub-tool from the browser URL location.
  */
 export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
@@ -235,7 +313,8 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
 
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
   const searchParams = new URLSearchParams(window.location.search);
-  const toolParam = searchParams.get('tool') || searchParams.get('sub') || undefined;
+  const toolParam =
+    searchParams.get('tool') || searchParams.get('sub') || undefined;
 
   const cleanPath = pathname.toLowerCase();
 
@@ -243,15 +322,22 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     return { tab: 'home' };
   }
 
-  if (cleanPath === '/expertise' || cleanPath === '/specialists' || cleanPath === '/disciplines') {
+  if (
+    cleanPath === '/expertise' ||
+    cleanPath === '/specialists' ||
+    cleanPath === '/disciplines'
+  ) {
     return { tab: 'expertise' };
   }
+
   if (cleanPath === '/resume' || cleanPath === '/cv') {
     return { tab: 'career', subTool: 'resume-assistant' };
   }
+
   if (cleanPath === '/calculators' || cleanPath === '/calculator') {
     return { tab: 'tools' };
   }
+
   if (cleanPath === '/vocab' || cleanPath === '/vocabulary') {
     return { tab: 'resources' };
   }
@@ -300,6 +386,7 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     'disclaimer',
     'refund',
     'cookies',
+    'expertise',
   ];
 
   if (validTabs.includes(rootSegment)) {
@@ -311,118 +398,201 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
 }
 
 /**
- * Generates the clean target URL for a tab and optional sub-tool
+ * Generates the clean target URL for a tab and optional sub-tool.
  */
 export function getRouteUrl(tab: TabId, subTool?: string): string {
-  if (tab === 'home') {
-    return '/';
-  }
-  if (tab === '404') {
-    return '/404';
-  }
+  if (tab === 'home') return '/';
+  if (tab === '404') return '/404';
+
   if (subTool) {
     return `/${tab}?tool=${encodeURIComponent(subTool)}`;
   }
+
   return `/${tab}`;
 }
 
 /**
- * Dynamically updates document.title, Open Graph tags, Twitter Card tags,
- * injects LocalBusiness JSON-LD Schema, and tracks pageviews in GA4.
+ * Dynamically updates title, meta description, canonical, Open Graph,
+ * Twitter/X cards, robots directives, language metadata, and structured data.
+ *
+ * This is client-side SEO support for the SPA. For maximum crawlability,
+ * the production site should also expose the same canonical metadata in
+ * the initial HTML/SSR/prerendered output.
  */
-export function updateDocumentMetadata(tab: TabId, subTool?: string) {
+export function updateDocumentMetadata(
+  tab: TabId,
+  subTool?: string,
+): void {
   if (typeof document === 'undefined') return;
 
   const meta = ROUTE_METADATA[tab] || ROUTE_METADATA.home;
-  const baseUrl = 'https://careernova-official.vercel.app';
   const currentPath = getRouteUrl(tab, subTool);
-  const fullUrl = `${baseUrl}${currentPath === '/' ? '/' : currentPath}`;
+  const fullUrl = absoluteUrl(currentPath);
 
-  // 1. Update Title
+  const is404 = tab === '404';
+
+  // Keep title concise and route-specific.
   document.title = meta.title;
 
-  // Helper function to safely set meta attributes
-  const setMetaTag = (selector: string, attrName: string, attrValue: string, contentValue: string) => {
-    let el = document.querySelector(selector) as HTMLMetaElement | null;
-    if (!el) {
-      el = document.createElement('meta');
-      el.setAttribute(attrName, attrValue);
-      document.head.appendChild(el);
-    }
-    el.setAttribute('content', contentValue);
-  };
-
-  // 2. Primary SEO Meta Tags
+  // Primary SEO.
   setMetaTag('meta[name="description"]', 'name', 'description', meta.description);
-  setMetaTag('meta[name="title"]', 'name', 'title', meta.title);
   setMetaTag('meta[name="keywords"]', 'name', 'keywords', meta.keywords);
+  setMetaTag('meta[name="robots"]', 'name', 'robots', is404 ? 'noindex, nofollow' : 'index, follow');
+  setMetaTag('meta[name="googlebot"]', 'name', 'googlebot', is404 ? 'noindex, nofollow' : 'index, follow');
+  setMetaTag('meta[name="bingbot"]', 'name', 'bingbot', is404 ? 'noindex, nofollow' : 'index, follow');
+  setMetaTag('meta[name="author"]', 'name', 'author', SITE_NAME);
+  setMetaTag('meta[name="application-name"]', 'name', 'application-name', SITE_NAME);
+  setMetaTag('meta[name="theme-color"]', 'name', 'theme-color', '#0f172a');
 
-  const ogImage = meta.ogImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630&q=80';
-  const ogImageType = meta.ogImageType || 'image/jpeg';
-  const ogImageWidth = String(meta.ogImageWidth || 1200);
-  const ogImageHeight = String(meta.ogImageHeight || 630);
+  // Locale / language.
+  document.documentElement.lang = 'en-IN';
+  setMetaTag('meta[property="og:locale"]', 'property', 'og:locale', 'en_IN');
 
-  // 3. Open Graph / Facebook / LinkedIn / WhatsApp Tags
+  // Canonical: one canonical URL per route.
+  setLinkTag('link[rel="canonical"]', 'canonical', fullUrl);
+
+  // Open Graph.
+  const ogImage = meta.ogImage || DEFAULT_OG_IMAGE;
+  const ogType = tab === 'blog' ? 'website' : 'website';
+
   setMetaTag('meta[property="og:title"]', 'property', 'og:title', meta.ogTitle);
-  setMetaTag('meta[property="og:description"]', 'property', 'og:description', meta.ogDescription);
+  setMetaTag(
+    'meta[property="og:description"]',
+    'property',
+    'og:description',
+    meta.ogDescription,
+  );
   setMetaTag('meta[property="og:url"]', 'property', 'og:url', fullUrl);
-  setMetaTag('meta[property="og:type"]', 'property', 'og:type', 'website');
+  setMetaTag('meta[property="og:type"]', 'property', 'og:type', ogType);
   setMetaTag('meta[property="og:image"]', 'property', 'og:image', ogImage);
-  setMetaTag('meta[property="og:image:secure_url"]', 'property', 'og:image:secure_url', ogImage);
-  setMetaTag('meta[property="og:image:type"]', 'property', 'og:image:type', ogImageType);
-  setMetaTag('meta[property="og:image:width"]', 'property', 'og:image:width', ogImageWidth);
-  setMetaTag('meta[property="og:image:height"]', 'property', 'og:image:height', ogImageHeight);
-  setMetaTag('meta[property="og:site_name"]', 'property', 'og:site_name', 'CareerNova');
+  setMetaTag(
+    'meta[property="og:image:secure_url"]',
+    'property',
+    'og:image:secure_url',
+    ogImage,
+  );
+  setMetaTag(
+    'meta[property="og:image:type"]',
+    'property',
+    'og:image:type',
+    meta.ogImageType || 'image/jpeg',
+  );
+  setMetaTag(
+    'meta[property="og:image:width"]',
+    'property',
+    'og:image:width',
+    String(meta.ogImageWidth || 1200),
+  );
+  setMetaTag(
+    'meta[property="og:image:height"]',
+    'property',
+    'og:image:height',
+    String(meta.ogImageHeight || 630),
+  );
+  setMetaTag('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
 
-  // 4. Twitter Card Tags
+  // Twitter / X.
   setMetaTag('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
-  setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', meta.title);
-  setMetaTag('meta[name="twitter:description"]', 'name', 'twitter:description', meta.description);
+  setMetaTag('meta[name="twitter:title"]', 'name', 'twitter:title', meta.ogTitle || meta.title);
+  setMetaTag(
+    'meta[name="twitter:description"]',
+    'name',
+    'twitter:description',
+    meta.ogDescription || meta.description,
+  );
   setMetaTag('meta[name="twitter:url"]', 'name', 'twitter:url', fullUrl);
   setMetaTag('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
 
-  // 5. Update Canonical link
-  let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-  if (!canonical) {
-    canonical = document.createElement('link');
-    canonical.setAttribute('rel', 'canonical');
-    document.head.appendChild(canonical);
-  }
-  canonical.setAttribute('href', fullUrl);
-
-  // 6. LocalBusiness & Organization JSON-LD Structured Data Schema Injection
-  let schemaScript = document.querySelector('script[id="json-ld-schema"]') as HTMLScriptElement | null;
-  if (!schemaScript) {
-    schemaScript = document.createElement('script');
-    schemaScript.setAttribute('id', 'json-ld-schema');
-    schemaScript.setAttribute('type', 'application/ld+json');
-    document.head.appendChild(schemaScript);
-  }
-
-  const jsonLdData = {
+  // Structured data: keep global organization/service information separate
+  // from route-specific WebPage data.
+  const organizationSchema = {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    'name': 'CareerNova',
-    'url': baseUrl,
-    'logo': `${baseUrl}/logo.png`,
-    'image': ogImage,
-    'telephone': '+917007260391',
-    'priceRange': '₹₹',
-    'address': {
-      '@type': 'PostalAddress',
-      'streetAddress': '298B Almari gali, New Ashok Nagar',
-      'addressLocality': 'Delhi',
-      'postalCode': '110096',
-      'addressCountry': 'IN',
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/logo.png`,
     },
-    'sameAs': [
-      baseUrl,
-    ]
+    telephone: '+917007260391',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '298B Almari gali, New Ashok Nagar',
+      addressLocality: 'Delhi',
+      postalCode: '110096',
+      addressCountry: 'IN',
+    },
+    sameAs: [SITE_URL],
   };
 
-  schemaScript.textContent = JSON.stringify(jsonLdData);
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: SITE_NAME,
+    publisher: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    inLanguage: 'en-IN',
+  };
 
-  // 7. Notify Google Analytics (GA4)
+  const pageSchema = {
+    '@context': 'https://schema.org',
+    '@type': is404 ? 'WebPage' : 'WebPage',
+    '@id': `${fullUrl}#webpage`,
+    url: fullUrl,
+    name: meta.title,
+    description: meta.description,
+    isPartOf: {
+      '@id': `${SITE_URL}/#website`,
+    },
+    about: {
+      '@id': `${SITE_URL}/#organization`,
+    },
+    inLanguage: 'en-IN',
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: ogImage,
+      width: meta.ogImageWidth || 1200,
+      height: meta.ogImageHeight || 630,
+    },
+  };
+
+  const breadcrumbItems = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'CareerNova',
+      item: SITE_URL,
+    },
+  ];
+
+  if (tab !== 'home') {
+    breadcrumbItems.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: meta.title.replace(/\s*\|\s*CareerNova\s*$/i, ''),
+      item: fullUrl,
+    });
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems,
+  };
+
+  setJsonLd('careernova-organization-schema', organizationSchema);
+  setJsonLd('careernova-website-schema', websiteSchema);
+  setJsonLd('careernova-webpage-schema', pageSchema);
+  setJsonLd('careernova-breadcrumb-schema', breadcrumbSchema);
+
+  // Remove the old single-schema implementation if a previous build left it.
+  document.querySelector('script#json-ld-schema')?.remove();
+
+  // GA4 SPA pageview.
   if (typeof (window as any).gtag === 'function') {
     try {
       (window as any).gtag('event', 'page_view', {
@@ -430,8 +600,8 @@ export function updateDocumentMetadata(tab: TabId, subTool?: string) {
         page_location: fullUrl,
         page_path: currentPath,
       });
-    } catch (e) {
-      console.debug('GA tracking event error:', e);
+    } catch (error) {
+      console.debug('GA tracking event error:', error);
     }
   }
 }
