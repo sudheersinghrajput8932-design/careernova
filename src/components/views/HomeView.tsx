@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -3015,20 +3015,21 @@ const SocialRail = () => (
 ========================================================= */
 
 export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
+  const reduceMotion = useReducedMotion();
   const [activeSlide, setActiveSlide] = useState(0);
   const [isHeroPaused, setIsHeroPaused] = useState(false);
 
   const slide = HERO_SLIDES[activeSlide];
 
   useEffect(() => {
-    if (isHeroPaused) return;
+    if (isHeroPaused || reduceMotion) return;
 
     const timer = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
     }, 3000);
 
     return () => window.clearInterval(timer);
-  }, [isHeroPaused]);
+  }, [isHeroPaused, reduceMotion]);
 
   const previousSlide = () => {
     setActiveSlide(
@@ -3051,6 +3052,122 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           overflow: hidden;
           color: #111936;
         }
+        /* =================================================
+           LIVE EXPERIENCE LAYER
+           Smooth scroll reveals + ambient motion
+        ================================================= */
+
+        .cn-home {
+          --cn-live-ease: cubic-bezier(.22,1,.36,1);
+          isolation: isolate;
+        }
+
+        .cn-home::before {
+          content: "";
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: -1;
+          opacity: .55;
+          background:
+            radial-gradient(circle at 15% 20%, rgba(124,58,237,.055), transparent 24%),
+            radial-gradient(circle at 85% 65%, rgba(37,99,235,.045), transparent 26%);
+          animation: cnAmbientDrift 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes cnAmbientDrift {
+          from { transform: translate3d(-1%, -1%, 0) scale(1); }
+          to   { transform: translate3d(1%, 1%, 0) scale(1.03); }
+        }
+
+        /* Browser-native scroll-driven reveal where supported */
+        @supports (animation-timeline: view()) {
+          .cn-live-section {
+            animation-name: cnSectionReveal;
+            animation-duration: 1ms;
+            animation-timing-function: var(--cn-live-ease);
+            animation-fill-mode: both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 22%;
+          }
+        }
+
+        @keyframes cnSectionReveal {
+          from {
+            opacity: .18;
+            transform: translate3d(0, 42px, 0) scale(.985);
+            filter: blur(3px);
+          }
+          to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+            filter: blur(0);
+          }
+        }
+
+        .cn-live-section {
+          position: relative;
+          will-change: transform, opacity;
+        }
+
+        /* Ambient hero depth */
+        .cn-hero {
+          transform: translateZ(0);
+        }
+
+        .cn-hero::before {
+          animation: cnGridFloat 18s linear infinite;
+        }
+
+        @keyframes cnGridFloat {
+          from { background-position: 0 0, 0 0; }
+          to   { background-position: 48px 48px, 48px 48px; }
+        }
+
+        .cn-hero::after {
+          animation: cnHeroOrbit 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes cnHeroOrbit {
+          from { transform: translate3d(0, 0, 0) scale(.98); opacity: .65; }
+          to   { transform: translate3d(-24px, 18px, 0) scale(1.04); opacity: 1; }
+        }
+
+        .cn-hero-photo-frame,
+        .cn-vector-scene {
+          animation: cnHeroFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cnHeroFloat {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          50% { transform: translate3d(0, -7px, 0); }
+        }
+
+        .cn-home button {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .cn-home button:focus-visible {
+          outline: 3px solid rgba(124,58,237,.35);
+          outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .cn-home::before,
+          .cn-hero::before,
+          .cn-hero::after,
+          .cn-hero-photo-frame,
+          .cn-vector-scene {
+            animation: none !important;
+          }
+
+          .cn-live-section {
+            animation: none !important;
+            transform: none !important;
+            filter: none !important;
+          }
+        }
+
 
         .cn-home *,
         .cn-home *::before,
