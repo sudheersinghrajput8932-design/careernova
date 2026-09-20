@@ -52,23 +52,27 @@ export default function App() {
     setToasts(prev => prev.filter(t => t.id !== id));
   }, []);
 
-  const handleNavigate = useCallback((tab: TabId) => {
+  const handleNavigate = useCallback((tab: TabId, subTool?: string) => {
     setCurrentTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const newUrl = getRouteUrl(tab);
-    window.history.pushState({ tab }, '', newUrl);
-    updateDocumentMetadata(tab);
+    const newUrl = getRouteUrl(tab, subTool);
+    window.history.pushState({ tab, subTool }, '', newUrl);
+    updateDocumentMetadata(tab, subTool);
   }, []);
 
   useEffect(() => {
     const handlePopState = () => {
       const route = parseRouteFromLocation();
       setCurrentTab(route.tab);
-      updateDocumentMetadata(route.tab);
+      updateDocumentMetadata(route.tab, route.subTool);
     };
 
     window.addEventListener('popstate', handlePopState);
-    updateDocumentMetadata(currentTab);
+
+    // Read the actual URL on every route change so SEO metadata also works
+    // for direct visits and URLs containing ?tool=... or a sub-tool segment.
+    const route = parseRouteFromLocation();
+    updateDocumentMetadata(route.tab, route.subTool);
 
     return () => {
       window.removeEventListener('popstate', handlePopState);
