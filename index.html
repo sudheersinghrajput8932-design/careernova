@@ -1,91 +1,133 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-IN" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Search engine crawling & indexing -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="application-name" content="CareerNova" />
+
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1EBQYLW1Q"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-L1EBQYLW1Q');
     </script>
 
-    <!-- Primary SEO Meta Tags -->
+    <!-- Primary SEO: Homepage -->
     <title>CareerNova | Technology Solutions, Digital Marketing &amp; Business Growth</title>
-    <meta name="title" content="CareerNova | Technology Solutions, Digital Marketing &amp; Business Growth" />
-    <meta name="description" content="CareerNova delivers Technology Solutions, Digital Marketing and Business Growth services across India, with expertise in Web Development, Business Analytics, Data Science &amp; AI, Financial Modeling, Automation and Strategy &amp; Consulting." />
-    <meta name="keywords" content="CareerNova, technology solutions India, IT company Delhi, IT company Noida, IT services Delhi NCR, digital marketing agency India, digital marketing agency Delhi, digital marketing agency Noida, business growth services India, business development services India, business analytics services, web development company India, web development Delhi, web development Noida, Data Science and AI solutions, financial modeling services, business automation solutions, strategy and consulting India, career growth solutions" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="CareerNova provides technology solutions, digital marketing and business growth services across India, including web development, business analytics, AI, automation, financial modeling and strategy consulting."
+    />
     <link rel="canonical" href="https://careernova-official.vercel.app/" />
 
-    <!-- Open Graph / Facebook / WhatsApp Meta Tags -->
+    <!-- Open Graph: Facebook, LinkedIn & WhatsApp -->
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CareerNova" />
     <meta property="og:url" content="https://careernova-official.vercel.app/" />
     <meta property="og:title" content="CareerNova | Technology Solutions, Digital Marketing &amp; Business Growth" />
-    <meta property="og:description" content="Technology Solutions, Digital Marketing and Business Growth services with expertise in Web Development, Business Analytics, Data Science &amp; AI, Financial Modeling, Automation and Strategy &amp; Consulting across India." />
+    <meta
+      property="og:description"
+      content="Explore CareerNova for technology solutions, digital marketing and business growth services across India, including web development, analytics, AI, automation and strategy."
+    />
     <meta property="og:image" content="https://careernova-official.vercel.app/assets/og-banner.png" />
     <meta property="og:image:secure_url" content="https://careernova-official.vercel.app/assets/og-banner.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="CareerNova" />
+    <meta property="og:image:alt" content="CareerNova — Technology Solutions, Digital Marketing and Business Growth" />
 
-    <!-- Twitter Meta Tags -->
+    <!-- X / Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://careernova-official.vercel.app/" />
     <meta name="twitter:title" content="CareerNova | Technology Solutions, Digital Marketing &amp; Business Growth" />
-    <meta name="twitter:description" content="Explore CareerNova for Technology Solutions, Digital Marketing and Business Growth services across India, including Web Development, Analytics, AI, Financial Modeling and Automation." />
+    <meta
+      name="twitter:description"
+      content="Technology solutions, digital marketing and business growth services from CareerNova, including web development, analytics, AI, automation and strategy."
+    />
     <meta name="twitter:image" content="https://careernova-official.vercel.app/assets/og-banner.png" />
+    <meta name="twitter:image:alt" content="CareerNova — Technology Solutions, Digital Marketing and Business Growth" />
 
-    <!-- Favicon & Apple Touch Icon — real, correctly-sized files (fixes Google Search showing a generic globe instead of the logo) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/logo-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/logo-192.png" />
     <link rel="shortcut icon" href="/logo-32.png" />
-    <link rel="apple-touch-icon" href="/logo-192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/logo-192.png" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Structured Data: CareerNova Organization -->
+    <!-- Performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data: WebSite + Organization -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "CareerNova",
-        "alternateName": "CareerNova - Growth & Career Engine",
-        "url": "https://careernova-official.vercel.app/",
-        "description": "CareerNova delivers Technology Solutions, Digital Marketing and Business Growth services with expertise in Business Analytics, Financial Modeling, Web Development, Data Science & AI, Automation and Strategy & Consulting across India.",
-        "areaServed": [
-          {"@type": "Country", "name": "India"},
-          {"@type": "City", "name": "Delhi"},
-          {"@type": "City", "name": "Noida"},
-          {"@type": "AdministrativeArea", "name": "Delhi NCR"}
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "298B, Almari Gali, New Ashok Nagar",
-          "addressLocality": "Delhi",
-          "addressCountry": "IN"
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://careernova-official.vercel.app/#website",
+          "url": "https://careernova-official.vercel.app/",
+          "name": "CareerNova",
+          "description": "Technology solutions, digital marketing and business growth services across India.",
+          "inLanguage": "en-IN",
+          "publisher": {
+            "@id": "https://careernova-official.vercel.app/#organization"
+          }
         },
-        "knowsAbout": [
-          "Technology Solutions",
-          "Digital Marketing",
-          "Business Growth",
-          "Business Analytics",
-          "Financial Modeling",
-          "Web Development",
-          "Data Science",
-          "Artificial Intelligence",
-          "Business Automation",
-          "Strategy and Consulting"
-        ]
-      }
+        {
+          "@type": "Organization",
+          "@id": "https://careernova-official.vercel.app/#organization",
+          "name": "CareerNova",
+          "alternateName": "CareerNova - Growth & Career Engine",
+          "url": "https://careernova-official.vercel.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://careernova-official.vercel.app/logo-192.png",
+            "width": 192,
+            "height": 192
+          },
+          "image": "https://careernova-official.vercel.app/assets/og-banner.png",
+          "description": "CareerNova provides technology solutions, digital marketing and business growth services with expertise in business analytics, financial modeling, web development, data science, AI, automation and strategy consulting across India.",
+          "areaServed": [
+            { "@type": "Country", "name": "India" },
+            { "@type": "City", "name": "Delhi" },
+            { "@type": "City", "name": "Noida" },
+            { "@type": "AdministrativeArea", "name": "Delhi NCR" }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "298B, Almari Gali, New Ashok Nagar",
+            "addressLocality": "Delhi",
+            "addressCountry": "IN"
+          },
+          "knowsAbout": [
+            "Technology Solutions",
+            "Digital Marketing",
+            "Business Growth",
+            "Business Analytics",
+            "Financial Modeling",
+            "Web Development",
+            "Data Science",
+            "Artificial Intelligence",
+            "Business Automation",
+            "Strategy and Consulting"
+          ]
+        }
+      ]
+    }
     </script>
   </head>
   <body class="bg-[#F8FAFC] text-slate-900 antialiased selection:bg-indigo-600/15 selection:text-indigo-800 min-h-screen font-sans">
