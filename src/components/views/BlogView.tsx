@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   BookOpen,
   Clock,
@@ -570,6 +570,99 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
 ];
 
 
+
+const BLOG_CANONICAL_URL = 'https://careernova-official.vercel.app/blog';
+const BLOG_DEFAULT_TITLE = 'Career, Business, Technology & Digital Marketing Insights | CareerNova';
+const BLOG_DEFAULT_DESCRIPTION =
+  'Practical, research-backed insights on careers, business growth, technology, AI, digital marketing, SEO and modern digital experiences from CareerNova.';
+
+const setOrCreateMeta = (selector: string, attribute: 'name' | 'property', value: string) => {
+  let element = document.head.querySelector<HTMLMetaElement>(selector);
+  if (!element) {
+    element = document.createElement('meta');
+    element.setAttribute(attribute, selector.match(/["']([^"']+)["']/)?.[1] || '');
+    document.head.appendChild(element);
+  }
+  element.setAttribute('content', value);
+};
+
+const setCanonical = (href: string) => {
+  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = 'canonical';
+    document.head.appendChild(link);
+  }
+  link.href = href;
+};
+
+const setBlogJsonLd = (activePost: ServiceBlogPost | null) => {
+  const id = 'careernova-blog-jsonld';
+  document.getElementById(id)?.remove();
+
+  const script = document.createElement('script');
+  script.id = id;
+  script.type = 'application/ld+json';
+
+  const graph: Record<string, unknown>[] = [
+    {
+      '@type': 'Blog',
+      '@id': `${BLOG_CANONICAL_URL}#blog`,
+      url: BLOG_CANONICAL_URL,
+      name: 'CareerNova Blog',
+      description: BLOG_DEFAULT_DESCRIPTION,
+      inLanguage: 'en-IN',
+      publisher: {
+        '@type': 'Organization',
+        name: 'CareerNova',
+        url: 'https://careernova-official.vercel.app/'
+      }
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${BLOG_CANONICAL_URL}#article-list`,
+      name: 'CareerNova Blog Articles',
+      numberOfItems: SERVICE_BLOG_POSTS.length,
+      itemListElement: SERVICE_BLOG_POSTS.map((post, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: post.title,
+        url: `${BLOG_CANONICAL_URL}#blog/${post.slug}`
+      }))
+    }
+  ];
+
+  // The reader currently uses a hash/modal rather than a crawlable article URL.
+  // Therefore Article JSON-LD is only added for the currently opened article,
+  // while the canonical remains /blog.
+  if (activePost) {
+    graph.push({
+      '@type': 'Article',
+      headline: activePost.title,
+      description: activePost.excerpt,
+      image: [`https://careernova-official.vercel.app${activePost.coverImage}`],
+      datePublished: new Date(activePost.date).toISOString().split('T')[0],
+      author: {
+        '@type': 'Person',
+        name: activePost.author
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'CareerNova',
+        url: 'https://careernova-official.vercel.app/'
+      },
+      mainEntityOfPage: BLOG_CANONICAL_URL,
+      keywords: activePost.tags.join(', ')
+    });
+  }
+
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': graph
+  });
+  document.head.appendChild(script);
+};
+
 export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNavigate }) => {
   const notifyFn = (type: 'success' | 'error' | 'info', title: string, description?: string) => {
     if (onNotify) onNotify(type, title, description);
@@ -578,6 +671,66 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [activePost, setActivePost] = useState<ServiceBlogPost | null>(null);
+
+  useEffect(() => {
+    const title = activePost
+      ? `${activePost.title} | CareerNova Blog`
+      : BLOG_DEFAULT_TITLE;
+    const description = activePost?.excerpt || BLOG_DEFAULT_DESCRIPTION;
+
+    document.title = title;
+    setOrCreateMeta('meta[name="description"]', 'name', description);
+    setOrCreateMeta(
+      'meta[name="keywords"]',
+      'name',
+      activePost
+        ? [...activePost.tags, 'CareerNova', 'CareerNova Blog'].join(', ')
+        : 'Career, Business, Technology, Digital Marketing, SEO, AI, Business Growth, Career Advice, CareerNova Blog'
+    );
+    setOrCreateMeta('meta[property="og:title"]', 'property', title);
+    setOrCreateMeta('meta[property="og:description"]', 'property', description);
+    setOrCreateMeta('meta[property="og:url"]', 'property', BLOG_CANONICAL_URL);
+    setOrCreateMeta('meta[property="og:type"]', 'property', 'website');
+    setOrCreateMeta(
+      'meta[property="og:image"]',
+      'property',
+      activePost
+        ? `https://careernova-official.vercel.app${activePost.coverImage}`
+        : 'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
+    );
+    setOrCreateMeta('meta[name="twitter:title"]', 'name', title);
+    setOrCreateMeta('meta[name="twitter:description"]', 'name', description);
+    setOrCreateMeta(
+      'meta[name="twitter:image"]',
+      'name',
+      activePost
+        ? `https://careernova-official.vercel.app${activePost.coverImage}`
+        : 'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
+    );
+    setCanonical(BLOG_CANONICAL_URL);
+    setBlogJsonLd(activePost);
+
+    return () => {
+      document.title = BLOG_DEFAULT_TITLE;
+      setOrCreateMeta('meta[name="description"]', 'name', BLOG_DEFAULT_DESCRIPTION);
+      setOrCreateMeta('meta[property="og:title"]', 'property', BLOG_DEFAULT_TITLE);
+      setOrCreateMeta('meta[property="og:description"]', 'property', BLOG_DEFAULT_DESCRIPTION);
+      setOrCreateMeta(
+        'meta[property="og:image"]',
+        'property',
+        'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
+      );
+      setOrCreateMeta('meta[name="twitter:title"]', 'name', BLOG_DEFAULT_TITLE);
+      setOrCreateMeta('meta[name="twitter:description"]', 'name', BLOG_DEFAULT_DESCRIPTION);
+      setOrCreateMeta(
+        'meta[name="twitter:image"]',
+        'name',
+        'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
+      );
+      setCanonical(BLOG_CANONICAL_URL);
+      document.getElementById('careernova-blog-jsonld')?.remove();
+    };
+  }, [activePost]);
 
   const categories = ['All', 'Career', 'Business', 'Marketing', 'AI'];
 
@@ -591,7 +744,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   });
 
   const handleShare = async (post: ServiceBlogPost) => {
-    const ok = await copyToClipboard(`${window.location.origin}/#blog/${post.slug}`);
+    const ok = await copyToClipboard(`${BLOG_CANONICAL_URL}#blog/${post.slug}`);
     if (ok) {
       notifyFn('success', 'Article Link Copied', 'Share this guide with friends or on LinkedIn.');
     }
@@ -653,8 +806,9 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             CareerNova Blog
           </span>
 
-          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
-            Career, Business, Technology & Digital Marketing Insights
+          <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-slate-900">
+            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing</span>{' '}
+            <span className="text-slate-900">Insights</span>
           </h1>
 
           <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
@@ -667,6 +821,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
           <img
             src="/assets/blog-hero-banner.png"
             alt="CareerNova Blog — career, technology, business and digital marketing insights"
+            width={1600}
+            height={700}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-[230px] sm:h-[285px] lg:h-[335px] object-cover object-center block"
           />
         </div>
@@ -729,8 +888,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] overflow-hidden bg-slate-100">
               <img
                 src={post.coverImage || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1000&q=80'}
-                alt={post.title}
+                alt={`${post.title} — CareerNova`}
+                width={1000}
+                height={625}
                 loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"
               />
