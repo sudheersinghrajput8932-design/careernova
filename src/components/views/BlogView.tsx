@@ -124,6 +124,11 @@ type ServiceBlogPost = {
       actionStep?: string;
     }[];
     conclusion: string;
+    research?: {
+      label: string;
+      url: string;
+      note: string;
+    }[];
   };
 };
 
@@ -162,12 +167,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Design for trust and action',
           body: [
             'Proof points, useful service details, strong visuals and consistent brand presentation help visitors understand why they should choose the business.',
-            'The final structure should be shaped around the business goal rather than a generic template.'
+            'The final structure should be shaped around the business goal rather than a generic template.
+            'Google Search Central recommends clear, descriptive titles and useful page content so visitors and search engines can understand what a page is about. The website should communicate the offer in plain language rather than relying only on visual design.''
           ],
           actionStep: 'List your top three customer questions and make sure the website answers each one clearly.'
         }
       ],
-      conclusion: 'The best business website is a working growth asset: clear enough to understand, credible enough to trust and structured enough to convert.'
+      conclusion: 'The best business website is a working growth asset: clear enough to understand, credible enough to trust and structured enough to convert.',
+      research: [
+        {
+          label: 'Google Search Central — SEO Starter Guide',
+          url: 'https://developers.google.com/search/docs/fundamentals/seo-starter-guide',
+          note: 'Guidance on helpful content, clear titles, headings and making pages understandable to users and search engines.'
+        },
+        {
+          label: 'web.dev — Core Web Vitals',
+          url: 'https://web.dev/articles/vitals',
+          note: 'Performance guidance covering LCP, INP and CLS, with recommended thresholds at the 75th percentile.'
+        }
+      ]
     }
   },
   {
@@ -204,12 +222,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Connect the product properly',
           body: [
             'API and backend integration should be considered early so authentication, data, notifications and other dependencies do not become last-minute blockers.',
-            'Launch preparation also needs a clear checklist for testing, store assets and release readiness.'
+            'Launch preparation also needs a clear checklist for testing, store assets and release readiness.
+            'Apple’s Human Interface Guidelines emphasise prioritising primary tasks and adapting interfaces to different device contexts, text sizes, appearance settings and accessibility needs. Planning these requirements early reduces expensive redesign work later.''
           ],
           actionStep: 'Write the single sentence that explains what your app helps a user accomplish.'
         }
       ],
-      conclusion: 'A useful iOS product combines a focused problem, intuitive interaction and dependable technical foundations from the beginning.'
+      conclusion: 'A useful iOS product combines a focused problem, intuitive interaction and dependable technical foundations from the beginning.',
+      research: [
+        {
+          label: 'Apple Human Interface Guidelines — Designing for iOS',
+          url: 'https://developer.apple.com/design/human-interface-guidelines/designing-for-ios/',
+          note: 'Apple guidance on prioritising tasks, adapting interfaces and designing for the iOS platform.'
+        },
+        {
+          label: 'Apple Human Interface Guidelines — Accessibility',
+          url: 'https://developer.apple.com/design/human-interface-guidelines/accessibility',
+          note: 'Accessibility guidance for making interfaces perceivable, understandable and adaptable.'
+        }
+      ]
     }
   },
   {
@@ -246,12 +277,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Remove checkout friction',
           body: [
             'A focused checkout should minimise unnecessary fields, explain payment and delivery expectations and give customers confidence before they confirm the order.',
-            'Analytics setup helps the business understand where customers drop off and where improvements can have the greatest impact.'
+            'Analytics setup helps the business understand where customers drop off and where improvements can have the greatest impact.
+            'Baymard’s long-running checkout research reports an average documented cart-abandonment rate of 70.22% across 50 studies. That does not mean every store has the same problem, but it shows why checkout friction deserves measurement and deliberate optimisation.''
           ],
           actionStep: 'Walk through your store as a first-time buyer and note every moment where you hesitate.'
         }
       ],
-      conclusion: 'E-commerce growth comes from making the complete buying journey easier, clearer and more trustworthy—not simply adding more products.'
+      conclusion: 'E-commerce growth comes from making the complete buying journey easier, clearer and more trustworthy—not simply adding more products.',
+      research: [
+        {
+          label: 'Baymard Institute — Cart Abandonment Rate Statistics',
+          url: 'https://baymard.com/lists/cart-abandonment-rate',
+          note: 'Research tracking documented cart-abandonment rates and checkout-related reasons shoppers leave without completing a purchase.'
+        },
+        {
+          label: 'Baymard Institute — Checkout Usability Research',
+          url: 'https://baymard.com/research/checkout-usability',
+          note: 'Ongoing large-scale research into checkout UX and ecommerce purchase flows.'
+        }
+      ]
     }
   },
   {
@@ -288,12 +332,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Build for reliability',
           body: [
             'Integrations should handle permissions, errors and fallback paths. AI-assisted steps should also have clear review points when the output affects customers or important business decisions.',
-            'The objective is dependable workflow improvement, not automation for its own sake.'
+            'The objective is dependable workflow improvement, not automation for its own sake.
+            'NIST’s AI Risk Management Framework organises practical risk-management work around Govern, Map, Measure and Manage. For business automation, that translates into defining ownership, understanding the use case, evaluating performance and handling risks before expanding the workflow.''
           ],
           actionStep: 'Choose one repetitive workflow and measure how much time it currently takes each week.'
         }
       ],
-      conclusion: 'The strongest AI workflows combine useful automation with practical controls, measurable outcomes and a clear role for people.'
+      conclusion: 'The strongest AI workflows combine useful automation with practical controls, measurable outcomes and a clear role for people.',
+      research: [
+        {
+          label: 'NIST — AI Risk Management Framework',
+          url: 'https://www.nist.gov/itl/ai-risk-management-framework',
+          note: 'Voluntary framework for managing AI risks and supporting trustworthy, responsible AI use.'
+        },
+        {
+          label: 'NIST — AI RMF Playbook',
+          url: 'https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook',
+          note: 'Practical actions organised around Govern, Map, Measure and Manage.'
+        }
+      ]
     }
   },
   {
@@ -330,12 +387,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Use a design system to scale',
           body: [
             'Reusable components and defined visual rules help teams maintain consistency while products evolve.',
-            'Responsive behaviour should be designed as part of the experience rather than added after desktop screens are finished.'
+            'Responsive behaviour should be designed as part of the experience rather than added after desktop screens are finished.
+            'W3C’s Web Content Accessibility Guidelines provide an international accessibility standard, while Apple’s accessibility guidance emphasises interfaces that are perceivable, understandable and adaptable. Accessibility is part of product quality, not merely a final checklist item.''
           ],
           actionStep: 'Pick your most-used product screen and remove anything that does not support its primary user task.'
         }
       ],
-      conclusion: 'The goal of UI/UX is not decoration. It is a clearer path from user intent to successful action.'
+      conclusion: 'The goal of UI/UX is not decoration. It is a clearer path from user intent to successful action.',
+      research: [
+        {
+          label: 'W3C — Web Content Accessibility Guidelines (WCAG)',
+          url: 'https://www.w3.org/WAI/standards-guidelines/wcag/',
+          note: 'International accessibility guidance for web content and digital experiences.'
+        },
+        {
+          label: 'Apple Human Interface Guidelines — Accessibility',
+          url: 'https://developer.apple.com/design/human-interface-guidelines/accessibility',
+          note: 'Platform guidance for intuitive, perceivable and adaptable interfaces.'
+        }
+      ]
     }
   },
   {
@@ -372,12 +442,20 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Measure what moves the business',
           body: [
             'Analytics and reporting should connect traffic and engagement with meaningful outcomes such as enquiries, purchases or qualified leads.',
-            'This creates a feedback loop for deciding what content and campaigns deserve more attention.'
+            'This creates a feedback loop for deciding what content and campaigns deserve more attention.
+            'Google Search Central also makes clear that there is no secret technique that automatically guarantees a first-place ranking. Sustainable SEO is better treated as a process of creating useful content, making pages understandable and improving the experience based on evidence.''
           ],
           actionStep: 'Define one primary conversion and make sure your analytics can measure it reliably.'
         }
       ],
-      conclusion: 'Sustainable digital visibility comes from connecting search, content, conversion and measurement into one growth loop.'
+      conclusion: 'Sustainable digital visibility comes from connecting search, content, conversion and measurement into one growth loop.',
+      research: [
+        {
+          label: 'Google Search Central — SEO Starter Guide',
+          url: 'https://developers.google.com/search/docs/fundamentals/seo-starter-guide',
+          note: 'Google guidance on helpful content, titles, headings, links and making pages easier to understand.'
+        }
+      ]
     }
   },
   {
@@ -414,12 +492,25 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Turn strategy into action',
           body: [
             'A roadmap should define what happens first, what will be measured and when the team will review the result.',
-            'Small, measurable experiments make it easier to learn before committing large amounts of time or budget.'
+            'Small, measurable experiments make it easier to learn before committing large amounts of time or budget.
+            'The U.S. Small Business Administration recommends market research and competitive analysis to understand demand, market size, pricing and the competitive environment. Those inputs can turn a growth idea into a more testable business hypothesis.''
           ],
           actionStep: 'Choose one growth metric and write the next three actions that could improve it.'
         }
       ],
-      conclusion: 'Focused growth is less about doing more and more about choosing the right next move with evidence behind it.'
+      conclusion: 'Focused growth is less about doing more and more about choosing the right next move with evidence behind it.',
+      research: [
+        {
+          label: 'U.S. Small Business Administration — Plan Your Business',
+          url: 'https://www.sba.gov/counseling/plan-your-business/',
+          note: 'Guidance covering market research, competitive analysis, demand, market size and business planning.'
+        },
+        {
+          label: 'U.S. Small Business Administration — Grow Your Business',
+          url: 'https://www.sba.gov/counseling/grow-your-business/',
+          note: 'Resources for planning and managing business growth.'
+        }
+      ]
     }
   },
   {
@@ -461,7 +552,19 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           actionStep: 'Create a monthly checklist covering updates, bugs, performance and the next product improvement.'
         }
       ],
-      conclusion: 'A well-supported digital product stays dependable while continuing to evolve with the people and business it serves.'
+      conclusion: 'A well-supported digital product stays dependable while continuing to evolve with the people and business it serves.',
+      research: [
+        {
+          label: 'CISA — Software Updates',
+          url: 'https://www.cisa.gov/secure-our-world/software-updates',
+          note: 'Security guidance explaining why timely software updates matter for vulnerabilities, bugs and performance.'
+        },
+        {
+          label: 'OWASP Developer Guide — Dependencies',
+          url: 'https://devguide.owasp.org/en/05-implementation/02-dependencies/',
+          note: 'Guidance on tracking production dependencies and managing software-component risk.'
+        }
+      ]
     }
   }
 ];
@@ -487,7 +590,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     return matchesCategory && matchesSearch;
   });
 
-  const handleShare = async (post: BlogPost) => {
+  const handleShare = async (post: ServiceBlogPost) => {
     const ok = await copyToClipboard(`${window.location.origin}/#blog/${post.slug}`);
     if (ok) {
       notifyFn('success', 'Article Link Copied', 'Share this guide with friends or on LinkedIn.');
@@ -500,20 +603,64 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
   return (
     <div className="space-y-10 sm:space-y-12">
-      {/* 1. Hero Banner — image carries its own title/copy, no overlaid text */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
+      {/* 1. SEO Hero — title is intentionally above the hero image */}
+      <style>{`
+        @keyframes careernovaTitleReflection {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        .careernova-title-reflection {
+          background-image: linear-gradient(
+            110deg,
+            currentColor 0%,
+            currentColor 42%,
+            rgba(255,255,255,0.98) 50%,
+            currentColor 58%,
+            currentColor 100%
+          );
+          background-size: 220% 100%;
+          background-position: 200% 0;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: careernovaTitleReflection 4.5s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .careernova-title-reflection { animation: none; }
+        }
+      `}</style>
+
+      <motion.section
+        initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={smoothTransition}
-        className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
+        className="space-y-4"
       >
-        <img
-          src="/assets/blog-hero-banner.png"
-          alt="CareerNova Blog — Insights. Guidance. Opportunities."
-          className="w-full h-auto object-cover block"
-        />
-      </motion.div>
+        <div className="text-center max-w-4xl mx-auto px-2">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-extrabold tracking-wide uppercase">
+            <BookOpen className="w-3.5 h-3.5" />
+            CareerNova Blog
+          </span>
+
+          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-indigo-700">
+            Career, Business, Technology & Digital Marketing Insights
+          </h1>
+
+          <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
+            Practical guides, research-backed insights and actionable ideas for careers, business growth,
+            technology, AI, digital marketing, SEO and modern digital experiences.
+          </p>
+        </div>
+
+        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
+          <img
+            src="/assets/blog-hero-banner.png"
+            alt="CareerNova Blog — career, technology, business and digital marketing insights"
+            className="w-full h-[230px] sm:h-[285px] lg:h-[335px] object-cover object-center block"
+          />
+        </div>
+      </motion.section>
 
       {/* 2. Filter & Search Bar with Scroll Reveal */}
       <motion.div
@@ -754,6 +901,38 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                 <strong className="text-slate-900 font-semibold block">Editorial Conclusion:</strong>
                 <p className="leading-relaxed font-normal">{activePost.content.conclusion}</p>
               </div>
+
+              {/* Research & References */}
+              {activePost.content.research && activePost.content.research.length > 0 && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+                  <div className="flex items-center gap-2">
+                    <ExternalLink className="w-4 h-4 text-indigo-600" />
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                      Research & References
+                    </h3>
+                  </div>
+
+                  <div className="space-y-2">
+                    {activePost.content.research.map((source, rIdx) => (
+                      <a
+                        key={rIdx}
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-200 hover:bg-indigo-50/50 transition-colors"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-indigo-700">{source.label}</p>
+                            <p className="mt-1 text-[11px] leading-relaxed text-slate-600">{source.note}</p>
+                          </div>
+                          <ExternalLink className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Service Call to Action */}
               {activePost.cta && (
