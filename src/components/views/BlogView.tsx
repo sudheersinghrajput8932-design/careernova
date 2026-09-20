@@ -167,8 +167,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Design for trust and action',
           body: [
             'Proof points, useful service details, strong visuals and consistent brand presentation help visitors understand why they should choose the business.',
-            'The final structure should be shaped around the business goal rather than a generic template.
-            'Google Search Central recommends clear, descriptive titles and useful page content so visitors and search engines can understand what a page is about. The website should communicate the offer in plain language rather than relying only on visual design.''
+            'The final structure should be shaped around the business goal rather than a generic template.',
+            'Google Search Central recommends clear, descriptive titles and useful page content so visitors and search engines can understand what a page is about. The website should communicate the offer in plain language rather than relying only on visual design.'
           ],
           actionStep: 'List your top three customer questions and make sure the website answers each one clearly.'
         }
@@ -222,8 +222,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Connect the product properly',
           body: [
             'API and backend integration should be considered early so authentication, data, notifications and other dependencies do not become last-minute blockers.',
-            'Launch preparation also needs a clear checklist for testing, store assets and release readiness.
-            'Apple’s Human Interface Guidelines emphasise prioritising primary tasks and adapting interfaces to different device contexts, text sizes, appearance settings and accessibility needs. Planning these requirements early reduces expensive redesign work later.''
+            'Launch preparation also needs a clear checklist for testing, store assets and release readiness.',
+            'Apple’s Human Interface Guidelines emphasise prioritising primary tasks and adapting interfaces to different device contexts, text sizes, appearance settings and accessibility needs. Planning these requirements early reduces expensive redesign work later.'
           ],
           actionStep: 'Write the single sentence that explains what your app helps a user accomplish.'
         }
@@ -277,8 +277,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Remove checkout friction',
           body: [
             'A focused checkout should minimise unnecessary fields, explain payment and delivery expectations and give customers confidence before they confirm the order.',
-            'Analytics setup helps the business understand where customers drop off and where improvements can have the greatest impact.
-            'Baymard’s long-running checkout research reports an average documented cart-abandonment rate of 70.22% across 50 studies. That does not mean every store has the same problem, but it shows why checkout friction deserves measurement and deliberate optimisation.''
+            'Analytics setup helps the business understand where customers drop off and where improvements can have the greatest impact.',
+            'Baymard’s long-running checkout research reports an average documented cart-abandonment rate of 70.22% across 50 studies. That does not mean every store has the same problem, but it shows why checkout friction deserves measurement and deliberate optimisation.'
           ],
           actionStep: 'Walk through your store as a first-time buyer and note every moment where you hesitate.'
         }
@@ -332,8 +332,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Build for reliability',
           body: [
             'Integrations should handle permissions, errors and fallback paths. AI-assisted steps should also have clear review points when the output affects customers or important business decisions.',
-            'The objective is dependable workflow improvement, not automation for its own sake.
-            'NIST’s AI Risk Management Framework organises practical risk-management work around Govern, Map, Measure and Manage. For business automation, that translates into defining ownership, understanding the use case, evaluating performance and handling risks before expanding the workflow.''
+            'The objective is dependable workflow improvement, not automation for its own sake.',
+            'NIST’s AI Risk Management Framework organises practical risk-management work around Govern, Map, Measure and Manage. For business automation, that translates into defining ownership, understanding the use case, evaluating performance and handling risks before expanding the workflow.'
           ],
           actionStep: 'Choose one repetitive workflow and measure how much time it currently takes each week.'
         }
@@ -387,8 +387,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Use a design system to scale',
           body: [
             'Reusable components and defined visual rules help teams maintain consistency while products evolve.',
-            'Responsive behaviour should be designed as part of the experience rather than added after desktop screens are finished.
-            'W3C’s Web Content Accessibility Guidelines provide an international accessibility standard, while Apple’s accessibility guidance emphasises interfaces that are perceivable, understandable and adaptable. Accessibility is part of product quality, not merely a final checklist item.''
+            'Responsive behaviour should be designed as part of the experience rather than added after desktop screens are finished.',
+            'W3C’s Web Content Accessibility Guidelines provide an international accessibility standard, while Apple’s accessibility guidance emphasises interfaces that are perceivable, understandable and adaptable. Accessibility is part of product quality, not merely a final checklist item.'
           ],
           actionStep: 'Pick your most-used product screen and remove anything that does not support its primary user task.'
         }
@@ -442,8 +442,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Measure what moves the business',
           body: [
             'Analytics and reporting should connect traffic and engagement with meaningful outcomes such as enquiries, purchases or qualified leads.',
-            'This creates a feedback loop for deciding what content and campaigns deserve more attention.
-            'Google Search Central also makes clear that there is no secret technique that automatically guarantees a first-place ranking. Sustainable SEO is better treated as a process of creating useful content, making pages understandable and improving the experience based on evidence.''
+            'This creates a feedback loop for deciding what content and campaigns deserve more attention.',
+            'Google Search Central also makes clear that there is no secret technique that automatically guarantees a first-place ranking. Sustainable SEO is better treated as a process of creating useful content, making pages understandable and improving the experience based on evidence.'
           ],
           actionStep: 'Define one primary conversion and make sure your analytics can measure it reliably.'
         }
@@ -492,8 +492,8 @@ const SERVICE_BLOG_POSTS: ServiceBlogPost[] = [
           heading: 'Turn strategy into action',
           body: [
             'A roadmap should define what happens first, what will be measured and when the team will review the result.',
-            'Small, measurable experiments make it easier to learn before committing large amounts of time or budget.
-            'The U.S. Small Business Administration recommends market research and competitive analysis to understand demand, market size, pricing and the competitive environment. Those inputs can turn a growth idea into a more testable business hypothesis.''
+            'Small, measurable experiments make it easier to learn before committing large amounts of time or budget.',
+            'The U.S. Small Business Administration recommends market research and competitive analysis to understand demand, market size, pricing and the competitive environment. Those inputs can turn a growth idea into a more testable business hypothesis.'
           ],
           actionStep: 'Choose one growth metric and write the next three actions that could improve it.'
         }
