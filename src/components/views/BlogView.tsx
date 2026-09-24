@@ -627,7 +627,7 @@ const setBlogJsonLd = (activePost: ServiceBlogPost | null) => {
         '@type': 'ListItem',
         position: index + 1,
         name: post.title,
-        url: `${BLOG_CANONICAL_URL}#blog/${post.slug}`
+        url: `${BLOG_CANONICAL_URL}/${post.slug}`
       }))
     }
   ];
@@ -651,7 +651,7 @@ const setBlogJsonLd = (activePost: ServiceBlogPost | null) => {
         name: 'CareerNova',
         url: 'https://careernova-official.vercel.app/'
       },
-      mainEntityOfPage: BLOG_CANONICAL_URL,
+      mainEntityOfPage: `${BLOG_CANONICAL_URL}/${activePost.slug}`,
       keywords: activePost.tags.join(', ')
     });
   }
@@ -671,6 +671,29 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [activePost, setActivePost] = useState<ServiceBlogPost | null>(null);
+
+  // Keep each article on a clean, shareable URL instead of a hash fragment.
+  // The parent App can still render the Blog tab; this URL identifies the article
+  // for canonical/share navigation and browser history.
+  const getArticlePath = (post: ServiceBlogPost) => `/blog/${post.slug}`;
+
+  const getArticleFromLocation = () => {
+    const match = window.location.pathname.match(/^\/blog\/([^/]+)\/?$/);
+    if (!match) return null;
+    const slug = decodeURIComponent(match[1]);
+    return SERVICE_BLOG_POSTS.find((post) => post.slug === slug) || null;
+  };
+
+  const openArticle = (post: ServiceBlogPost, pushHistory = true) => {
+    setActivePost(post);
+    if (pushHistory) {
+      window.history.pushState(
+        { blogSlug: post.slug },
+        '',
+        getArticlePath(post)
+      );
+    }
+  };
 
   useEffect(() => {
     const title = activePost
@@ -707,7 +730,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         ? `https://careernova-official.vercel.app${activePost.coverImage}`
         : 'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
     );
-    setCanonical(BLOG_CANONICAL_URL);
+    setCanonical(activePost ? `${BLOG_CANONICAL_URL}/${activePost.slug}` : BLOG_CANONICAL_URL);
     setBlogJsonLd(activePost);
 
     return () => {
@@ -732,6 +755,19 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     };
   }, [activePost]);
 
+  React.useEffect(() => {
+    const initialPost = getArticleFromLocation();
+    if (initialPost) setActivePost(initialPost);
+
+    const handlePopState = () => {
+      const post = getArticleFromLocation();
+      setActivePost(post);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const categories = ['All', 'Career', 'Business', 'Marketing', 'AI'];
 
   const filteredPosts = SERVICE_BLOG_POSTS.filter((post) => {
@@ -744,7 +780,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   });
 
   const handleShare = async (post: ServiceBlogPost) => {
-    const ok = await copyToClipboard(`${BLOG_CANONICAL_URL}#blog/${post.slug}`);
+    const ok = await copyToClipboard(`${BLOG_CANONICAL_URL}/${post.slug}`);
     if (ok) {
       notifyFn('success', 'Article Link Copied', 'Share this guide with friends or on LinkedIn.');
     }
@@ -878,7 +914,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ ...smoothTransition, delay: (idx % 4) * 0.08 }}
-            onClick={() => setActivePost(post)}
+            onClick={() => openArticle(post)}
             className={`group relative min-w-0 rounded-3xl bg-white border border-slate-200 transition-all duration-300 cursor-pointer flex h-full flex-col justify-between hover:-translate-y-1 shadow-xs overflow-hidden ${theme.border} ${theme.glow}`}
           >
             {/* Per-category color strip */}
@@ -1000,7 +1036,12 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
 
               <button
-                onClick={() => setActivePost(null)}
+                onClick={() => {
+                  setActivePost(null);
+                  if (window.location.pathname.startsWith('/blog/')) {
+                    window.history.pushState({ tab: 'blog' }, '', '/blog');
+                  }
+                }}
                 className="absolute top-4 right-4 p-2 rounded-xl bg-black/50 hover:bg-black/70 text-white border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
                 aria-label="Close article"
               >
@@ -1168,7 +1209,12 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                 </button>
 
                 <button
-                  onClick={() => setActivePost(null)}
+                  onClick={() => {
+                      setActivePost(null);
+                      if (window.location.pathname.startsWith('/blog/')) {
+                        window.history.pushState({ tab: 'blog' }, '', '/blog');
+                      }
+                    }}
                   className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs"
                 >
                   Close Article
