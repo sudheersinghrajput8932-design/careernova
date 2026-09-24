@@ -103,6 +103,18 @@ export const ROUTE_METADATA: Record<TabId, RouteMeta> = {
     ogImageWidth: 1200,
     ogImageHeight: 630,
   },
+  expertise: {
+    title: 'Expertise & Digital Growth Capabilities | CareerNova',
+    description: 'Explore CareerNova expertise across digital strategy, business intelligence, financial modeling, CRM and ERP workflows, AI-enabled productivity, and modern technology solutions.',
+    keywords: 'CareerNova Expertise, Business Intelligence, Financial Modeling, CRM ERP, Digital Strategy, AI Productivity, Technology Consulting',
+    ogTitle: 'Expertise & Digital Growth Capabilities - CareerNova',
+    ogDescription: 'Explore CareerNova capabilities across business, technology, analytics and digital growth.',
+    canonicalPath: '/expertise',
+    ogImage: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&h=630&q=80',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
   tools: {
     title: 'AI Tools & Financial Growth Calculators | CareerNova',
     description: 'Access interactive calculators: ROI Calculator, SaaS Runway Estimator, CAC:LTV Model, Equity Splitter, and Freelance Rate Benchmark.',
@@ -238,6 +250,87 @@ const SITE_NAME = 'CareerNova';
 const DEFAULT_OG_IMAGE =
   'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630&q=80';
 
+
+const BLOG_ARTICLE_METADATA: Record<string, RouteMeta> = {
+  'business-website-that-builds-trust': {
+    title: 'How a Business Website Turns Attention Into Real Enquiries | CareerNova',
+    description: 'A practical look at the pages, messaging and conversion details that make a business website work harder.',
+    keywords: 'business website, website development, website conversion, business enquiries, CareerNova',
+    ogTitle: 'How a Business Website Turns Attention Into Real Enquiries',
+    ogDescription: 'A practical look at the pages, messaging and conversion details that make a business website work harder.',
+    canonicalPath: '/blog/business-website-that-builds-trust',
+    ogImage: 'https://careernova-official.vercel.app/assets/web-development.png',
+  },
+  'building-an-ios-product-people-want-to-use': {
+    title: 'From App Idea to a Useful iPhone Product: What to Plan First | CareerNova',
+    description: 'The product decisions that matter before an iOS app moves into interface design and development.',
+    keywords: 'iOS development, iPhone app development, product design, mobile app, CareerNova',
+    ogTitle: 'From App Idea to a Useful iPhone Product: What to Plan First',
+    ogDescription: 'The product decisions that matter before an iOS app moves into interface design and development.',
+    canonicalPath: '/blog/building-an-ios-product-people-want-to-use',
+    ogImage: 'https://careernova-official.vercel.app/assets/ios-development.png',
+  },
+  'ecommerce-checkout-that-reduces-friction': {
+    title: 'E-commerce That Converts: The Small Checkout Details That Matter | CareerNova',
+    description: 'How product discovery, trust signals and a smoother checkout can create a stronger digital sales foundation.',
+    keywords: 'ecommerce, checkout optimization, ecommerce UX, digital sales, CareerNova',
+    ogTitle: 'E-commerce That Converts: The Small Checkout Details That Matter',
+    ogDescription: 'How product discovery, trust signals and a smoother checkout can create a stronger digital sales foundation.',
+    canonicalPath: '/blog/ecommerce-checkout-that-reduces-friction',
+    ogImage: 'https://careernova-official.vercel.app/assets/ecommerce-development.png',
+  },
+  'where-ai-automation-actually-helps-businesses': {
+    title: 'AI & Automation: Where Businesses Should Automate First | CareerNova',
+    description: 'A practical framework for finding repetitive workflows where AI and automation can create useful efficiency.',
+    keywords: 'AI automation, business automation, workflow automation, AI workflows, CareerNova',
+    ogTitle: 'AI & Automation: Where Businesses Should Automate First',
+    ogDescription: 'A practical framework for finding repetitive workflows where AI and automation can create useful efficiency.',
+    canonicalPath: '/blog/where-ai-automation-actually-helps-businesses',
+    ogImage: 'https://careernova-official.vercel.app/assets/ai-automation.png',
+  },
+  'ui-ux-design-that-makes-products-easier': {
+    title: 'UI/UX Design: Why Clarity Beats Complexity in Digital Products | CareerNova',
+    description: 'The design principles that help websites and apps feel easier to understand, navigate and use.',
+    keywords: 'UI UX design, product design, UX design, design systems, CareerNova',
+    ogTitle: 'UI/UX Design: Why Clarity Beats Complexity in Digital Products',
+    ogDescription: 'The design principles that help websites and apps feel easier to understand, navigate and use.',
+    canonicalPath: '/blog/ui-ux-design-that-makes-products-easier',
+    ogImage: 'https://careernova-official.vercel.app/assets/ui-ux-product-design.png',
+  },
+  'seo-and-digital-marketing-that-builds-compounding-visibility': {
+    title: 'SEO + Digital Marketing: Build Visibility That Compounds | CareerNova',
+    description: 'How search visibility, content and measurement can work together instead of operating as disconnected activities.',
+    keywords: 'SEO, digital marketing, search visibility, content marketing, CareerNova',
+    ogTitle: 'SEO + Digital Marketing: Build Visibility That Compounds',
+    ogDescription: 'How search visibility, content and measurement can work together instead of operating as disconnected activities.',
+    canonicalPath: '/blog/seo-and-digital-marketing-that-builds-compounding-visibility',
+    ogImage: 'https://careernova-official.vercel.app/assets/digital-marketing-seo.png',
+  },
+  'business-growth-strategy-from-idea-to-priority': {
+    title: 'Business Growth Strategy: Stop Doing Everything at Once | CareerNova',
+    description: 'A simple way to turn scattered growth ideas into focused priorities, experiments and measurable next steps.',
+    keywords: 'business growth strategy, growth planning, business priorities, growth experiments, CareerNova',
+    ogTitle: 'Business Growth Strategy: Stop Doing Everything at Once',
+    ogDescription: 'A simple way to turn scattered growth ideas into focused priorities, experiments and measurable next steps.',
+    canonicalPath: '/blog/business-growth-strategy-from-idea-to-priority',
+    ogImage: 'https://careernova-official.vercel.app/assets/business-growth.png',
+  },
+  'why-digital-products-need-post-launch-care': {
+    title: 'Why Digital Products Need Support After Launch | CareerNova',
+    description: 'Launch is the beginning of a product lifecycle. Here is why maintenance, performance and ongoing improvements matter.',
+    keywords: 'software maintenance, post-launch support, digital product support, website maintenance, CareerNova',
+    ogTitle: 'Why Digital Products Need Support After Launch',
+    ogDescription: 'Launch is the beginning of a product lifecycle. Here is why maintenance, performance and ongoing improvements matter.',
+    canonicalPath: '/blog/why-digital-products-need-post-launch-care',
+    ogImage: 'https://careernova-official.vercel.app/assets/maintenance-support.png',
+  },
+};
+
+function getBlogArticleMeta(slug?: string): RouteMeta | null {
+  if (!slug) return null;
+  return BLOG_ARTICLE_METADATA[slug] || null;
+}
+
 function normalizePath(path: string): string {
   if (!path || path === '/') return '/';
   return `/${path.replace(/^\/+|\/+$/g, '')}`;
@@ -362,6 +455,12 @@ export function parseRouteFromLocation(): { tab: TabId; subTool?: string } {
     return { tab: 'cookies' };
   }
 
+  // Individual blog articles use clean, crawlable URLs: /blog/:slug
+  if (cleanPath.startsWith('/blog/')) {
+    const blogSlug = cleanPath.slice('/blog/'.length).replace(/\/+$/, '');
+    if (blogSlug) return { tab: 'blog', subTool: blogSlug };
+  }
+
   const segments = cleanPath.split('/').filter(Boolean);
   const rootSegment = segments[0] as TabId;
 
@@ -405,6 +504,9 @@ export function getRouteUrl(tab: TabId, subTool?: string): string {
   if (tab === '404') return '/404';
 
   if (subTool) {
+    if (tab === 'blog') {
+      return `/blog/${encodeURIComponent(subTool)}`;
+    }
     return `/${tab}?tool=${encodeURIComponent(subTool)}`;
   }
 
@@ -425,7 +527,8 @@ export function updateDocumentMetadata(
 ): void {
   if (typeof document === 'undefined') return;
 
-  const meta = ROUTE_METADATA[tab] || ROUTE_METADATA.home;
+  const articleMeta = tab === 'blog' ? getBlogArticleMeta(subTool) : null;
+  const meta = articleMeta || ROUTE_METADATA[tab] || ROUTE_METADATA.home;
   const currentPath = getRouteUrl(tab, subTool);
   const fullUrl = absoluteUrl(currentPath);
 
@@ -588,6 +691,26 @@ export function updateDocumentMetadata(
   setJsonLd('careernova-website-schema', websiteSchema);
   setJsonLd('careernova-webpage-schema', pageSchema);
   setJsonLd('careernova-breadcrumb-schema', breadcrumbSchema);
+
+  // Article structured data for clean /blog/:slug URLs.
+  if (articleMeta && subTool) {
+    setJsonLd('careernova-article-schema', {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      '@id': `${fullUrl}#article`,
+      headline: articleMeta.title.replace(/\s*\|\s*CareerNova\s*$/i, ''),
+      description: articleMeta.description,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `${fullUrl}#webpage` },
+      url: fullUrl,
+      image: [articleMeta.ogImage || DEFAULT_OG_IMAGE],
+      author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      inLanguage: 'en-IN',
+      keywords: articleMeta.keywords,
+    });
+  } else {
+    removeJsonLd('careernova-article-schema');
+  }
 
   // Remove the old single-schema implementation if a previous build left it.
   document.querySelector('script#json-ld-schema')?.remove();
