@@ -2983,7 +2983,7 @@ const SocialRail = () => (
     </a>
 
     <a
-      href="https://www.linkedin.com/company/143792991/"
+      href="https://www.linkedin.com/company/careernova-official/"
       target="_blank"
       rel="noreferrer"
       aria-label="LinkedIn"
@@ -2995,7 +2995,7 @@ const SocialRail = () => (
     </a>
 
     <a
-      href="https://www.instagram.com/careernova.digital"
+      href="https://www.instagram.com/careernova.digital/"
       target="_blank"
       rel="noreferrer"
       aria-label="Instagram"
