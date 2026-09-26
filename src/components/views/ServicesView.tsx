@@ -700,7 +700,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                         : problem === 'Need more customers'
                           ? 'border-fuchsia-300/30 bg-fuchsia-500/20 hover:bg-fuchsia-500/30'
                           : 'border-orange-300/30 bg-orange-500/20 hover:bg-orange-500/30'
-                  }`
+                  }`}
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
                     <ProblemIcon className="h-4 w-4" />
