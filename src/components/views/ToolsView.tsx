@@ -56,7 +56,7 @@ const expertise = [
 
 const stackGroups = [
   {
-    title: 'Web Development', eyebrow: 'BUILD',
+    title: 'Web Development', eyebrow: 'BUILD', image: '/assets/tools-web-development.jpg',
     description: 'Modern technologies for websites, web apps and digital products.', icon: Code2,
     gradient: 'from-indigo-600 to-blue-600',
     technologies: [
@@ -65,7 +65,7 @@ const stackGroups = [
     ],
   },
   {
-    title: 'iOS Development', eyebrow: 'CREATE',
+    title: 'iOS Development', eyebrow: 'CREATE', image: '/assets/tools-ios-development.jpg',
     description: 'Apple-focused tools for polished, native mobile experiences.', icon: Smartphone,
     gradient: 'from-violet-600 to-purple-600',
     technologies: [
@@ -74,7 +74,7 @@ const stackGroups = [
     ],
   },
   {
-    title: 'Backend & Cloud', eyebrow: 'POWER',
+    title: 'Backend & Cloud', eyebrow: 'POWER', image: '/assets/tools-backend-cloud.jpg',
     description: 'Reliable data, APIs and cloud infrastructure behind digital products.', icon: Server,
     gradient: 'from-cyan-600 to-blue-600',
     technologies: [
@@ -83,7 +83,7 @@ const stackGroups = [
     ],
   },
   {
-    title: 'Design & Product', eyebrow: 'DESIGN',
+    title: 'Design & Product', eyebrow: 'DESIGN', image: '/assets/tools-design-product.jpg',
     description: 'Design systems that keep products clear, consistent and user-focused.', icon: Palette,
     gradient: 'from-fuchsia-600 to-rose-500',
     technologies: [
@@ -92,7 +92,7 @@ const stackGroups = [
     ],
   },
   {
-    title: 'Analytics & Growth', eyebrow: 'MEASURE',
+    title: 'Analytics & Growth', eyebrow: 'MEASURE', image: '/assets/tools-analytics-growth.jpg',
     description: 'Measurement and optimization tools for understanding what drives growth.', icon: BarChart3,
     gradient: 'from-emerald-600 to-teal-500',
     technologies: [
@@ -101,7 +101,7 @@ const stackGroups = [
     ],
   },
   {
-    title: 'AI & Automation', eyebrow: 'ACCELERATE',
+    title: 'AI & Automation', eyebrow: 'ACCELERATE', image: '/assets/tools-ai-automation.jpg',
     description: 'AI-powered workflows and integrations that reduce repetitive work.', icon: Brain,
     gradient: 'from-amber-500 to-orange-600',
     technologies: [
@@ -181,13 +181,16 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
               transition={{ duration: 1.1, ease: 'easeOut' }}
             />
           </div>
+          <p className="mt-4 max-w-4xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+            Explore the technologies, development tools, analytics platforms, cloud systems, AI workflows and digital capabilities CareerNova uses to build scalable products and help businesses achieve measurable digital growth.
+          </p>
         </div>
 
         <div className="px-3 pb-3 pt-4 sm:px-5 sm:pb-5 sm:pt-5">
           <img
-            src="/assets/technology-growth-stack-banner.png"
-            alt="Technology and Growth Stack"
-            className="block h-auto w-full select-none rounded-2xl"
+            src="/assets/tools-hero-technology-stack.png"
+            alt="CareerNova technology stack, AI, analytics, cloud and digital development tools"
+            className="block h-auto w-full select-none rounded-2xl object-cover"
           />
         </div>
       </motion.section>
@@ -250,11 +253,17 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {stackGroups.map((group, index) => {
-            const Icon = group.icon;
             return (
               <motion.article key={group.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
                 <div className="flex items-start gap-4 p-5 pb-4">
-                  <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${group.gradient} text-white shadow-sm`}><Icon className="h-5 w-5" /></div>
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-white bg-white shadow-md ring-1 ring-slate-200/80">
+                    <img
+                      src={group.image}
+                      alt={`${group.title} technology`}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2"><span className="text-[9px] font-black tracking-[0.16em] text-indigo-500">{group.eyebrow}</span><span className="h-1 w-1 rounded-full bg-slate-300" /><span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span></div>
                     <div className="relative mt-1 inline-block overflow-hidden">
