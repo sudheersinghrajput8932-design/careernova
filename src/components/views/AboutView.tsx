@@ -522,10 +522,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={smoothTransition}
-          className="mt-4 grid overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/60 shadow-sm sm:mt-5 lg:grid-cols-[46%_54%]"
+          className="mt-4 grid items-stretch overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/60 shadow-sm sm:mt-5 lg:grid-cols-[50%_50%]"
         >
           {/* LEFT: supporting content */}
-          <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+          <div className="flex flex-col justify-center p-5 sm:p-7 lg:p-8">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-700 shadow-sm">
               <Handshake className="h-4 w-4" />
               A Partnership Mindset
@@ -535,13 +535,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               Practical technology, clear communication and long-term support.
             </h3>
 
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-              CareerNova brings business thinking, technology, design, automation and growth
-              together in one connected approach. The goal is to build useful solutions around
-              real business objectives — not technology for its own sake.
-            </p>
-
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {[
                 {
                   title: 'Business-First Thinking',
@@ -584,15 +578,15 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                   key={title}
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.2 }}
-                  className="group rounded-2xl border border-white/90 bg-white/80 p-3.5 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md"
+                  className="group rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md"
                 >
                   <div className="flex items-start gap-3">
-                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${box} text-white shadow-md`}>
-                      <Icon className="h-4.5 w-4.5" strokeWidth={2.2} />
+                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${box} text-white shadow-md`}>
+                      <Icon className="h-4 w-4" strokeWidth={2.2} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-black text-slate-900">{title}</h4>
-                      <p className="mt-1 text-xs leading-5 text-slate-500">{desc}</p>
+                      <h4 className="text-[13px] font-black leading-5 text-slate-900">{title}</h4>
+                      <p className="mt-0.5 text-[11px] leading-4 text-slate-500">{desc}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -601,7 +595,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </div>
 
           {/* RIGHT: circular infographic */}
-          <div className="relative flex min-h-[430px] items-center justify-center overflow-hidden border-t border-emerald-100 bg-gradient-to-br from-white via-cyan-50/40 to-indigo-50/60 p-4 sm:min-h-[520px] sm:p-6 lg:min-h-[650px] lg:border-l lg:border-t-0 lg:p-8">
+          <div className="relative flex min-h-[330px] items-center justify-center overflow-hidden border-t border-emerald-100 bg-gradient-to-br from-white via-cyan-50/40 to-indigo-50/60 p-3 sm:min-h-[390px] sm:p-4 lg:min-h-[500px] lg:border-l lg:border-t-0 lg:p-5">
             <div className="pointer-events-none absolute -right-20 top-10 h-52 w-52 rounded-full bg-fuchsia-200/30 blur-3xl" />
             <div className="pointer-events-none absolute -left-16 bottom-8 h-48 w-48 rounded-full bg-cyan-200/30 blur-3xl" />
 
@@ -609,7 +603,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               src="/assets/careernova-why-partner-circle.png"
               alt="CareerNova partnership principles: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
               loading="lazy"
-              className="relative z-10 block h-auto max-h-[620px] w-full max-w-[700px] object-contain drop-shadow-[0_22px_45px_rgba(79,70,229,0.16)]"
+              className="relative z-10 block h-auto max-h-[455px] w-full max-w-[500px] object-contain drop-shadow-[0_18px_34px_rgba(79,70,229,0.14)]"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 5.5, ease: 'easeInOut', repeat: Infinity }}
               draggable={false}
