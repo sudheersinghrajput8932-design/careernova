@@ -152,148 +152,113 @@ const principles = [
 
 export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
-    <div className="space-y-8 sm:space-y-10">
+    <div className="overflow-hidden bg-[#f7fbfa] text-slate-900">
+      {/* Hero — dark teal Learn@House-inspired visual language */}
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-indigo-950/10"
+        className="relative overflow-hidden rounded-[2rem] bg-[#075e5a] shadow-2xl shadow-[#075e5a]/15"
       >
-        <div className="relative px-5 pt-6 sm:px-8 sm:pt-8">
-          <div className="relative inline-block overflow-hidden">
-            <h1
-              className="relative z-10 bg-gradient-to-r from-cyan-500 via-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-3xl font-black leading-tight tracking-tight text-transparent sm:text-4xl lg:text-5xl"
-            >
-              The Technology Behind Better Digital Outcomes
-            </h1>
-            <motion.span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 -left-1/3 z-20 w-1/5 -skew-x-12 bg-gradient-to-r from-transparent via-white/90 to-transparent"
-              initial={{ x: '-120%' }}
-              animate={{ x: '620%' }}
-              transition={{ duration: 2.2, ease: 'linear', repeat: Infinity, repeatDelay: 0.7 }}
-            />
-            <motion.span
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500 opacity-80"
-              initial={{ scaleX: 0, transformOrigin: 'left' }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.1, ease: 'easeOut' }}
-            />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,184,77,0.16),transparent_28%),radial-gradient(circle_at_85%_25%,rgba(255,255,255,0.10),transparent_25%)]" />
+        <div className="relative grid min-h-[430px] grid-cols-1 items-center gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.05fr_.95fr] lg:px-12 lg:py-12">
+          <div className="relative z-10 max-w-2xl">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#f5b544]/40 bg-[#f5b544]/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">
+              CareerNova Technology Stack
+            </div>
+
+            <div className="relative inline-block">
+              <h1 className="bg-gradient-to-r from-white via-[#e8fffb] to-[#f7b84b] bg-clip-text text-4xl font-black leading-[1.05] tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+                The Technology Behind Better Digital Outcomes
+              </h1>
+              <motion.span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/3 z-20 w-1/5 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                initial={{ x: "-120%" }}
+                animate={{ x: "620%" }}
+                transition={{ duration: 2.2, ease: "linear", repeat: Infinity, repeatDelay: 0.7 }}
+              />
+            </div>
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-teal-50/90 sm:text-base">
+              Explore the technologies, development tools, analytics platforms, cloud systems, AI workflows and digital capabilities CareerNova uses to build scalable products and help businesses achieve measurable digital growth.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">Web Development</span>
+              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">AI & Automation</span>
+              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">Analytics & Growth</span>
+            </div>
           </div>
-          <p className="mt-4 max-w-4xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
-            Explore the technologies, development tools, analytics platforms, cloud systems, AI workflows and digital capabilities CareerNova uses to build scalable products and help businesses achieve measurable digital growth.
+
+          <div className="relative z-10 mx-auto w-full max-w-xl">
+            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+              <img
+                src="/assets/tools-hero-technology-stack.png"
+                alt="CareerNova technology stack, AI, analytics, cloud and digital development tools"
+                className="block aspect-[4/3] w-full rounded-[1.6rem] object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="relative h-8 bg-white [clip-path:ellipse(62%_100%_at_50%_100%)]" />
+      </motion.section>
+
+      {/* Core expertise */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.12 }}
+        transition={smoothTransition}
+        className="py-8 sm:py-10"
+      >
+        <div className="mb-5 text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0a8177]">Core expertise</p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">Three areas. One connected approach.</h2>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+            Our technology choices support development, iOS products and business growth through practical digital systems.
           </p>
         </div>
 
-        <div className="px-3 pb-3 pt-4 sm:px-5 sm:pb-5 sm:pt-5">
-          <img
-            src="/assets/tools-hero-technology-stack.png"
-            alt="CareerNova technology stack, AI, analytics, cloud and digital development tools"
-            className="block h-auto w-full select-none rounded-2xl object-cover"
-          />
-        </div>
-      </motion.section>
-
-      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={smoothTransition}>
-        <div className="mb-5">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">Core expertise</p>
-          <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900">Three areas. One connected approach.</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Our technology choices support the three areas CareerNova is built around: development, iOS products and business growth.</p>
-        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {expertise.map((item, index) => {
             const Icon = item.icon;
             return (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ ...smoothTransition, delay: index * 0.07 }} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
-                <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-50 opacity-60 blur-2xl transition-transform duration-500 group-hover:scale-150" />
-                <div className="relative">
-                  <div className="flex items-start justify-between">
-                    <div className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-indigo-600/10 transition-transform duration-300 group-hover:scale-105`}>
-                        <Icon className="h-8 w-8" />
-                      </div>
-                    <span className="text-[10px] font-black tracking-widest text-slate-300">{item.number}</span>
+              <motion.article
+                key={item.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ ...smoothTransition, delay: index * 0.07 }}
+                whileHover={{ y: -5 }}
+                className="group relative overflow-hidden rounded-[1.5rem] border border-[#d9e8e5] bg-white p-5 shadow-sm transition-shadow hover:shadow-xl hover:shadow-[#075e5a]/10"
+              >
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.gradient}`} />
+                <div className="flex items-start justify-between">
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}>
+                    <Icon className="h-7 w-7" />
                   </div>
-                  <h3 className={`mt-5 inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-lg font-black text-transparent`}>
-                      {item.title}
-                    </h3>
-                  <p className="mt-2 text-xs leading-6 text-slate-500">{item.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {item.tags.map((tag, tagIndex) => {
-                      const tagColors = [
-                        'border-cyan-200 bg-cyan-50 text-cyan-700',
-                        'border-violet-200 bg-violet-50 text-violet-700',
-                        'border-blue-200 bg-blue-50 text-blue-700',
-                        'border-emerald-200 bg-emerald-50 text-emerald-700',
-                      ];
-                      return (
-                        <span
-                          key={tag}
-                          className={`rounded-lg border px-2 py-1 text-[9px] font-bold ${tagColors[tagIndex % tagColors.length]}`}
-                        >
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
+                  <span className="text-[10px] font-black tracking-widest text-slate-300">{item.number}</span>
                 </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </motion.section>
-
-      <motion.section initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={smoothTransition}>
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-600">Our stack</p>
-            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-slate-900">Technologies we work with</h2>
-          </div>
-          <p className="max-w-md text-xs leading-5 text-slate-500 sm:text-right">The stack is intentionally focused — enough to build strong products without turning the page into a generic software catalogue.</p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {stackGroups.map((group, index) => {
-            return (
-              <motion.article key={group.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
-                <div className="flex items-start gap-4 p-5 pb-4">
-                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-white bg-white shadow-md ring-1 ring-slate-200/80 sm:h-[88px] sm:w-[88px]">
-                    <img
-                      src={group.image}
-                      alt={`${group.title} technology`}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2"><span className="text-[9px] font-black tracking-[0.16em] text-indigo-500">{group.eyebrow}</span><span className="h-1 w-1 rounded-full bg-slate-300" /><span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span></div>
-                    <div className="relative mt-1 inline-block overflow-hidden">
-                      <h3 className={`bg-gradient-to-r ${group.gradient} bg-clip-text text-base font-black text-transparent`}>
-                        {group.title}
-                      </h3>
-                      <motion.span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-                        initial={{ x: '220%' }}
-                        whileInView={{ x: '-320%' }}
-                        viewport={{ once: false, amount: 0.5 }}
-                        transition={{ duration: 1.8, ease: 'easeInOut', repeat: Infinity, repeatDelay: 2.2 }}
-                      />
-                    </div>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">{group.description}</p>
-                  </div>
-                </div>
-                <div className="border-t border-slate-100 bg-slate-50/70 p-4">
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {group.technologies.map(([name, detail]) => (
-                      <div key={name} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 transition-colors group-hover:border-slate-200">
-                        <div className="flex min-w-0 items-center gap-2">
-                          <span className={`h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} />
-                          <span className={`truncate text-[11px] font-bold ${technologyColors[name] ?? 'text-slate-800'}`}>{name}</span>
-                        </div>
-                        <span className="shrink-0 text-[9px] font-medium text-slate-400">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
+                <h3 className={`mt-5 inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-lg font-black text-transparent`}>{item.title}</h3>
+                <p className="mt-2 text-xs leading-6 text-slate-500">{item.description}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {item.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tag}
+                      className={`rounded-lg border px-2 py-1 text-[9px] font-bold ${
+                        [
+                          "border-teal-200 bg-teal-50 text-teal-700",
+                          "border-amber-200 bg-amber-50 text-amber-700",
+                          "border-slate-200 bg-slate-50 text-slate-700",
+                          "border-emerald-200 bg-emerald-50 text-emerald-700",
+                        ][tagIndex % 4]
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </motion.article>
             );
@@ -301,30 +266,112 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
       </motion.section>
 
+      {/* Our stack */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={smoothTransition}
+        className="overflow-hidden rounded-[2rem] bg-[#075e5a] px-4 py-7 shadow-xl shadow-[#075e5a]/10 sm:px-6 sm:py-9"
+      >
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">Our stack</p>
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-white sm:text-3xl">Technologies we work with</h2>
+          </div>
+          <p className="max-w-md text-xs leading-5 text-teal-50/75 sm:text-right">
+            A focused technology stack for strong products, reliable systems and measurable digital outcomes.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {stackGroups.map((group, index) => (
+            <motion.article
+              key={group.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }}
+              className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-white shadow-lg"
+            >
+              <div className="flex items-center gap-4 p-5 pb-4">
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md ring-1 ring-slate-200/80 sm:h-[88px] sm:w-[88px]">
+                  <img
+                    src={group.image}
+                    alt={`${group.title} technology`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[9px] font-black tracking-[0.16em] text-[#0a8177]">{group.eyebrow}</span>
+                    <span className="h-1 w-1 rounded-full bg-slate-300" />
+                    <span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span>
+                  </div>
+                  <div className="relative mt-1 inline-block overflow-hidden">
+                    <h3 className={`bg-gradient-to-r ${group.gradient} bg-clip-text text-base font-black text-transparent`}>{group.title}</h3>
+                    <motion.span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                      initial={{ x: "220%" }}
+                      whileInView={{ x: "-320%" }}
+                      viewport={{ once: false, amount: 0.5 }}
+                      transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 2.2 }}
+                    />
+                  </div>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{group.description}</p>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100 bg-[#f8fbfa] p-4">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {group.technologies.map(([name, detail]) => (
+                    <div
+                      key={name}
+                      className="flex min-h-[48px] items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:border-[#8bc8c2] hover:shadow-sm"
+                    >
+                      <div className="flex min-w-0 items-center gap-2">
+                        <span className={`h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} />
+                        <span className={`truncate text-[11px] font-bold ${technologyColors[name] ?? "text-slate-800"}`}>{name}</span>
+                      </div>
+                      <span className="shrink-0 text-[9px] font-medium text-slate-400">{detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Principles */}
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={smoothTransition}
-        className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50"
+        className="overflow-hidden rounded-[2rem] border border-[#d7e7e4] bg-white shadow-sm"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr]">
-          <div className="relative min-h-[300px] overflow-hidden bg-slate-950">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
+          <div className="relative min-h-[300px] overflow-hidden bg-[#064f4c]">
             <img
               src="/assets/more-than-tools-avatar.png"
               alt="CareerNova technology and growth approach"
               className="block h-full w-full object-cover object-center"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#064f4c]/50 to-transparent" />
           </div>
 
-          <div className="grid grid-cols-1 gap-px bg-slate-200 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px bg-[#d7e7e4] sm:grid-cols-2">
             {principles.map((item, index) => {
               const Icon = item.icon;
               const accent = [
-                'from-cyan-500 to-blue-600',
-                'from-violet-500 to-fuchsia-600',
-                'from-emerald-500 to-teal-600',
-                'from-amber-400 to-orange-600',
+                "from-[#087f76] to-[#0ca69a]",
+                "from-[#f1a92f] to-[#f06d3b]",
+                "from-[#087f76] to-[#2b9f91]",
+                "from-[#d97735] to-[#f0ad3b]",
               ][index % 4];
 
               return (
@@ -339,9 +386,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                     <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-lg transition-transform duration-300 group-hover:scale-110`}>
                       <Icon className="h-7 w-7" />
                     </div>
-                    <h3 className={`mt-4 bg-gradient-to-r ${accent} bg-clip-text text-base font-black text-transparent`}>
-                      {item.title}
-                    </h3>
+                    <h3 className={`mt-4 bg-gradient-to-r ${accent} bg-clip-text text-base font-black text-transparent`}>{item.title}</h3>
                     <p className="mt-1.5 text-xs leading-5 text-slate-500">{item.description}</p>
                   </div>
                 </motion.div>
@@ -351,39 +396,27 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
       </motion.section>
 
+      {/* CTA */}
       <motion.section
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-2xl border border-indigo-200 bg-gradient-to-r from-cyan-50 via-indigo-50 to-fuchsia-50 p-[1px] shadow-lg shadow-indigo-500/10"
+        className="relative overflow-hidden rounded-[2rem] bg-[#075e5a] shadow-xl shadow-[#075e5a]/15"
       >
-        <div className="relative flex flex-col gap-5 overflow-hidden rounded-[15px] bg-gradient-to-r from-white/95 via-indigo-50/80 to-white/95 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-            initial={{ x: '-120%' }}
-            animate={{ x: '620%' }}
-            transition={{ duration: 2.6, ease: 'linear', repeat: Infinity, repeatDelay: 1.2 }}
-          />
-
-          <div className="relative z-10 flex items-start gap-3">
-            <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 via-indigo-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-500/20">
-              <Search className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="bg-gradient-to-r from-indigo-700 via-violet-600 to-fuchsia-600 bg-clip-text text-sm font-black text-transparent sm:text-base">
-                Looking for the right digital solution?
-              </h3>
-              <p className="mt-1 text-xs leading-5 text-slate-600">
-                Tell us what you are trying to build or grow, and we can map the right approach.
-              </p>
-            </div>
+        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#f5b544]/20 blur-3xl" />
+        <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">Need the right technology?</p>
+            <h3 className="mt-1.5 text-xl font-black text-white sm:text-2xl">Let’s map the right digital solution.</h3>
+            <p className="mt-1.5 max-w-2xl text-xs leading-5 text-teal-50/80">
+              Tell us what you are trying to build or grow, and we can map the right approach.
+            </p>
           </div>
 
           <button
             type="button"
-            className="group relative z-10 inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-500/20"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#f5b544] px-5 py-3 text-xs font-black text-[#164d4a] shadow-lg transition-all hover:-translate-y-0.5 hover:bg-[#ffc85f]"
           >
             Start a conversation
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -391,7 +424,10 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         </div>
       </motion.section>
 
-      <div className="flex items-center justify-center gap-2 pb-2 text-[10px] font-semibold text-slate-400"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Focused stack • Practical technology choices • Built for real outcomes</div>
+      <div className="flex items-center justify-center gap-2 pb-2 text-[10px] font-semibold text-slate-400">
+        <CheckCircle2 className="h-3.5 w-3.5 text-[#0a8177]" />
+        Focused stack • Practical technology choices • Built for real outcomes
+      </div>
     </div>
   );
 };
