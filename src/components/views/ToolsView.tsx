@@ -166,14 +166,14 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
           {/* Left: SEO-focused copy */}
           <div className="relative z-20 max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur">
-              All-in-One Digital Tools
+              CareerNova Technology Stack
             </div>
 
             <div className="relative overflow-hidden">
               <h1 className="max-w-2xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-[4rem]">
-                Smart Tools for{" "}
+                Technology & Tools for{" "}
                 <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-transparent">
-                  Your Digital Growth
+                  Building Digital Products
                 </span>
               </h1>
 
@@ -193,9 +193,9 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             </div>
 
             <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-              Explore practical digital tools for web development, AI automation, analytics, SEO,
-              marketing, design and productivity — all selected to help businesses work smarter,
-              build better digital products and accelerate growth.
+              Explore the technology stack behind CareerNova — from web and iOS development to backend
+              & cloud systems, design & product, analytics & growth, and AI automation. Discover the tools
+              we use to build scalable digital products, connect reliable systems and support measurable growth.
             </p>
 
             {/* Glass feature boxes */}
@@ -204,21 +204,21 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 {
                   number: "01",
                   title: "Build",
-                  text: "Web & App Development Tools",
+                  text: "Web & iOS Development",
                   icon: Code2,
                   tone: "from-violet-500 to-blue-600",
                 },
                 {
                   number: "02",
                   title: "Automate",
-                  text: "AI & Productivity Tools",
+                  text: "Backend, Cloud & AI",
                   icon: Sparkles,
                   tone: "from-orange-400 to-pink-500",
                 },
                 {
                   number: "03",
                   title: "Grow",
-                  text: "Marketing & Analytics Tools",
+                  text: "Design, Analytics & Growth",
                   icon: TrendingUp,
                   tone: "from-emerald-400 to-cyan-600",
                 },
@@ -260,11 +260,11 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             <div className="absolute right-[5%] top-[10%] h-32 w-32 rounded-full bg-fuchsia-400/20 blur-3xl sm:h-44 sm:w-44" />
             <div className="absolute bottom-[8%] left-[8%] h-36 w-36 rounded-full bg-cyan-400/20 blur-3xl sm:h-48 sm:w-48" />
 
-            <div className="relative w-full max-w-[700px]">
+            <div className="relative flex w-full max-w-[620px] items-center justify-center lg:max-w-[680px]">
               <img
-                src="/assets/tools-hero-avatar-tools-clean.png"
-                alt="CareerNova digital tools visual showing development, AI, analytics, SEO, design and productivity tools"
-                className="block h-auto w-full object-contain object-center drop-shadow-[0_25px_55px_rgba(79,70,229,0.16)]"
+                src="/assets/tools-hero-seo-specialist-dark.png"
+                alt="CareerNova technology specialist representing SEO, analytics, digital tools and technology capabilities"
+                className="block h-auto max-h-[430px] w-full object-contain object-center drop-shadow-[0_25px_55px_rgba(37,55,110,0.22)] sm:max-h-[500px] lg:max-h-[560px]"
                 fetchPriority="high"
               />
             </div>
