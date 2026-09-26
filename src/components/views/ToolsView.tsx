@@ -282,12 +282,12 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
               className="group relative overflow-hidden rounded-[1.4rem] border border-white bg-white shadow-[0_14px_35px_rgba(79,70,229,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(79,70,229,0.16)]"
             >
               {/* Reference-style visual frame: circular image above the content */}
-              <div className={`relative flex h-[190px] items-center justify-center overflow-hidden bg-gradient-to-br ${item.gradient} px-6 pt-5`}>
+              <div className={`relative flex h-[218px] items-center justify-center overflow-hidden bg-gradient-to-br ${item.gradient} px-4 pt-5 sm:h-[238px] sm:px-6`}>
                 <div className="absolute inset-0 bg-white/10" />
-                <div className="relative z-10 h-[138px] w-[138px] overflow-hidden rounded-full border-[5px] border-white bg-white shadow-[0_12px_30px_rgba(15,23,42,0.18)] ring-1 ring-slate-200 transition-transform duration-500 group-hover:scale-105">
+                <div className="relative z-10 h-[158px] w-[158px] overflow-hidden rounded-full border-[6px] border-white bg-white shadow-[0_14px_34px_rgba(15,23,42,0.20)] ring-1 ring-slate-200 transition-transform duration-500 group-hover:scale-105 sm:h-[178px] sm:w-[178px]">
                   <img
                     src={item.image}
-                    alt={`${item.title} — CareerNova technology capabilities`}
+                    alt={`${item.title} — CareerNova technology capabilities and digital tools`}
                     className="h-full w-full object-cover"
                     loading="lazy"
                   />
@@ -299,7 +299,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
 
               {/* Title + description */}
               <div className="px-5 pb-4 pt-5 sm:px-6">
-                <h3 className="text-xl font-black tracking-tight text-slate-900">
+                <h3 className="text-lg font-black tracking-tight text-slate-900 sm:text-xl">
                   {item.title.includes("Digital") ? (
                     <>
                       {item.title.split("Digital")[0]}
@@ -325,7 +325,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                     item.title
                   )}
                 </h3>
-                <p className="mt-2 min-h-[60px] text-xs leading-6 text-slate-500">
+                <p className="mt-2 min-h-[60px] text-[12px] leading-6 text-slate-500 sm:text-xs">
                   {item.text}
                 </p>
               </div>
