@@ -205,7 +205,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         <div className="relative h-8 bg-white [clip-path:ellipse(62%_100%_at_50%_100%)]" />
       </motion.section>
 
-      {/* Core expertise */}
+      {/* Technology capabilities */}
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -213,73 +213,153 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         transition={smoothTransition}
         className="py-8 sm:py-10"
       >
-        <div className="mb-5 text-center">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">Core expertise</p>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">Three areas. One connected approach.</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-            Our technology choices support development, iOS products and business growth through practical digital systems.
+        <div className="mb-8 text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">
+            Technology capabilities
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-[42px]">
+            What you can build with the{" "}
+            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-600 bg-clip-text text-transparent">
+              right technology
+            </span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-3xl text-sm leading-7 text-slate-500 sm:text-base">
+            From powerful digital products to AI automation and data-driven growth, we use modern tools
+            to turn your ideas into real business results.
           </p>
         </div>
 
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {expertise.map((item, index) => {
-            const Icon = item.icon;
-            const visualGradients = [
-              "from-cyan-500 via-blue-600 to-indigo-900",
-              "from-violet-500 via-fuchsia-600 to-indigo-950",
-              "from-emerald-400 via-cyan-600 to-blue-950",
-            ];
-            const accent = visualGradients[index % visualGradients.length];
-
-            return (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ ...smoothTransition, delay: index * 0.08 }}
-                whileHover={{ y: -6, scale: 1.01 }}
-                className="group relative overflow-hidden rounded-[2rem] border border-slate-700/70 bg-[#10131b] shadow-[0_20px_55px_rgba(15,23,42,0.18)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(79,70,229,0.24)]"
-              >
-                <div className={`relative h-[230px] overflow-hidden bg-gradient-to-br ${accent}`}>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(255,255,255,0.22),transparent_25%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.12),transparent_30%)]" />
-                  <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border border-white/15 bg-white/5 blur-sm" />
-                  <div className="absolute -bottom-20 -left-10 h-44 w-44 rounded-full border border-white/10 bg-black/10" />
-                  <div className="absolute left-5 top-5 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                    CareerNova
-                  </div>
-                  <span className="absolute right-5 top-5 z-10 flex h-9 min-w-9 items-center justify-center rounded-full bg-white/15 px-2 text-[10px] font-black text-white ring-1 ring-white/20 backdrop-blur">
-                    {item.number}
-                  </span>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative flex h-32 w-32 items-center justify-center rounded-[2rem] border border-white/20 bg-white/10 shadow-2xl backdrop-blur-md transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
-                      <div className="absolute inset-3 rounded-[1.5rem] border border-white/15" />
-                      <Icon className="relative h-16 w-16 text-white drop-shadow-2xl" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/35 to-transparent" />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4">
+          {[
+            {
+              number: "01",
+              title: "Build Digital Products",
+              text: "Modern websites, web applications and digital products designed for real business goals.",
+              image: "/assets/tools-capability-digital-products.jpg",
+              gradient: "from-cyan-500 via-blue-600 to-indigo-700",
+              check: "text-blue-600",
+              items: ["Web & App Development", "Custom Solutions", "Scalable & Secure Architecture"],
+              button: "Explore Development Tools",
+            },
+            {
+              number: "02",
+              title: "Automate Workflows",
+              text: "AI-powered automation and smart workflows that save time, reduce manual work and improve efficiency.",
+              image: "/assets/tools-capability-automation.jpg",
+              gradient: "from-fuchsia-500 via-pink-600 to-purple-700",
+              check: "text-pink-600",
+              items: ["AI & Automation", "API Integrations", "Smart Workflow Systems"],
+              button: "Explore Automation Tools",
+            },
+            {
+              number: "03",
+              title: "Turn Data Into Insights",
+              text: "Analytics, reporting and data tools to help you understand performance and make better decisions.",
+              image: "/assets/tools-capability-analytics.jpg",
+              gradient: "from-orange-400 via-amber-500 to-orange-600",
+              check: "text-orange-500",
+              items: ["Data Analytics & Visualization", "Tracking & Reporting", "Business Intelligence"],
+              button: "Explore Analytics Tools",
+            },
+            {
+              number: "04",
+              title: "Scale Digital Growth",
+              text: "SEO, digital marketing and growth strategies to attract customers, improve conversion and scale.",
+              image: "/assets/tools-capability-growth.jpg",
+              gradient: "from-emerald-400 via-green-500 to-teal-600",
+              check: "text-emerald-600",
+              items: ["SEO & Search Visibility", "Digital Marketing", "Conversion Optimization"],
+              button: "Explore Growth Tools",
+            },
+          ].map((item, index) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ ...smoothTransition, delay: index * 0.07 }}
+              whileHover={{ y: -5 }}
+              className="group relative overflow-hidden rounded-[1.4rem] border border-white bg-white shadow-[0_14px_35px_rgba(79,70,229,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(79,70,229,0.16)]"
+            >
+              {/* Reference-style visual frame: circular image above the content */}
+              <div className={`relative flex h-[190px] items-center justify-center overflow-hidden bg-gradient-to-br ${item.gradient} px-6 pt-5`}>
+                <div className="absolute inset-0 bg-white/10" />
+                <div className="relative z-10 h-[138px] w-[138px] overflow-hidden rounded-full border-[5px] border-white bg-white shadow-[0_12px_30px_rgba(15,23,42,0.18)] ring-1 ring-slate-200 transition-transform duration-500 group-hover:scale-105">
+                  <img
+                    src={item.image}
+                    alt={`${item.title} — CareerNova technology capabilities`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
+                <span className="absolute left-5 top-5 z-20 flex h-10 min-w-10 items-center justify-center rounded-full bg-white px-2.5 text-[10px] font-black text-slate-800 shadow-lg ring-1 ring-white">
+                  {item.number}
+                </span>
+              </div>
 
-                <div className="relative bg-[#10131b] px-5 pb-5 pt-5">
-                  <h3 className={`relative inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-xl font-black text-transparent`}>
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-6 text-slate-400">{item.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 text-[9px] font-bold text-slate-200 transition-colors group-hover:border-white/20 group-hover:bg-white/[0.09]"
-                      >
-                        {tag}
+              {/* Title + description */}
+              <div className="px-5 pb-4 pt-5 sm:px-6">
+                <h3 className="text-xl font-black tracking-tight text-slate-900">
+                  {item.title.includes("Digital") ? (
+                    <>
+                      {item.title.split("Digital")[0]}
+                      <span className={`bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                        Digital{item.title.split("Digital")[1]}
                       </span>
-                    ))}
-                  </div>
+                    </>
+                  ) : item.title.includes("Workflows") ? (
+                    <>
+                      Automate{" "}
+                      <span className={`bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                        Workflows
+                      </span>
+                    </>
+                  ) : item.title.includes("Insights") ? (
+                    <>
+                      Turn Data Into{" "}
+                      <span className={`bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                        Insights
+                      </span>
+                    </>
+                  ) : (
+                    item.title
+                  )}
+                </h3>
+                <p className="mt-2 min-h-[60px] text-xs leading-6 text-slate-500">
+                  {item.text}
+                </p>
+              </div>
+
+              {/* Feature list */}
+              <div className="mx-5 rounded-[1.2rem] border border-slate-100 bg-slate-50/80 p-4 sm:mx-6">
+                <div className="space-y-3">
+                  {item.items.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2.5 text-xs font-medium text-slate-600">
+                      <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 ${item.check}`}>
+                        <CheckCircle2 className="h-3.5 w-3.5 fill-current text-white [&>path]:stroke-slate-50" />
+                      </span>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="h-1 bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500 opacity-80" />
-              </motion.article>
-            );
-          })}
+              </div>
+
+              {/* CTA */}
+              <div className="p-5 sm:p-6">
+                <button
+                  type="button"
+                  className={`group/btn flex w-full items-center justify-between rounded-full bg-gradient-to-r ${item.gradient} px-4 py-3 text-xs font-black text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl`}
+                >
+                  <span>{item.button}</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-slate-800 shadow-md transition-transform group-hover/btn:translate-x-0.5">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </button>
+              </div>
+
+              <div className={`h-1 bg-gradient-to-r ${item.gradient}`} />
+            </motion.article>
+          ))}
         </div>
       </motion.section>
 
