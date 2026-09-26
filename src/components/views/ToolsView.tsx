@@ -162,18 +162,18 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
       >
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.7)_46%,transparent_62%)] opacity-50" />
 
-        <div className="relative grid min-h-[460px] grid-cols-1 items-center gap-6 px-5 py-7 sm:min-h-[500px] sm:px-8 sm:py-8 lg:min-h-[480px] lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-9 xl:px-14">
+        <div className="relative grid min-h-[560px] grid-cols-1 items-center gap-7 px-5 py-7 sm:px-8 sm:py-9 lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-10 xl:px-14">
           {/* Left: SEO-focused copy */}
           <div className="relative z-20 max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur">
-              CareerNova Technology Stack
+              All-in-One Digital Tools
             </div>
 
             <div className="relative overflow-hidden">
               <h1 className="max-w-2xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-[4rem]">
-                Technology & Tools for{" "}
+                Smart Tools for{" "}
                 <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-transparent">
-                  Building Digital Products
+                  Your Digital Growth
                 </span>
               </h1>
 
@@ -193,9 +193,9 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             </div>
 
             <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-              Explore the technology stack behind CareerNova — from web and iOS development to backend
-              & cloud systems, design & product, analytics & growth, and AI automation. Discover the tools
-              we use to build scalable digital products, connect reliable systems and support measurable growth.
+              Explore practical digital tools for web development, AI automation, analytics, SEO,
+              marketing, design and productivity — all selected to help businesses work smarter,
+              build better digital products and accelerate growth.
             </p>
 
             {/* Glass feature boxes */}
@@ -204,21 +204,21 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 {
                   number: "01",
                   title: "Build",
-                  text: "Web & iOS Development",
+                  text: "Web & App Development Tools",
                   icon: Code2,
                   tone: "from-violet-500 to-blue-600",
                 },
                 {
                   number: "02",
                   title: "Automate",
-                  text: "Backend, Cloud & AI",
+                  text: "AI & Productivity Tools",
                   icon: Sparkles,
                   tone: "from-orange-400 to-pink-500",
                 },
                 {
                   number: "03",
                   title: "Grow",
-                  text: "Design, Analytics & Growth",
+                  text: "Marketing & Analytics Tools",
                   icon: TrendingUp,
                   tone: "from-emerald-400 to-cyan-600",
                 },
@@ -255,16 +255,16 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             </div>
           </div>
 
-          {/* Right: tools-focused hero visual */}
-          <div className="relative z-10 flex min-h-[250px] items-center justify-center sm:min-h-[320px] lg:min-h-[400px]">
+          {/* Right: generated tools visual */}
+          <div className="relative z-10 flex min-h-[330px] items-center justify-center sm:min-h-[410px] lg:min-h-[510px]">
             <div className="absolute right-[5%] top-[10%] h-32 w-32 rounded-full bg-fuchsia-400/20 blur-3xl sm:h-44 sm:w-44" />
             <div className="absolute bottom-[8%] left-[8%] h-36 w-36 rounded-full bg-cyan-400/20 blur-3xl sm:h-48 sm:w-48" />
 
-            <div className="relative flex w-full max-w-[620px] items-center justify-center lg:max-w-[680px]">
+            <div className="relative w-full max-w-[700px]">
               <img
-                src="/assets/tools-hero-vr-digital-tools.png"
-                alt="CareerNova VR technology specialist representing digital tools, analytics and technology capabilities"
-                className="block h-auto max-h-[300px] w-full object-contain object-center drop-shadow-[0_22px_48px_rgba(37,55,110,0.20)] sm:max-h-[370px] lg:max-h-[430px]"
+                src="/assets/tools-hero-innovation-concept.png"
+                alt="CareerNova digital technology illustration for web development, cloud, analytics, AI automation and digital product tools"
+                className="block h-auto w-full scale-[1.03] object-contain object-center drop-shadow-[0_25px_55px_rgba(79,70,229,0.16)] sm:scale-[1.04] lg:scale-[1.06]"
                 fetchPriority="high"
               />
             </div>
