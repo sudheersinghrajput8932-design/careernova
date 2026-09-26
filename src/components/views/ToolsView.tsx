@@ -152,23 +152,23 @@ const principles = [
 
 export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
-    <div className="overflow-hidden bg-[#f7fbfa] text-slate-900">
+    <div className="overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_42%,#f7f4ff_100%)] text-slate-900">
       {/* Hero — dark teal Learn@House-inspired visual language */}
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] bg-[#075e5a] shadow-2xl shadow-[#075e5a]/15"
+        className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-[radial-gradient(circle_at_12%_15%,#dff7ff,transparent_28%),radial-gradient(circle_at_90%_20%,#eee2ff,transparent_30%),linear-gradient(135deg,#ffffff,#f4f8ff)] shadow-2xl shadow-indigo-500/10"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,184,77,0.16),transparent_28%),radial-gradient(circle_at_85%_25%,rgba(255,255,255,0.10),transparent_25%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(0,199,255,0.10),transparent_28%),radial-gradient(circle_at_85%_25%,rgba(139,92,246,0.10),transparent_25%)]" />
         <div className="relative grid min-h-[430px] grid-cols-1 items-center gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.05fr_.95fr] lg:px-12 lg:py-12">
           <div className="relative z-10 max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#f5b544]/40 bg-[#f5b544]/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 shadow-sm backdrop-blur">
               CareerNova Technology Stack
             </div>
 
             <div className="relative inline-block">
-              <h1 className="bg-gradient-to-r from-white via-[#e8fffb] to-[#f7b84b] bg-clip-text text-4xl font-black leading-[1.05] tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+              <h1 className="bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-4xl font-black leading-[1.05] tracking-tight text-transparent sm:text-5xl lg:text-6xl">
                 The Technology Behind Better Digital Outcomes
               </h1>
               <motion.span
@@ -180,23 +180,23 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
               />
             </div>
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-teal-50/90 sm:text-base">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
               Explore the technologies, development tools, analytics platforms, cloud systems, AI workflows and digital capabilities CareerNova uses to build scalable products and help businesses achieve measurable digital growth.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">Web Development</span>
-              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">AI & Automation</span>
-              <span className="rounded-full bg-white/10 px-3 py-2 text-[10px] font-bold text-white ring-1 ring-white/15">Analytics & Growth</span>
+              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">Web Development</span>
+              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">AI & Automation</span>
+              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">Analytics & Growth</span>
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-xl">
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+          <div className="relative z-10 mx-auto w-full max-w-xl lg:max-w-2xl">
+            <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/55 p-2 shadow-2xl shadow-indigo-500/10 backdrop-blur-sm">
               <img
-                src="/assets/tools-hero-technology-stack.png"
+                src="/assets/tools-hero-robot-glass.png"
                 alt="CareerNova technology stack, AI, analytics, cloud and digital development tools"
-                className="block aspect-[4/3] w-full rounded-[1.6rem] object-cover"
+                className="block h-auto max-h-[420px] w-full rounded-[1.6rem] object-contain object-center sm:max-h-[480px] lg:max-h-[540px]"
               />
             </div>
           </div>
@@ -214,7 +214,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         className="py-8 sm:py-10"
       >
         <div className="mb-5 text-center">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0a8177]">Core expertise</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">Core expertise</p>
           <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">Three areas. One connected approach.</h2>
           <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
             Our technology choices support development, iOS products and business growth through practical digital systems.
@@ -232,9 +232,9 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ ...smoothTransition, delay: index * 0.07 }}
                 whileHover={{ y: -5 }}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-[#d7e7e4] bg-white p-5 shadow-[0_8px_30px_rgba(7,94,90,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-[#9bcfc8] hover:shadow-[0_18px_45px_rgba(7,94,90,0.13)]"
+                className="group relative overflow-hidden rounded-[1.5rem] border border-indigo-100 bg-white p-5 shadow-[0_8px_30px_rgba(79,70,229,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-[0_18px_45px_rgba(79,70,229,0.13)]"
               >
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#075e5a] via-[#0a8177] to-[#f5b544]" />
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500" />
                 <div className="flex items-start justify-between">
                   <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}>
                     <Icon className="h-7 w-7" />
@@ -272,14 +272,14 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="overflow-hidden rounded-[2rem] bg-[#075e5a] px-4 py-7 shadow-xl shadow-[#075e5a]/10 sm:px-6 sm:py-9"
+        className="overflow-hidden rounded-[2rem] border border-indigo-100 bg-[linear-gradient(135deg,#eefaff_0%,#f8f4ff_48%,#ffffff_100%)] px-4 py-7 shadow-xl shadow-indigo-500/10 sm:px-6 sm:py-9"
       >
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">Our stack</p>
-            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-white sm:text-3xl">Technologies we work with</h2>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-fuchsia-600">Our stack</p>
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-transparent sm:text-3xl">Technologies we work with</h2>
           </div>
-          <p className="max-w-md text-xs leading-5 text-teal-50/75 sm:text-right">
+          <p className="max-w-md text-xs leading-5 text-slate-500 sm:text-right">
             A focused technology stack for strong products, reliable systems and measurable digital outcomes.
           </p>
         </div>
@@ -292,10 +292,10 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }}
-              className="group relative overflow-hidden rounded-[1.6rem] border border-[#d7e7e4] bg-white shadow-[0_10px_35px_rgba(7,94,90,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(7,94,90,0.16)]"
+              className="group relative overflow-hidden rounded-[1.6rem] border border-indigo-100 bg-white shadow-[0_10px_35px_rgba(7,94,90,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(79,70,229,0.16)]"
             >
               <div className="flex items-center gap-4 p-5 pb-4">
-                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border-4 border-[#f3f8f7] bg-white shadow-[0_8px_20px_rgba(7,94,90,0.12)] ring-1 ring-[#cfe3df] sm:h-[88px] sm:w-[88px]">
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border-4 border-white bg-white shadow-[0_8px_20px_rgba(79,70,229,0.12)] ring-1 ring-indigo-100 sm:h-[88px] sm:w-[88px]">
                   <img
                     src={group.image}
                     alt={`${group.title} technology`}
@@ -306,7 +306,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
 
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[9px] font-black tracking-[0.16em] text-[#0a8177]">{group.eyebrow}</span>
+                    <span className="text-[9px] font-black tracking-[0.16em] text-indigo-600">{group.eyebrow}</span>
                     <span className="h-1 w-1 rounded-full bg-slate-300" />
                     <span className="text-[9px] font-semibold text-slate-400">CareerNova Stack</span>
                   </div>
@@ -325,12 +325,12 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 </div>
               </div>
 
-              <div className="border-t border-[#dce9e7] bg-[#f6faf9] p-4">
+              <div className="border-t border-indigo-100 bg-slate-50/80 p-4">
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {group.technologies.map(([name, detail]) => (
                     <div
                       key={name}
-                      className="flex min-h-[52px] items-center justify-between gap-3 rounded-xl border border-[#dce9e7] bg-white px-3.5 py-2.5 shadow-[0_2px_8px_rgba(7,94,90,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#f1c76b] hover:bg-[#fffdf7] hover:shadow-[0_8px_18px_rgba(7,94,90,0.08)]"
+                      className="flex min-h-[52px] items-center justify-between gap-3 rounded-xl border border-indigo-100 bg-white px-3.5 py-2.5 shadow-[0_2px_8px_rgba(79,70,229,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-[#f8fcff] hover:shadow-[0_8px_18px_rgba(79,70,229,0.08)]"
                     >
                       <div className="flex min-w-0 items-center gap-2">
                         <span className={`h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} />
@@ -352,7 +352,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={smoothTransition}
-        className="overflow-hidden rounded-[2rem] border border-[#d7e7e4] bg-white shadow-sm"
+        className="overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-sm"
       >
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
           <div className="relative min-h-[300px] overflow-hidden bg-[#064f4c]">
@@ -364,7 +364,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#064f4c]/50 to-transparent" />
           </div>
 
-          <div className="grid grid-cols-1 gap-1 bg-[#eef7f5] p-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 bg-gradient-to-br from-cyan-50/70 via-white to-fuchsia-50/70 p-2 sm:grid-cols-2">
             {principles.map((item, index) => {
               const Icon = item.icon;
               const accent = [
@@ -379,7 +379,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                   key={item.title}
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative m-2 overflow-hidden rounded-[1.35rem] bg-white p-6 shadow-[0_8px_25px_rgba(7,94,90,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(7,94,90,0.12)]"
+                  className="group relative m-2 overflow-hidden rounded-[1.35rem] bg-white/90 p-6 shadow-[0_8px_25px_rgba(79,70,229,0.06)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(79,70,229,0.12)]"
                 >
                   <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br ${accent} opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-150`} />
                   <div className="relative">
@@ -402,14 +402,14 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-[#cfe3df] bg-white shadow-[0_12px_40px_rgba(7,94,90,0.10)]"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-[0_12px_40px_rgba(79,70,229,0.10)]"
       >
-        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#f5b544]/15 blur-3xl" />
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#075e5a] via-[#0a8177] to-[#f5b544]" />
+        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500" />
         <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0a8177]">Need the right technology?</p>
-            <h3 className="mt-1.5 text-xl font-black text-[#123f3d] sm:text-2xl">Let’s map the right digital solution.</h3>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">Need the right technology?</p>
+            <h3 className="mt-1.5 text-xl font-black text-slate-900 sm:text-2xl">Let’s map the right digital solution.</h3>
             <p className="mt-1.5 max-w-2xl text-xs leading-5 text-slate-500">
               Tell us what you are trying to build or grow, and we can map the right approach.
             </p>
@@ -417,7 +417,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
 
           <button
             type="button"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#f5b544] px-5 py-3 text-xs font-black text-[#164d4a] shadow-lg shadow-[#f5b544]/20 transition-all hover:-translate-y-0.5 hover:bg-[#ffc85f] hover:shadow-xl"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 px-5 py-3 text-xs font-black text-white shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:from-cyan-400 hover:via-blue-500 hover:to-fuchsia-500 hover:shadow-xl"
           >
             Start a conversation
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -426,7 +426,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
       </motion.section>
 
       <div className="flex items-center justify-center gap-2 pb-2 text-[10px] font-semibold text-slate-400">
-        <CheckCircle2 className="h-3.5 w-3.5 text-[#0a8177]" />
+        <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600" />
         Focused stack • Practical technology choices • Built for real outcomes
       </div>
     </div>
