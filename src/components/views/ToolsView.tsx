@@ -256,7 +256,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             return (
               <motion.article key={group.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-600/5">
                 <div className="flex items-start gap-4 p-5 pb-4">
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-white bg-white shadow-md ring-1 ring-slate-200/80">
+                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-white bg-white shadow-md ring-1 ring-slate-200/80 sm:h-[88px] sm:w-[88px]">
                     <img
                       src={group.image}
                       alt={`${group.title} technology`}
