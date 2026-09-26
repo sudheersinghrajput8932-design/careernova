@@ -478,79 +478,140 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             <span>Our Core Pillars</span>
           </div>
           <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black text-slate-900 shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">The Principles That Guide Our Engineering</span>
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              The Principles That Guide Our Engineering
+            </span>
           </h2>
         </div>
-        <div className="mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+
+        {/* Wide visual banner — replaces the old core-pillars image */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="group relative mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-2 shadow-sm sm:mt-5 sm:p-3"
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
           <img
-            src="/assets/core-pillars.png"
-            alt="CareerNova core engineering pillars: automation first, scalable foundations, accessible technology and polished experience"
+            src="/assets/careernova-core-pillars-wide.png"
+            alt="CareerNova core engineering pillars: Automation First, Scalable Foundations, Accessible Tech and Polished Experience"
             loading="lazy"
-            className="block h-auto max-h-[560px] w-full object-contain"
+            className="block h-auto w-full rounded-2xl object-contain transition-transform duration-700 group-hover:scale-[1.008]"
             draggable={false}
           />
-        </div>
+        </motion.div>
       </section>
 
       {/* 7. Why CareerNova */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="mx-auto w-full max-w-[1500px]"
-      >
-        <div className="overflow-hidden rounded-[2rem] border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/70 shadow-sm">
-          <div className="grid items-stretch lg:grid-cols-[44%_56%]">
-            <div className="flex min-h-[430px] flex-col justify-center p-6 sm:p-8 lg:min-h-[590px] lg:p-10 xl:p-12">
-              <span className="w-fit rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
-                Why CareerNova
-              </span>
+      <section className="mx-auto w-full max-w-[1500px]">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
+            Why CareerNova
+          </span>
+          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
+              Built to be a partner, not just a provider.
+            </span>
+          </h2>
+        </div>
 
-              <h2 className="mt-4 max-w-2xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl xl:text-[3.15rem]">
-                <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
-                  Built to be a partner, not just a provider.
-                </span>
-              </h2>
-
-              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
-                CareerNova brings business thinking, technology, design, automation and growth
-                together in one connected approach. The goal is to build useful digital solutions
-                around real business objectives — not technology for its own sake.
-              </p>
-
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {[
-                  ['Business-First Thinking', 'Start with the real business objective.'],
-                  ['Connected Expertise', 'Technology, design and growth work together.'],
-                  ['Clear Communication', 'Straightforward scope and expectations.'],
-                  ['Scalable Foundations', 'Systems designed to evolve as complexity grows.'],
-                  ['Practical Technology', 'Useful outcomes without unnecessary complexity.'],
-                  ['Long-Term Support', 'Continuous improvements beyond launch.'],
-                ].map(([title, desc]) => (
-                  <div
-                    key={title}
-                    className="rounded-2xl border border-white/90 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm"
-                  >
-                    <h3 className="text-xs font-black text-slate-900 sm:text-sm">{title}</h3>
-                    <p className="mt-1 text-[11px] leading-5 text-slate-500 sm:text-xs">{desc}</p>
-                  </div>
-                ))}
-              </div>
+        {/* Text on the left + circular infographic on the right */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="mt-4 grid items-stretch overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/60 shadow-sm sm:mt-5 lg:grid-cols-[50%_50%]"
+        >
+          {/* LEFT: supporting content */}
+          <div className="flex flex-col justify-center p-5 sm:p-7 lg:p-8">
+            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-700 shadow-sm">
+              <Handshake className="h-4 w-4" />
+              A Partnership Mindset
             </div>
 
-            <div className="relative min-h-[430px] overflow-hidden bg-white lg:min-h-[590px]">
-              <img
-                src="/assets/why-careernova-grid.png"
-                alt="Why CareerNova: six principles covering business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
-                loading="lazy"
-                className="block h-full w-full object-cover object-center"
-                draggable={false}
-              />
+            <h3 className="max-w-xl text-2xl font-black leading-tight text-slate-950 sm:text-3xl">
+              Practical technology, clear communication and long-term support.
+            </h3>
+
+            <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {[
+                {
+                  title: 'Business-First Thinking',
+                  desc: 'Start with the real business objective.',
+                  Icon: Target,
+                  box: 'from-indigo-500 to-violet-600',
+                },
+                {
+                  title: 'Connected Expertise',
+                  desc: 'Technology, design and growth work together.',
+                  Icon: Layers3,
+                  box: 'from-cyan-500 to-blue-600',
+                },
+                {
+                  title: 'Clear Communication',
+                  desc: 'Straightforward scope and expectations.',
+                  Icon: MessageSquare,
+                  box: 'from-fuchsia-500 to-pink-600',
+                },
+                {
+                  title: 'Scalable Foundations',
+                  desc: 'Systems designed to evolve as complexity grows.',
+                  Icon: TrendingUp,
+                  box: 'from-emerald-500 to-teal-600',
+                },
+                {
+                  title: 'Practical Technology',
+                  desc: 'Useful outcomes without unnecessary complexity.',
+                  Icon: Lightbulb,
+                  box: 'from-orange-500 to-amber-500',
+                },
+                {
+                  title: 'Long-Term Support',
+                  desc: 'Ongoing improvements and technical support.',
+                  Icon: Headphones,
+                  box: 'from-blue-500 to-indigo-600',
+                },
+              ].map(({ title, desc, Icon, box }) => (
+                <motion.div
+                  key={title}
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.2 }}
+                  className="group rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${box} text-white shadow-md`}>
+                      <Icon className="h-4 w-4" strokeWidth={2.2} />
+                    </div>
+                    <div>
+                      <h4 className="text-[13px] font-black leading-5 text-slate-900">{title}</h4>
+                      <p className="mt-0.5 text-[11px] leading-4 text-slate-500">{desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </motion.section>
+
+          {/* RIGHT: circular infographic */}
+          <div className="relative flex min-h-[330px] items-center justify-center overflow-hidden border-t border-emerald-100 bg-gradient-to-br from-white via-cyan-50/40 to-indigo-50/60 p-3 sm:min-h-[390px] sm:p-4 lg:min-h-[500px] lg:border-l lg:border-t-0 lg:p-5">
+            <div className="pointer-events-none absolute -right-20 top-10 h-52 w-52 rounded-full bg-fuchsia-200/30 blur-3xl" />
+            <div className="pointer-events-none absolute -left-16 bottom-8 h-48 w-48 rounded-full bg-cyan-200/30 blur-3xl" />
+
+            <motion.img
+              src="/assets/careernova-why-partner-circle.png"
+              alt="CareerNova partnership principles: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
+              loading="lazy"
+              className="relative z-10 block h-auto max-h-[455px] w-full max-w-[500px] object-contain drop-shadow-[0_18px_34px_rgba(79,70,229,0.14)]"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 5.5, ease: 'easeInOut', repeat: Infinity }}
+              draggable={false}
+            />
+          </div>
+        </motion.div>
+      </section>
+
 
       {/* 8. The People Behind CareerNova */}
       <section className="mx-auto w-full max-w-[1500px]">
