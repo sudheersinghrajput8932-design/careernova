@@ -221,45 +221,62 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {expertise.map((item, index) => {
             const Icon = item.icon;
+            const visualGradients = [
+              "from-cyan-500 via-blue-600 to-indigo-900",
+              "from-violet-500 via-fuchsia-600 to-indigo-950",
+              "from-emerald-400 via-cyan-600 to-blue-950",
+            ];
+            const accent = visualGradients[index % visualGradients.length];
+
             return (
               <motion.article
                 key={item.title}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
-                transition={{ ...smoothTransition, delay: index * 0.07 }}
-                whileHover={{ y: -5 }}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-indigo-100 bg-white p-5 shadow-[0_8px_30px_rgba(79,70,229,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-[0_18px_45px_rgba(79,70,229,0.13)]"
+                transition={{ ...smoothTransition, delay: index * 0.08 }}
+                whileHover={{ y: -6, scale: 1.01 }}
+                className="group relative overflow-hidden rounded-[2rem] border border-slate-700/70 bg-[#10131b] shadow-[0_20px_55px_rgba(15,23,42,0.18)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(79,70,229,0.24)]"
               >
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500" />
-                <div className="flex items-start justify-between">
-                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}>
-                    <Icon className="h-7 w-7" />
+                <div className={`relative h-[230px] overflow-hidden bg-gradient-to-br ${accent}`}>
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(255,255,255,0.22),transparent_25%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.12),transparent_30%)]" />
+                  <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border border-white/15 bg-white/5 blur-sm" />
+                  <div className="absolute -bottom-20 -left-10 h-44 w-44 rounded-full border border-white/10 bg-black/10" />
+                  <div className="absolute left-5 top-5 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    CareerNova
                   </div>
-                  <span className="text-[10px] font-black tracking-widest text-slate-300">{item.number}</span>
+                  <span className="absolute right-5 top-5 z-10 flex h-9 min-w-9 items-center justify-center rounded-full bg-white/15 px-2 text-[10px] font-black text-white ring-1 ring-white/20 backdrop-blur">
+                    {item.number}
+                  </span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative flex h-32 w-32 items-center justify-center rounded-[2rem] border border-white/20 bg-white/10 shadow-2xl backdrop-blur-md transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
+                      <div className="absolute inset-3 rounded-[1.5rem] border border-white/15" />
+                      <Icon className="relative h-16 w-16 text-white drop-shadow-2xl" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/35 to-transparent" />
                 </div>
-                <h3 className={`mt-5 inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-lg font-black text-transparent`}>{item.title}</h3>
-                <p className="mt-2 text-xs leading-6 text-slate-500">{item.description}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {item.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tag}
-                      className={`rounded-lg border px-2 py-1 text-[9px] font-bold ${
-                        [
-                          "border-teal-200 bg-teal-50 text-teal-700",
-                          "border-amber-200 bg-amber-50 text-amber-700",
-                          "border-slate-200 bg-slate-50 text-slate-700",
-                          "border-emerald-200 bg-emerald-50 text-emerald-700",
-                        ][tagIndex % 4]
-                      }`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+
+                <div className="relative bg-[#10131b] px-5 pb-5 pt-5">
+                  <h3 className={`relative inline-block bg-gradient-to-r ${item.gradient} bg-clip-text text-xl font-black text-transparent`}>
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-6 text-slate-400">{item.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 text-[9px] font-bold text-slate-200 transition-colors group-hover:border-white/20 group-hover:bg-white/[0.09]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+                <div className="h-1 bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500 opacity-80" />
               </motion.article>
             );
           })}
@@ -355,13 +372,13 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         className="overflow-hidden rounded-[2rem] border border-indigo-100 bg-white shadow-sm"
       >
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
-          <div className="relative min-h-[300px] overflow-hidden bg-[#064f4c]">
+          <div className="relative min-h-[340px] overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 lg:min-h-[420px]">
             <img
               src="/assets/more-than-tools-avatar.png"
               alt="CareerNova technology and growth approach"
-              className="block h-full w-full object-cover object-center"
+              className="block h-full w-full object-contain object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#064f4c]/50 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent" />
           </div>
 
           <div className="grid grid-cols-1 gap-1 bg-gradient-to-br from-cyan-50/70 via-white to-fuchsia-50/70 p-2 sm:grid-cols-2">
