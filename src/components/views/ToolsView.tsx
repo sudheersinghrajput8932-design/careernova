@@ -153,56 +153,125 @@ const principles = [
 export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
     <div className="overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_42%,#f7f4ff_100%)] text-slate-900">
-      {/* Hero — dark teal Learn@House-inspired visual language */}
+      {/* Hero — tools visual on the right, SEO copy on the left */}
       <motion.section
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-[radial-gradient(circle_at_12%_15%,#dff7ff,transparent_28%),radial-gradient(circle_at_90%_20%,#eee2ff,transparent_30%),linear-gradient(135deg,#ffffff,#f4f8ff)] shadow-2xl shadow-indigo-500/10"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-[radial-gradient(circle_at_8%_20%,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_88%_18%,rgba(217,70,239,0.18),transparent_30%),linear-gradient(135deg,#eef7ff_0%,#f7f3ff_48%,#ffffff_100%)] shadow-2xl shadow-indigo-500/10"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(0,199,255,0.10),transparent_28%),radial-gradient(circle_at_85%_25%,rgba(139,92,246,0.10),transparent_25%)]" />
-        <div className="relative grid min-h-[430px] grid-cols-1 items-center gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.05fr_.95fr] lg:px-12 lg:py-12">
-          <div className="relative z-10 max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 shadow-sm backdrop-blur">
-              CareerNova Technology Stack
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.7)_46%,transparent_62%)] opacity-50" />
+
+        <div className="relative grid min-h-[560px] grid-cols-1 items-center gap-7 px-5 py-7 sm:px-8 sm:py-9 lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-10 xl:px-14">
+          {/* Left: SEO-focused copy */}
+          <div className="relative z-20 max-w-2xl">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur">
+              All-in-One Digital Tools
             </div>
 
-            <div className="relative inline-block">
-              <h1 className="bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-4xl font-black leading-[1.05] tracking-tight text-transparent sm:text-5xl lg:text-6xl">
-                The Technology Behind Better Digital Outcomes
+            <div className="relative overflow-hidden">
+              <h1 className="max-w-2xl text-4xl font-black leading-[1.03] tracking-tight text-slate-950 sm:text-5xl lg:text-[4rem]">
+                Smart Tools for{" "}
+                <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 bg-clip-text text-transparent">
+                  Your Digital Growth
+                </span>
               </h1>
+
+              {/* Continuous left-to-right reflection */}
               <motion.span
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 -left-1/3 z-20 w-1/5 -skew-x-12 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-                initial={{ x: "-120%" }}
-                animate={{ x: "620%" }}
-                transition={{ duration: 2.2, ease: "linear", repeat: Infinity, repeatDelay: 0.7 }}
+                className="pointer-events-none absolute inset-y-0 -left-1/4 z-20 w-20 -skew-x-12 bg-gradient-to-r from-transparent via-white/90 to-transparent blur-[1px]"
+                initial={{ x: "-140%" }}
+                animate={{ x: "950%" }}
+                transition={{
+                  duration: 2.4,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatDelay: 0.9,
+                }}
               />
             </div>
 
             <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-              Explore the technologies, development tools, analytics platforms, cloud systems, AI workflows and digital capabilities CareerNova uses to build scalable products and help businesses achieve measurable digital growth.
+              Explore practical digital tools for web development, AI automation, analytics, SEO,
+              marketing, design and productivity — all selected to help businesses work smarter,
+              build better digital products and accelerate growth.
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">Web Development</span>
-              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">AI & Automation</span>
-              <span className="rounded-full bg-white/85 px-3 py-2 text-[10px] font-bold text-indigo-700 ring-1 ring-indigo-100 shadow-sm backdrop-blur">Analytics & Growth</span>
+            {/* Glass feature boxes */}
+            <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
+              {[
+                {
+                  number: "01",
+                  title: "Build",
+                  text: "Web & App Development Tools",
+                  icon: Code2,
+                  tone: "from-violet-500 to-blue-600",
+                },
+                {
+                  number: "02",
+                  title: "Automate",
+                  text: "AI & Productivity Tools",
+                  icon: Sparkles,
+                  tone: "from-orange-400 to-pink-500",
+                },
+                {
+                  number: "03",
+                  title: "Grow",
+                  text: "Marketing & Analytics Tools",
+                  icon: TrendingUp,
+                  tone: "from-emerald-400 to-cyan-600",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.number}
+                    className="rounded-2xl border border-white/80 bg-white/60 p-3.5 shadow-[0_10px_30px_rgba(79,70,229,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/85 hover:shadow-[0_16px_35px_rgba(79,70,229,0.14)]"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.tone} text-white shadow-md`}>
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <div>
+                        <div className="text-[11px] font-black text-slate-900">{item.title}</div>
+                        <div className="mt-0.5 text-[9px] leading-4 text-slate-500">{item.text}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              {["Web Development", "AI & Automation", "Analytics", "SEO & Marketing"].map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-indigo-100 bg-white/75 px-3 py-1.5 text-[10px] font-bold text-indigo-700 shadow-sm backdrop-blur"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-xl lg:max-w-2xl">
-            <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/55 p-2 shadow-2xl shadow-indigo-500/10 backdrop-blur-sm">
+          {/* Right: generated tools visual */}
+          <div className="relative z-10 flex min-h-[330px] items-center justify-center sm:min-h-[410px] lg:min-h-[510px]">
+            <div className="absolute right-[5%] top-[10%] h-32 w-32 rounded-full bg-fuchsia-400/20 blur-3xl sm:h-44 sm:w-44" />
+            <div className="absolute bottom-[8%] left-[8%] h-36 w-36 rounded-full bg-cyan-400/20 blur-3xl sm:h-48 sm:w-48" />
+
+            <div className="relative w-full max-w-[700px]">
               <img
-                src="/assets/tools-hero-robot-glass.png"
-                alt="CareerNova technology stack, AI, analytics, cloud and digital development tools"
-                className="block h-auto max-h-[420px] w-full rounded-[1.6rem] object-contain object-center sm:max-h-[480px] lg:max-h-[540px]"
+                src="/assets/tools-hero-avatar-tools-clean.png"
+                alt="CareerNova digital tools visual showing development, AI, analytics, SEO, design and productivity tools"
+                className="block h-auto w-full object-contain object-center drop-shadow-[0_25px_55px_rgba(79,70,229,0.16)]"
+                fetchPriority="high"
               />
             </div>
           </div>
         </div>
 
-        <div className="relative h-8 bg-white [clip-path:ellipse(62%_100%_at_50%_100%)]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-white/70 [clip-path:ellipse(65%_100%_at_50%_100%)]" />
       </motion.section>
 
       {/* Technology capabilities */}
