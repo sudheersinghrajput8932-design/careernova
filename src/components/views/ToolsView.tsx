@@ -232,9 +232,9 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ ...smoothTransition, delay: index * 0.07 }}
                 whileHover={{ y: -5 }}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-[#d9e8e5] bg-white p-5 shadow-sm transition-shadow hover:shadow-xl hover:shadow-[#075e5a]/10"
+                className="group relative overflow-hidden rounded-[1.5rem] border border-[#d7e7e4] bg-white p-5 shadow-[0_8px_30px_rgba(7,94,90,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-[#9bcfc8] hover:shadow-[0_18px_45px_rgba(7,94,90,0.13)]"
               >
-                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.gradient}`} />
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#075e5a] via-[#0a8177] to-[#f5b544]" />
                 <div className="flex items-start justify-between">
                   <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}>
                     <Icon className="h-7 w-7" />
@@ -292,10 +292,10 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ ...smoothTransition, delay: (index % 2) * 0.06 }}
-              className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-white shadow-lg"
+              className="group relative overflow-hidden rounded-[1.6rem] border border-[#d7e7e4] bg-white shadow-[0_10px_35px_rgba(7,94,90,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(7,94,90,0.16)]"
             >
               <div className="flex items-center gap-4 p-5 pb-4">
-                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md ring-1 ring-slate-200/80 sm:h-[88px] sm:w-[88px]">
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border-4 border-[#f3f8f7] bg-white shadow-[0_8px_20px_rgba(7,94,90,0.12)] ring-1 ring-[#cfe3df] sm:h-[88px] sm:w-[88px]">
                   <img
                     src={group.image}
                     alt={`${group.title} technology`}
@@ -325,12 +325,12 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                 </div>
               </div>
 
-              <div className="border-t border-slate-100 bg-[#f8fbfa] p-4">
+              <div className="border-t border-[#dce9e7] bg-[#f6faf9] p-4">
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {group.technologies.map(([name, detail]) => (
                     <div
                       key={name}
-                      className="flex min-h-[48px] items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:border-[#8bc8c2] hover:shadow-sm"
+                      className="flex min-h-[52px] items-center justify-between gap-3 rounded-xl border border-[#dce9e7] bg-white px-3.5 py-2.5 shadow-[0_2px_8px_rgba(7,94,90,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#f1c76b] hover:bg-[#fffdf7] hover:shadow-[0_8px_18px_rgba(7,94,90,0.08)]"
                     >
                       <div className="flex min-w-0 items-center gap-2">
                         <span className={`h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${group.gradient}`} />
@@ -364,7 +364,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#064f4c]/50 to-transparent" />
           </div>
 
-          <div className="grid grid-cols-1 gap-px bg-[#d7e7e4] sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 bg-[#eef7f5] p-2 sm:grid-cols-2">
             {principles.map((item, index) => {
               const Icon = item.icon;
               const accent = [
@@ -379,7 +379,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
                   key={item.title}
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative overflow-hidden bg-white p-6 transition-shadow duration-300 hover:shadow-lg"
+                  className="group relative m-2 overflow-hidden rounded-[1.35rem] bg-white p-6 shadow-[0_8px_25px_rgba(7,94,90,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(7,94,90,0.12)]"
                 >
                   <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br ${accent} opacity-10 blur-2xl transition-transform duration-500 group-hover:scale-150`} />
                   <div className="relative">
@@ -402,21 +402,22 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] bg-[#075e5a] shadow-xl shadow-[#075e5a]/15"
+        className="relative overflow-hidden rounded-[2rem] border border-[#cfe3df] bg-white shadow-[0_12px_40px_rgba(7,94,90,0.10)]"
       >
-        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#f5b544]/20 blur-3xl" />
+        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#f5b544]/15 blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#075e5a] via-[#0a8177] to-[#f5b544]" />
         <div className="relative flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ffd477]">Need the right technology?</p>
-            <h3 className="mt-1.5 text-xl font-black text-white sm:text-2xl">Let’s map the right digital solution.</h3>
-            <p className="mt-1.5 max-w-2xl text-xs leading-5 text-teal-50/80">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0a8177]">Need the right technology?</p>
+            <h3 className="mt-1.5 text-xl font-black text-[#123f3d] sm:text-2xl">Let’s map the right digital solution.</h3>
+            <p className="mt-1.5 max-w-2xl text-xs leading-5 text-slate-500">
               Tell us what you are trying to build or grow, and we can map the right approach.
             </p>
           </div>
 
           <button
             type="button"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#f5b544] px-5 py-3 text-xs font-black text-[#164d4a] shadow-lg transition-all hover:-translate-y-0.5 hover:bg-[#ffc85f]"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#f5b544] px-5 py-3 text-xs font-black text-[#164d4a] shadow-lg shadow-[#f5b544]/20 transition-all hover:-translate-y-0.5 hover:bg-[#ffc85f] hover:shadow-xl"
           >
             Start a conversation
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
