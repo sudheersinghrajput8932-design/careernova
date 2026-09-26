@@ -10,7 +10,13 @@ import {
   Instagram,
   Github,
   Youtube,
-  Send
+  Send,
+  Activity,
+  Sparkle,
+  Zap,
+  Globe2,
+  ShieldCheck,
+  Clock3
 } from 'lucide-react';
 import { TabId } from '../../types';
 
@@ -23,25 +29,89 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
   return (
     <footer
       id="corporate-footer"
-      className="relative w-full overflow-hidden bg-white text-slate-600 border-t border-slate-200"
+      className="relative w-full overflow-hidden bg-slate-50 text-slate-600 border-t border-slate-200"
     >
-      {/* Full-bleed background: wave pattern + blobs + guy watching city skyline */}
-      {/* Drop the exported PNG at this path, e.g. /assets/footer-background.png */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/assets/footer-background.png"
-          alt=""
-          className="w-full h-full object-cover object-right-bottom"
-        />
+      {/* Live ambient background — CSS only, no extra image asset required. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-cyan-200/30 blur-3xl animate-pulse" />
+        <div className="absolute right-[-8rem] top-10 h-80 w-80 rounded-full bg-violet-200/35 blur-3xl animate-pulse [animation-delay:900ms]" />
+        <div className="absolute left-1/3 bottom-[-8rem] h-72 w-72 rounded-full bg-blue-200/20 blur-3xl animate-pulse [animation-delay:1600ms]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/70 to-transparent animate-pulse" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 lg:pt-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 lg:pt-10">
+        {/* Live activity / newsletter-style CTA panel inspired by the reference layout. */}
+        <div className="relative mb-10 overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-600 via-blue-600 to-violet-600 p-5 text-white shadow-[0_24px_70px_rgba(79,70,229,0.22)] sm:p-7 lg:p-8">
+          <div aria-hidden="true" className="absolute -right-16 -top-16 h-44 w-44 rounded-full border border-white/15 animate-[spin_16s_linear_infinite]" />
+          <div aria-hidden="true" className="absolute -right-5 -bottom-24 h-56 w-56 rounded-full border border-white/10 animate-[spin_22s_linear_infinite_reverse]" />
+          <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-cyan-300/10 via-transparent to-transparent" />
+
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20 backdrop-blur-md">
+                <Sparkle className="h-7 w-7 text-cyan-100 animate-pulse" />
+                <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.9)]" />
+              </div>
+              <div>
+                <div className="mb-1 flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-cyan-100">
+                  <Activity className="h-3.5 w-3.5" />
+                  CareerNova Live
+                  <span className="rounded-full bg-emerald-300/15 px-2 py-0.5 text-[9px] text-emerald-100 ring-1 ring-emerald-200/20">
+                    ACTIVE
+                  </span>
+                </div>
+                <h3 className="text-xl font-black tracking-tight sm:text-2xl lg:text-3xl">
+                  Build smarter. Grow continuously.
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-indigo-100 sm:text-base">
+                  Digital products, technology, automation and growth support — connected in one practical ecosystem.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:min-w-[390px]">
+              <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/10 backdrop-blur-sm">
+                <Zap className="mb-2 h-4 w-4 text-amber-200" />
+                <div className="text-[10px] uppercase tracking-wider text-indigo-100">Fast</div>
+                <div className="text-sm font-bold">Execution</div>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/10 backdrop-blur-sm">
+                <Globe2 className="mb-2 h-4 w-4 text-cyan-200" />
+                <div className="text-[10px] uppercase tracking-wider text-indigo-100">Digital</div>
+                <div className="text-sm font-bold">Systems</div>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/10 backdrop-blur-sm">
+                <ShieldCheck className="mb-2 h-4 w-4 text-emerald-200" />
+                <div className="text-[10px] uppercase tracking-wider text-indigo-100">Reliable</div>
+                <div className="text-sm font-bold">Support</div>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/10 backdrop-blur-sm">
+                <Clock3 className="mb-2 h-4 w-4 text-fuchsia-200" />
+                <div className="text-[10px] uppercase tracking-wider text-indigo-100">Always</div>
+                <div className="text-sm font-bold">Improving</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Moving activity rail */}
+          <div className="relative mt-6 overflow-hidden rounded-full border border-white/10 bg-black/10 px-4 py-2">
+            <div className="flex min-w-max items-center gap-6 text-[10px] font-semibold text-indigo-100 animate-[footerTicker_22s_linear_infinite]">
+              <span>● Digital systems active</span>
+              <span>• Web &amp; app development</span>
+              <span>• AI &amp; automation</span>
+              <span>• Analytics &amp; growth</span>
+              <span>• Design &amp; product</span>
+              <span>• Technology &amp; support</span>
+              <span>● Digital systems active</span>
+            </div>
+          </div>
+        </div>
         {/* Top badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 border border-indigo-100 text-[10px] font-bold tracking-widest text-indigo-600 mb-6">
           LEARN <span className="text-slate-300">•</span> GROW <span className="text-slate-300">•</span> BUILD <span className="text-slate-300">•</span> SUCCEED
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {/* Column 1: Brand & Bio */}
           <div className="space-y-5 lg:pr-6">
             <div
@@ -337,6 +407,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes footerTicker {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-38%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-pulse,
+          [class*="animate-[spin_"],
+          [class*="animate-[footerTicker_"] {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 };
