@@ -162,7 +162,7 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
       >
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.7)_46%,transparent_62%)] opacity-50" />
 
-        <div className="relative grid min-h-[560px] grid-cols-1 items-center gap-7 px-5 py-7 sm:px-8 sm:py-9 lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-10 xl:px-14">
+        <div className="relative grid min-h-[460px] grid-cols-1 items-center gap-6 px-5 py-7 sm:min-h-[500px] sm:px-8 sm:py-8 lg:min-h-[480px] lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-9 xl:px-14">
           {/* Left: SEO-focused copy */}
           <div className="relative z-20 max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur">
@@ -255,16 +255,16 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
             </div>
           </div>
 
-          {/* Right: generated tools visual */}
-          <div className="relative z-10 flex min-h-[330px] items-center justify-center sm:min-h-[410px] lg:min-h-[510px]">
+          {/* Right: tools-focused hero visual */}
+          <div className="relative z-10 flex min-h-[250px] items-center justify-center sm:min-h-[320px] lg:min-h-[400px]">
             <div className="absolute right-[5%] top-[10%] h-32 w-32 rounded-full bg-fuchsia-400/20 blur-3xl sm:h-44 sm:w-44" />
             <div className="absolute bottom-[8%] left-[8%] h-36 w-36 rounded-full bg-cyan-400/20 blur-3xl sm:h-48 sm:w-48" />
 
             <div className="relative flex w-full max-w-[620px] items-center justify-center lg:max-w-[680px]">
               <img
-                src="/assets/tools-hero-seo-specialist-dark.png"
-                alt="CareerNova technology specialist representing SEO, analytics, digital tools and technology capabilities"
-                className="block h-auto max-h-[430px] w-full object-contain object-center drop-shadow-[0_25px_55px_rgba(37,55,110,0.22)] sm:max-h-[500px] lg:max-h-[560px]"
+                src="/assets/tools-hero-vr-digital-tools.png"
+                alt="CareerNova VR technology specialist representing digital tools, analytics and technology capabilities"
+                className="block h-auto max-h-[300px] w-full object-contain object-center drop-shadow-[0_22px_48px_rgba(37,55,110,0.20)] sm:max-h-[370px] lg:max-h-[430px]"
                 fetchPriority="high"
               />
             </div>
