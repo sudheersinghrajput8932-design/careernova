@@ -449,135 +449,91 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 5. How We Work — semantic HTML/CSS process flow; no text baked into an image */}
+      {/* 5. How We Work */}
       <section className="mx-auto w-full max-w-[1500px]">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={smoothTransition}
-          className="relative overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/70 p-4 shadow-sm sm:p-6"
-        >
-          <div className="pointer-events-none absolute -left-20 top-12 h-44 w-44 rounded-full bg-indigo-200/20 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-0 h-52 w-52 rounded-full bg-cyan-200/20 blur-3xl" />
-          <div className="pointer-events-none absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-fuchsia-200/15 blur-3xl" />
-
-          <div className="relative z-10 text-center">
-            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
-              How We Work
-            </span>
-            <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
-              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
-                From idea to ongoing improvement.
-              </span>
+        <div className="overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 p-4 shadow-xl shadow-indigo-950/15 sm:p-6">
+          <div className="text-center">
+            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-300">How We Work</span>
+            <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-2xl font-black tracking-tight shadow-sm backdrop-blur sm:text-3xl">
+              <span className="bg-gradient-to-r from-cyan-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
             </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-              A clear, practical process that takes a project from understanding the business need
-              through planning, development, launch and continuous improvement.
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+              A clear four-step process that turns business requirements into useful products, measurable growth and ongoing support.
             </p>
           </div>
 
-          <div className="relative z-10 mt-5 sm:mt-7">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-[9%] right-[9%] top-[74px] hidden h-[2px] bg-gradient-to-r from-indigo-300 via-violet-300 via-cyan-300 to-emerald-300 lg:block"
-            />
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                num: '01',
+                title: 'Understand',
+                desc: 'We understand your business, users and goals before defining the right solution.',
+                image: '/assets/how-work-understand.jpg',
+                alt: 'CareerNova discovery and collaboration process',
+                accent: 'from-cyan-400 to-blue-500',
+                border: 'border-cyan-400/30',
+              },
+              {
+                num: '02',
+                title: 'Plan',
+                desc: 'We define the right solution, scope, priorities and roadmap before development begins.',
+                image: '/assets/how-work-plan.jpg',
+                alt: 'CareerNova planning and digital solution workflow',
+                accent: 'from-violet-400 to-fuchsia-500',
+                border: 'border-violet-400/30',
+              },
+              {
+                num: '03',
+                title: 'Build',
+                desc: 'We design and develop with quality, usability, performance and scalability in mind.',
+                image: '/assets/how-work-build.jpg',
+                alt: 'CareerNova digital product and e-commerce development',
+                accent: 'from-orange-400 to-amber-500',
+                border: 'border-orange-400/30',
+              },
+              {
+                num: '04',
+                title: 'Grow & Support',
+                desc: 'We improve, measure and support the product beyond launch as needs evolve.',
+                image: '/assets/how-work-grow-support.jpg',
+                alt: 'CareerNova learning, growth and long-term support',
+                accent: 'from-emerald-400 to-teal-500',
+                border: 'border-emerald-400/30',
+              },
+            ].map(({ num, title, desc, image, alt, accent, border }) => (
+              <motion.article
+                key={num}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.22 }}
+                className={`group relative overflow-hidden rounded-2xl border ${border} bg-white/[0.06] p-3 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.09]`}
+              >
+                {/* Thin horizontal visual strip above the SEO-visible title */}
+                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/70">
+                  <img
+                    src={image}
+                    alt={alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-16 w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04] sm:h-[72px]"
+                    draggable={false}
+                  />
+                  <div className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${accent} opacity-20 mix-blend-screen`} />
+                </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:gap-2">
-              {[
-                {
-                  step: '01',
-                  title: 'Understand',
-                  desc: 'We understand your business, users, goals and the problem the solution needs to solve.',
-                  Icon: Eye,
-                  iconBg: 'from-indigo-500 to-blue-600',
-                  cardBg: 'from-indigo-50/90 via-white to-blue-50/80',
-                  border: 'border-indigo-200',
-                  accent: 'text-indigo-700',
-                },
-                {
-                  step: '02',
-                  title: 'Plan',
-                  desc: 'We define the right solution, scope, priorities and roadmap before development begins.',
-                  Icon: List,
-                  iconBg: 'from-violet-500 to-fuchsia-600',
-                  cardBg: 'from-violet-50/90 via-white to-fuchsia-50/70',
-                  border: 'border-violet-200',
-                  accent: 'text-violet-700',
-                },
-                {
-                  step: '03',
-                  title: 'Build',
-                  desc: 'We design and develop with quality, usability, performance and scalability in mind.',
-                  Icon: Code2,
-                  iconBg: 'from-cyan-500 to-blue-600',
-                  cardBg: 'from-cyan-50/90 via-white to-sky-50/80',
-                  border: 'border-cyan-200',
-                  accent: 'text-cyan-700',
-                },
-                {
-                  step: '04',
-                  title: 'Grow & Support',
-                  desc: 'We improve, measure and support the product beyond launch as your needs evolve.',
-                  Icon: Headphones,
-                  iconBg: 'from-emerald-500 to-teal-600',
-                  cardBg: 'from-emerald-50/90 via-white to-teal-50/80',
-                  border: 'border-emerald-200',
-                  accent: 'text-emerald-700',
-                },
-              ].map(({ step, title, desc, Icon, iconBg, cardBg, border, accent }, index) => (
-                <React.Fragment key={step}>
-                  <motion.article
-                    whileHover={{ y: -5, scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
-                    className={`group relative overflow-hidden rounded-[1.75rem] border bg-gradient-to-br ${cardBg} p-5 shadow-sm transition-shadow duration-300 hover:shadow-xl sm:p-6 lg:min-h-[285px]`}
-                  >
-                    <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${iconBg}`} />
-
-                    <div className="relative flex items-center justify-between">
-                      <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${iconBg} text-white shadow-lg ring-8 ring-white/70 transition-transform duration-300 group-hover:scale-105`}>
-                        <Icon className="h-6 w-6" strokeWidth={2.2} />
-                      </div>
-                      <span className={`rounded-full border ${border} bg-white/90 px-3 py-1 text-[11px] font-black tracking-[0.12em] ${accent} shadow-sm`}>
-                        {step}
-                      </span>
-                    </div>
-
-                    <div className="mt-5">
-                      <h3 className="text-xl font-black tracking-tight text-slate-950 sm:text-[1.35rem]">
-                        {title}
-                      </h3>
-                      <div className={`mt-2 h-1 w-10 rounded-full bg-gradient-to-r ${iconBg}`} />
-                      <p className="mt-4 text-sm leading-6 text-slate-600 sm:text-[15px]">
-                        {desc}
-                      </p>
-                    </div>
-
-                    <div className="pointer-events-none absolute -bottom-12 -right-12 h-28 w-28 rounded-full bg-white/45 blur-2xl transition-transform duration-500 group-hover:scale-125" />
-                  </motion.article>
-
-                  {index < 3 && (
-                    <div aria-hidden="true" className="hidden items-center justify-center lg:flex">
-                      <ArrowRight className="relative z-20 h-7 w-7 text-indigo-500 drop-shadow-sm" strokeWidth={2.5} />
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-
-            <div className="mt-3 flex justify-center lg:hidden">
-              <div className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-indigo-100 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-600 shadow-sm">
-                <span>Understand</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-                <span>Plan</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-                <span>Build</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-                <span>Grow</span>
-              </div>
-            </div>
+                <div className="px-1.5 pb-1 pt-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-gradient-to-r ${accent} px-2 text-[10px] font-black text-slate-950 shadow-md`}>
+                      {num}
+                    </span>
+                    <div className={`h-px flex-1 bg-gradient-to-r ${accent} opacity-60`} />
+                  </div>
+                  <h3 className="text-base font-black text-white sm:text-[17px]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
+                </div>
+              </motion.article>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* 6. Principles Behind Our Work */}
@@ -588,140 +544,38 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             <span>Our Core Pillars</span>
           </div>
           <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black text-slate-900 shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
-              The Principles That Guide Our Engineering
-            </span>
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">The Principles That Guide Our Engineering</span>
           </h2>
         </div>
-
-        {/* Wide visual banner — replaces the old core-pillars image */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={smoothTransition}
-          className="group relative mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-2 shadow-sm sm:mt-5 sm:p-3"
-        >
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
+        <div className="mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
           <img
-            src="/assets/careernova-core-pillars-wide.png"
-            alt="CareerNova core engineering pillars: Automation First, Scalable Foundations, Accessible Tech and Polished Experience"
+            src="/assets/core-pillars.png"
+            alt="CareerNova core engineering pillars: automation first, scalable foundations, accessible technology and polished experience"
             loading="lazy"
-            className="block h-auto w-full rounded-2xl object-contain transition-transform duration-700 group-hover:scale-[1.008]"
+            className="block h-auto max-h-[560px] w-full object-contain"
             draggable={false}
           />
-        </motion.div>
+        </div>
       </section>
 
       {/* 7. Why CareerNova */}
       <section className="mx-auto w-full max-w-[1500px]">
         <div className="text-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
-            Why CareerNova
-          </span>
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">Why CareerNova</span>
           <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
-              Built to be a partner, not just a provider.
-            </span>
+            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">Built to be a partner, not just a provider.</span>
           </h2>
         </div>
-
-        {/* Text on the left + circular infographic on the right */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={smoothTransition}
-          className="mt-4 grid items-stretch overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/60 shadow-sm sm:mt-5 lg:grid-cols-[50%_50%]"
-        >
-          {/* LEFT: supporting content */}
-          <div className="flex flex-col justify-center p-5 sm:p-7 lg:p-8">
-            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-700 shadow-sm">
-              <Handshake className="h-4 w-4" />
-              A Partnership Mindset
-            </div>
-
-            <h3 className="max-w-xl text-2xl font-black leading-tight text-slate-950 sm:text-3xl">
-              Practical technology, clear communication and long-term support.
-            </h3>
-
-            <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-              {[
-                {
-                  title: 'Business-First Thinking',
-                  desc: 'Start with the real business objective.',
-                  Icon: Target,
-                  box: 'from-indigo-500 to-violet-600',
-                },
-                {
-                  title: 'Connected Expertise',
-                  desc: 'Technology, design and growth work together.',
-                  Icon: Layers3,
-                  box: 'from-cyan-500 to-blue-600',
-                },
-                {
-                  title: 'Clear Communication',
-                  desc: 'Straightforward scope and expectations.',
-                  Icon: MessageSquare,
-                  box: 'from-fuchsia-500 to-pink-600',
-                },
-                {
-                  title: 'Scalable Foundations',
-                  desc: 'Systems designed to evolve as complexity grows.',
-                  Icon: TrendingUp,
-                  box: 'from-emerald-500 to-teal-600',
-                },
-                {
-                  title: 'Practical Technology',
-                  desc: 'Useful outcomes without unnecessary complexity.',
-                  Icon: Lightbulb,
-                  box: 'from-orange-500 to-amber-500',
-                },
-                {
-                  title: 'Long-Term Support',
-                  desc: 'Ongoing improvements and technical support.',
-                  Icon: Headphones,
-                  box: 'from-blue-500 to-indigo-600',
-                },
-              ].map(({ title, desc, Icon, box }) => (
-                <motion.div
-                  key={title}
-                  whileHover={{ y: -3 }}
-                  transition={{ duration: 0.2 }}
-                  className="group rounded-2xl border border-white/90 bg-white/80 p-3 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${box} text-white shadow-md`}>
-                      <Icon className="h-4 w-4" strokeWidth={2.2} />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-black leading-5 text-slate-900">{title}</h4>
-                      <p className="mt-0.5 text-[11px] leading-4 text-slate-500">{desc}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* RIGHT: circular infographic */}
-          <div className="relative flex min-h-[330px] items-center justify-center overflow-hidden border-t border-emerald-100 bg-gradient-to-br from-white via-cyan-50/40 to-indigo-50/60 p-3 sm:min-h-[390px] sm:p-4 lg:min-h-[500px] lg:border-l lg:border-t-0 lg:p-5">
-            <div className="pointer-events-none absolute -right-20 top-10 h-52 w-52 rounded-full bg-fuchsia-200/30 blur-3xl" />
-            <div className="pointer-events-none absolute -left-16 bottom-8 h-48 w-48 rounded-full bg-cyan-200/30 blur-3xl" />
-
-            <motion.img
-              src="/assets/careernova-why-partner-circle.png"
-              alt="CareerNova partnership principles: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
-              loading="lazy"
-              className="relative z-10 block h-auto max-h-[455px] w-full max-w-[500px] object-contain drop-shadow-[0_18px_34px_rgba(79,70,229,0.14)]"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5.5, ease: 'easeInOut', repeat: Infinity }}
-              draggable={false}
-            />
-          </div>
-        </motion.div>
+        <div className="mt-4 overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-indigo-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+          <img
+            src="/assets/why-careernova.png"
+            alt="Why CareerNova: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
+            loading="lazy"
+            className="block h-auto max-h-[560px] w-full object-contain"
+            draggable={false}
+          />
+        </div>
       </section>
-
 
       {/* 8. The People Behind CareerNova */}
       <section className="mx-auto w-full max-w-[1500px]">
