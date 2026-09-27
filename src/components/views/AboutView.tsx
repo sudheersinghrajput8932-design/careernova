@@ -451,13 +451,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
       {/* 5. How We Work */}
       <section className="mx-auto w-full max-w-[1500px]">
-        <div className="overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 p-4 shadow-xl shadow-indigo-950/15 sm:p-6">
+        <div className="overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 p-4 shadow-sm sm:p-6">
           <div className="text-center">
-            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-300">How We Work</span>
-            <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-2xl font-black tracking-tight shadow-sm backdrop-blur sm:text-3xl">
-              <span className="bg-gradient-to-r from-cyan-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
+            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">How We Work</span>
+            <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
               A clear four-step process that turns business requirements into useful products, measurable growth and ongoing support.
             </p>
           </div>
@@ -505,7 +505,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 key={num}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.22 }}
-                className={`group relative overflow-hidden rounded-2xl border ${border} bg-white/[0.06] p-3 shadow-lg shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.09]`}
+                className={`group relative overflow-hidden rounded-2xl border ${border} bg-slate-900 p-3 shadow-lg shadow-slate-900/20 transition-all duration-300 hover:bg-slate-800`}
               >
                 {/* Thin horizontal visual strip above the SEO-visible title */}
                 <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/70">
