@@ -457,78 +457,23 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
               <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-              A clear four-step process that turns business requirements into useful products, measurable growth and ongoing support.
-            </p>
           </div>
-
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              {
-                num: '01',
-                title: 'Understand',
-                desc: 'We understand your business, users and goals before defining the right solution.',
-                image: '/assets/how-work-understand.jpg',
-                alt: 'CareerNova discovery and collaboration process',
-                accent: 'from-cyan-400 to-blue-500',
-                border: 'border-cyan-400/30',
-              },
-              {
-                num: '02',
-                title: 'Plan',
-                desc: 'We define the right solution, scope, priorities and roadmap before development begins.',
-                image: '/assets/how-work-plan.jpg',
-                alt: 'CareerNova planning and digital solution workflow',
-                accent: 'from-violet-400 to-fuchsia-500',
-                border: 'border-violet-400/30',
-              },
-              {
-                num: '03',
-                title: 'Build',
-                desc: 'We design and develop with quality, usability, performance and scalability in mind.',
-                image: '/assets/how-work-build.jpg',
-                alt: 'CareerNova digital product and e-commerce development',
-                accent: 'from-orange-400 to-amber-500',
-                border: 'border-orange-400/30',
-              },
-              {
-                num: '04',
-                title: 'Grow & Support',
-                desc: 'We improve, measure and support the product beyond launch as needs evolve.',
-                image: '/assets/how-work-grow-support.jpg',
-                alt: 'CareerNova learning, growth and long-term support',
-                accent: 'from-emerald-400 to-teal-500',
-                border: 'border-emerald-400/30',
-              },
+              { num: '01', title: 'Understand', desc: 'We understand your business, users and goals before defining the right solution.', image: '/assets/how-work-understand.jpg', alt: 'CareerNova discovery and collaboration process', accent: 'from-cyan-400 to-blue-500', border: 'border-cyan-400/30' },
+              { num: '02', title: 'Plan', desc: 'We define the right solution, scope, priorities and roadmap before development begins.', image: '/assets/how-work-plan.jpg', alt: 'CareerNova planning and digital solution workflow', accent: 'from-violet-400 to-fuchsia-500', border: 'border-violet-400/30' },
+              { num: '03', title: 'Build', desc: 'We design and develop with quality, usability, performance and scalability in mind.', image: '/assets/how-work-build.jpg', alt: 'CareerNova digital product and e-commerce development', accent: 'from-orange-400 to-amber-500', border: 'border-orange-400/30' },
+              { num: '04', title: 'Grow & Support', desc: 'We improve, measure and support the product beyond launch as needs evolve.', image: '/assets/how-work-grow-support.jpg', alt: 'CareerNova learning, growth and long-term support', accent: 'from-emerald-400 to-teal-500', border: 'border-emerald-400/30' },
             ].map(({ num, title, desc, image, alt, accent, border }) => (
-              <motion.article
-                key={num}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.22 }}
-                className={`group relative overflow-hidden rounded-2xl border ${border} bg-slate-900 p-3 shadow-lg shadow-slate-900/20 transition-all duration-300 hover:bg-slate-800`}
-              >
-                {/* Thin horizontal visual strip above the SEO-visible title */}
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/70">
-                  <img
-                    src={image}
-                    alt={alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="block h-16 w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04] sm:h-[72px]"
-                    draggable={false}
-                  />
+              <motion.article key={num} whileHover={{ y: -5 }} transition={{ duration: 0.22 }} className={`group relative overflow-hidden rounded-2xl border ${border} bg-white/90 p-3 shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md`}>
+                <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-slate-50/80">
+                  <img src={image} alt={alt} loading="lazy" decoding="async" className="block h-16 w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04] sm:h-[72px]" draggable={false} />
                   <div className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${accent} opacity-20 mix-blend-screen`} />
                 </div>
-
                 <div className="px-1.5 pb-1 pt-4">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-gradient-to-r ${accent} px-2 text-[10px] font-black text-slate-950 shadow-md`}>
-                      {num}
-                    </span>
-                    <div className={`h-px flex-1 bg-gradient-to-r ${accent} opacity-60`} />
-                  </div>
-                  <h3 className="text-base font-black text-white sm:text-[17px]">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
+                  <div className="mb-2 flex items-center gap-2"><span className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-gradient-to-r ${accent} px-2 text-[10px] font-black text-slate-950 shadow-md`}>{num}</span><div className={`h-px flex-1 bg-gradient-to-r ${accent} opacity-60`} /></div>
+                  <h3 className="text-base font-black text-slate-900 sm:text-[17px]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
                 </div>
               </motion.article>
             ))}
@@ -544,38 +489,90 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             <span>Our Core Pillars</span>
           </div>
           <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black text-slate-900 shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">The Principles That Guide Our Engineering</span>
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              The Principles That Guide Our Engineering
+            </span>
           </h2>
         </div>
-        <div className="mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+
+        {/* Wide visual banner — replaces the old core-pillars image */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="group relative mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-2 shadow-sm sm:mt-5 sm:p-3"
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
           <img
-            src="/assets/core-pillars.png"
-            alt="CareerNova core engineering pillars: automation first, scalable foundations, accessible technology and polished experience"
+            src="/assets/careernova-core-pillars-wide.png"
+            alt="CareerNova core engineering pillars: Automation First, Scalable Foundations, Accessible Tech and Polished Experience"
             loading="lazy"
-            className="block h-auto max-h-[560px] w-full object-contain"
+            className="block h-auto w-full rounded-2xl object-contain transition-transform duration-700 group-hover:scale-[1.008]"
             draggable={false}
           />
-        </div>
+        </motion.div>
       </section>
 
       {/* 7. Why CareerNova */}
-      <section className="mx-auto w-full max-w-[1500px]">
-        <div className="text-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">Why CareerNova</span>
-          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">Built to be a partner, not just a provider.</span>
-          </h2>
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={smoothTransition}
+        className="mx-auto w-full max-w-[1500px]"
+      >
+        <div className="overflow-hidden rounded-[2rem] border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/70 shadow-sm">
+          <div className="grid items-stretch lg:grid-cols-[44%_56%]">
+            <div className="flex min-h-[430px] flex-col justify-center p-6 sm:p-8 lg:min-h-[590px] lg:p-10 xl:p-12">
+              <span className="w-fit rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
+                Why CareerNova
+              </span>
+
+              <h2 className="mt-4 max-w-2xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl xl:text-[3.15rem]">
+                <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
+                  Built to be a partner, not just a provider.
+                </span>
+              </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
+                CareerNova brings business thinking, technology, design, automation and growth
+                together in one connected approach. The goal is to build useful digital solutions
+                around real business objectives — not technology for its own sake.
+              </p>
+
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {[
+                  ['Business-First Thinking', 'Start with the real business objective.'],
+                  ['Connected Expertise', 'Technology, design and growth work together.'],
+                  ['Clear Communication', 'Straightforward scope and expectations.'],
+                  ['Scalable Foundations', 'Systems designed to evolve as complexity grows.'],
+                  ['Practical Technology', 'Useful outcomes without unnecessary complexity.'],
+                  ['Long-Term Support', 'Continuous improvements beyond launch.'],
+                ].map(([title, desc]) => (
+                  <div
+                    key={title}
+                    className="rounded-2xl border border-white/90 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm"
+                  >
+                    <h3 className="text-xs font-black text-slate-900 sm:text-sm">{title}</h3>
+                    <p className="mt-1 text-[11px] leading-5 text-slate-500 sm:text-xs">{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative min-h-[430px] overflow-hidden bg-white lg:min-h-[590px]">
+              <img
+                src="/assets/why-careernova-grid.png"
+                alt="Why CareerNova: six principles covering business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
+                loading="lazy"
+                className="block h-full w-full object-cover object-center"
+                draggable={false}
+              />
+            </div>
+          </div>
         </div>
-        <div className="mt-4 overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-indigo-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
-          <img
-            src="/assets/why-careernova.png"
-            alt="Why CareerNova: business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
-            loading="lazy"
-            className="block h-auto max-h-[560px] w-full object-contain"
-            draggable={false}
-          />
-        </div>
-      </section>
+      </motion.section>
 
       {/* 8. The People Behind CareerNova */}
       <section className="mx-auto w-full max-w-[1500px]">
