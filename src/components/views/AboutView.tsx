@@ -449,25 +449,135 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 5. How We Work */}
+      {/* 5. How We Work — semantic HTML/CSS process flow; no text baked into an image */}
       <section className="mx-auto w-full max-w-[1500px]">
-        <div className="overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 p-4 shadow-sm sm:p-6">
-          <div className="text-center">
-            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">How We Work</span>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          className="relative overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-slate-50 via-white to-indigo-50/70 p-4 shadow-sm sm:p-6"
+        >
+          <div className="pointer-events-none absolute -left-20 top-12 h-44 w-44 rounded-full bg-indigo-200/20 blur-3xl" />
+          <div className="pointer-events-none absolute right-0 top-0 h-52 w-52 rounded-full bg-cyan-200/20 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-fuchsia-200/15 blur-3xl" />
+
+          <div className="relative z-10 text-center">
+            <span className="text-[11px] font-black uppercase tracking-[0.18em] text-indigo-600">
+              How We Work
+            </span>
             <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
-              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
+              <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
+                From idea to ongoing improvement.
+              </span>
             </h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              A clear, practical process that takes a project from understanding the business need
+              through planning, development, launch and continuous improvement.
+            </p>
           </div>
-          <div className="mt-4 overflow-hidden rounded-2xl border border-white/80 bg-white/60 sm:mt-5">
-            <img
-              src="/assets/how-we-work.png"
-              alt="CareerNova process from understanding and planning to building, growth and support"
-              loading="lazy"
-              className="block h-auto max-h-[420px] w-full object-contain"
-              draggable={false}
+
+          <div className="relative z-10 mt-5 sm:mt-7">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-[9%] right-[9%] top-[74px] hidden h-[2px] bg-gradient-to-r from-indigo-300 via-violet-300 via-cyan-300 to-emerald-300 lg:block"
             />
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:gap-2">
+              {[
+                {
+                  step: '01',
+                  title: 'Understand',
+                  desc: 'We understand your business, users, goals and the problem the solution needs to solve.',
+                  Icon: Eye,
+                  iconBg: 'from-indigo-500 to-blue-600',
+                  cardBg: 'from-indigo-50/90 via-white to-blue-50/80',
+                  border: 'border-indigo-200',
+                  accent: 'text-indigo-700',
+                },
+                {
+                  step: '02',
+                  title: 'Plan',
+                  desc: 'We define the right solution, scope, priorities and roadmap before development begins.',
+                  Icon: List,
+                  iconBg: 'from-violet-500 to-fuchsia-600',
+                  cardBg: 'from-violet-50/90 via-white to-fuchsia-50/70',
+                  border: 'border-violet-200',
+                  accent: 'text-violet-700',
+                },
+                {
+                  step: '03',
+                  title: 'Build',
+                  desc: 'We design and develop with quality, usability, performance and scalability in mind.',
+                  Icon: Code2,
+                  iconBg: 'from-cyan-500 to-blue-600',
+                  cardBg: 'from-cyan-50/90 via-white to-sky-50/80',
+                  border: 'border-cyan-200',
+                  accent: 'text-cyan-700',
+                },
+                {
+                  step: '04',
+                  title: 'Grow & Support',
+                  desc: 'We improve, measure and support the product beyond launch as your needs evolve.',
+                  Icon: Headphones,
+                  iconBg: 'from-emerald-500 to-teal-600',
+                  cardBg: 'from-emerald-50/90 via-white to-teal-50/80',
+                  border: 'border-emerald-200',
+                  accent: 'text-emerald-700',
+                },
+              ].map(({ step, title, desc, Icon, iconBg, cardBg, border, accent }, index) => (
+                <React.Fragment key={step}>
+                  <motion.article
+                    whileHover={{ y: -5, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className={`group relative overflow-hidden rounded-[1.75rem] border bg-gradient-to-br ${cardBg} p-5 shadow-sm transition-shadow duration-300 hover:shadow-xl sm:p-6 lg:min-h-[285px]`}
+                  >
+                    <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${iconBg}`} />
+
+                    <div className="relative flex items-center justify-between">
+                      <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${iconBg} text-white shadow-lg ring-8 ring-white/70 transition-transform duration-300 group-hover:scale-105`}>
+                        <Icon className="h-6 w-6" strokeWidth={2.2} />
+                      </div>
+                      <span className={`rounded-full border ${border} bg-white/90 px-3 py-1 text-[11px] font-black tracking-[0.12em] ${accent} shadow-sm`}>
+                        {step}
+                      </span>
+                    </div>
+
+                    <div className="mt-5">
+                      <h3 className="text-xl font-black tracking-tight text-slate-950 sm:text-[1.35rem]">
+                        {title}
+                      </h3>
+                      <div className={`mt-2 h-1 w-10 rounded-full bg-gradient-to-r ${iconBg}`} />
+                      <p className="mt-4 text-sm leading-6 text-slate-600 sm:text-[15px]">
+                        {desc}
+                      </p>
+                    </div>
+
+                    <div className="pointer-events-none absolute -bottom-12 -right-12 h-28 w-28 rounded-full bg-white/45 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+                  </motion.article>
+
+                  {index < 3 && (
+                    <div aria-hidden="true" className="hidden items-center justify-center lg:flex">
+                      <ArrowRight className="relative z-20 h-7 w-7 text-indigo-500 drop-shadow-sm" strokeWidth={2.5} />
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            <div className="mt-3 flex justify-center lg:hidden">
+              <div className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-indigo-100 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-600 shadow-sm">
+                <span>Understand</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+                <span>Plan</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+                <span>Build</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+                <span>Grow</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 6. Principles Behind Our Work */}
