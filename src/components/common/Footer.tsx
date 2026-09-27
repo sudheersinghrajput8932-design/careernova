@@ -30,16 +30,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
           background: #0b1530;
           isolation: isolate;
         }
-        .cn-footer-wave {
-          position: absolute;
-          top: -1px;
-          left: -2%;
-          width: 104%;
-          height: 105px;
-          background: #f8fafc;
-          border-radius: 0 0 52% 48% / 0 0 100% 100%;
-          z-index: 0;
-        }
         .cn-footer-glow {
           position: absolute;
           width: 320px;
@@ -60,20 +50,29 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         }
         .cn-footer-particles span {
           position: absolute;
-          width: 5px;
-          height: 5px;
+          width: 7px;
+          height: 7px;
           border-radius: 999px;
-          background: rgba(147,197,253,.75);
-          box-shadow: 0 0 14px rgba(96,165,250,.7);
+          background: rgba(147,197,253,.9);
+          box-shadow: 0 0 18px rgba(96,165,250,.85);
           animation: cnFooterParticle 8s linear infinite;
         }
-        .cn-footer-particles span:nth-child(1){left:8%;top:48%;animation-delay:-1s}
-        .cn-footer-particles span:nth-child(2){left:19%;top:78%;animation-delay:-5s}
-        .cn-footer-particles span:nth-child(3){left:34%;top:39%;animation-delay:-3s}
-        .cn-footer-particles span:nth-child(4){left:52%;top:72%;animation-delay:-7s}
-        .cn-footer-particles span:nth-child(5){left:68%;top:44%;animation-delay:-2s}
-        .cn-footer-particles span:nth-child(6){left:82%;top:68%;animation-delay:-6s}
-        .cn-footer-particles span:nth-child(7){left:92%;top:35%;animation-delay:-4s}
+        .cn-footer-particles span:nth-child(1){left:6%;top:46%;animation-delay:-1s}
+        .cn-footer-particles span:nth-child(2){left:13%;top:70%;animation-delay:-5s}
+        .cn-footer-particles span:nth-child(3){left:21%;top:38%;animation-delay:-3s}
+        .cn-footer-particles span:nth-child(4){left:29%;top:62%;animation-delay:-7s}
+        .cn-footer-particles span:nth-child(5){left:36%;top:30%;animation-delay:-2s}
+        .cn-footer-particles span:nth-child(6){left:44%;top:76%;animation-delay:-6s}
+        .cn-footer-particles span:nth-child(7){left:51%;top:48%;animation-delay:-4s}
+        .cn-footer-particles span:nth-child(8){left:58%;top:67%;animation-delay:-8s}
+        .cn-footer-particles span:nth-child(9){left:65%;top:34%;animation-delay:-3.5s}
+        .cn-footer-particles span:nth-child(10){left:72%;top:78%;animation-delay:-6.5s}
+        .cn-footer-particles span:nth-child(11){left:78%;top:50%;animation-delay:-2.5s}
+        .cn-footer-particles span:nth-child(12){left:84%;top:68%;animation-delay:-7.5s}
+        .cn-footer-particles span:nth-child(13){left:89%;top:40%;animation-delay:-4.5s}
+        .cn-footer-particles span:nth-child(14){left:94%;top:72%;animation-delay:-1.5s}
+        .cn-footer-particles span:nth-child(15){left:25%;top:86%;animation-delay:-5.5s}
+        .cn-footer-particles span:nth-child(16){left:60%;top:88%;animation-delay:-8.5s}
         @keyframes cnFooterParticle {
           0% { transform: translate3d(0,28px,0) scale(.6); opacity:0; }
           20% { opacity:1; }
@@ -114,11 +113,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         }
       `}</style>
 
-      <div className="cn-footer-wave" aria-hidden="true" />
       <div className="cn-footer-glow cn-footer-glow-a" aria-hidden="true" />
       <div className="cn-footer-glow cn-footer-glow-b" aria-hidden="true" />
       <div className="cn-footer-particles" aria-hidden="true">
-        {Array.from({ length: 7 }).map((_, index) => <span key={index} />)}
+        {Array.from({ length: 16 }).map((_, index) => <span key={index} />)}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-5">
