@@ -534,6 +534,31 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                   Built to be a partner, not just a provider.
                 </span>
               </h2>
+
+              <div className="mt-5 grid max-w-2xl grid-cols-1 gap-2.5 sm:grid-cols-3">
+                {[
+                  {
+                    title: 'Business-First',
+                    desc: 'Real goals, practical solutions.',
+                  },
+                  {
+                    title: 'Connected Expertise',
+                    desc: 'Technology, design & growth together.',
+                  },
+                  {
+                    title: 'Long-Term Support',
+                    desc: 'Built to improve as you grow.',
+                  },
+                ].map(({ title, desc }) => (
+                  <div
+                    key={title}
+                    className="rounded-xl border border-white/80 bg-white/45 px-3 py-2.5 shadow-[0_8px_24px_-16px_rgba(15,23,42,0.35)] backdrop-blur-md"
+                  >
+                    <h3 className="text-[11px] font-black text-slate-800 sm:text-xs">{title}</h3>
+                    <p className="mt-0.5 text-[10px] leading-4 text-slate-500">{desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="relative min-h-[250px] overflow-hidden bg-white sm:min-h-[280px] lg:min-h-[300px]">
