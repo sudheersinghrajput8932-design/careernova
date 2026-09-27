@@ -522,43 +522,24 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="mx-auto w-full max-w-[1500px]"
       >
-        <div className="overflow-hidden rounded-[2rem] border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/70 shadow-sm">
-          <div className="grid items-stretch lg:grid-cols-[44%_56%]">
-            <div className="flex min-h-[430px] flex-col justify-center p-6 sm:p-8 lg:min-h-[590px] lg:p-10 xl:p-12">
-              <span className="w-fit rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
+        <div className="overflow-hidden rounded-[2rem] border border-emerald-200/80 bg-white shadow-sm">
+          <div className="grid items-stretch lg:grid-cols-[42%_58%]">
+            <div className="flex min-h-[250px] flex-col justify-center p-6 sm:min-h-[280px] sm:p-8 lg:min-h-[300px] lg:p-9">
+              <span className="w-fit rounded-full border border-emerald-200 bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
                 Why CareerNova
               </span>
 
-              <h2 className="mt-4 max-w-2xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl xl:text-[3.15rem]">
+              <h2 className="mt-4 max-w-xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl lg:text-[2.8rem]">
                 <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
                   Built to be a partner, not just a provider.
                 </span>
               </h2>
-
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {[
-                  ['Business-First Thinking', 'Start with the real business objective.'],
-                  ['Connected Expertise', 'Technology, design and growth work together.'],
-                  ['Clear Communication', 'Straightforward scope and expectations.'],
-                  ['Scalable Foundations', 'Systems designed to evolve as complexity grows.'],
-                  ['Practical Technology', 'Useful outcomes without unnecessary complexity.'],
-                  ['Long-Term Support', 'Continuous improvements beyond launch.'],
-                ].map(([title, desc]) => (
-                  <div
-                    key={title}
-                    className="rounded-2xl border border-white/90 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm"
-                  >
-                    <h3 className="text-xs font-black text-slate-900 sm:text-sm">{title}</h3>
-                    <p className="mt-1 text-[11px] leading-5 text-slate-500 sm:text-xs">{desc}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div className="relative min-h-[430px] overflow-hidden bg-white lg:min-h-[590px]">
+            <div className="relative min-h-[250px] overflow-hidden bg-white sm:min-h-[280px] lg:min-h-[300px]">
               <img
-                src="/assets/why-careernova-partnership.jpg"
-                alt="CareerNova business partnership focused on technology, growth and digital solutions"
+                src="/assets/why-careernova-team-banner.jpg"
+                alt="CareerNova team collaborating and celebrating together"
                 loading="lazy"
                 decoding="async"
                 className="block h-full w-full object-cover object-center"
