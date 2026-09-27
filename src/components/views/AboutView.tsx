@@ -458,25 +458,14 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">From idea to ongoing improvement.</span>
             </h2>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { num: '01', title: 'Understand', desc: 'We understand your business, users and goals before defining the right solution.', image: '/assets/how-work-understand.jpg', alt: 'CareerNova discovery and collaboration process', accent: 'from-cyan-400 to-blue-500', border: 'border-cyan-400/30' },
-              { num: '02', title: 'Plan', desc: 'We define the right solution, scope, priorities and roadmap before development begins.', image: '/assets/how-work-plan.jpg', alt: 'CareerNova planning and digital solution workflow', accent: 'from-violet-400 to-fuchsia-500', border: 'border-violet-400/30' },
-              { num: '03', title: 'Build', desc: 'We design and develop with quality, usability, performance and scalability in mind.', image: '/assets/how-work-build.jpg', alt: 'CareerNova digital product and e-commerce development', accent: 'from-orange-400 to-amber-500', border: 'border-orange-400/30' },
-              { num: '04', title: 'Grow & Support', desc: 'We improve, measure and support the product beyond launch as needs evolve.', image: '/assets/how-work-grow-support.jpg', alt: 'CareerNova learning, growth and long-term support', accent: 'from-emerald-400 to-teal-500', border: 'border-emerald-400/30' },
-            ].map(({ num, title, desc, image, alt, accent, border }) => (
-              <motion.article key={num} whileHover={{ y: -5 }} transition={{ duration: 0.22 }} className={`group relative overflow-hidden rounded-2xl border ${border} bg-white/90 p-3 shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md`}>
-                <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-slate-50/80">
-                  <img src={image} alt={alt} loading="lazy" decoding="async" className="block h-16 w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04] sm:h-[72px]" draggable={false} />
-                  <div className={`pointer-events-none absolute inset-0 bg-gradient-to-r ${accent} opacity-20 mix-blend-screen`} />
-                </div>
-                <div className="px-1.5 pb-1 pt-4">
-                  <div className="mb-2 flex items-center gap-2"><span className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-gradient-to-r ${accent} px-2 text-[10px] font-black text-slate-950 shadow-md`}>{num}</span><div className={`h-px flex-1 bg-gradient-to-r ${accent} opacity-60`} /></div>
-                  <h3 className="text-base font-black text-slate-900 sm:text-[17px]">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
-                </div>
-              </motion.article>
-            ))}
+          <div className="mt-4 overflow-hidden rounded-2xl border border-white/80 bg-white/60 sm:mt-5">
+            <img
+              src="/assets/how-we-work.png"
+              alt="CareerNova process from understanding and planning to building, growth and support"
+              loading="lazy"
+              className="block h-auto max-h-[420px] w-full object-contain"
+              draggable={false}
+            />
           </div>
         </div>
       </section>
@@ -489,90 +478,79 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             <span>Our Core Pillars</span>
           </div>
           <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-indigo-200 bg-white px-4 py-2 text-2xl font-black text-slate-900 shadow-sm sm:text-3xl">
-            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">
-              The Principles That Guide Our Engineering
+            <span className="bg-gradient-to-r from-indigo-700 via-violet-600 to-cyan-500 bg-clip-text text-transparent">The Principles That Guide Our Engineering</span>
+          </h2>
+        </div>
+        <div className="mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/40 p-2 shadow-sm sm:mt-5 sm:p-3">
+          <img
+            src="/assets/core-pillars.png"
+            alt="CareerNova core engineering pillars: automation first, scalable foundations, accessible technology and polished experience"
+            loading="lazy"
+            className="block h-auto max-h-[560px] w-full object-contain"
+            draggable={false}
+          />
+        </div>
+      </section>
+
+      {/* 7. Why CareerNova */}
+      <section className="mx-auto w-full max-w-[1500px]">
+        <div className="text-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.18em] text-emerald-600">
+            Why CareerNova
+          </span>
+          <h2 className="mx-auto mt-2 inline-flex rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-2xl font-black tracking-tight shadow-sm sm:text-3xl">
+            <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
+              Built to be a partner, not just a provider.
             </span>
           </h2>
         </div>
 
-        {/* Wide visual banner — replaces the old core-pillars image */}
+        {/* Compact left content + full-height partnership image on the right */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={smoothTransition}
-          className="group relative mt-4 overflow-hidden rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-2 shadow-sm sm:mt-5 sm:p-3"
+          className="mt-4 grid overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/50 via-white to-indigo-50/50 shadow-sm sm:mt-5 lg:grid-cols-[42%_58%]"
         >
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600" />
-          <img
-            src="/assets/careernova-core-pillars-wide.png"
-            alt="CareerNova core engineering pillars: Automation First, Scalable Foundations, Accessible Tech and Polished Experience"
-            loading="lazy"
-            className="block h-auto w-full rounded-2xl object-contain transition-transform duration-700 group-hover:scale-[1.008]"
-            draggable={false}
-          />
-        </motion.div>
-      </section>
-
-      {/* 7. Why CareerNova */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={smoothTransition}
-        className="mx-auto w-full max-w-[1500px]"
-      >
-        <div className="overflow-hidden rounded-[2rem] border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-indigo-50/70 shadow-sm">
-          <div className="grid items-stretch lg:grid-cols-[44%_56%]">
-            <div className="flex min-h-[430px] flex-col justify-center p-6 sm:p-8 lg:min-h-[590px] lg:p-10 xl:p-12">
-              <span className="w-fit rounded-full border border-emerald-200 bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
-                Why CareerNova
-              </span>
-
-              <h2 className="mt-4 max-w-2xl text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl xl:text-[3.15rem]">
-                <span className="bg-gradient-to-r from-emerald-600 via-cyan-600 to-indigo-600 bg-clip-text text-transparent">
-                  Built to be a partner, not just a provider.
-                </span>
-              </h2>
-
-              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
-                CareerNova brings business thinking, technology, design, automation and growth
-                together in one connected approach. The goal is to build useful digital solutions
-                around real business objectives — not technology for its own sake.
-              </p>
-
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {[
-                  ['Business-First Thinking', 'Start with the real business objective.'],
-                  ['Connected Expertise', 'Technology, design and growth work together.'],
-                  ['Clear Communication', 'Straightforward scope and expectations.'],
-                  ['Scalable Foundations', 'Systems designed to evolve as complexity grows.'],
-                  ['Practical Technology', 'Useful outcomes without unnecessary complexity.'],
-                  ['Long-Term Support', 'Continuous improvements beyond launch.'],
-                ].map(([title, desc]) => (
-                  <div
-                    key={title}
-                    className="rounded-2xl border border-white/90 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm"
-                  >
-                    <h3 className="text-xs font-black text-slate-900 sm:text-sm">{title}</h3>
-                    <p className="mt-1 text-[11px] leading-5 text-slate-500 sm:text-xs">{desc}</p>
-                  </div>
-                ))}
-              </div>
+          {/* LEFT: concise supporting content */}
+          <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-8">
+            <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-700 shadow-sm">
+              <Handshake className="h-4 w-4" />
+              A Partnership Mindset
             </div>
 
-            <div className="relative min-h-[430px] overflow-hidden bg-white lg:min-h-[590px]">
-              <img
-                src="/assets/why-careernova-grid.png"
-                alt="Why CareerNova: six principles covering business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
-                loading="lazy"
-                className="block h-full w-full object-cover object-center"
-                draggable={false}
-              />
+            <h3 className="max-w-lg text-2xl font-black leading-tight text-slate-950 sm:text-3xl lg:text-[2.15rem]">
+              Practical technology, clear communication and long-term support.
+            </h3>
+
+            <p className="mt-4 max-w-lg text-sm leading-6 text-slate-600 sm:text-base">
+              CareerNova brings business thinking, technology, design, automation and growth together in one connected approach — focused on useful digital solutions and real business objectives.
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-[11px] font-bold text-indigo-700">Business-first</span>
+              <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-[11px] font-bold text-cyan-700">Connected expertise</span>
+              <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] font-bold text-emerald-700">Long-term support</span>
             </div>
           </div>
-        </div>
-      </motion.section>
+
+          {/* RIGHT: supplied partnership illustration */}
+          <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden border-t border-emerald-100 bg-white/60 p-3 sm:min-h-[340px] sm:p-4 lg:min-h-[390px] lg:border-l lg:border-t-0 lg:p-5">
+            <div className="pointer-events-none absolute -right-16 top-4 h-40 w-40 rounded-full bg-cyan-200/25 blur-3xl" />
+            <div className="pointer-events-none absolute -left-16 bottom-0 h-44 w-44 rounded-full bg-indigo-200/25 blur-3xl" />
+            <motion.img
+              src="/assets/why-careernova-partnership.jpg"
+              alt="CareerNova partnership between businesses and technology teams"
+              loading="lazy"
+              className="relative z-10 block h-auto max-h-[390px] w-full object-contain drop-shadow-[0_16px_30px_rgba(37,99,235,0.16)]"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 5.5, ease: 'easeInOut', repeat: Infinity }}
+              draggable={false}
+            />
+          </div>
+        </motion.div>
+      </section>
 
       {/* 8. The People Behind CareerNova */}
       <section className="mx-auto w-full max-w-[1500px]">
