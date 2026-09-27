@@ -535,12 +535,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 </span>
               </h2>
 
-              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
-                CareerNova brings business thinking, technology, design, automation and growth
-                together in one connected approach. The goal is to build useful digital solutions
-                around real business objectives — not technology for its own sake.
-              </p>
-
               <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {[
                   ['Business-First Thinking', 'Start with the real business objective.'],
@@ -563,9 +557,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
             <div className="relative min-h-[430px] overflow-hidden bg-white lg:min-h-[590px]">
               <img
-                src="/assets/why-careernova-grid.png"
-                alt="Why CareerNova: six principles covering business-first thinking, connected expertise, clear communication, scalable foundations, practical technology and long-term support"
+                src="/assets/why-careernova-partnership.jpg"
+                alt="CareerNova business partnership focused on technology, growth and digital solutions"
                 loading="lazy"
+                decoding="async"
                 className="block h-full w-full object-cover object-center"
                 draggable={false}
               />
