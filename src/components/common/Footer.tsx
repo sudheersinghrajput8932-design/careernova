@@ -94,7 +94,7 @@ const SOCIALS = [
 const WA_LINK = 'https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20start%20a%20conversation.';
 
 const headingCls =
-  "text-sm font-black text-white uppercase tracking-wider relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gradient-to-r after:from-blue-400 after:to-violet-400";
+  "inline-flex items-center rounded-lg border border-blue-300/25 bg-gradient-to-r from-blue-600/25 via-indigo-500/25 to-violet-600/25 px-3 py-2 text-xs font-black text-white uppercase tracking-wider shadow-sm shadow-blue-950/20";
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () => {} }) => {
   return (
@@ -316,8 +316,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
           {/* Bottom bar: left badge / centered legal + copyright / right actions (same 3-part layout as the reference) */}
           <div className="mt-12 pt-6 border-t border-white/10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-5 text-xs text-slate-400">
             <div className="flex items-center justify-center lg:justify-start gap-2">
-              <span className="text-lg leading-none">🇮🇳</span>
-              <div className="leading-tight"><div className="font-bold text-white text-[11px]">India</div><div className="text-[10px] text-slate-500">Turning Ideas Into Opportunities</div></div>
+              <span className="text-2xl leading-none" role="img" aria-label="Indian flag">🇮🇳</span>
+              <div className="leading-tight"><div className="text-[10px] text-slate-300">Turning Ideas Into Opportunities</div></div>
             </div>
 
             <div className="text-center space-y-2">
