@@ -750,14 +750,40 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               <motion.div
                 key={number as string}
                 whileHover={{ y: -5, rotateX: 2 }}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-indigo-50/40 to-violet-50/60 p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-900/10"
+                className={`group relative overflow-hidden rounded-2xl border p-4 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl ${
+                  [
+                    'border-violet-200 bg-gradient-to-br from-violet-100 via-fuchsia-100 to-pink-100 hover:shadow-fuchsia-500/20',
+                    'border-cyan-200 bg-gradient-to-br from-cyan-100 via-sky-100 to-blue-100 hover:shadow-cyan-500/20',
+                    'border-amber-200 bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100 hover:shadow-orange-500/20',
+                    'border-emerald-200 bg-gradient-to-br from-emerald-100 via-teal-100 to-cyan-100 hover:shadow-emerald-500/20',
+                    'border-blue-200 bg-gradient-to-br from-blue-100 via-indigo-100 to-violet-100 hover:shadow-blue-500/20',
+                  ][index]
+                }`}
               >
-                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${index % 3 === 0 ? 'from-indigo-500 via-violet-500 to-fuchsia-500' : index % 3 === 1 ? 'from-cyan-400 via-blue-500 to-indigo-500' : 'from-violet-500 via-fuchsia-500 to-pink-500'}`} />
+                <div className={`absolute inset-x-0 top-0 h-1.5 ${
+                  [
+                    'bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500',
+                    'bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600',
+                    'bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500',
+                    'bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500',
+                    'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600',
+                  ][index]
+                }`} />
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black tracking-[0.18em] text-indigo-500">
+                  <span className={`text-[10px] font-black tracking-[0.18em] ${
+                    ['text-violet-700', 'text-cyan-800', 'text-orange-800', 'text-emerald-800', 'text-blue-800'][index]
+                  }`}>
                     {number as string}
                   </span>
-                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${index % 3 === 0 ? 'from-indigo-100 to-violet-100 text-indigo-600' : index % 3 === 1 ? 'from-cyan-100 to-blue-100 text-blue-600' : 'from-fuchsia-100 to-pink-100 text-fuchsia-600'} shadow-sm ring-1 ring-white transition-all group-hover:scale-110 group-hover:shadow-md`}>
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${
+                    [
+                      'from-violet-600 to-fuchsia-600 text-white',
+                      'from-cyan-500 to-blue-600 text-white',
+                      'from-amber-500 to-rose-600 text-white',
+                      'from-emerald-500 to-teal-600 text-white',
+                      'from-blue-600 to-indigo-700 text-white',
+                    ][index]
+                  } shadow-sm ring-1 ring-white/80 transition-all group-hover:scale-110 group-hover:shadow-md`}>
                     <StepIcon className="h-6 w-6" />
                   </span>
                 </div>
@@ -817,7 +843,14 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               ].map(([title, description]) => (
                 <div
                   key={title}
-                  className="rounded-xl border border-white/80 bg-white/45 px-3 py-2.5 shadow-[0_8px_24px_-18px_rgba(30,41,59,0.5)] backdrop-blur-md"
+                  className={`rounded-xl border px-3 py-2.5 shadow-[0_8px_24px_-18px_rgba(30,41,59,0.5)] backdrop-blur-md ${
+                    [
+                      'border-fuchsia-200/90 bg-gradient-to-br from-fuchsia-100/85 to-pink-100/70',
+                      'border-cyan-200/90 bg-gradient-to-br from-cyan-100/85 to-sky-100/70',
+                      'border-amber-200/90 bg-gradient-to-br from-amber-100/85 to-orange-100/70',
+                      'border-emerald-200/90 bg-gradient-to-br from-emerald-100/85 to-teal-100/70',
+                    ][['Business-first', 'Clear direction', 'Connected expertise', 'Continuous growth'].indexOf(title as string)]
+                  }`}
                 >
                   <h3 className="text-[11px] font-black text-slate-800 sm:text-xs">
                     {title}
@@ -864,15 +897,23 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               href={getWhatsAppLink('Hi CareerNova, I want to discuss a project or service requirement.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-slate-950/15 transition-all hover:-translate-y-0.5 hover:bg-indigo-600"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/25 transition-all hover:-translate-y-0.5 hover:from-emerald-600 hover:to-green-700"
             >
               Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
             <button
               type="button"
-              onClick={() => onNavigate('contact')}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600"
+              onClick={() => {
+                onNavigate('about');
+                window.setTimeout(() => {
+                  document.getElementById('contact-form-section')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }, 250);
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-700 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-indigo-600/25 transition-all hover:-translate-y-0.5 hover:from-indigo-700 hover:to-violet-800"
             >
               Open Contact Desk
               <ArrowUpRight className="h-3.5 w-3.5" />
