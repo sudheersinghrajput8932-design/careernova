@@ -316,7 +316,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
           {/* Bottom bar: left badge / centered legal + copyright / right actions (same 3-part layout as the reference) */}
           <div className="mt-12 pt-6 border-t border-white/10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-5 text-xs text-slate-400">
             <div className="flex items-center justify-center lg:justify-start gap-2">
-              <span className="text-2xl leading-none" role="img" aria-label="Indian flag">🇮🇳</span>
+              <svg className="w-8 h-[22px] shrink-0 rounded-[2px] shadow-sm" viewBox="0 0 30 20" role="img" aria-label="Indian national flag" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="20" fill="#fff" />
+                <rect width="30" height="6.67" fill="#FF9933" />
+                <rect y="13.33" width="30" height="6.67" fill="#138808" />
+                <circle cx="15" cy="10" r="2.45" fill="none" stroke="#000080" strokeWidth="0.65" />
+                <circle cx="15" cy="10" r="0.45" fill="#000080" />
+                {Array.from({ length: 24 }, (_, i) => <line key={i} x1="15" y1="7.55" x2="15" y2="12.45" stroke="#000080" strokeWidth="0.28" transform={`rotate(${i * 15} 15 10)`} />)}
+              </svg>
               <div className="leading-tight"><div className="text-[10px] text-slate-300">Turning Ideas Into Opportunities</div></div>
             </div>
 
