@@ -343,9 +343,6 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               Honest Pricing
             </span>
           </h1>
-          <p className="mx-auto max-w-2xl text-xs sm:text-sm leading-5 sm:leading-6 text-slate-500">
-            Explore CareerNova services for web development, app development, e-commerce, AI automation, UI/UX design, digital marketing and SEO, business growth, and ongoing technical support.
-          </p>
         </motion.div>
 
         {/* 2. HERO AUTO-SLIDER — full width, edge-to-edge, sits right below the title, true left-to-right slide transition */}
@@ -360,7 +357,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
           onTouchStart={() => setIsHeroSliderPaused(true)}
           onTouchEnd={() => setIsHeroSliderPaused(false)}
         >
-          <div className="relative w-full h-[220px] sm:h-[280px] lg:h-[340px] overflow-hidden">
+          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden">
             <AnimatePresence initial={false} mode="wait">
               <motion.img
                 key={HERO_SLIDER_ITEMS[activeHeroSlide].id}
@@ -514,11 +511,21 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                   tabIndex={0}
                   aria-label={`${isFlipped ? 'Show front of' : 'Show details for'} ${service.title}`}
                   aria-pressed={isFlipped}
-                  onMouseEnter={() => setFlippedCards((prev) => ({ ...prev, [service.id]: true }))}
-                  onMouseLeave={() => setFlippedCards((prev) => ({ ...prev, [service.id]: false }))}
-                  onFocus={() => setFlippedCards((prev) => ({ ...prev, [service.id]: true }))}
-                  onBlur={() => setFlippedCards((prev) => ({ ...prev, [service.id]: false }))}
-                  onClick={() => setFlippedCards((prev) => ({ ...prev, [service.id]: !prev[service.id] }))}
+                  onClick={() =>
+                    setFlippedCards((prev) => ({
+                      ...prev,
+                      [service.id]: !prev[service.id],
+                    }))
+                  }
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setFlippedCards((prev) => ({
+                        ...prev,
+                        [service.id]: !prev[service.id],
+                      }));
+                    }
+                  }}
                   className="block w-full cursor-pointer text-left outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-4"
                 >
                   <motion.div
@@ -570,7 +577,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
                       <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between sm:bottom-4 sm:left-4 sm:right-4">
                         <span className="text-[8px] font-bold uppercase tracking-[0.16em] text-white/60">
-                          Hover to flip
+                          Tap to flip
                         </span>
                         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/15 backdrop-blur-sm">
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -635,7 +642,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                       </div>
 
                       <p className="relative mt-2 text-center text-[7px] font-bold uppercase tracking-[0.16em] text-slate-600">
-                        Move cursor away to return
+                        Tap to return
                       </p>
                     </div>
                   </motion.div>
@@ -652,14 +659,14 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-indigo-200 bg-gradient-to-br from-indigo-950 via-violet-950 to-slate-950 p-5 text-white shadow-[0_25px_80px_-35px_rgba(79,70,229,0.45)] sm:p-8"
+        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_25px_80px_-35px_rgba(15,23,42,0.55)] sm:p-8"
       >
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-28 -left-20 h-60 w-60 rounded-full bg-violet-600/15 blur-3xl" />
 
         <div className="relative grid gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
-            <span className="inline-flex rounded-full border border-indigo-300/40 bg-indigo-400/15 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-100">
+            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-200">
               Not sure where to start?
             </span>
             <h2 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">
@@ -692,15 +699,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                       document.getElementById('services-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  className={`group rounded-2xl border p-3 text-left backdrop-blur-sm transition-all hover:-translate-y-1 hover:shadow-xl ${
-                    problem === 'Need a website'
-                      ? 'border-blue-300/30 bg-blue-500/20 hover:bg-blue-500/30'
-                      : problem === 'Have an app idea'
-                        ? 'border-cyan-300/30 bg-cyan-500/20 hover:bg-cyan-500/30'
-                        : problem === 'Need more customers'
-                          ? 'border-fuchsia-300/30 bg-fuchsia-500/20 hover:bg-fuchsia-500/30'
-                          : 'border-orange-300/30 bg-orange-500/20 hover:bg-orange-500/30'
-                  }`}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.055] p-3 text-left backdrop-blur-sm transition-all hover:border-indigo-400/40 hover:bg-white/[0.09]"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
                     <ProblemIcon className="h-4 w-4" />
@@ -740,80 +739,100 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            ['01', 'Understand', 'Goals, audience and current situation.', 'We start by understanding your business goals, audience, challenges and the outcome you want to achieve.', Target, 'from-blue-500 to-indigo-600'],
-            ['02', 'Plan', 'Scope, priorities and a clear route forward.', 'We turn the requirements into a practical scope, priorities, milestones and a clear execution plan.', Workflow, 'from-cyan-500 to-blue-600'],
-            ['03', 'Design', 'Shape the experience before execution.', 'We shape the user experience, content direction and solution structure before development or execution begins.', Sparkles, 'from-fuchsia-500 to-purple-600'],
-            ['04', 'Build', 'Develop and deliver the agreed solution.', 'We execute the approved plan, build the solution and keep the work aligned with the agreed requirements.', Zap, 'from-orange-500 to-rose-600'],
-            ['05', 'Improve', 'Support, optimize and keep moving.', 'After launch, we can review performance, fix issues and identify practical improvements for continued growth.', TrendingUp, 'from-emerald-500 to-teal-600'],
-          ].map(([number, title, description, backDescription, Icon, accent], index) => {
+            ['01', 'Understand', 'Goals, audience and current situation.', Target],
+            ['02', 'Plan', 'Scope, priorities and a clear route forward.', Workflow],
+            ['03', 'Design', 'Shape the experience before execution.', Sparkles],
+            ['04', 'Build', 'Develop and deliver the agreed solution.', Zap],
+            ['05', 'Improve', 'Support, optimize and keep moving.', TrendingUp],
+          ].map(([number, title, description, Icon], index) => {
             const StepIcon = Icon as typeof Sparkles;
-            const isFlipped = Boolean(flippedCards[`process-${number}`]);
             return (
               <motion.div
                 key={number as string}
-                onMouseEnter={() => setFlippedCards((prev) => ({ ...prev, [`process-${number}`]: true }))}
-                onMouseLeave={() => setFlippedCards((prev) => ({ ...prev, [`process-${number}`]: false }))}
-                onFocus={() => setFlippedCards((prev) => ({ ...prev, [`process-${number}`]: true }))}
-                onBlur={() => setFlippedCards((prev) => ({ ...prev, [`process-${number}`]: false }))}
-                tabIndex={0}
-                whileHover={{ y: -5 }}
-                className="group [perspective:1100px] outline-none"
+                whileHover={{ y: -5, rotateX: 2 }}
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-indigo-50/40 to-violet-50/60 p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-900/10"
               >
-                <motion.div
-                  animate={{ rotateY: isFlipped ? 180 : 0 }}
-                  transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative h-[190px] w-full"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  <div
-                    className={`absolute inset-0 overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br ${accent} p-4 text-white shadow-lg`}
-                    style={{ backfaceVisibility: 'hidden' }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black tracking-[0.18em] text-white/75">{number as string}</span>
-                      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 shadow-sm ring-1 ring-white/20">
-                        <StepIcon className="h-5 w-5" />
-                      </span>
-                    </div>
-                    <h3 className="mt-5 text-base font-black">{title as string}</h3>
-                    <p className="mt-1.5 text-[10px] leading-4 text-white/80">{description as string}</p>
-                    <span className="absolute bottom-3.5 left-4 text-[8px] font-black uppercase tracking-[0.16em] text-white/60">Hover to flip</span>
-                  </div>
-
-                  <div
-                    className={`absolute inset-0 overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br ${accent} p-4 text-white shadow-xl`}
-                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                  >
-                    <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/65">Step {number as string}</span>
-                    <h3 className="mt-2 text-base font-black">{title as string}</h3>
-                    <p className="mt-2 text-[10px] leading-4.5 text-white/85">{backDescription as string}</p>
-                    <span className="absolute bottom-3.5 left-4 text-[8px] font-black uppercase tracking-[0.16em] text-white/60">Move cursor away</span>
-                  </div>
-                </motion.div>
+                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${index % 3 === 0 ? 'from-indigo-500 via-violet-500 to-fuchsia-500' : index % 3 === 1 ? 'from-cyan-400 via-blue-500 to-indigo-500' : 'from-violet-500 via-fuchsia-500 to-pink-500'}`} />
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black tracking-[0.18em] text-indigo-500">
+                    {number as string}
+                  </span>
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${index % 3 === 0 ? 'from-indigo-100 to-violet-100 text-indigo-600' : index % 3 === 1 ? 'from-cyan-100 to-blue-100 text-blue-600' : 'from-fuchsia-100 to-pink-100 text-fuchsia-600'} shadow-sm ring-1 ring-white transition-all group-hover:scale-110 group-hover:shadow-md`}>
+                    <StepIcon className="h-6 w-6" />
+                  </span>
+                </div>
+                <h3 className="mt-5 text-sm font-black text-slate-900">{title as string}</h3>
+                <p className="mt-1.5 text-[10px] leading-4.5 text-slate-500">{description as string}</p>
               </motion.div>
             );
           })}
         </div>
       </motion.section>
 
-      {/* WHY CAREERNOVA — image replaces the entire original text/cards */}
+      {/* PRINCIPLES THAT DRIVE OUR APPROACH — replaces only the image block below How We Work */}
       <motion.section
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-indigo-900/20 bg-slate-950 shadow-[0_30px_90px_-45px_rgba(49,46,129,0.8)]"
+        aria-labelledby="principles-approach-title"
+        className="overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/50 to-violet-50/70 shadow-[0_24px_70px_-45px_rgba(79,70,229,0.35)]"
       >
-        <img
-          src="/assets/why-careernova.png"
-          alt="Why CareerNova — Premium execution. Practical thinking."
-          className="block h-auto w-full select-none"
-          loading="lazy"
-          draggable={false}
-        />
+        <div className="grid items-stretch lg:grid-cols-[42%_58%]">
+          <div className="relative min-h-[260px] overflow-hidden bg-slate-950 sm:min-h-[300px] lg:min-h-[350px]">
+            <img
+              src="/assets/how-we-work-principles.jpg"
+              alt="Connected professionals and gears representing teamwork and a coordinated approach"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              draggable={false}
+            />
+          </div>
+
+          <div className="flex min-h-[350px] flex-col justify-center p-5 sm:p-7 lg:p-8">
+            <span className="inline-flex w-fit rounded-full border border-indigo-200 bg-white/70 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-700 backdrop-blur-sm">
+              Our approach
+            </span>
+
+            <h2
+              id="principles-approach-title"
+              className="mt-3 text-2xl font-black leading-tight tracking-tight sm:text-3xl"
+            >
+              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+                The Principles That Drive Our Approach
+              </span>
+            </h2>
+
+            <p className="mt-3 max-w-xl text-xs leading-6 text-slate-600 sm:text-sm">
+              We connect people, strategy and technology to turn real business goals into practical solutions—and keep improving them as your needs evolve.
+            </p>
+
+            <div className="mt-5 grid grid-cols-2 gap-2.5">
+              {[
+                ['Business-first', 'Start with real goals.'],
+                ['Clear direction', 'Keep every step focused.'],
+                ['Connected expertise', 'Bring skills together.'],
+                ['Continuous growth', 'Improve as you grow.'],
+              ].map(([title, description]) => (
+                <div
+                  key={title}
+                  className="rounded-xl border border-white/80 bg-white/45 px-3 py-2.5 shadow-[0_8px_24px_-18px_rgba(30,41,59,0.5)] backdrop-blur-md"
+                >
+                  <h3 className="text-[11px] font-black text-slate-800 sm:text-xs">
+                    {title}
+                  </h3>
+                  <p className="mt-0.5 text-[10px] leading-4 text-slate-500 sm:text-[11px]">
+                    {description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </motion.section>
 
-      {/* FINAL CTA */}
+            {/* FINAL CTA */}
       <motion.section
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -845,20 +864,15 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
               href={getWhatsAppLink('Hi CareerNova, I want to discuss a project or service requirement.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5 hover:bg-emerald-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-slate-950/15 transition-all hover:-translate-y-0.5 hover:bg-indigo-600"
             >
               Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
             <button
               type="button"
-              onClick={() => {
-                onNavigate('about');
-                window.setTimeout(() => {
-                  document.getElementById('contact-form-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 350);
-              }}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-indigo-600/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700"
+              onClick={() => onNavigate('contact')}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600"
             >
               Open Contact Desk
               <ArrowUpRight className="h-3.5 w-3.5" />
