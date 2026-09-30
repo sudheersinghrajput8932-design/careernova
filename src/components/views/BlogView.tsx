@@ -761,12 +761,16 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         .careernova-title-highlight {
           display: inline;
           color: #312e81;
-          background: linear-gradient(transparent 58%, #ddd6fe 58%);
+          background: #e9e4ff;
           box-decoration-break: clone;
           -webkit-box-decoration-break: clone;
-          padding: 0 0.12em 0.06em;
-          border-radius: 0.12em;
-        }
+          padding: 0.08em 0.18em 0.12em;
+          border-radius: 0.18em;
+          -webkit-text-fill-color: #312e81;
+          background-clip: border-box;
+          -webkit-background-clip: border-box;
+          box-shadow: 0 0 0 2px #e9e4ff;
+        }        }
       `}</style>
 
       <motion.section
