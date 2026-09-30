@@ -617,90 +617,92 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         </div>
       </motion.section>
 
-      {/* SERVICE MATCHMAKER — sky-to-sand backdrop with frosted glass feature cards */}
+      {/* SERVICE MATCHMAKER — compact, website-theme (indigo/violet) with frosted glass cards + character */}
       <motion.section
         initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={smoothTransition}
-        className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(160deg,#5da2d0_0%,#8cc0e0_38%,#f3cfae_78%,#f8dfc6_100%)] p-5 text-[#1e3a5f] shadow-[0_25px_80px_-35px_rgba(30,58,95,0.55)] sm:p-8"
+        className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-violet-50 p-5 shadow-[0_25px_70px_-45px_rgba(79,70,229,0.4)] sm:p-6"
       >
-        {/* soft blurred scenery so the glass has something to frost */}
-        <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-emerald-600/40 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 left-1/4 h-56 w-72 rounded-full bg-orange-200/70 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 -top-16 h-52 w-52 rounded-full bg-white/35 blur-3xl" />
+        {/* soft colour blobs so the glass cards have something to frost */}
+        <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-indigo-300/40 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-20 left-1/3 h-48 w-64 rounded-full bg-fuchsia-200/50 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-violet-300/40 blur-3xl" />
+        <div className="pointer-events-none absolute right-1/4 top-1/3 h-40 w-40 rounded-full bg-cyan-200/50 blur-3xl" />
 
-        <div className="relative grid gap-7 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div>
-            <span className="inline-flex rounded-full border border-white/70 bg-white/40 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-[#1e3a5f] backdrop-blur-md">
-              Not sure where to start?
-            </span>
-            <h2 className="mt-3 text-2xl font-black tracking-tight text-[#16324f] sm:text-3xl">
-              Start with the problem.
-              <span className="block text-[#c2410c]">We’ll find the service.</span>
-            </h2>
-            <p className="mt-3 max-w-md text-xs leading-5 text-[#274866]">
-              Pick the situation closest to yours and we’ll take you to the most relevant service.
-            </p>
+        <div className="relative grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          {/* LEFT — title + character */}
+          <div className="flex items-end gap-3 sm:gap-4">
+            <div className="min-w-0 flex-1 self-start">
+              <span className="inline-flex rounded-full border border-indigo-200 bg-white/70 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-indigo-700 backdrop-blur-sm">
+                Not sure where to start?
+              </span>
+              <h2 className="mt-3 text-xl font-black leading-tight tracking-tight text-slate-950 sm:text-2xl lg:text-3xl">
+                Start with the problem.
+                <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+                  We’ll find the service.
+                </span>
+              </h2>
+              <p className="mt-2 max-w-xs text-[11px] leading-4.5 text-slate-500 sm:text-xs">
+                Pick the situation closest to yours and we’ll take you to the most relevant service.
+              </p>
+            </div>
+
+            <motion.img
+              src="/assets/matchmaker-thinker.webp"
+              alt="Thoughtful character sitting on a bean bag, figuring out the right service"
+              width={529}
+              height={640}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+              className="h-32 w-auto shrink-0 select-none object-contain drop-shadow-[0_14px_18px_rgba(79,70,229,0.25)] sm:h-40 lg:h-44"
+            />
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {/* RIGHT — compact glass cards */}
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {[
-              ['Need a website', 'Web Development', Briefcase, 'Web'],
-              ['Have an app idea', 'iOS App Development', Smartphone, 'Mobile'],
-              ['Need more customers', 'Digital Marketing & SEO', Share2, 'Marketing'],
-              ['Too much manual work', 'AI & Automation', Bot, 'Automation'],
-            ].map(([problem, solution, Icon, label]) => {
+              ['Need a website', 'Web Development', Briefcase, 'from-indigo-600 to-blue-600'],
+              ['Have an app idea', 'iOS App Development', Smartphone, 'from-violet-600 to-purple-600'],
+              ['Need more customers', 'Digital Marketing & SEO', Share2, 'from-pink-600 to-rose-600'],
+              ['Too much manual work', 'AI & Automation', Bot, 'from-amber-500 to-orange-600'],
+            ].map(([problem, solution, Icon, gradient]) => {
               const ProblemIcon = Icon as typeof Briefcase;
-              const match = SERVICES_DATA.find((service) => service.title === solution);
               return (
                 <motion.button
                   key={problem as string}
                   type="button"
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
+                    const match = SERVICES_DATA.find((service) => service.title === solution);
                     if (match) {
                       setSelectedCategory(match.category);
                       document.getElementById('services-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/70 bg-white/25 p-4 text-left backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_12px_35px_-15px_rgba(30,58,95,0.45)] transition-all duration-300 hover:bg-white/40 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_20px_45px_-18px_rgba(30,58,95,0.55)]"
+                  className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-white/80 bg-white/45 p-3 text-left backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_10px_28px_-18px_rgba(79,70,229,0.5)] transition-all duration-300 hover:border-indigo-200 hover:bg-white/70 hover:shadow-[inset_0_1px_0_rgba(255,255,255,1),0_16px_36px_-16px_rgba(79,70,229,0.55)]"
                 >
-                  {/* wave accent, top-right */}
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 80 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    className="pointer-events-none absolute right-3 top-3 h-6 w-20 text-white/70"
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-md ring-1 ring-white/70 transition-transform duration-300 group-hover:scale-110`}
                   >
-                    <path d="M0 6c6 0 6 4 13 4s7-4 13-4 7 4 13 4 7-4 13-4 7 4 14 4" />
-                    <path d="M0 14c6 0 6 4 13 4s7-4 13-4 7 4 13 4 7-4 13-4 7 4 14 4" />
-                  </svg>
-
-                  <span className="relative inline-flex rounded-lg border border-white/70 bg-white/50 px-2.5 py-1 text-[9px] font-bold text-[#1e3a5f] backdrop-blur-md">
-                    {label as string}
-                  </span>
-
-                  <span className="relative mt-3 flex h-11 w-11 items-center justify-center rounded-xl border border-white/70 bg-white/50 text-[#1e3a5f] shadow-sm backdrop-blur-md transition-transform duration-300 group-hover:scale-105">
                     <ProblemIcon className="h-5 w-5" />
                   </span>
 
-                  <h3 className="relative mt-3 text-base font-black leading-tight tracking-tight text-[#1e3a5f] sm:text-lg">
-                    {problem as string}
-                  </h3>
-                  {match && (
-                    <p className="relative mt-1.5 line-clamp-2 text-[11px] leading-4 text-[#3b5877]">
-                      {match.tagline}
-                    </p>
-                  )}
-
-                  <span className="relative mt-3 inline-flex items-center gap-1.5 text-[10px] font-black text-[#c2410c]">
-                    {solution as string}
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[13px] font-black leading-tight text-slate-900">
+                      {problem as string}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[10px] font-bold text-indigo-600">
+                      {solution as string}
+                    </span>
                   </span>
+
+                  <ArrowRight className="h-4 w-4 shrink-0 text-indigo-400 transition-all group-hover:translate-x-1 group-hover:text-indigo-700" />
                 </motion.button>
               );
             })}
