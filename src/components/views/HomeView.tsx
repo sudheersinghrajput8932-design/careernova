@@ -3185,11 +3185,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           border-radius: 30px;
           overflow: hidden;
           background:
-            radial-gradient(circle at 82% 25%, rgba(124,58,237,.24), transparent 25%),
-            radial-gradient(circle at 65% 85%, rgba(37,99,235,.18), transparent 28%),
-            linear-gradient(135deg,#080b2d 0%,#111445 48%,#18114b 100%);
-          border: 1px solid rgba(124,58,237,.28);
-          box-shadow: 0 30px 80px rgba(40,30,100,.18);
+            radial-gradient(circle at 82% 25%, rgba(124,58,237,.16), transparent 30%),
+            radial-gradient(circle at 65% 85%, rgba(56,189,248,.20), transparent 32%),
+            radial-gradient(circle at 8% 10%, rgba(236,72,153,.08), transparent 28%),
+            linear-gradient(135deg,#eef2ff 0%,#ffffff 50%,#f5f0ff 100%);
+          border: 1px solid rgba(99,102,241,.20);
+          box-shadow: 0 30px 80px rgba(79,70,229,.14);
         }
 
         .cn-hero::before {
@@ -3198,8 +3199,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           inset: 0;
           opacity: .42;
           background-image:
-            linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+            linear-gradient(rgba(99,102,241,.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99,102,241,.07) 1px, transparent 1px);
           background-size: 48px 48px;
           pointer-events: none;
         }
@@ -3212,10 +3213,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           border-radius: 50%;
           right: -190px;
           top: -170px;
-          border: 1px solid rgba(168,85,247,.18);
+          border: 1px solid rgba(124,58,237,.16);
           box-shadow:
-            0 0 0 50px rgba(168,85,247,.025),
-            0 0 0 100px rgba(168,85,247,.018);
+            0 0 0 50px rgba(124,58,237,.045),
+            0 0 0 100px rgba(124,58,237,.028);
           pointer-events: none;
         }
 
@@ -3240,9 +3241,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           gap: 9px;
           padding: 10px 17px;
           border-radius: 999px;
-          border: 1px solid rgba(168,85,247,.42);
-          background: rgba(124,58,237,.11);
-          color: #d8c8ff;
+          border: 1px solid rgba(124,58,237,.32);
+          background: rgba(255,255,255,.75);
+          color: #5b34e6;
           font-size: 13px;
           font-weight: 800;
           letter-spacing: 1.25px;
@@ -3255,7 +3256,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         .cn-hero-title {
           margin: 16px 0 12px;
           max-width: 730px;
-          color: #fff;
+          color: #111936;
           font-size: clamp(34px,3.6vw,56px);
           line-height: 1.04;
           letter-spacing: -2px;
@@ -3264,8 +3265,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-hero-title span {
           display: inline;
-          color: #a855f7;
-          background: linear-gradient(90deg,#a855f7,#8b5cf6,#38bdf8);
+          color: #6d28d9;
+          background: linear-gradient(90deg,#6d28d9,#7c3aed,#0ea5e9);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -3273,7 +3274,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 
         .cn-hero-description {
           max-width: 650px;
-          color: #bdc5df;
+          color: #4a5578;
           font-size: 15px;
           line-height: 1.65;
           margin: 0;
@@ -3314,13 +3315,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-hero-secondary {
-          color: #fff;
-          background: rgba(255,255,255,.035);
-          border-color: rgba(255,255,255,.18);
+          color: #111936;
+          background: rgba(255,255,255,.75);
+          border-color: rgba(99,102,241,.28);
         }
 
         .cn-hero-secondary:hover {
-          background: rgba(255,255,255,.08);
+          background: #fff;
+          box-shadow: 0 12px 30px rgba(79,70,229,.16);
           transform: translateY(-3px);
         }
 
@@ -3625,9 +3627,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           width: 46px;
           height: 46px;
           border-radius: 50%;
-          color: #fff;
-          background: rgba(255,255,255,.035);
-          border: 1px solid rgba(255,255,255,.18);
+          color: #4f46e5;
+          background: rgba(255,255,255,.75);
+          border: 1px solid rgba(99,102,241,.25);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -3636,7 +3638,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         }
 
         .cn-slider-arrows button:hover {
-          background: rgba(124,58,237,.4);
+          background: rgba(124,58,237,.16);
           transform: translateY(-2px);
         }
 
@@ -3656,7 +3658,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           padding: 0;
           border: 0;
           border-radius: 99px;
-          background: rgba(255,255,255,.3);
+          background: rgba(99,102,241,.25);
           cursor: pointer;
           transition: .25s ease;
         }
@@ -3725,11 +3727,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   padding: 58px 46px 54px;
   border-radius: 32px;
   background:
-    radial-gradient(circle at 12% 15%, rgba(139, 92, 246, 0.25), transparent 32%),
-    radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.18), transparent 34%),
-    linear-gradient(150deg, #0a0d2e 0%, #12123f 55%, #180f38 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 70px rgba(25, 15, 70, 0.25);
+    radial-gradient(circle at 12% 15%, rgba(139, 92, 246, 0.18), transparent 34%),
+    radial-gradient(circle at 88% 85%, rgba(56, 189, 248, 0.20), transparent 36%),
+    radial-gradient(circle at 85% 10%, rgba(236, 72, 153, 0.10), transparent 30%),
+    linear-gradient(150deg, #eef2ff 0%, #ffffff 55%, #f5f0ff 100%);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  box-shadow: 0 30px 70px rgba(79, 70, 229, 0.14);
 }
 
 .cn-diff-particles {
@@ -3744,16 +3747,16 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(196, 181, 253, 0.55);
+  background: rgba(139, 92, 246, 0.45);
   animation: cnDiffFloat 6s ease-in-out infinite;
 }
 
 .cn-diff-particles span:nth-child(1) { left: 8%; top: 20%; animation-delay: 0s; }
-.cn-diff-particles span:nth-child(2) { left: 22%; top: 70%; animation-delay: .8s; background: rgba(103,232,249,.5); }
+.cn-diff-particles span:nth-child(2) { left: 22%; top: 70%; animation-delay: .8s; background: rgba(14,165,233,.45); }
 .cn-diff-particles span:nth-child(3) { left: 48%; top: 12%; animation-delay: 1.6s; }
-.cn-diff-particles span:nth-child(4) { left: 68%; top: 60%; animation-delay: 2.4s; background: rgba(244,114,182,.5); }
+.cn-diff-particles span:nth-child(4) { left: 68%; top: 60%; animation-delay: 2.4s; background: rgba(236,72,153,.40); }
 .cn-diff-particles span:nth-child(5) { left: 84%; top: 25%; animation-delay: 3.2s; }
-.cn-diff-particles span:nth-child(6) { left: 92%; top: 75%; animation-delay: 4s; background: rgba(103,232,249,.5); }
+.cn-diff-particles span:nth-child(6) { left: 92%; top: 75%; animation-delay: 4s; background: rgba(14,165,233,.45); }
 
 @keyframes cnDiffFloat {
   0%, 100% { transform: translateY(0) scale(1); opacity: .5; }
@@ -3761,15 +3764,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-diff-heading {
-  color: #fff !important;
+  color: #111936 !important;
 }
 
 .cn-diff-section .cn-section-heading > span {
-  color: #c4b5fd !important;
+  color: #633cff !important;
 }
 
 .cn-diff-sub {
-  color: #b9c0e0 !important;
+  color: #4a5578 !important;
 }
 
 .cn-diff-grid {
@@ -3784,22 +3787,22 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   position: relative;
   padding: 24px 20px 26px;
   border-radius: 26px;
-  background: linear-gradient(165deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(165deg, rgba(255,255,255,0.88), rgba(255,255,255,0.58));
+  border: 1px solid rgba(99, 102, 241, 0.16);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.15),
-    0 18px 40px rgba(10, 8, 40, 0.3);
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 18px 40px rgba(79, 70, 229, 0.13);
   overflow: hidden;
   transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 
 .cn-diff-card:hover {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(99, 102, 241, 0.38);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 26px 55px rgba(10, 8, 40, 0.4);
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 26px 55px rgba(79, 70, 229, 0.22);
 }
 
 .cn-diff-glow {
@@ -3810,7 +3813,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   height: 160px;
   border-radius: 50%;
   filter: blur(40px);
-  opacity: .35;
+  opacity: .28;
   pointer-events: none;
   z-index: 0;
 }
@@ -3856,7 +3859,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
   position: relative;
   z-index: 1;
   margin: 0 0 14px;
-  color: #fff;
+  color: #111936;
   font-size: 17px;
   font-weight: 850;
   line-height: 1.25;
@@ -3864,15 +3867,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
 }
 
 .cn-diff-highlight {
-  background: linear-gradient(90deg, #c4b5fd, #f0abfc);
+  background: linear-gradient(90deg, #6d28d9, #c026d3);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.tone-b .cn-diff-highlight { background: linear-gradient(90deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; }
-.tone-c .cn-diff-highlight { background: linear-gradient(90deg, #f9a8d4, #ec4899); -webkit-background-clip: text; background-clip: text; }
-.tone-d .cn-diff-highlight { background: linear-gradient(90deg, #6ee7b7, #10b981); -webkit-background-clip: text; background-clip: text; }
+.tone-b .cn-diff-highlight { background: linear-gradient(90deg, #0369a1, #0ea5e9); -webkit-background-clip: text; background-clip: text; }
+.tone-c .cn-diff-highlight { background: linear-gradient(90deg, #be185d, #ec4899); -webkit-background-clip: text; background-clip: text; }
+.tone-d .cn-diff-highlight { background: linear-gradient(90deg, #047857, #10b981); -webkit-background-clip: text; background-clip: text; }
 
 .cn-diff-media {
   margin-bottom: 0;
