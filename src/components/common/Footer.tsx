@@ -24,7 +24,7 @@ interface FooterProps {
 }
 
 /* ---------- Skyline data (generated once, not on every render) ---------- */
-const NAVY = '#0b1530';
+const NAVY = '#e6eeff'; // light theme: skyline + body tint (name kept so nothing else changes)
 
 const HILL: [number, number][] = [
   [0, 118], [120, 112], [200, 90], [340, 64], [480, 52], [600, 62],
@@ -94,11 +94,11 @@ const SOCIALS = [
 const WA_LINK = 'https://wa.me/917007260391?text=Hi%20CareerNova%20Team%2C%20I%20want%20to%20start%20a%20conversation.';
 
 const headingCls =
-  "inline-flex items-center rounded-lg border border-blue-300/25 bg-gradient-to-r from-blue-600/25 via-indigo-500/25 to-violet-600/25 px-3 py-2 text-xs font-black text-white uppercase tracking-wider shadow-sm shadow-blue-950/20";
+  "inline-flex items-center rounded-lg border border-blue-300/60 bg-gradient-to-r from-blue-600/15 via-indigo-500/15 to-violet-600/15 px-3 py-2 text-xs font-black text-blue-900 uppercase tracking-wider shadow-sm shadow-blue-200/50";
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () => {} }) => {
   return (
-    <footer id="corporate-footer" className="cn-footer relative w-full overflow-hidden text-slate-200">
+    <footer id="corporate-footer" className="cn-footer relative w-full overflow-hidden text-slate-700">
       <style>{`
         .cn-sky { position: relative; height: clamp(110px, 12.5vw, 240px); margin-bottom: -1px; }
         .cn-body { background: ${NAVY}; isolation: isolate; }
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         }
         .cn-tile-cyan { background: linear-gradient(135deg, #06b6d4, #3b82f6); width: clamp(30px, 3.4vw, 50px); animation-duration: 6.5s; animation-delay: -2s; }
         .cn-tile-rocket { background: linear-gradient(135deg, #f59e0b, #ec4899 55%, #7c3aed); width: clamp(34px, 3.8vw, 56px); border-radius: 999px; animation: cnRocket 4.2s ease-in-out infinite; }
-        .cn-tile-shadow { position: absolute; height: 8px; width: clamp(30px, 3.6vw, 54px); border-radius: 50%; background: rgba(11,21,48,.35); filter: blur(4px); animation: cnShadow 5s ease-in-out infinite; }
+        .cn-tile-shadow { position: absolute; height: 8px; width: clamp(30px, 3.6vw, 54px); border-radius: 50%; background: rgba(59,84,160,.28); filter: blur(4px); animation: cnShadow 5s ease-in-out infinite; }
         .cn-trail { position: absolute; width: 6px; height: 6px; border-radius: 999px; background: #f59e0b; animation: cnTrail 1.8s ease-out infinite; }
         .cn-sky-dot { position: absolute; width: 6px; height: 6px; border-radius: 999px; animation: cnDot 7s ease-in-out infinite; }
         @keyframes cnTile { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(2deg); } }
@@ -125,20 +125,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         /* skyline life */
         .cn-wheel { transform-box: fill-box; transform-origin: center; animation: cnSpin 40s linear infinite; }
         @keyframes cnSpin { to { transform: rotate(360deg); } }
-        .cn-win { fill: #93c5fd; opacity: .3; animation: cnWin 4.5s ease-in-out infinite; }
+        .cn-win { fill: #3b82f6; opacity: .3; animation: cnWin 4.5s ease-in-out infinite; }
         @keyframes cnWin { 0%,100% { opacity: .18; } 50% { opacity: .95; } }
 
         /* body background life */
-        .cn-footer-glow { position: absolute; width: 320px; height: 320px; border-radius: 999px; filter: blur(70px); pointer-events: none; opacity: .24; animation: cnFooterDrift 12s ease-in-out infinite alternate; }
+        .cn-footer-glow { position: absolute; width: 320px; height: 320px; border-radius: 999px; filter: blur(70px); pointer-events: none; opacity: .16; animation: cnFooterDrift 12s ease-in-out infinite alternate; }
         .cn-footer-glow-a { background: #2563eb; top: 40px; left: -100px; }
         .cn-footer-glow-b { background: #7c3aed; right: -120px; bottom: 40px; animation-delay: -4s; }
         .cn-footer-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-        .cn-footer-particles span { position: absolute; width: 6px; height: 6px; border-radius: 999px; background: rgba(147,197,253,.9); box-shadow: 0 0 16px rgba(96,165,250,.85); animation: cnFooterParticle 8s linear infinite; }
+        .cn-footer-particles span { position: absolute; width: 6px; height: 6px; border-radius: 999px; background: rgba(59,130,246,.75); box-shadow: 0 0 14px rgba(59,130,246,.45); animation: cnFooterParticle 8s linear infinite; }
         @keyframes cnFooterParticle { 0% { transform: translate3d(0,28px,0) scale(.6); opacity: 0; } 20% { opacity: 1; } 70% { opacity: .75; } 100% { transform: translate3d(18px,-95px,0) scale(1); opacity: 0; } }
         @keyframes cnFooterDrift { from { transform: translate3d(-15px,0,0) scale(.95); } to { transform: translate3d(18px,-12px,0) scale(1.08); } }
 
-        .cn-live { position: relative; width: 8px; height: 8px; border-radius: 999px; background: #34d399; }
-        .cn-live::after { content: ''; position: absolute; inset: 0; border-radius: 999px; background: #34d399; animation: cnPing 2s ease-out infinite; }
+        .cn-live { position: relative; width: 8px; height: 8px; border-radius: 999px; background: #10b981; }
+        .cn-live::after { content: ''; position: absolute; inset: 0; border-radius: 999px; background: #10b981; animation: cnPing 2s ease-out infinite; }
         @keyframes cnPing { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3); opacity: 0; } }
 
         .cn-hide-sm { display: none; }
@@ -231,49 +231,49 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             {/* Brand (takes the newsletter slot from the reference) */}
             <div className="space-y-5 lg:pr-4">
               <div onClick={() => onNavigate('home')} className="flex items-center gap-3 cursor-pointer group w-fit">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-500 to-violet-500 p-[1px] shadow-lg shadow-blue-950/30 group-hover:scale-105 transition-all">
-                  <div className="w-full h-full bg-[#101d3b] rounded-2xl flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-blue-300" />
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-500 to-violet-500 p-[1px] shadow-lg shadow-blue-300/40 group-hover:scale-105 transition-all">
+                  <div className="w-full h-full bg-white rounded-2xl flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-blue-600" />
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-black text-xl text-white tracking-tight">Career<span className="text-blue-400">Nova</span></span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest text-blue-200/70">Software Solution &amp; Business Growth</span>
+                  <span className="font-black text-xl text-slate-900 tracking-tight">Career<span className="text-blue-600">Nova</span></span>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-blue-700/70">Software Solution &amp; Business Growth</span>
                 </div>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md">CareerNova builds digital products, software solutions, automation systems and growth strategies for businesses, brands and founders — from web and mobile development to AI, design, marketing, and ongoing technical support.</p>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md">CareerNova builds digital products, software solutions, automation systems and growth strategies for businesses, brands and founders — from web and mobile development to AI, design, marketing, and ongoing technical support.</p>
 
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-blue-950/40 transition-all hover:scale-[1.03]">
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 px-5 py-2.5 text-xs font-bold text-slate-900 shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.03]">
                 <Send className="w-3.5 h-3.5" /> Start a Conversation <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold text-white">Follow CareerNova</span>
+                <span className="text-xs font-bold text-slate-900">Follow CareerNova</span>
                 <div className="flex items-center gap-2">
                   {SOCIALS.map(({ href, label, Icon, hover }) => (
-                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className={`w-8 h-8 rounded-lg bg-white/5 ${hover} text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5`}>
+                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className={`w-8 h-8 rounded-lg bg-white ${hover} text-slate-600 hover:text-white border border-slate-200 shadow-sm flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5`}>
                       <Icon className="w-4 h-4" />
                     </a>
                   ))}
                 </div>
               </div>
 
-              <div className="relative inline-block px-4 py-3 rounded-2xl bg-white/5 border border-white/10">
-                <span className="absolute -top-2 left-3 text-2xl text-blue-300/70 font-serif">&ldquo;</span>
-                <p className="text-sm text-blue-100 -rotate-1" style={{ fontFamily: "'Brush Script MT', cursive" }}>Better People<br />Brighter Tomorrows</p>
+              <div className="relative inline-block px-4 py-3 rounded-2xl bg-white/80 border border-slate-200 shadow-sm">
+                <span className="absolute -top-2 left-3 text-2xl text-blue-500/70 font-serif">&ldquo;</span>
+                <p className="text-sm text-blue-800 -rotate-1" style={{ fontFamily: "'Brush Script MT', cursive" }}>Better People<br />Brighter Tomorrows</p>
               </div>
             </div>
 
             {/* Quick Links */}
             <div className="space-y-4">
               <h4 className={headingCls}>Quick Links</h4>
-              <ul className="space-y-2.5 text-xs text-slate-300 pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-600 pt-1">
                 {([
                   ['home', 'Home'], ['about', 'About Us'], ['services', 'Services Marketplace'],
                   ['tools', 'Interactive Tools'], ['blog', 'Blog & Guides'], ['contact', 'Contact Us'],
                 ] as [TabId, string][]).map(([tab, label]) => (
-                  <li key={label}><button onClick={() => onNavigate(tab)} className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"><ArrowRight className="w-3 h-3 text-blue-400" /><span>{label}</span></button></li>
+                  <li key={label}><button onClick={() => onNavigate(tab)} className="hover:text-blue-700 transition-colors flex items-center gap-1.5 cursor-pointer"><ArrowRight className="w-3 h-3 text-blue-600" /><span>{label}</span></button></li>
                 ))}
               </ul>
             </div>
@@ -281,13 +281,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             {/* Expertise */}
             <div className="space-y-4">
               <h4 className={headingCls}>Expertise</h4>
-              <ul className="space-y-2.5 text-xs text-slate-300 pt-1">
+              <ul className="space-y-2.5 text-xs text-slate-600 pt-1">
                 {[
                   ['services', 'Web Development'], ['services', 'iOS App Development'], ['services', 'E-commerce Development'],
                   ['services', 'AI & Automation'], ['services', 'UI/UX & Product Design'], ['services', 'Digital Marketing & SEO'],
                   ['services', 'Business Growth'], ['services', 'Maintenance & Support'], ['tools', 'Technology & Growth Stack'],
                 ].map(([tab, label]) => (
-                  <li key={label}><button onClick={() => onNavigate(tab as TabId)} className="hover:text-white transition-colors text-left flex items-center gap-1.5 cursor-pointer"><ArrowRight className="w-3 h-3 text-violet-400 shrink-0" /><span>{label}</span></button></li>
+                  <li key={label}><button onClick={() => onNavigate(tab as TabId)} className="hover:text-blue-700 transition-colors text-left flex items-center gap-1.5 cursor-pointer"><ArrowRight className="w-3 h-3 text-violet-600 shrink-0" /><span>{label}</span></button></li>
                 ))}
               </ul>
             </div>
@@ -295,26 +295,26 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
             {/* Let's Connect (plain text lines like the reference's Contact column) */}
             <div className="space-y-4">
               <h4 className={headingCls}>Let's Connect</h4>
-              <div className="space-y-4 text-xs text-slate-300 pt-1">
+              <div className="space-y-4 text-xs text-slate-600 pt-1">
                 <a href="tel:+917007260391" className="flex items-start gap-2.5 group">
-                  <Phone className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-                  <div><div className="font-bold text-white">Phone / WhatsApp</div><div className="group-hover:text-blue-300 transition-colors">+91 7007260391</div></div>
+                  <Phone className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                  <div><div className="font-bold text-slate-900">Phone / WhatsApp</div><div className="group-hover:text-blue-600 transition-colors">+91 7007260391</div></div>
                 </a>
                 <a href="mailto:sudheersinghrajput8932@gmail.com" className="flex items-start gap-2.5 group">
-                  <Mail className="w-4 h-4 text-violet-400 mt-0.5 shrink-0" />
-                  <div><div className="font-bold text-white">Official Email</div><div className="group-hover:text-violet-300 transition-colors break-all">sudheersinghrajput8932@gmail.com</div></div>
+                  <Mail className="w-4 h-4 text-violet-600 mt-0.5 shrink-0" />
+                  <div><div className="font-bold text-slate-900">Official Email</div><div className="group-hover:text-violet-600 transition-colors break-all">sudheersinghrajput8932@gmail.com</div></div>
                 </a>
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
-                  <div><div className="font-bold text-white">Address</div><div>298B, Almari Gali, New Ashok Nagar, Delhi</div></div>
+                  <MapPin className="w-4 h-4 text-cyan-600 mt-0.5 shrink-0" />
+                  <div><div className="font-bold text-slate-900">Address</div><div>298B, Almari Gali, New Ashok Nagar, Delhi</div></div>
                 </div>
-                <p className="text-[11px] text-slate-400">We usually reply within 24 hours.</p>
+                <p className="text-[11px] text-slate-500">We usually reply within 24 hours.</p>
               </div>
             </div>
           </div>
 
           {/* Bottom bar: left badge / centered legal + copyright / right actions (same 3-part layout as the reference) */}
-          <div className="mt-12 pt-6 border-t border-white/10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-5 text-xs text-slate-400">
+          <div className="mt-12 pt-6 border-t border-slate-300/70 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-5 text-xs text-slate-500">
             <div className="flex items-center justify-center lg:justify-start gap-2">
               <svg className="w-8 h-[22px] shrink-0 rounded-[2px] shadow-sm" viewBox="0 0 30 20" role="img" aria-label="Indian national flag" xmlns="http://www.w3.org/2000/svg">
                 <rect width="30" height="20" fill="#fff" />
@@ -324,24 +324,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 <circle cx="15" cy="10" r="0.45" fill="#000080" />
                 {Array.from({ length: 24 }, (_, i) => <line key={i} x1="15" y1="7.55" x2="15" y2="12.45" stroke="#000080" strokeWidth="0.28" transform={`rotate(${i * 15} 15 10)`} />)}
               </svg>
-              <div className="leading-tight"><div className="text-[10px] text-slate-300">Turning Ideas Into Opportunities</div></div>
+              <div className="leading-tight"><div className="text-[10px] text-slate-600">Turning Ideas Into Opportunities</div></div>
             </div>
 
             <div className="text-center space-y-2">
               <p>Built for businesses, brands &amp; digital growth.</p>
               <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-                <button onClick={() => onNavigate('privacy' as TabId)} className="hover:text-white cursor-pointer">Privacy Policy</button><span className="text-white/20">|</span>
-                <button onClick={() => onNavigate('terms' as TabId)} className="hover:text-white cursor-pointer">Terms of Service</button><span className="text-white/20">|</span>
-                <button onClick={() => onNavigate('disclaimer' as TabId)} className="hover:text-white cursor-pointer">Disclaimer</button><span className="text-white/20">|</span>
-                <button onClick={() => onNavigate('refund' as TabId)} className="hover:text-white cursor-pointer">Refund &amp; Cancellation</button><span className="text-white/20">|</span>
-                <button onClick={() => onNavigate('cookies' as TabId)} className="hover:text-white cursor-pointer">Cookie Policy</button>
+                <button onClick={() => onNavigate('privacy' as TabId)} className="hover:text-blue-700 cursor-pointer">Privacy Policy</button><span className="text-slate-300">|</span>
+                <button onClick={() => onNavigate('terms' as TabId)} className="hover:text-blue-700 cursor-pointer">Terms of Service</button><span className="text-slate-300">|</span>
+                <button onClick={() => onNavigate('disclaimer' as TabId)} className="hover:text-blue-700 cursor-pointer">Disclaimer</button><span className="text-slate-300">|</span>
+                <button onClick={() => onNavigate('refund' as TabId)} className="hover:text-blue-700 cursor-pointer">Refund &amp; Cancellation</button><span className="text-slate-300">|</span>
+                <button onClick={() => onNavigate('cookies' as TabId)} className="hover:text-blue-700 cursor-pointer">Cookie Policy</button>
               </div>
-              <p>© 2026 <strong className="text-white">CareerNova</strong>. All rights reserved.</p>
+              <p>© 2026 <strong className="text-slate-900">CareerNova</strong>. All rights reserved.</p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3">
-              <span className="inline-flex items-center gap-2 text-[11px] font-bold text-blue-100"><span className="cn-live" /> Live CareerNova systems</span>
-              <button onClick={onOpenCreator} className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-blue-300/20 text-blue-200 text-xs font-bold hover:bg-white/10 transition-all cursor-pointer">
+              <span className="inline-flex items-center gap-2 text-[11px] font-bold text-blue-800"><span className="cn-live" /> Live CareerNova systems</span>
+              <button onClick={onOpenCreator} className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-blue-300/60 text-blue-700 text-xs font-bold hover:bg-blue-50 transition-all cursor-pointer">
                 <Sparkles className="w-3.5 h-3.5" /><span>Keep Growing</span><ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
