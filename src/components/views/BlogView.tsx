@@ -760,17 +760,27 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
       <style>{`
         .careernova-title-highlight {
           display: inline;
-          color: #312e81;
-          background: #e9e4ff;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          /* Layer 1: white reflection sweep | Layer 2: flowing RGB gradient */
+          background-image:
+            linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.85) 50%, transparent 58%),
+            linear-gradient(90deg, #ff1744, #ff9100, #00e676, #00b0ff, #3d5afe, #d500f9, #ff1744);
+          background-size: 250% 100%, 200% 100%;
+          background-repeat: no-repeat, repeat-x;
+          background-clip: text;
+          -webkit-background-clip: text;
           box-decoration-break: clone;
           -webkit-box-decoration-break: clone;
-          padding: 0.08em 0.18em 0.12em;
-          border-radius: 0.18em;
-          -webkit-text-fill-color: #312e81;
-          background-clip: border-box;
-          -webkit-background-clip: border-box;
-          box-shadow: 0 0 0 2px #e9e4ff;
-        }        }
+          animation: careernova-rgb-shine 3.2s linear infinite;
+        }
+        @keyframes careernova-rgb-shine {
+          from { background-position: 100% 0, 0% 0; }
+          to   { background-position: 0% 0, -200% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .careernova-title-highlight { animation: none; }
+        }
       `}</style>
 
       <motion.section
