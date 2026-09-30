@@ -803,16 +803,26 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
              transparent text makes the gradient inherit transparency and can
              make the title appear only while text is selected. */
           background-image: linear-gradient(
-            110deg,
-            #3730a3 0%,
-            #4f46e5 38%,
-            #ffffff 49%,
-            #ffffff 51%,
-            #4f46e5 62%,
-            #3730a3 100%
+            105deg,
+            #7c3aed 0%,
+            #2563eb 18%,
+            #06b6d4 34%,
+            #22c55e 47%,
+            #f59e0b 60%,
+            #ec4899 76%,
+            #8b5cf6 100%
+          ), linear-gradient(
+            105deg,
+            transparent 0%,
+            transparent 43%,
+            rgba(255,255,255,0.98) 49%,
+            rgba(255,255,255,0.98) 51%,
+            transparent 57%,
+            transparent 100%
           );
-          background-size: 260% 100%;
-          background-position: 200% 0;
+          background-blend-mode: screen;
+          background-size: 100% 100%, 260% 100%;
+          background-position: 0 0, 200% 0;
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -824,7 +834,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         @media (prefers-reduced-motion: reduce) {
           .careernova-title-reflection {
             animation: none;
-            background-image: linear-gradient(110deg, #3730a3, #4f46e5);
+            background-image: linear-gradient(105deg, #7c3aed, #2563eb, #06b6d4, #22c55e, #f59e0b, #ec4899);
           }
         }
       `}</style>
@@ -842,9 +852,8 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             CareerNova Blog
           </span>
 
-          <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-slate-900">
-            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing</span>{' '}
-            <span className="text-slate-900">Insights</span>
+          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+            Career, Business, Technology & Digital Marketing Insights
           </h1>
 
           <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
@@ -855,7 +864,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
         <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
           <img
-            src="/assets/blog-hero-banner.png"
+            src="/assets/blog-hero-banner-girl.png"
             alt="CareerNova Blog — career, technology, business and digital marketing insights"
             width={1600}
             height={700}
