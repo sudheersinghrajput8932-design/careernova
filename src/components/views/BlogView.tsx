@@ -758,38 +758,14 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     <div className="space-y-10 sm:space-y-12">
       {/* 1. SEO Hero — title is intentionally above the hero image */}
       <style>{`
-        @keyframes careernovaTitleReflection {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
         .careernova-title-reflection {
-          /* Explicit colors are important here: using currentColor together with
-             transparent text makes the gradient inherit transparency and can
-             make the title appear only while text is selected. */
-          background-image: linear-gradient(
-            110deg,
-            #3730a3 0%,
-            #4f46e5 38%,
-            #ffffff 49%,
-            #ffffff 51%,
-            #4f46e5 62%,
-            #3730a3 100%
-          );
-          background-size: 260% 100%;
-          background-position: 200% 0;
+          /* Keep every character crisp and readable: no white reflection/fade. */
+          background-image: linear-gradient(100deg, #3730a3 0%, #4f46e5 52%, #6d28d9 100%);
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           color: #4338ca;
-          text-shadow: 0 2px 12px rgba(67, 56, 202, 0.10);
-          animation: careernovaTitleReflection 3.8s linear infinite;
-          will-change: background-position;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .careernova-title-reflection {
-            animation: none;
-            background-image: linear-gradient(110deg, #3730a3, #4f46e5);
-          }
+          text-shadow: 0 2px 10px rgba(67, 56, 202, 0.10);
         }
       `}</style>
 
