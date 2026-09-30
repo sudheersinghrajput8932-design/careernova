@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import {
   Briefcase,
   TrendingUp,
@@ -35,29 +35,6 @@ interface ServiceItem {
   features: string[];
   whatsappMessage: string;
 }
-
-const HERO_SLIDER_ITEMS = [
-  {
-    id: 'verified-specialists',
-    title: 'Verified Specialists You Can Trust',
-    image: '/assets/hero-slide-verified-specialists.png',
-  },
-  {
-    id: 'satisfaction-guaranteed',
-    title: '100% Satisfaction Guaranteed',
-    image: '/assets/hero-slide-satisfaction-guaranteed.png',
-  },
-  {
-    id: 'our-services',
-    title: 'Expert Services for a Brighter Tomorrow',
-    image: '/assets/hero-slide-our-services.png',
-  },
-  {
-    id: 'goals-services',
-    title: 'Your Goals. Our Services. A Brighter Tomorrow.',
-    image: '/assets/hero-slide-goals-services.png',
-  },
-];
 
 const SERVICES_DATA: ServiceItem[] = [
   {
@@ -284,17 +261,7 @@ const CATEGORY_STYLES: Record<
 };
 export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
-  const [isHeroSliderPaused, setIsHeroSliderPaused] = useState(false);
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
-
-  useEffect(() => {
-    if (isHeroSliderPaused) return;
-    const timer = setInterval(() => {
-      setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDER_ITEMS.length);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, [isHeroSliderPaused]);
 
   const categories = [
     { id: 'all', label: 'All Services', icon: null },
@@ -318,7 +285,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
 
   return (
     <div className="space-y-12 sm:space-y-16">
-      {/* HERO — compact title on top, full-bleed auto-slider directly underneath, no side gutters */}
+      {/* HERO — compact title on top, single banner image directly underneath */}
       <div className="space-y-4 sm:space-y-5">
         {/* 1. HERO TITLE — just the headline, tightened up, no illustrations or extra copy eating up height */}
         <motion.div
@@ -345,50 +312,24 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
           </h1>
         </motion.div>
 
-        {/* 2. HERO AUTO-SLIDER — full width, edge-to-edge, sits right below the title, true left-to-right slide transition */}
+        {/* 2. HERO BANNER — single static image, full width, right below the title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ ...smoothTransition, delay: 0.1 }}
           className="relative w-full rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden"
-          onMouseEnter={() => setIsHeroSliderPaused(true)}
-          onMouseLeave={() => setIsHeroSliderPaused(false)}
-          onTouchStart={() => setIsHeroSliderPaused(true)}
-          onTouchEnd={() => setIsHeroSliderPaused(false)}
         >
-          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden">
-            <AnimatePresence initial={false} mode="wait">
-              <motion.img
-                key={HERO_SLIDER_ITEMS[activeHeroSlide].id}
-                src={HERO_SLIDER_ITEMS[activeHeroSlide].image}
-                alt={HERO_SLIDER_ITEMS[activeHeroSlide].title}
-                initial={{ opacity: 0, x: '6%' }}
-                animate={{ opacity: 1, x: '0%' }}
-                exit={{ opacity: 0, x: '-6%' }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-                loading="eager"
-              />
-            </AnimatePresence>
-          </div>
-
-          {/* Dots — tap a dot to jump to that slide (also pauses auto-rotation) */}
-          <div className="flex items-center justify-center gap-1.5 py-3">
-            {HERO_SLIDER_ITEMS.map((item, idx) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setIsHeroSliderPaused(true);
-                  setActiveHeroSlide(idx);
-                }}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === activeHeroSlide ? 'w-6 bg-indigo-600' : 'w-1.5 bg-slate-300 hover:bg-slate-400'
-                }`}
-              />
-            ))}
-          </div>
+          <img
+            src="/assets/services-hero-banner.png"
+            alt="CareerNova Services — verified specialists helping you learn, grow and build a brighter career and business"
+            width={2159}
+            height={728}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="block w-full h-auto min-h-[150px] object-cover select-none pointer-events-none"
+          />
         </motion.div>
       </div>
 
