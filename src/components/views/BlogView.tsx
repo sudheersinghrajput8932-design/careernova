@@ -758,14 +758,14 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     <div className="space-y-10 sm:space-y-12">
       {/* 1. SEO Hero — title is intentionally above the hero image */}
       <style>{`
-        .careernova-title-reflection {
-          /* Keep every character crisp and readable: no white reflection/fade. */
-          background-image: linear-gradient(100deg, #3730a3 0%, #4f46e5 52%, #6d28d9 100%);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          color: #4338ca;
-          text-shadow: 0 2px 10px rgba(67, 56, 202, 0.10);
+        .careernova-title-highlight {
+          display: inline;
+          color: #312e81;
+          background: linear-gradient(transparent 58%, #ddd6fe 58%);
+          box-decoration-break: clone;
+          -webkit-box-decoration-break: clone;
+          padding: 0 0.12em 0.06em;
+          border-radius: 0.12em;
         }
       `}</style>
 
@@ -783,7 +783,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
           </span>
 
           <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
-            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing Insights</span>
+            <span className="careernova-title-highlight">Career, Business, Technology & Digital Marketing Insights</span>
           </h1>
 
           <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
