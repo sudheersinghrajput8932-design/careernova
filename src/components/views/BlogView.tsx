@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+aimport React, { useEffect, useMemo, useState } from 'react';
 import {
   BookOpen,
   Clock,
@@ -768,12 +768,14 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
              make the title appear only while text is selected. */
           background-image: linear-gradient(
             110deg,
-            #3730a3 0%,
-            #4f46e5 38%,
+            #f97316 0%,
+            #ec4899 22%,
+            #8b5cf6 42%,
             #ffffff 49%,
             #ffffff 51%,
-            #4f46e5 62%,
-            #3730a3 100%
+            #3b82f6 62%,
+            #06b6d4 82%,
+            #f97316 100%
           );
           background-size: 260% 100%;
           background-position: 200% 0;
@@ -788,7 +790,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         @media (prefers-reduced-motion: reduce) {
           .careernova-title-reflection {
             animation: none;
-            background-image: linear-gradient(110deg, #3730a3, #4f46e5);
+            background-image: linear-gradient(110deg, #f97316, #ec4899, #8b5cf6, #3b82f6);
           }
         }
       `}</style>
@@ -806,9 +808,8 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             CareerNova Blog
           </span>
 
-          <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-slate-900">
-            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing</span>{' '}
-            <span className="text-slate-900">Insights</span>
+          <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing Insights</span>
           </h1>
 
           <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
@@ -1234,3 +1235,4 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     </div>
   );
 };
+
