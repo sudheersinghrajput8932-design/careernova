@@ -26,6 +26,9 @@ interface FooterProps {
 /* ---------- Skyline data (generated once, not on every render) ---------- */
 const NAVY = '#e6eeff'; // light theme: skyline + body tint (name kept so nothing else changes)
 
+const WHEEL_C = '#5b7fe8';
+const GOND = ['#7c5cf0', '#3b82f6'];
+
 const HILL: [number, number][] = [
   [0, 118], [120, 112], [200, 90], [340, 64], [480, 52], [600, 62],
   [700, 84], [800, 104], [960, 108], [1100, 100], [1300, 88], [1440, 92],
@@ -125,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
         /* skyline life */
         .cn-wheel { transform-box: fill-box; transform-origin: center; animation: cnSpin 40s linear infinite; }
         @keyframes cnSpin { to { transform: rotate(360deg); } }
-        .cn-win { fill: #3b82f6; opacity: .3; animation: cnWin 4.5s ease-in-out infinite; }
+        .cn-win { fill: #ffffff; opacity: .3; animation: cnWin 4.5s ease-in-out infinite; }
         @keyframes cnWin { 0%,100% { opacity: .18; } 50% { opacity: .95; } }
 
         /* body background life */
@@ -153,8 +156,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
       {/* ================= Skyline (top edge) ================= */}
       <div className="cn-sky" aria-hidden="true">
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 180" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cnHillG" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="180">
+              <stop offset="0" stopColor="#bcd0f8" />
+              <stop offset="1" stopColor={NAVY} />
+            </linearGradient>
+            <linearGradient id="cnBldG" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="180">
+              <stop offset="0" stopColor="#8fabee" />
+              <stop offset="1" stopColor={NAVY} />
+            </linearGradient>
+          </defs>
           {/* wheel sits behind the hill */}
-          <g stroke={NAVY} strokeWidth="3" fill="none">
+          <g stroke={WHEEL_C} strokeWidth="3" fill="none">
             <path d={`M${WHEEL.cx},${WHEEL.cy} L${WHEEL.cx - 24},112 M${WHEEL.cx},${WHEEL.cy} L${WHEEL.cx + 24},112`} />
             <g className="cn-wheel">
               <circle cx={WHEEL.cx} cy={WHEEL.cy} r={WHEEL.r} />
@@ -163,25 +176,25 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
                 <line key={i} x1={WHEEL.cx} y1={WHEEL.cy} x2={WHEEL.cx + Math.cos(a) * WHEEL.r} y2={WHEEL.cy + Math.sin(a) * WHEEL.r} strokeWidth="1.5" />
               ))}
               {SPOKES.map((a, i) => (
-                <circle key={`g${i}`} cx={WHEEL.cx + Math.cos(a) * WHEEL.r} cy={WHEEL.cy + Math.sin(a) * WHEEL.r} r="4.5" fill={NAVY} stroke="none" />
+                <circle key={`g${i}`} cx={WHEEL.cx + Math.cos(a) * WHEEL.r} cy={WHEEL.cy + Math.sin(a) * WHEEL.r} r="4.5" fill={GOND[i % 2]} stroke="none" />
               ))}
             </g>
-            <circle cx={WHEEL.cx} cy={WHEEL.cy} r="5" fill={NAVY} stroke="none" />
+            <circle cx={WHEEL.cx} cy={WHEEL.cy} r="5" fill="#4f46e5" stroke="none" />
           </g>
 
-          <path d={HILL_PATH} fill={NAVY} />
+          <path d={HILL_PATH} fill="url(#cnHillG)" />
 
           {BUILDINGS.map((b, i) => (
-            <rect key={i} x={b.x} y={b.top} width={b.w} height={180 - b.top} fill={NAVY} />
+            <rect key={i} x={b.x} y={b.top} width={b.w} height={180 - b.top} fill="url(#cnBldG)" />
           ))}
-          <line x1="834" y1="58" x2="834" y2="44" stroke={NAVY} strokeWidth="2" />
-          <line x1="1118" y1="56" x2="1118" y2="40" stroke={NAVY} strokeWidth="2" />
+          <line x1="834" y1="58" x2="834" y2="44" stroke="#6f8fe6" strokeWidth="2" />
+          <line x1="1118" y1="56" x2="1118" y2="40" stroke="#6f8fe6" strokeWidth="2" />
 
           {TREES.map((t, i) => {
             const hy = hillY(t.x);
             return (
-              <g key={i} fill={NAVY}>
-                <line x1={t.x} y1={hy - 12} x2={t.x} y2={hy + 8} stroke={NAVY} strokeWidth="2.5" />
+              <g key={i} fill="#6fcf9f">
+                <line x1={t.x} y1={hy - 12} x2={t.x} y2={hy + 8} stroke="#3f9b78" strokeWidth="2.5" />
                 <circle cx={t.x} cy={hy - 12 - t.r} r={t.r} />
               </g>
             );
@@ -351,3 +364,4 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCreator = () =
     </footer>
   );
 };
+
