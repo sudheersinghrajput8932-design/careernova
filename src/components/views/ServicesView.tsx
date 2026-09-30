@@ -346,8 +346,8 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
           <img
             src="/assets/services-hero-banner.png"
             alt="CareerNova Services — verified specialists helping you learn, grow and build a brighter career and business"
-            width={2159}
-            height={728}
+            width={2048}
+            height={691}
             loading="eager"
             fetchPriority="high"
             decoding="async"
