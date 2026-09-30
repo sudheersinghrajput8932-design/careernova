@@ -304,11 +304,34 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
             <span className="whitespace-normal sm:whitespace-nowrap">CAREER & BUSINESS SERVICES MARKETPLACE</span>
           </motion.div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Professional Growth Services at{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700">
-              Honest Pricing
-            </span>
+          <style>{`
+            .services-title-highlight {
+              display: inline;
+              color: transparent;
+              -webkit-text-fill-color: transparent;
+              /* Layer 1: white reflection sweep (left → right) | Layer 2: RGB flow in the website palette */
+              background-image:
+                linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.9) 50%, transparent 58%),
+                linear-gradient(90deg, #4f46e5, #7c3aed, #d946ef, #f43f5e, #f59e0b, #10b981, #06b6d4, #3b82f6, #4f46e5);
+              background-size: 250% 100%, 200% 100%;
+              background-repeat: no-repeat, repeat-x;
+              background-clip: text;
+              -webkit-background-clip: text;
+              box-decoration-break: clone;
+              -webkit-box-decoration-break: clone;
+              animation: services-title-shine 3.2s linear infinite;
+            }
+            @keyframes services-title-shine {
+              from { background-position: 100% 0, 0% 0; }
+              to   { background-position: 0% 0, -200% 0; }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .services-title-highlight { animation: none; }
+            }
+          `}</style>
+
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+            <span className="services-title-highlight">Professional Growth Services at Honest Pricing</span>
           </h1>
         </motion.div>
 
@@ -602,8 +625,10 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
         transition={smoothTransition}
         className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_25px_80px_-35px_rgba(15,23,42,0.55)] sm:p-8"
       >
-        <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-600/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -left-20 h-60 w-60 rounded-full bg-violet-600/15 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/35 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full bg-violet-600/30 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 h-56 w-56 rounded-full bg-cyan-500/25 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/3 top-0 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-3xl" />
 
         <div className="relative grid gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
@@ -640,18 +665,18 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate }) => {
                       document.getElementById('services-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  className="group rounded-2xl border border-white/10 bg-white/[0.055] p-3 text-left backdrop-blur-sm transition-all hover:border-indigo-400/40 hover:bg-white/[0.09]"
+                  className="group relative overflow-hidden rounded-2xl border border-white/25 bg-[linear-gradient(135deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.07)_45%,rgba(255,255,255,0.03)_100%)] p-3 text-left backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_18px_40px_-22px_rgba(0,0,0,0.7)] transition-all duration-300 hover:border-white/45 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0.11)_50%,rgba(255,255,255,0.05)_100%)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_22px_50px_-20px_rgba(99,102,241,0.55)]"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-indigo-200">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/30 bg-white/15 text-white shadow-inner backdrop-blur-md">
                     <ProblemIcon className="h-4 w-4" />
                   </span>
-                  <p className="mt-3 text-[9px] font-semibold leading-3.5 text-slate-400">
+                  <p className="mt-3 text-[9px] font-semibold leading-3.5 text-slate-300">
                     {problem as string}
                   </p>
                   <p className="mt-1 text-[10px] font-black leading-3.5 text-white">
                     {solution as string}
                   </p>
-                  <ArrowRight className="mt-3 h-3.5 w-3.5 text-slate-600 transition-all group-hover:translate-x-1 group-hover:text-indigo-300" />
+                  <ArrowRight className="mt-3 h-3.5 w-3.5 text-white/50 transition-all group-hover:translate-x-1 group-hover:text-white" />
                 </motion.button>
               );
             })}
