@@ -627,7 +627,7 @@ const setBlogJsonLd = (activePost: ServiceBlogPost | null) => {
         '@type': 'ListItem',
         position: index + 1,
         name: post.title,
-        url: `${BLOG_CANONICAL_URL}/${post.slug}`
+        url: `${BLOG_CANONICAL_URL}#blog/${post.slug}`
       }))
     }
   ];
@@ -651,7 +651,7 @@ const setBlogJsonLd = (activePost: ServiceBlogPost | null) => {
         name: 'CareerNova',
         url: 'https://careernova-official.vercel.app/'
       },
-      mainEntityOfPage: `${BLOG_CANONICAL_URL}/${activePost.slug}`,
+      mainEntityOfPage: BLOG_CANONICAL_URL,
       keywords: activePost.tags.join(', ')
     });
   }
@@ -671,29 +671,6 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [activePost, setActivePost] = useState<ServiceBlogPost | null>(null);
-
-  // Keep each article on a clean, shareable URL instead of a hash fragment.
-  // The parent App can still render the Blog tab; this URL identifies the article
-  // for canonical/share navigation and browser history.
-  const getArticlePath = (post: ServiceBlogPost) => `/blog/${post.slug}`;
-
-  const getArticleFromLocation = () => {
-    const match = window.location.pathname.match(/^\/blog\/([^/]+)\/?$/);
-    if (!match) return null;
-    const slug = decodeURIComponent(match[1]);
-    return SERVICE_BLOG_POSTS.find((post) => post.slug === slug) || null;
-  };
-
-  const openArticle = (post: ServiceBlogPost, pushHistory = true) => {
-    setActivePost(post);
-    if (pushHistory) {
-      window.history.pushState(
-        { blogSlug: post.slug },
-        '',
-        getArticlePath(post)
-      );
-    }
-  };
 
   useEffect(() => {
     const title = activePost
@@ -730,7 +707,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         ? `https://careernova-official.vercel.app${activePost.coverImage}`
         : 'https://careernova-official.vercel.app/assets/blog-hero-banner.png'
     );
-    setCanonical(activePost ? `${BLOG_CANONICAL_URL}/${activePost.slug}` : BLOG_CANONICAL_URL);
+    setCanonical(BLOG_CANONICAL_URL);
     setBlogJsonLd(activePost);
 
     return () => {
@@ -755,19 +732,6 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
     };
   }, [activePost]);
 
-  React.useEffect(() => {
-    const initialPost = getArticleFromLocation();
-    if (initialPost) setActivePost(initialPost);
-
-    const handlePopState = () => {
-      const post = getArticleFromLocation();
-      setActivePost(post);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
   const categories = ['All', 'Career', 'Business', 'Marketing', 'AI'];
 
   const filteredPosts = SERVICE_BLOG_POSTS.filter((post) => {
@@ -780,7 +744,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
   });
 
   const handleShare = async (post: ServiceBlogPost) => {
-    const ok = await copyToClipboard(`${BLOG_CANONICAL_URL}/${post.slug}`);
+    const ok = await copyToClipboard(`${BLOG_CANONICAL_URL}#blog/${post.slug}`);
     if (ok) {
       notifyFn('success', 'Article Link Copied', 'Share this guide with friends or on LinkedIn.');
     }
@@ -803,26 +767,16 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
              transparent text makes the gradient inherit transparency and can
              make the title appear only while text is selected. */
           background-image: linear-gradient(
-            105deg,
-            #7c3aed 0%,
-            #2563eb 18%,
-            #06b6d4 34%,
-            #22c55e 47%,
-            #f59e0b 60%,
-            #ec4899 76%,
-            #8b5cf6 100%
-          ), linear-gradient(
-            105deg,
-            transparent 0%,
-            transparent 43%,
-            rgba(255,255,255,0.98) 49%,
-            rgba(255,255,255,0.98) 51%,
-            transparent 57%,
-            transparent 100%
+            110deg,
+            #3730a3 0%,
+            #4f46e5 38%,
+            #ffffff 49%,
+            #ffffff 51%,
+            #4f46e5 62%,
+            #3730a3 100%
           );
-          background-blend-mode: screen;
-          background-size: 100% 100%, 260% 100%;
-          background-position: 0 0, 200% 0;
+          background-size: 260% 100%;
+          background-position: 200% 0;
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -834,7 +788,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         @media (prefers-reduced-motion: reduce) {
           .careernova-title-reflection {
             animation: none;
-            background-image: linear-gradient(105deg, #7c3aed, #2563eb, #06b6d4, #22c55e, #f59e0b, #ec4899);
+            background-image: linear-gradient(110deg, #3730a3, #4f46e5);
           }
         }
       `}</style>
@@ -852,8 +806,9 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             CareerNova Blog
           </span>
 
-          <h1 className="careernova-title-reflection mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
-            Career, Business, Technology & Digital Marketing Insights
+          <h1 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-slate-900">
+            <span className="careernova-title-reflection">Career, Business, Technology & Digital Marketing</span>{' '}
+            <span className="text-slate-900">Insights</span>
           </h1>
 
           <p className="mt-3 max-w-3xl mx-auto text-xs sm:text-sm lg:text-base leading-relaxed text-slate-600">
@@ -864,7 +819,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
 
         <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
           <img
-            src="/assets/blog-hero-banner-girl.png"
+            src="/assets/blog-hero-banner.png"
             alt="CareerNova Blog — career, technology, business and digital marketing insights"
             width={1600}
             height={700}
@@ -913,7 +868,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
       </motion.div>
 
       {/* 3. Blog Cards Grid with Staggered Scroll Reveal */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-7 items-stretch">
+      <div id="blog-articles-grid" className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-7 items-stretch scroll-mt-24">
         {filteredPosts.map((post, idx) => {
           const theme = CATEGORY_THEME[post.category] || DEFAULT_THEME;
           return (
@@ -923,7 +878,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ ...smoothTransition, delay: (idx % 4) * 0.08 }}
-            onClick={() => openArticle(post)}
+            onClick={() => setActivePost(post)}
             className={`group relative min-w-0 rounded-3xl bg-white border border-slate-200 transition-all duration-300 cursor-pointer flex h-full flex-col justify-between hover:-translate-y-1 shadow-xs overflow-hidden ${theme.border} ${theme.glow}`}
           >
             {/* Per-category color strip */}
@@ -1029,6 +984,59 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
         })}
       </div>
 
+      {/* Bottom Community Banner — real selectable HTML text over the image */}
+      {!activePost && (
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={smoothTransition}
+          aria-labelledby="blog-community-banner-title"
+          className="relative isolate min-h-[220px] sm:min-h-[250px] lg:min-h-[270px] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-lg"
+        >
+          <img
+            src="/assets/blog-community-banner.png"
+            alt="A diverse group of students and young professionals connecting and learning together"
+            width={1600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-[center_68%]"
+          />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-white/95 via-white/85 to-white/10 sm:from-white/95 sm:via-white/75 sm:to-transparent" />
+          <div className="relative z-10 flex min-h-[220px] items-center px-5 py-7 sm:min-h-[250px] sm:px-9 lg:min-h-[270px] lg:px-12">
+            <div className="max-w-xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/85 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 shadow-sm backdrop-blur-sm sm:text-xs">
+                <BookOpen className="h-3.5 w-3.5" /> CareerNova Blog Community
+              </span>
+              <h2 id="blog-community-banner-title" className="mt-3 text-2xl font-black leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+                <span className="bg-gradient-to-r from-orange-500 via-fuchsia-600 to-indigo-700 bg-clip-text text-transparent">Explore More. Learn More.</span>
+                <br />Grow Together.
+              </h2>
+              <p className="mt-2 max-w-lg text-xs leading-relaxed text-slate-700 sm:text-sm">
+                Discover practical insights on careers, business, digital marketing and technology — and turn what you learn into your next opportunity.
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => { setSelectedCategory('All'); setSearchQuery(''); document.getElementById('blog-articles-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+                >
+                  Explore Blog Articles <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setSelectedCategory('Marketing'); setSearchQuery(''); document.getElementById('blog-articles-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white/85 px-4 py-2.5 text-xs font-bold text-slate-800 shadow-sm backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+                >
+                  Explore Marketing <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+      )}
+
       {/* Reader Modal */}
       {activePost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
@@ -1045,12 +1053,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
 
               <button
-                onClick={() => {
-                  setActivePost(null);
-                  if (window.location.pathname.startsWith('/blog/')) {
-                    window.history.pushState({ tab: 'blog' }, '', '/blog');
-                  }
-                }}
+                onClick={() => setActivePost(null)}
                 className="absolute top-4 right-4 p-2 rounded-xl bg-black/50 hover:bg-black/70 text-white border border-white/20 backdrop-blur-md transition-colors cursor-pointer"
                 aria-label="Close article"
               >
@@ -1218,12 +1221,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onNotify, addToast, onNaviga
                 </button>
 
                 <button
-                  onClick={() => {
-                      setActivePost(null);
-                      if (window.location.pathname.startsWith('/blog/')) {
-                        window.history.pushState({ tab: 'blog' }, '', '/blog');
-                      }
-                    }}
+                  onClick={() => setActivePost(null)}
                   className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-xs"
                 >
                   Close Article
