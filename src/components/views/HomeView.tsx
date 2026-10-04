@@ -2916,19 +2916,29 @@ const ReviewsSection = () => {
 
 const FinalCTA = ({ onNavigate }: { onNavigate: (tab: any) => void }) => (
   <section className="cn-final-cta">
-    <div>
+    <img
+      className="cn-final-cta-image"
+      src="/assets/cn-business-team-banner.webp"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+    <div className="cn-final-cta-overlay" aria-hidden="true" />
+    <div className="cn-final-cta-content">
       <span>BUILD YOUR DIGITAL PRESENCE</span>
-      <h2>Ready to Create a Website That Moves Your Business Forward?</h2>
+      <h2>
+        Ready to Create a <span className="cn-final-cta-highlight">Website That Moves Your Business Forward?</span>
+      </h2>
       <p>
         Explore practical website solutions, modern development and digital
         experiences designed to help your brand connect, convert and grow.
       </p>
+      <button onClick={() => onNavigate('services')}>
+        Explore Website Solutions
+        <ArrowRight size={19} />
+      </button>
     </div>
-
-    <button onClick={() => onNavigate('services')}>
-      Explore Website Solutions
-      <ArrowRight size={19} />
-    </button>
   </section>
 );
 
@@ -4651,56 +4661,92 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         ================================================= */
 
         .cn-final-cta {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          min-height: 270px;
           margin-top: 70px;
           margin-bottom: 20px;
-          padding: 40px 45px;
-          border-radius: 27px;
-          color: #fff;
-          background:
-            radial-gradient(circle at 80% 30%,rgba(168,85,247,.35),transparent 30%),
-            linear-gradient(120deg,#10133d,#25105b);
+          padding: 30px 38px;
+          border: 1px solid rgba(99,102,241,.12);
+          border-radius: 24px;
+          color: #172044;
+          background: #f8f9ff;
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 30px;
         }
 
-        .cn-final-cta > div {
-          max-width: 700px;
+        .cn-final-cta-image {
+          position: absolute;
+          z-index: -2;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 48%;
         }
 
-        .cn-final-cta span {
-          color: #bdaaff;
-          font-size: 11px;
+        .cn-final-cta-overlay {
+          position: absolute;
+          z-index: -1;
+          inset: 0;
+          background: linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.95) 37%, rgba(255,255,255,.72) 55%, rgba(255,255,255,.04) 82%);
+          pointer-events: none;
+        }
+
+        .cn-final-cta-content {
+          width: min(760px, 70%);
+          position: relative;
+          z-index: 1;
+        }
+
+        .cn-final-cta-content > span {
+          display: inline-block;
+          color: #6541d8;
+          font-size: 10px;
           font-weight: 900;
-          letter-spacing: 1.7px;
+          letter-spacing: 1.6px;
         }
 
         .cn-final-cta h2 {
-          margin: 9px 0;
-          font-size: clamp(28px,4vw,43px);
-          letter-spacing: -1.5px;
+          max-width: 720px;
+          margin: 8px 0 9px;
+          color: #172044;
+          font-size: clamp(23px,2.6vw,34px);
+          line-height: 1.13;
+          letter-spacing: -1.05px;
+          font-weight: 900;
+        }
+
+        .cn-final-cta-highlight {
+          color: #6541d8;
+          background: linear-gradient(transparent 63%, rgba(196,181,253,.55) 63%);
+          border-radius: 3px;
         }
 
         .cn-final-cta p {
+          max-width: 650px;
           margin: 0;
-          color: #bbc3dd;
-          line-height: 1.65;
+          color: #4d5875;
+          font-size: 13px;
+          line-height: 1.55;
         }
 
         .cn-final-cta button {
-          flex: 0 0 auto;
-          height: 53px;
-          padding: 0 20px;
+          margin-top: 15px;
+          min-height: 43px;
+          padding: 0 17px;
           border: 0;
-          border-radius: 14px;
-          background: #fff;
-          color: #37217c;
+          border-radius: 12px;
+          background: linear-gradient(110deg,#6541d8,#8b5cf6);
+          color: #fff;
+          font-size: 13px;
           font-weight: 850;
-          display: flex;
+          display: inline-flex;
           align-items: center;
           gap: 9px;
           cursor: pointer;
+          box-shadow: 0 8px 20px rgba(101,65,216,.22);
         }
 
         /* =================================================
@@ -5011,13 +5057,21 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-final-cta {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 32px 24px;
+            min-height: 260px;
+            padding: 24px 22px;
+            align-items: center;
+          }
+
+          .cn-final-cta-content {
+            width: min(100%, 620px);
+          }
+
+          .cn-final-cta-overlay {
+            background: linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.91) 68%, rgba(255,255,255,.62) 100%);
           }
 
           .cn-final-cta button {
-            width: 100%;
+            width: auto;
             justify-content: center;
           }
         }
@@ -5137,8 +5191,22 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
           }
 
           .cn-final-cta {
+            min-height: 285px;
             margin-top: 40px;
-            padding: 28px 20px;
+            padding: 22px 17px;
+            border-radius: 19px;
+          }
+
+          .cn-final-cta h2 {
+            font-size: clamp(22px, 7vw, 29px);
+          }
+
+          .cn-final-cta p {
+            font-size: 12px;
+          }
+
+          .cn-final-cta-image {
+            object-position: 68% center;
           }
         }
 
