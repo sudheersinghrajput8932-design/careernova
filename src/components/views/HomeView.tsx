@@ -293,11 +293,11 @@ const ToolsSection = ({ onNavigate }: { onNavigate: (tab: any) => void }) => {
       key: 'engineering',
     },
     {
-      title: 'Career & Student Tools',
-      text: 'Map your skills, sharpen your resume and turn learning into a clear career roadmap.',
-      icon: GraduationCap,
+      title: 'Financial Modeling & Support',
+      text: 'Build practical financial models, evaluate performance and make confident, data-backed business decisions.',
+      icon: Calculator,
       className: 'tool-green',
-      key: 'career',
+      key: 'analytics',
     },
   ];
 
@@ -2097,17 +2097,6 @@ const OfferingsSection = ({
       ================================================= */}
 
       <div className="cnx-pillar-section">
-        <span className="cnx-pillar-note is-left">
-          <span>Skills Today</span>
-          <span>Opportunities</span>
-          Tomorrow
-        </span>
-        <span className="cnx-pillar-note is-right">
-          <span>Learn Build</span>
-          <span>Grow</span>
-          Succeed
-        </span>
-
         <div className="cnx-pillar-heading">
           <span className="cnx-eyebrow">Our Core Strength</span>
 
@@ -2928,16 +2917,16 @@ const ReviewsSection = () => {
 const FinalCTA = ({ onNavigate }: { onNavigate: (tab: any) => void }) => (
   <section className="cn-final-cta">
     <div>
-      <span>READY TO MOVE FORWARD?</span>
-      <h2>Turn Your Next Idea Into Real Progress.</h2>
+      <span>BUILD YOUR DIGITAL PRESENCE</span>
+      <h2>Ready to Create a Website That Moves Your Business Forward?</h2>
       <p>
-        Explore the tools, expertise and practical systems designed to help
-        you learn, build, grow and lead.
+        Explore practical website solutions, modern development and digital
+        experiences designed to help your brand connect, convert and grow.
       </p>
     </div>
 
-    <button onClick={() => onNavigate('tools')}>
-      Explore Core Tools
+    <button onClick={() => onNavigate('services')}>
+      Explore Website Solutions
       <ArrowRight size={19} />
     </button>
   </section>
