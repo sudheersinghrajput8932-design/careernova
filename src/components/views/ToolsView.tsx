@@ -154,15 +154,12 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
   return (
     <div className="overflow-hidden bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_42%,#f7f4ff_100%)] text-slate-900">
       {/* Hero — tools visual on the right, SEO copy on the left */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={smoothTransition}
+      <section
         className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-[radial-gradient(circle_at_8%_20%,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_88%_18%,rgba(217,70,239,0.18),transparent_30%),linear-gradient(135deg,#eef7ff_0%,#f7f3ff_48%,#ffffff_100%)] shadow-2xl shadow-indigo-500/10"
       >
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(255,255,255,0.7)_46%,transparent_62%)] opacity-50" />
 
-        <div className="relative grid min-h-[560px] grid-cols-1 items-center gap-7 px-5 py-7 sm:px-8 sm:py-9 lg:grid-cols-[0.98fr_1.02fr] lg:gap-2 lg:px-10 lg:py-10 xl:px-14">
+        <div className="relative grid grid-cols-1 items-center gap-5 px-5 py-6 sm:gap-6 sm:px-8 sm:py-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-3 lg:px-10 lg:py-7 xl:px-14">
           {/* Left: SEO-focused copy */}
           <div className="relative z-20 max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-700 shadow-sm backdrop-blur">
@@ -256,23 +253,27 @@ export const ToolsView: React.FC<ToolsViewProps> = () => {
           </div>
 
           {/* Right: generated tools visual */}
-          <div className="relative z-10 flex min-h-[330px] items-center justify-center sm:min-h-[410px] lg:min-h-[510px]">
+          <div className="relative z-10 flex min-h-[260px] items-center justify-center sm:min-h-[320px] lg:min-h-[390px]">
             <div className="absolute right-[5%] top-[10%] h-32 w-32 rounded-full bg-fuchsia-400/20 blur-3xl sm:h-44 sm:w-44" />
             <div className="absolute bottom-[8%] left-[8%] h-36 w-36 rounded-full bg-cyan-400/20 blur-3xl sm:h-48 sm:w-48" />
 
-            <div className="relative w-full max-w-[700px]">
+            <div className="relative flex w-full max-w-[540px] items-center justify-center">
               <img
-                src="/assets/tools-hero-innovation-concept.png"
-                alt="CareerNova digital technology illustration for web development, cloud, analytics, AI automation and digital product tools"
-                className="block h-auto w-full scale-[1.03] object-contain object-center drop-shadow-[0_25px_55px_rgba(79,70,229,0.16)] sm:scale-[1.04] lg:scale-[1.06]"
+                src="/assets/careernova-tools-hero.webp"
+                alt="CareerNova tools for software development, iOS development, digital marketing and financial modelling"
+                width={1189}
+                height={1323}
+                className="block h-auto max-h-[300px] w-full object-contain object-center sm:max-h-[360px] lg:max-h-[410px]"
                 fetchPriority="high"
+                loading="eager"
+                decoding="async"
               />
             </div>
           </div>
         </div>
 
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-white/70 [clip-path:ellipse(65%_100%_at_50%_100%)]" />
-      </motion.section>
+      </section>
 
       {/* Technology capabilities */}
       <motion.section
